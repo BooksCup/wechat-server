@@ -4,12 +4,16 @@
     <resultMap id="BaseResultMap" type="com.bc.wechat.server.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getAll" resultMap="BaseResultMap">
+    <select id="getUserByLogin" resultMap="BaseResultMap">
         select
-        *
+          *
         from t_user
+          where user_phone = #{phone}
+          and user_password = #{password}
     </select>
 
 </mapper>
