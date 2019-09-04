@@ -1,14 +1,27 @@
 package com.bc.wechat.server.entity;
 
+import com.bc.wechat.server.utils.CommonUtil;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String userId;
-    private String userName;
+    private String userNickName;
     private String userPhone;
     private String userPassword;
+
+    public User() {
+
+    }
+
+    public User(String userNickName, String userPhone, String userPassword) {
+        this.userId = CommonUtil.generateId();
+        this.userNickName = userNickName;
+        this.userPhone = userPhone;
+        this.userPassword = userPassword;
+    }
 
     public String getUserId() {
         return userId;
@@ -18,12 +31,12 @@ public class User implements Serializable {
         this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserNickName() {
+        return userNickName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
     }
 
     public String getUserPhone() {

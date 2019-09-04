@@ -7,4 +7,6 @@ import java.util.Map;
 
 public interface UserMapper {
     List<User> getUserByLogin(Map<String, String> paramMap);
+
+    void addUser(User user);
 }

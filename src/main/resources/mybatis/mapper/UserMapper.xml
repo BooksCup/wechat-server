@@ -3,7 +3,7 @@
 <mapper namespace="com.bc.wechat.server.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.bc.wechat.server.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
         <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
         <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
     </resultMap>
@@ -15,5 +15,24 @@
           where user_phone = #{phone}
           and user_password = #{password}
     </select>
+
+    <insert id="addUser" parameterType="com.bc.wechat.server.entity.User">
+        insert into t_user
+        (
+            user_id,
+            user_nick_name,
+            user_phone,
+            user_password,
+            user_create_time
+        )
+        values
+        (
+            #{userId},
+            #{userNickName},
+            #{userPhone},
+            #{userPassword},
+            now()
+        )
+    </insert>
 
 </mapper>

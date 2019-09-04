@@ -9,19 +9,21 @@ import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.mapper.UserMapper;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Resource
     private UserMapper userMapper;
 
@@ -41,6 +43,26 @@ public class UserController {
         } else {
             responseEntity = new ResponseEntity<>(ResponseMsg.LOGIN_SUCCESS.value(),
                     HttpStatus.OK);
+        }
+        return responseEntity;
+    }
+
+    @ApiOperation(value = "注册", notes = "注册")
+    @PostMapping(value = "")
+    public ResponseEntity<String> register(
+            @RequestParam String nickName,
+            @RequestParam String phone,
+            @RequestParam String password) {
+        ResponseEntity<String> responseEntity;
+        User user = new User(nickName, phone, password);
+        try {
+            userMapper.addUser(user);
+            responseEntity = new ResponseEntity<>(ResponseMsg.REGISTER_SUCCESS.value(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("register error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.REGISTER_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

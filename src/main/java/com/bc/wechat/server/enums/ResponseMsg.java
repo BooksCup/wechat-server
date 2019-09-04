@@ -10,7 +10,10 @@ public enum ResponseMsg {
      * wechat-server接口返回信息
      */
     LOGIN_SUCCESS("登录成功"),
-    LOGIN_ERROR("登录失败"),;
+    LOGIN_ERROR("登录失败"),
+    REGISTER_SUCCESS("注册成功"),
+    REGISTER_ERROR("注册失败"),
+    ;
     private final String reasonPhrase;
 
     ResponseMsg(String reasonPhrase) {
