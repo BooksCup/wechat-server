@@ -23,7 +23,8 @@
             user_nick_name,
             user_phone,
             user_password,
-            user_create_time
+            user_create_time,
+            user_modify_time
         )
         values
         (
@@ -31,6 +32,7 @@
             #{userNickName},
             #{userPhone},
             #{userPassword},
+            now(),
             now()
         )
     </insert>
