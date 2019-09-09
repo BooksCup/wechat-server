@@ -34,19 +34,19 @@ public class UserController {
 
     @ApiOperation(value = "登录", notes = "登录")
     @GetMapping(value = "/login")
-    public ResponseEntity<String> login(
+    public ResponseEntity<User> login(
             @RequestParam String phone,
             @RequestParam String password) {
-        ResponseEntity<String> responseEntity;
+        ResponseEntity<User> responseEntity;
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("phone", phone);
         paramMap.put("password", password);
         List<User> userList = userMapper.getUserByLogin(paramMap);
         if (CollectionUtils.isEmpty(userList)) {
-            responseEntity = new ResponseEntity<>(ResponseMsg.LOGIN_ERROR.value(),
+            responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.BAD_REQUEST);
         } else {
-            responseEntity = new ResponseEntity<>(ResponseMsg.LOGIN_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(userList.get(0),
                     HttpStatus.OK);
         }
         return responseEntity;
