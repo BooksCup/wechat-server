@@ -4,6 +4,11 @@ import com.bc.wechat.server.utils.CommonUtil;
 
 import java.io.Serializable;
 
+/**
+ * 用户
+ *
+ * @author zhou
+ */
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
