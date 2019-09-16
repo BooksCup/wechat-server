@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
-import com.bc.wechat.server.mapper.UserMapper;
+import com.bc.wechat.server.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Resource
-    private UserMapper userMapper;
+    private UserService userService;
 
     @ApiOperation(value = "登录", notes = "登录")
     @GetMapping(value = "/login")
@@ -41,7 +41,7 @@ public class UserController {
         Map<String, String> paramMap = new HashMap<>();
         paramMap.put("phone", phone);
         paramMap.put("password", password);
-        List<User> userList = userMapper.getUserByLogin(paramMap);
+        List<User> userList = userService.getUserByLogin(paramMap);
         if (CollectionUtils.isEmpty(userList)) {
             responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.BAD_REQUEST);
@@ -61,7 +61,7 @@ public class UserController {
         ResponseEntity<String> responseEntity;
         User user = new User(nickName, phone, password);
         try {
-            userMapper.addUser(user);
+            userService.addUser(user);
             responseEntity = new ResponseEntity<>(ResponseMsg.REGISTER_SUCCESS.value(),
                     HttpStatus.OK);
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class UserController {
             Map<String, String> paramMap = new HashMap<>();
             paramMap.put("userId", userId);
             paramMap.put("userNickName", userNickName);
-            userMapper.updateUserNickName(paramMap);
+            userService.updateUserNickName(paramMap);
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_SUCCESS.value(),
                     HttpStatus.OK);
         } catch (Exception e) {
