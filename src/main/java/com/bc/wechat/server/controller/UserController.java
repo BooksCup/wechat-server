@@ -71,4 +71,25 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    @ApiOperation(value = "修改昵称", notes = "修改昵称")
+    @PutMapping(value = "/{userId}/userNickName")
+    public ResponseEntity<String> updateUserNickName(
+            @PathVariable String userId,
+            @RequestParam String userNickName) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>();
+            paramMap.put("userId", userId);
+            paramMap.put("userNickName", userNickName);
+            userMapper.updateUserNickName(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_SUCCESS.value(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserNickName error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

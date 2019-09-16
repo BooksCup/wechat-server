@@ -37,4 +37,9 @@
         )
     </insert>
 
+    <update id="updateUserNickName" parameterType="map">
+        update t_user
+          set user_nick_name = #{userNickName}
+            where user_id = #{userId}
+    </update>
 </mapper>

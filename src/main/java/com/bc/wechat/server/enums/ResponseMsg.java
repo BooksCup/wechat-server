@@ -13,6 +13,8 @@ public enum ResponseMsg {
     LOGIN_ERROR("登录失败"),
     REGISTER_SUCCESS("注册成功"),
     REGISTER_ERROR("注册失败"),
+    UPDATE_USER_NICK_NAME_SUCCESS("修改昵称成功"),
+    UPDATE_USER_NICK_NAME_ERROR("修改昵称失败"),
     ;
     private final String reasonPhrase;
 
