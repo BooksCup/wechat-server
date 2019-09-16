@@ -27,4 +27,11 @@ public interface UserService {
      * @param paramMap 参数map
      */
     void updateUserNickName(Map<String, String> paramMap);
+
+    /**
+     * 修改用户微信号
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserWxId(Map<String, String> paramMap);
 }

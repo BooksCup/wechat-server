@@ -92,4 +92,26 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    @ApiOperation(value = "修改昵称", notes = "修改昵称")
+    @PutMapping(value = "/{userId}/userWxId")
+    public ResponseEntity<String> updateUserWxId(
+            @PathVariable String userId,
+            @RequestParam String userWxId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>();
+            paramMap.put("userId", userId);
+            paramMap.put("userWxId", userWxId);
+            userService.updateUserWxId(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.value(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserWxId error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
 }

@@ -29,4 +29,14 @@ public class UserServiceImpl implements UserService {
     public void updateUserNickName(Map<String, String> paramMap) {
         userMapper.updateUserNickName(paramMap);
     }
+
+    /**
+     * 修改用户微信号
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserWxId(Map<String, String> paramMap) {
+        userMapper.updateUserWxId(paramMap);
+    }
 }

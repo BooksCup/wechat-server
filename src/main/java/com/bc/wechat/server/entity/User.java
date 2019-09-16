@@ -13,6 +13,7 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private String userId;
+    private String userWxId;
     private String userNickName;
     private String userPhone;
     private String userPassword;
@@ -37,6 +38,14 @@ public class User implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserWxId() {
+        return userWxId;
+    }
+
+    public void setUserWxId(String userWxId) {
+        this.userWxId = userWxId;
     }
 
     public String getUserNickName() {

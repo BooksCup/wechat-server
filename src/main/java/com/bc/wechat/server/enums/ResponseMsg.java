@@ -15,6 +15,8 @@ public enum ResponseMsg {
     REGISTER_ERROR("注册失败"),
     UPDATE_USER_NICK_NAME_SUCCESS("修改昵称成功"),
     UPDATE_USER_NICK_NAME_ERROR("修改昵称失败"),
+    UPDATE_USER_WX_ID_SUCCESS("修改微信号成功"),
+    UPDATE_USER_WX_ID_ERROR("修改微信号失败"),
     ;
     private final String reasonPhrase;
 
