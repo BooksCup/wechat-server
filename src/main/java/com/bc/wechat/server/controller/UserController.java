@@ -93,7 +93,7 @@ public class UserController {
         return responseEntity;
     }
 
-    @ApiOperation(value = "修改昵称", notes = "修改昵称")
+    @ApiOperation(value = "修改微信号", notes = "修改微信号")
     @PutMapping(value = "/{userId}/userWxId")
     public ResponseEntity<String> updateUserWxId(
             @PathVariable String userId,
