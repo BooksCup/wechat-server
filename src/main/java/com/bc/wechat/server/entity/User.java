@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String userAvatar;
     private String userHeader;
     private String userSex;
+    private String isFriend;
 
     public User() {
 
@@ -94,5 +95,13 @@ public class User implements Serializable {
 
     public void setUserSex(String userSex) {
         this.userSex = userSex;
+    }
+
+    public String getIsFriend() {
+        return isFriend;
+    }
+
+    public void setIsFriend(String isFriend) {
+        this.isFriend = isFriend;
     }
 }

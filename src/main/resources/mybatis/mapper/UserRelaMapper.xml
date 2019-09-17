@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.UserRelaMapper">
+    <resultMap id="BaseResultMap" type="com.bc.wechat.server.entity.UserRela">
+        <id column="rela_id" property="relaId" jdbcType="VARCHAR"/>
+        <result column="rela_user_id" property="relaUserId" jdbcType="VARCHAR"/>
+        <result column="rela_friend_id" property="relaFriendId" jdbcType="VARCHAR"/>
+        <result column="rela_create_time" property="relaCreateTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getUserRelaListByUserIdAndFriendId" resultMap="BaseResultMap" parameterType="map">
+        select
+          *
+        from t_user_rela
+          where rela_user_id = #{userId}
+            and rela_friend_id = #{friendId}
+    </select>
+</mapper>

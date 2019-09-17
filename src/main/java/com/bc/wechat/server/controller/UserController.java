@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
+import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -31,6 +33,9 @@ public class UserController {
 
     @Resource
     private UserService userService;
+
+    @Resource
+    private UserRelaService userRelaService;
 
     /**
      * 登录
@@ -146,12 +151,14 @@ public class UserController {
     /**
      * 搜索用户(用于添加好友)
      *
+     * @param userId  查看人用户ID, 用于判断两人是否好友
      * @param keyword 搜索关键字, 手机号/微信号
      * @return ResponseEntity
      */
     @ApiOperation(value = "搜索用户(用于添加好友)", notes = "搜索用户(用于添加好友)")
     @GetMapping(value = "/searchForAddFriends")
     public ResponseEntity<User> searchForAddFriends(
+            @RequestParam String userId,
             @RequestParam String keyword) {
         ResponseEntity<User> responseEntity;
         List<User> userList = userService.getUserByKeyword(keyword);
@@ -159,7 +166,18 @@ public class UserController {
             responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.BAD_REQUEST);
         } else {
-            responseEntity = new ResponseEntity<>(userList.get(0),
+            User user = userList.get(0);
+            Map<String, String> paramMap = new HashMap<>();
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", user.getUserId());
+            boolean isFriend = userRelaService.checkIsFriend(paramMap);
+            if (isFriend) {
+                user.setIsFriend(Constant.IS_FRIEND);
+            } else {
+                user.setIsFriend(Constant.IS_NOT_FRIEND);
+            }
+
+            responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         }
         return responseEntity;
