@@ -60,4 +60,15 @@ public class UserServiceImpl implements UserService {
     public void updateUserWxId(Map<String, String> paramMap) {
         userMapper.updateUserWxId(paramMap);
     }
+
+    /**
+     * 通过关键字搜索用户
+     *
+     * @param keyword 关键字  手机号/微信号
+     * @return 用户列表
+     */
+    @Override
+    public List<User> getUserByKeyword(String keyword) {
+        return userMapper.getUserByKeyword(keyword);
+    }
 }

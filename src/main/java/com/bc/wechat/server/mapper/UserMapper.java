@@ -40,4 +40,12 @@ public interface UserMapper {
      * @param paramMap 参数map
      */
     void updateUserWxId(Map<String, String> paramMap);
+
+    /**
+     * 通过关键字搜索用户
+     *
+     * @param keyword 关键字  手机号/微信号
+     * @return 用户列表
+     */
+    List<User> getUserByKeyword(String keyword);
 }

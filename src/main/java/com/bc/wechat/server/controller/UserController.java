@@ -143,4 +143,26 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 搜索用户(用于添加好友)
+     *
+     * @param keyword 搜索关键字, 手机号/微信号
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "搜索用户(用于添加好友)", notes = "搜索用户(用于添加好友)")
+    @GetMapping(value = "/searchForAddFriends")
+    public ResponseEntity<User> searchForAddFriends(
+            @RequestParam String keyword) {
+        ResponseEntity<User> responseEntity;
+        List<User> userList = userService.getUserByKeyword(keyword);
+        if (CollectionUtils.isEmpty(userList)) {
+            responseEntity = new ResponseEntity<>(new User(),
+                    HttpStatus.BAD_REQUEST);
+        } else {
+            responseEntity = new ResponseEntity<>(userList.get(0),
+                    HttpStatus.OK);
+        }
+        return responseEntity;
+    }
+
 }

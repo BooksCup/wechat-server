@@ -51,4 +51,12 @@
               user_modify_time = now()
             where user_id = #{userId}
     </update>
+
+    <select id="getUserByKeyword" resultMap="BaseResultMap" parameterType="String">
+        select
+          *
+        from t_user
+          where user_phone = #{keyword}
+            or user_wx_id = #{keyword}
+    </select>
 </mapper>
