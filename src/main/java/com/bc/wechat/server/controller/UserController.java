@@ -32,6 +32,13 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    /**
+     * 登录
+     *
+     * @param phone    手机号
+     * @param password 密码
+     * @return ResponseEntity
+     */
     @ApiOperation(value = "登录", notes = "登录")
     @GetMapping(value = "/login")
     public ResponseEntity<User> login(
@@ -52,6 +59,14 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 注册
+     *
+     * @param nickName 昵称
+     * @param phone    手机号
+     * @param password 密码
+     * @return ResponseEntity
+     */
     @ApiOperation(value = "注册", notes = "注册")
     @PostMapping(value = "")
     public ResponseEntity<String> register(
@@ -72,6 +87,13 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 修改昵称
+     *
+     * @param userId       用户ID
+     * @param userNickName 用户昵称
+     * @return ResponseEntity
+     */
     @ApiOperation(value = "修改昵称", notes = "修改昵称")
     @PutMapping(value = "/{userId}/userNickName")
     public ResponseEntity<String> updateUserNickName(
@@ -93,6 +115,13 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 修改微信号
+     *
+     * @param userId   用户ID
+     * @param userWxId 用户微信号
+     * @return ResponseEntity
+     */
     @ApiOperation(value = "修改微信号", notes = "修改微信号")
     @PutMapping(value = "/{userId}/userWxId")
     public ResponseEntity<String> updateUserWxId(

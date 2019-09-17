@@ -5,6 +5,11 @@ import com.bc.wechat.server.entity.User;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户业务类接口
+ *
+ * @author zhou
+ */
 public interface UserService {
     /**
      * 通过用户名和密码获取用户列表(用于登录)
