@@ -60,6 +60,7 @@ public class FriendApplyController {
             extras.put("serviceType", Constant.PUSH_SERVICE_TYPE_ADD_FRIENDS_APPLY);
 
             friendApply.setFromUserNickName(user.getUserNickName());
+            friendApply.setFromUserAvatar(user.getUserAvatar());
             extras.put("friendApply", JSON.toJSONString(friendApply));
 
             jpushBiz.sendPush(toUserId, alert, extras);
