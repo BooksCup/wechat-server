@@ -1,5 +1,6 @@
 package com.bc.wechat.server.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.biz.JpushBiz;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendApply;
@@ -59,6 +60,7 @@ public class FriendApplyController {
             extras.put("serviceType", Constant.PUSH_SERVICE_TYPE_ADD_FRIENDS_APPLY);
 
             friendApply.setFromUserNickName(user.getUserNickName());
+            extras.put("friendApply", JSON.toJSONString(friendApply));
 
             jpushBiz.sendPush(toUserId, alert, extras);
 
