@@ -14,6 +14,9 @@ public class FriendApply {
     private String applyRemark;
     private String createTime;
 
+    private String fromUserNickName;
+    private String fromUserAvatar;
+
     public FriendApply() {
 
     }
@@ -63,5 +66,21 @@ public class FriendApply {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public String getFromUserNickName() {
+        return fromUserNickName;
+    }
+
+    public void setFromUserNickName(String fromUserNickName) {
+        this.fromUserNickName = fromUserNickName;
+    }
+
+    public String getFromUserAvatar() {
+        return fromUserAvatar;
+    }
+
+    public void setFromUserAvatar(String fromUserAvatar) {
+        this.fromUserAvatar = fromUserAvatar;
     }
 }

@@ -4,6 +4,7 @@ import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.UserMapper;
 import com.bc.wechat.server.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -70,5 +71,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserByKeyword(String keyword) {
         return userMapper.getUserByKeyword(keyword);
+    }
+
+    /**
+     * 根据用户ID获取用户
+     *
+     * @param userId 用户ID
+     * @return 用户
+     */
+    @Override
+    public User getUserByUserId(String userId) {
+        List<User> userList = userMapper.getUserByUserId(userId);
+        if (!CollectionUtils.isEmpty(userList)) {
+            return userList.get(0);
+        }
+        return new User();
     }
 }

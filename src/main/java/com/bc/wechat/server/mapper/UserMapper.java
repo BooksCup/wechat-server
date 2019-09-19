@@ -48,4 +48,12 @@ public interface UserMapper {
      * @return 用户列表
      */
     List<User> getUserByKeyword(String keyword);
+
+    /**
+     * 根据用户ID获取用户
+     *
+     * @param userId 用户ID
+     * @return 用户列表
+     */
+    List<User> getUserByUserId(String userId);
 }

@@ -47,4 +47,12 @@ public interface UserService {
      * @return 用户列表
      */
     List<User> getUserByKeyword(String keyword);
+
+    /**
+     * 根据用户ID获取用户
+     *
+     * @param userId 用户ID
+     * @return 用户
+     */
+    User getUserByUserId(String userId);
 }

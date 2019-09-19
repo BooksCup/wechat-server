@@ -59,4 +59,11 @@
           where user_phone = #{keyword}
             or user_wx_id = #{keyword}
     </select>
+
+    <select id="getUserByUserId" resultMap="BaseResultMap" parameterType="String">
+        select
+          *
+        from t_user
+          where user_id = #{userId}
+    </select>
 </mapper>

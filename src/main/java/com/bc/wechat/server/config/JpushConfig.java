@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 极光推送初始化类
+ *
  * @author zhou
  */
 @Configuration
