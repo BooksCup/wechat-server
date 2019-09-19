@@ -17,6 +17,8 @@ public class FriendApply {
     private String fromUserNickName;
     private String fromUserAvatar;
 
+    private Long timeStamp;
+
     public FriendApply() {
 
     }
@@ -26,6 +28,7 @@ public class FriendApply {
         this.fromUserId = fromUserId;
         this.toUserId = toUserId;
         this.applyRemark = applyRemark;
+        this.timeStamp = System.currentTimeMillis();
     }
 
     public String getApplyId() {
@@ -82,5 +85,13 @@ public class FriendApply {
 
     public void setFromUserAvatar(String fromUserAvatar) {
         this.fromUserAvatar = fromUserAvatar;
+    }
+
+    public Long getTimeStamp() {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(Long timeStamp) {
+        this.timeStamp = timeStamp;
     }
 }
