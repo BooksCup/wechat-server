@@ -15,4 +15,21 @@
           where rela_user_id = #{userId}
             and rela_friend_id = #{friendId}
     </select>
+
+    <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserRela">
+        insert into t_user_rela
+        (
+            rela_id,
+            rela_user_id,
+            rela_friend_id,
+            rela_create_time
+        )
+        values
+        (
+            #{relaId},
+            #{relaUserId},
+            #{relaFriendId},
+            now()
+        )
+    </insert>
 </mapper>

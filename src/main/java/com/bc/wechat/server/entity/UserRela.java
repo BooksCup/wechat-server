@@ -1,5 +1,7 @@
 package com.bc.wechat.server.entity;
 
+import com.bc.wechat.server.utils.CommonUtil;
+
 /**
  * 用户关系
  *
@@ -10,6 +12,16 @@ public class UserRela {
     private String relaUserId;
     private String relaFriendId;
     private String relaCreateTime;
+
+    public UserRela() {
+
+    }
+
+    public UserRela(String relaUserId, String relaFriendId) {
+        this.relaId = CommonUtil.generateId();
+        this.relaUserId = relaUserId;
+        this.relaFriendId = relaFriendId;
+    }
 
     public String getRelaId() {
         return relaId;

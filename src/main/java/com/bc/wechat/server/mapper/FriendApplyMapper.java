@@ -18,4 +18,13 @@ public interface FriendApplyMapper {
      * @param friendApply 好友申请
      */
     void addFriendApply(FriendApply friendApply);
+
+    /**
+     * 接受好友申请
+     *
+     * @param applyId 申请ID
+     */
+    void acceptFriendApply(String applyId);
+
+    FriendApply getFriendApplyById(String applyId);
 }

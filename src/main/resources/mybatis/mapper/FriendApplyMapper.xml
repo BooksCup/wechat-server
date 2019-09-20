@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bc.wechat.server.mapper.FriendApplyMapper">
 
+    <resultMap id="BaseResultMap" type="com.bc.wechat.server.entity.FriendApply">
+        <id column="apply_id" property="applyId" jdbcType="VARCHAR"/>
+        <result column="apply_from_user_id" property="fromUserId" jdbcType="VARCHAR"/>
+        <result column="apply_to_user_id" property="toUserId" jdbcType="VARCHAR"/>
+        <result column="apply_remark" property="applyRemark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getFriendApplyById" resultMap="BaseResultMap" parameterType="String">
+        select *
+          from t_friend_apply
+            where apply_id = #{applyId}
+    </select>
+
     <insert id="addFriendApply" parameterType="com.bc.wechat.server.entity.FriendApply">
         insert into t_friend_apply
         (
@@ -9,7 +22,8 @@
             apply_from_user_id,
             apply_to_user_id,
             apply_remark,
-            apply_create_time
+            apply_create_time,
+            apply_modify_time
         )
         values
         (
@@ -17,7 +31,15 @@
             #{fromUserId},
             #{toUserId},
             #{applyRemark},
+            now(),
             now()
         )
     </insert>
+
+    <update id="acceptFriendApply" parameterType="String">
+        update t_friend_apply
+          set apply_status = "1",
+              apply_modify_time = now()
+            where apply_id = #{applyId}
+    </update>
 </mapper>

@@ -11,5 +11,7 @@ import java.util.Map;
  * @author zhou
  */
 public interface UserRelaMapper {
+    void addUserRela(UserRela userRela);
+
     List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap);
 }

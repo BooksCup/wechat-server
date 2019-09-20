@@ -13,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -72,6 +69,25 @@ public class FriendApplyController {
             logger.error("addFriendApply error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIEND_APPLY_ERROR.value(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @ApiOperation(value = "接受好友申请", notes = "接受好友申请")
+    @PutMapping(value = "")
+    public ResponseEntity<String> acceptFriendApply(@RequestParam String applyId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            friendApplyService.acceptFriendApply(applyId);
+
+            FriendApply friendApply = friendApplyService.getFriendApplyById(applyId);
+            // 双方加好友
+            friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId());
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_SUCCESS.value(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("acceptFriendApply error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
