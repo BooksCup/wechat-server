@@ -6,6 +6,7 @@
         <result column="user_wx_id" property="userWxId" jdbcType="VARCHAR"/>
         <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
         <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
         <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
     </resultMap>
