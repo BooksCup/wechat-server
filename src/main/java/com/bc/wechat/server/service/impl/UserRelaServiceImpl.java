@@ -10,6 +10,11 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户关系业务类实现类
+ *
+ * @author zhou
+ */
 @Service("userRelaService")
 public class UserRelaServiceImpl implements UserRelaService {
 

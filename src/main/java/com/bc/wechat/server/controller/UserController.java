@@ -50,7 +50,7 @@ public class UserController {
             @RequestParam String phone,
             @RequestParam String password) {
         ResponseEntity<User> responseEntity;
-        Map<String, String> paramMap = new HashMap<>();
+        Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
         paramMap.put("phone", phone);
         paramMap.put("password", password);
         List<User> userList = userService.getUserByLogin(paramMap);
@@ -106,7 +106,7 @@ public class UserController {
             @RequestParam String userNickName) {
         ResponseEntity<String> responseEntity;
         try {
-            Map<String, String> paramMap = new HashMap<>();
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("userNickName", userNickName);
             userService.updateUserNickName(paramMap);
@@ -134,7 +134,7 @@ public class UserController {
             @RequestParam String userWxId) {
         ResponseEntity<String> responseEntity;
         try {
-            Map<String, String> paramMap = new HashMap<>();
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("userWxId", userWxId);
             userService.updateUserWxId(paramMap);
@@ -167,7 +167,7 @@ public class UserController {
                     HttpStatus.BAD_REQUEST);
         } else {
             User user = userList.get(0);
-            Map<String, String> paramMap = new HashMap<>();
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("friendId", user.getUserId());
             boolean isFriend = userRelaService.checkIsFriend(paramMap);

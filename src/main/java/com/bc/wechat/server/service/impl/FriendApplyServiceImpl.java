@@ -43,11 +43,23 @@ public class FriendApplyServiceImpl implements FriendApplyService {
         friendApplyMapper.acceptFriendApply(applyId);
     }
 
+    /**
+     * 根据申请ID获取好友申请
+     *
+     * @param applyId 申请ID
+     * @return 好友申请
+     */
     @Override
     public FriendApply getFriendApplyById(String applyId) {
         return friendApplyMapper.getFriendApplyById(applyId);
     }
 
+    /**
+     * 交朋友
+     *
+     * @param fromUserId 第一个用户ID
+     * @param toUserId   第二个用户ID
+     */
     @Override
     public void makeFriends(String fromUserId, String toUserId) {
         UserRela userRela = new UserRela(fromUserId, toUserId);

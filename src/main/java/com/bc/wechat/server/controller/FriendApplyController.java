@@ -53,7 +53,7 @@ public class FriendApplyController {
             User user = userService.getUserByUserId(fromUserId);
             String alert = user.getUserNickName() + "请求加你为好友";
 
-            Map<String, String> extras = new HashMap<>();
+            Map<String, String> extras = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             extras.put("serviceType", Constant.PUSH_SERVICE_TYPE_ADD_FRIENDS_APPLY);
 
             friendApply.setFromUserNickName(user.getUserNickName());
