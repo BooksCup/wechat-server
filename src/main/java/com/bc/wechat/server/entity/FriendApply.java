@@ -16,6 +16,7 @@ public class FriendApply {
 
     private String fromUserNickName;
     private String fromUserAvatar;
+    private String fromUserSex;
 
     private Long timeStamp;
 
@@ -85,6 +86,14 @@ public class FriendApply {
 
     public void setFromUserAvatar(String fromUserAvatar) {
         this.fromUserAvatar = fromUserAvatar;
+    }
+
+    public String getFromUserSex() {
+        return fromUserSex;
+    }
+
+    public void setFromUserSex(String fromUserSex) {
+        this.fromUserSex = fromUserSex;
     }
 
     public Long getTimeStamp() {

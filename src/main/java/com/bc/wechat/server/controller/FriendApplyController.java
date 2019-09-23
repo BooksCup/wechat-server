@@ -58,6 +58,7 @@ public class FriendApplyController {
 
             friendApply.setFromUserNickName(user.getUserNickName());
             friendApply.setFromUserAvatar(user.getUserAvatar());
+            friendApply.setFromUserSex(user.getUserSex());
             extras.put("friendApply", JSON.toJSONString(friendApply));
 
             jpushBiz.sendPush(toUserId, alert, extras);
