@@ -54,6 +54,13 @@
             where user_id = #{userId}
     </update>
 
+    <update id="updateUserSex" parameterType="map">
+        update t_user
+          set user_sex = #{userSex},
+              user_modify_time = now()
+            where user_id = #{userId}
+    </update>
+
     <select id="getUserByKeyword" resultMap="BaseResultMap" parameterType="String">
         select
           *

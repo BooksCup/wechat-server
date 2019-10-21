@@ -41,6 +41,13 @@ public interface UserService {
     void updateUserWxId(Map<String, String> paramMap);
 
     /**
+     * 修改用户性别
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserSex(Map<String, String> paramMap);
+
+    /**
      * 通过关键字搜索用户
      *
      * @param keyword 关键字  手机号/微信号

@@ -149,6 +149,34 @@ public class UserController {
     }
 
     /**
+     * 修改性别
+     *
+     * @param userId  用户ID
+     * @param userSex 用户性别
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改性别", notes = "修改性别")
+    @PutMapping(value = "/{userId}/userSex")
+    public ResponseEntity<String> updateUserSex(
+            @PathVariable String userId,
+            @RequestParam String userSex) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userSex", userSex);
+            userService.updateUserSex(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.value(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserSex error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
      * 搜索用户(用于添加好友)
      *
      * @param userId  查看人用户ID, 用于判断两人是否好友

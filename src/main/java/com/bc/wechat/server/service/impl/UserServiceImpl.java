@@ -62,6 +62,17 @@ public class UserServiceImpl implements UserService {
         userMapper.updateUserWxId(paramMap);
     }
 
+
+    /**
+     * 修改用户性别
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserSex(Map<String, String> paramMap) {
+        userMapper.updateUserSex(paramMap);
+    }
+
     /**
      * 通过关键字搜索用户
      *
