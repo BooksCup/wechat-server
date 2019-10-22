@@ -177,6 +177,34 @@ public class UserController {
     }
 
     /**
+     * 修改签名
+     *
+     * @param userId  用户ID
+     * @param userSign 用户签名
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改签名", notes = "修改签名")
+    @PutMapping(value = "/{userId}/userSign")
+    public ResponseEntity<String> updateUserSign(
+            @PathVariable String userId,
+            @RequestParam String userSign) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userSign", userSign);
+            userService.updateUserSign(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.value(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserSign error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
      * 搜索用户(用于添加好友)
      *
      * @param userId  查看人用户ID, 用于判断两人是否好友

@@ -49,6 +49,13 @@ public interface UserMapper {
     void updateUserSex(Map<String, String> paramMap);
 
     /**
+     * 修改用户签名
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserSign(Map<String, String> paramMap);
+
+    /**
      * 通过关键字搜索用户
      *
      * @param keyword 关键字  手机号/微信号
