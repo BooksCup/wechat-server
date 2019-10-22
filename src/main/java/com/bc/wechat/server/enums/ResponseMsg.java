@@ -17,11 +17,14 @@ public enum ResponseMsg {
     UPDATE_USER_NICK_NAME_ERROR("修改昵称失败"),
     UPDATE_USER_WX_ID_SUCCESS("修改微信号成功"),
     UPDATE_USER_WX_ID_ERROR("修改微信号失败"),
+    UPDATE_USER_SEX_SUCCESS("修改性别成功"),
+    UPDATE_USER_SEX_ERROR("修改性别失败"),
+    UPDATE_USER_SIGN_SUCCESS("修改签名成功"),
+    UPDATE_USER_SIGN_ERROR("修改签名失败"),
     ADD_FRIEND_APPLY_SUCCESS("好友申请发送成功"),
     ADD_FRIEND_APPLY_ERROR("好友申请发送失败"),
     ACCEPT_FRIEND_APPLY_SUCCESS("接受好友申请成功"),
-    ACCEPT_FRIEND_APPLY_ERROR("接受好友申请失败"),
-    ;
+    ACCEPT_FRIEND_APPLY_ERROR("接受好友申请失败"),;
     private final String reasonPhrase;
 
     ResponseMsg(String reasonPhrase) {

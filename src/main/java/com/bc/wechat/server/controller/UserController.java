@@ -166,11 +166,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userSex", userSex);
             userService.updateUserSex(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_SUCCESS.value(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserSex error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_ERROR.value(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -194,11 +194,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userSign", userSign);
             userService.updateUserSign(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SIGN_SUCCESS.value(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserSign error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SIGN_ERROR.value(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
