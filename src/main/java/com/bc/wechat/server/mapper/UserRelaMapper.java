@@ -1,5 +1,6 @@
 package com.bc.wechat.server.mapper;
 
+import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.entity.UserRela;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface UserRelaMapper {
      * @return 用户关系列表
      */
     List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap);
+
+
+    List<User> getFriendList(String userId);
 }

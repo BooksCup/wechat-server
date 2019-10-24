@@ -8,6 +8,17 @@
         <result column="rela_create_time" property="relaCreateTime" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="User" type="com.bc.wechat.server.entity.User">
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_wx_id" property="userWxId" jdbcType="VARCHAR"/>
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
+        <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
+        <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
+        <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <select id="getUserRelaListByUserIdAndFriendId" resultMap="BaseResultMap" parameterType="map">
         select
           *
@@ -32,4 +43,10 @@
             now()
         )
     </insert>
+
+    <select id="getFriendList" resultMap="User" parameterType="String">
+        select u.* from t_user_rela ur
+	      left join t_user u on ur.rela_friend_id = u.user_id
+            where ur.rela_user_id = #{userId};
+    </select>
 </mapper>

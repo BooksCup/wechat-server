@@ -58,7 +58,11 @@ public class UserController {
             responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.BAD_REQUEST);
         } else {
-            responseEntity = new ResponseEntity<>(userList.get(0),
+            User user = userList.get(0);
+            List<User> friendList = userRelaService.getFriendList(user.getUserId());
+            user.setFriendList(friendList);
+
+            responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         }
         return responseEntity;
@@ -179,7 +183,7 @@ public class UserController {
     /**
      * 修改签名
      *
-     * @param userId  用户ID
+     * @param userId   用户ID
      * @param userSign 用户签名
      * @return ResponseEntity
      */

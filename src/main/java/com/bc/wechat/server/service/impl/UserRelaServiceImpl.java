@@ -1,5 +1,6 @@
 package com.bc.wechat.server.service.impl;
 
+import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.entity.UserRela;
 import com.bc.wechat.server.mapper.UserRelaMapper;
 import com.bc.wechat.server.service.UserRelaService;
@@ -34,5 +35,10 @@ public class UserRelaServiceImpl implements UserRelaService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<User> getFriendList(String userId) {
+        return userRelaMapper.getFriendList(userId);
     }
 }

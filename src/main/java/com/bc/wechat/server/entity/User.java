@@ -3,6 +3,7 @@ package com.bc.wechat.server.entity;
 import com.bc.wechat.server.utils.CommonUtil;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 用户
@@ -22,6 +23,7 @@ public class User implements Serializable {
     private String userSex;
     private String userSign;
     private String isFriend;
+    private List<User> friendList;
 
     public User() {
 
@@ -112,5 +114,13 @@ public class User implements Serializable {
 
     public void setIsFriend(String isFriend) {
         this.isFriend = isFriend;
+    }
+
+    public List<User> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<User> friendList) {
+        this.friendList = friendList;
     }
 }

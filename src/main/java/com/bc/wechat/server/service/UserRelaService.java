@@ -1,5 +1,8 @@
 package com.bc.wechat.server.service;
 
+import com.bc.wechat.server.entity.User;
+
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,4 +18,6 @@ public interface UserRelaService {
      * @return true:是  false:否
      */
     boolean checkIsFriend(Map<String, String> paramMap);
+
+    List<User> getFriendList(String userId);
 }
