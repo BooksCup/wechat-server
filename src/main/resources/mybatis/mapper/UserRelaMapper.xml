@@ -15,7 +15,6 @@
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
         <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
         <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
-        <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
         <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
     </resultMap>
 
