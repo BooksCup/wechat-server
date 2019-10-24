@@ -11,6 +11,7 @@ import java.util.Map;
  * @author zhou
  */
 public interface UserRelaService {
+
     /**
      * 检查是否好友关系
      *
@@ -19,5 +20,11 @@ public interface UserRelaService {
      */
     boolean checkIsFriend(Map<String, String> paramMap);
 
+    /**
+     * 获取好友列表
+     *
+     * @param userId 用户ID
+     * @return 好友列表
+     */
     List<User> getFriendList(String userId);
 }

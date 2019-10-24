@@ -12,6 +12,7 @@ import java.util.Map;
  * @author zhou
  */
 public interface UserRelaMapper {
+
     /**
      * 新增用户关系
      *
@@ -27,6 +28,11 @@ public interface UserRelaMapper {
      */
     List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap);
 
-
+    /**
+     * 获取好友列表
+     *
+     * @param userId 用户ID
+     * @return 好友列表
+     */
     List<User> getFriendList(String userId);
 }

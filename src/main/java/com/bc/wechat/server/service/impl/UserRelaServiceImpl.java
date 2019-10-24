@@ -37,6 +37,12 @@ public class UserRelaServiceImpl implements UserRelaService {
         return true;
     }
 
+    /**
+     * 获取好友列表
+     *
+     * @param userId 用户ID
+     * @return 好友列表
+     */
     @Override
     public List<User> getFriendList(String userId) {
         return userRelaMapper.getFriendList(userId);
