@@ -78,19 +78,19 @@ public class UserController {
      */
     @ApiOperation(value = "注册", notes = "注册")
     @PostMapping(value = "")
-    public ResponseEntity<String> register(
+    public ResponseEntity<User> register(
             @RequestParam String nickName,
             @RequestParam String phone,
             @RequestParam String password) {
-        ResponseEntity<String> responseEntity;
+        ResponseEntity<User> responseEntity;
         User user = new User(nickName, phone, password);
         try {
             userService.addUser(user);
-            responseEntity = new ResponseEntity<>(ResponseMsg.REGISTER_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("register error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.REGISTER_ERROR.value(),
+            responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
