@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jmessage.api.JMessageClient;
+import cn.jpush.api.JPushClient;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
@@ -30,6 +32,9 @@ import javax.annotation.Resource;
 public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Resource
+    private JMessageClient jMessageClient;
 
     @Resource
     private UserService userService;
@@ -86,6 +91,10 @@ public class UserController {
         User user = new User(nickName, phone, password);
         try {
             userService.addUser(user);
+
+            // 用户注册到极光IM
+            jMessageClient.registerAdmins(user.getUserId(), "123456");
+
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         } catch (Exception e) {
