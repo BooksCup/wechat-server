@@ -20,4 +20,13 @@ public class Constant {
      * 好友申请
      */
     public static final String PUSH_SERVICE_TYPE_ADD_FRIENDS_APPLY = "ADD_FRIENDS_APPLY";
+
+    public static final String MSG_TYPE_TEXT = "text";
+    public static final String MSG_TYPE_IMAGE = "image";
+    public static final String MSG_TYPE_VOICE = "voice";
+    public static final String MSG_TYPE_CUSTOM = "custom";
+
+    public static final String TARGET_TYPE_SINGLE = "single";
+    public static final String TARGET_TYPE_GROUP = "group";
+    public static final String TARGET_TYPE_CHATROOM = "chatroom";
 }
