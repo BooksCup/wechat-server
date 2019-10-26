@@ -2,6 +2,11 @@ package com.bc.wechat.server.service;
 
 import org.springframework.http.ResponseEntity;
 
+/**
+ * 消息业务类接口
+ *
+ * @author zhou
+ */
 public interface MessageService {
 
     /**
@@ -15,5 +20,5 @@ public interface MessageService {
      * @return ResponseEntity
      */
     ResponseEntity<String> sendMessage(String targetType,
-                                              String targetId, String fromId, String messageType, String body);
+                                       String targetId, String fromId, String messageType, String body);
 }

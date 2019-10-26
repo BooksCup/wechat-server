@@ -20,6 +20,11 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * 消息业务类实现类
+ *
+ * @author zhou
+ */
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
