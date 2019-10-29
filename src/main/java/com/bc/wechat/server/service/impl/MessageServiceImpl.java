@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Message;
 import com.bc.wechat.server.entity.MsgBody;
+import com.bc.wechat.server.mapper.MessageMapper;
 import com.bc.wechat.server.service.MessageService;
 import com.bc.wechat.server.utils.CommonUtil;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Resource
     private JMessageClient jMessageClient;
+
+    @Resource
+    private MessageMapper messageMapper;
 
     /**
      * 发送single消息
@@ -100,12 +104,15 @@ public class MessageServiceImpl implements MessageService {
 
             message.setMsgType(messageType);
             message.setFromId(fromId);
+            message.setFromType("admin");
             message.setTargetId(targetId);
             message.setBody(body);
             message.setTargetType(targetType);
             // 防止消息乱序
             message.setCreateTime(CommonUtil.now());
+            message.setMessageId(CommonUtil.generateId());
 
+            messageMapper.addMessage(message);
 
             responseEntity = new ResponseEntity<>(
                     sendMessageResult.getOriginalContent(), HttpStatus.OK);

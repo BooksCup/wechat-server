@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bc.wechat.server.mapper.MessageMapper">
+    <!-- 添加 -->
+    <insert id="addMessage" parameterType="com.bc.wechat.server.entity.Message">
+		insert into t_message
+		(
+			message_id,
+			message_target_type,
+			message_from_type,
+			message_msg_type,
+			message_from_id,
+			message_target_id,
+			message_body,
+			message_create_time,
+			message_jim_id,
+			message_jim_ctime
+		)
+		values
+		(
+			#{messageId},
+			#{targetType},
+			#{fromType},
+			#{msgType},
+			#{fromId},
+			#{targetId},
+			#{body},
+			#{createTime},
+			#{jId},
+			#{jCreateTime}
+		)
+	</insert>
+</mapper>

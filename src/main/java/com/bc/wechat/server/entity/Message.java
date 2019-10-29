@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author zhou
  */
 public class Message implements Serializable {
-    private String id;
+    private String messageId;
 
     private String targetType;
     private String fromType;
@@ -25,13 +25,12 @@ public class Message implements Serializable {
     private Long jId;
     private Long jCreateTime;
 
-
-    public String getId() {
-        return id;
+    public String getMessageId() {
+        return messageId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMessageId(String messageId) {
+        this.messageId = messageId;
     }
 
     public String getTargetType() {
