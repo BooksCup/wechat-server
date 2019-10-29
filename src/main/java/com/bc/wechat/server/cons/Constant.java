@@ -15,6 +15,11 @@ public class Constant {
     public static final String IS_NOT_FRIEND = "0";
     public static final String IS_FRIEND = "1";
 
+    /**
+     * 文件存放路径
+     */
+    public static final String FILE_UPLOAD_PATH = "D://wechat_file";
+
     // 用于推送的业务类型
     /**
      * 好友申请
