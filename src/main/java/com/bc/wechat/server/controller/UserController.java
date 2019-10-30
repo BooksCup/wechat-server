@@ -190,6 +190,34 @@ public class UserController {
     }
 
     /**
+     * 修改头像
+     *
+     * @param userId  用户ID
+     * @param userAvatar 用户头像
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改头像", notes = "修改头像")
+    @PutMapping(value = "/{userId}/userAvatar")
+    public ResponseEntity<String> updateUserAvatar(
+            @PathVariable String userId,
+            @RequestParam String userAvatar) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userAvatar", userAvatar);
+            userService.updateUserAvatar(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_SUCCESS.value(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserAvatar error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_ERROR.value(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
      * 修改签名
      *
      * @param userId   用户ID

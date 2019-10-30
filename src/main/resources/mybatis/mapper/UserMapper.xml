@@ -62,6 +62,13 @@
             where user_id = #{userId}
     </update>
 
+    <update id="updateUserAvatar" parameterType="map">
+        update t_user
+          set user_avatar = #{userAvatar},
+              user_modify_time = now()
+            where user_id = #{userId}
+    </update>
+
     <update id="updateUserSign" parameterType="map">
         update t_user
           set user_sign = #{userSign},

@@ -74,6 +74,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户头像
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserAvatar(Map<String, String> paramMap) {
+        userMapper.updateUserAvatar(paramMap);
+    }
+
+    /**
      * 修改用户签名
      *
      * @param paramMap 参数map

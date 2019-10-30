@@ -49,6 +49,13 @@ public interface UserMapper {
     void updateUserSex(Map<String, String> paramMap);
 
     /**
+     * 修改用户头像
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserAvatar(Map<String, String> paramMap);
+
+    /**
      * 修改用户签名
      *
      * @param paramMap 参数map

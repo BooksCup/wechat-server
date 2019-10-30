@@ -18,7 +18,7 @@ public class Constant {
     /**
      * 文件存放路径
      */
-    public static final String FILE_UPLOAD_PATH = "D://wechat_file";
+    public static final String FILE_UPLOAD_PATH = "D://tool//apache-tomcat-8.5.33//webapps//wechat_file";
 
     // 用于推送的业务类型
     /**
