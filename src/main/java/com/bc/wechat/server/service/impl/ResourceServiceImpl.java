@@ -26,6 +26,12 @@ public class ResourceServiceImpl implements ResourceService {
     @Resource
     private JMessageClient jMessageClient;
 
+    /**
+     * 下载文件
+     *
+     * @param mediaId mediaId
+     * @return ResponseEntity
+     */
     @Override
     public ResponseEntity<String> downloadFile(String mediaId) {
         ResponseEntity<String> responseEntity;
@@ -39,9 +45,6 @@ public class ResourceServiceImpl implements ResourceService {
             logger.error("status: " + e.getStatus() + ",errorCode: "
                     + e.getErrorCode() + ",errorMessage: "
                     + e.getErrorMessage());
-            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
             responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
