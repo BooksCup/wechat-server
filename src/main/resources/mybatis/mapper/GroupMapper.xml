@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.GroupMapper">
+
+    <!-- 添加群  -->
+    <insert id="addGroup" parameterType="com.bc.wechat.server.entity.Group">
+        insert into t_group
+        (
+            group_id,
+            group_owner,
+            group_name,
+            group_desc,
+            group_create_time,
+            group_update_time,
+            group_jim_id
+        )
+        values
+        (
+            #{id},
+            #{owner},
+            #{name},
+            #{desc},
+            now(),
+            now(),
+            #{jId}
+        )
+    </insert>
+
+    <!-- 添加群用户  -->
+    <insert id="addGroupMembers" parameterType="List">
+        insert into t_group_members
+        (
+        members_id,
+        members_group_id,
+        members_user_id,
+        members_is_owner,
+        members_create_time
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.id},
+            #{item.groupId},
+            #{item.userId},
+            #{item.isOwner},
+            now()
+            )
+        </foreach>
+    </insert>
+</mapper>

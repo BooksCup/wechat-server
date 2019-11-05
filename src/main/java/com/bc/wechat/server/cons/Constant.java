@@ -34,4 +34,15 @@ public class Constant {
     public static final String TARGET_TYPE_SINGLE = "single";
     public static final String TARGET_TYPE_GROUP = "group";
     public static final String TARGET_TYPE_CHATROOM = "chatroom";
+
+    //是否群主
+    /**
+     * 群主
+     */
+    public static final int IM_GROUP_OWNER = 1;
+
+    /**
+     * 普通成员
+     */
+    public static final int IM_GROUP_NOT_OWNER = 0;
 }
