@@ -77,4 +77,11 @@ public interface UserMapper {
      * @return 用户列表
      */
     List<User> getUserByUserId(String userId);
+
+    /**
+     * 获取所有用户
+     *
+     * @return 所有用户
+     */
+    List<User> getAllUserList();
 }

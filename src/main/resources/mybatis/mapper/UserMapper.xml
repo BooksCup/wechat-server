@@ -90,4 +90,10 @@
         from t_user
           where user_id = #{userId}
     </select>
+
+    <select id="getAllUserList" resultMap="BaseResultMap">
+        select
+          *
+        from t_user
+    </select>
 </mapper>

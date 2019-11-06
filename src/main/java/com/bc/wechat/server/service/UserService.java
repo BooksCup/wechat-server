@@ -76,4 +76,11 @@ public interface UserService {
      * @return 用户
      */
     User getUserByUserId(String userId);
+
+    /**
+     * 获取所有用户
+     *
+     * @return 所有用户
+     */
+    List<User> getAllUserList();
 }

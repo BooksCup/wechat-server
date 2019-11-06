@@ -118,4 +118,14 @@ public class UserServiceImpl implements UserService {
         }
         return new User();
     }
+
+    /**
+     * 获取所有用户
+     *
+     * @return 所有用户
+     */
+    @Override
+    public List<User> getAllUserList() {
+        return userMapper.getAllUserList();
+    }
 }
