@@ -53,11 +53,11 @@ public class GroupServiceImpl implements GroupService {
         try {
             // gname和desc过长会报错,这边直接写死,APP获取群组信息从本地DB获取
             CreateGroupResult createGroupResult = jMessageClient.createGroup(owner,
-                    "创建群聊", "创建群聊", "", 1, userIdList);
+                    groupName, desc, "", 1, userIdList);
 
             Group group = new Group(owner, groupName, desc);
             String groupId = CommonUtil.generateId();
-            group.setId(groupId);
+            group.setGroupId(groupId);
             group.setjId(createGroupResult.getGid());
 
             //群主 + 组员聊天列表生成会话
@@ -75,14 +75,14 @@ public class GroupServiceImpl implements GroupService {
             // 新增群组成员
             List<GroupMembers> groupMembersList = new ArrayList<>();
             for (String userId : userIdList) {
-                GroupMembers groupMembers = new GroupMembers(group.getId(),
+                GroupMembers groupMembers = new GroupMembers(group.getGroupId(),
                         userId, Constant.IM_GROUP_NOT_OWNER);
                 groupMembersList.add(groupMembers);
             }
 
             // 修复一个小bug
             // 把owner加入群组中
-            groupMembersList.add(new GroupMembers(group.getId(),
+            groupMembersList.add(new GroupMembers(group.getGroupId(),
                     owner, Constant.IM_GROUP_OWNER));
             groupMapper.addGroupMembers(groupMembersList);
 

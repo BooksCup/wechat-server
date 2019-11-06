@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Group {
 
-    private String id;
+    private String groupId;
 
     /**
      * 群主userId
@@ -61,12 +61,12 @@ public class Group {
         this.desc = desc;
     }
 
-    public String getId() {
-        return id;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     public String getOwner() {

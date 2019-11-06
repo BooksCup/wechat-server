@@ -16,7 +16,7 @@
         )
         values
         (
-            #{id},
+            #{groupId},
             #{owner},
             #{name},
             #{desc},
