@@ -51,7 +51,8 @@
     <!-- 修改群名  -->
     <update id="updateGroupName" parameterType="map">
         update t_group
-          set group_name = #{groupName}
+          set group_name = #{groupName},
+              group_desc = #{groupDesc}
             where group_jim_id = #{gId}
     </update>
 </mapper>

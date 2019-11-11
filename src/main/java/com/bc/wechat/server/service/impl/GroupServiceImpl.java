@@ -127,10 +127,10 @@ public class GroupServiceImpl implements GroupService {
             Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("gId", Long.valueOf(gId));
             paramMap.put("groupName", groupName);
+            paramMap.put("groupDesc", groupName);
             groupMapper.updateGroupName(paramMap);
             // 极光
-            GroupInfoResult groupInfo = jMessageClient.getGroupInfo(Long.valueOf(gId));
-            jMessageClient.updateGroupInfo(Long.valueOf(gId), groupName, groupInfo.getDesc(), "");
+            jMessageClient.updateGroupInfo(Long.valueOf(gId), groupName, groupName, "");
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_GROUP_NAME_SUCCESS.value(), HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateGroupName error: " + e.getMessage());
