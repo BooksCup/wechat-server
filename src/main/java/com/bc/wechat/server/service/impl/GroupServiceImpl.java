@@ -92,15 +92,22 @@ public class GroupServiceImpl implements GroupService {
 
             responseEntity = new ResponseEntity<>(group, HttpStatus.OK);
         } catch (APIConnectionException e) {
+            e.printStackTrace();
             logger.error(e.getMessage());
             responseEntity = new ResponseEntity<>(new Group(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (APIRequestException e) {
+            e.printStackTrace();
             logger.error("status: " + e.getStatus() + ",errorCode: "
                     + e.getErrorCode() + ",errorMessage: "
                     + e.getErrorMessage());
             responseEntity = new ResponseEntity<>(new Group(),
                     HttpStatus.valueOf(e.getStatus()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e.getMessage());
+            responseEntity = new ResponseEntity<>(new Group(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

@@ -31,7 +31,7 @@ public class GroupController {
     public ResponseEntity<Group> addGroup(
             @RequestParam String owner,
             @RequestParam String groupName,
-            @RequestParam String desc,
+            @RequestParam(required = false, defaultValue = "") String desc,
             @RequestParam String userIds) {
         if (null == groupName || StringUtils.isEmpty(groupName.trim())) {
             return new ResponseEntity<>(new Group(), HttpStatus.BAD_REQUEST);
