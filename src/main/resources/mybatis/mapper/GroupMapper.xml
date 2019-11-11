@@ -47,4 +47,11 @@
             )
         </foreach>
     </insert>
+
+    <!-- 修改群名  -->
+    <update id="updateGroupName" parameterType="map">
+        update t_group
+          set group_name = #{groupName}
+            where group_jim_id = #{gId}
+    </update>
 </mapper>

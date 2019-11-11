@@ -21,4 +21,13 @@ public interface GroupService {
      */
     ResponseEntity<Group> createGroup(String owner, String groupName,
                                       String desc, String... userIdList);
+
+    /**
+     * 修改群名
+     *
+     * @param gId       群组ID(极光)
+     * @param groupName 群名
+     * @return ResponseEntity
+     */
+    ResponseEntity<String> updateGroupName(String gId, String groupName);
 }

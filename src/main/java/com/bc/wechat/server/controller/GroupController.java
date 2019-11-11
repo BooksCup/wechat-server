@@ -4,17 +4,13 @@ import com.bc.wechat.server.entity.Group;
 import com.bc.wechat.server.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -58,6 +54,14 @@ public class GroupController {
         userIdList = userIdSet.toArray(new String[userIdSet.size()]);
 
         return groupService.createGroup(owner, groupName, desc, userIdList);
+    }
+
+    @ApiOperation(value = "修改群名", notes = "修改群名")
+    @PutMapping(value = "/{gId}/groupName")
+    public ResponseEntity<String> updateGroup(
+            @PathVariable String gId,
+            @RequestParam String groupName) {
+        return groupService.updateGroupName(gId, groupName);
     }
 
 }

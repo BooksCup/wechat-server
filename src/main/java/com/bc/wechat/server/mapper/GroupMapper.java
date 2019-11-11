@@ -4,6 +4,7 @@ import com.bc.wechat.server.entity.Group;
 import com.bc.wechat.server.entity.GroupMembers;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 群组
@@ -24,4 +25,11 @@ public interface GroupMapper {
      * @param groupMembersList 群组成员
      */
     void addGroupMembers(List<GroupMembers> groupMembersList);
+
+    /**
+     * 修改群名
+     *
+     * @param paramMap 参数map
+     */
+    void updateGroupName(Map<String, Object> paramMap);
 }

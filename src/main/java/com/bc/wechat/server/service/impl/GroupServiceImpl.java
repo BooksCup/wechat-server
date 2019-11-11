@@ -4,6 +4,7 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jmessage.api.JMessageClient;
 import cn.jmessage.api.group.CreateGroupResult;
+import cn.jmessage.api.group.GroupInfoResult;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Group;
 import com.bc.wechat.server.entity.GroupMembers;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 群组业务类实现类
@@ -97,6 +100,33 @@ public class GroupServiceImpl implements GroupService {
                     + e.getErrorMessage());
             responseEntity = new ResponseEntity<>(new Group(),
                     HttpStatus.valueOf(e.getStatus()));
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 修改群名
+     *
+     * @param gId       群组ID(极光)
+     * @param groupName 群名
+     * @return ResponseEntity
+     */
+    @Override
+    public ResponseEntity<String> updateGroupName(String gId, String groupName) {
+        ResponseEntity<String> responseEntity;
+        try {
+            // DB
+            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("gId", Long.valueOf(gId));
+            paramMap.put("groupName", groupName);
+            groupMapper.updateGroupName(paramMap);
+            // 极光
+            GroupInfoResult groupInfo = jMessageClient.getGroupInfo(Long.valueOf(gId));
+            jMessageClient.updateGroupInfo(Long.valueOf(gId), groupName, groupInfo.getDesc(), "");
+            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateGroupName error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
