@@ -31,7 +31,8 @@ public class CommonUtil {
 
     /**
      * 将IM的message bean转为极光的message bean
-     * @param msgBody IM的message bean
+     *
+     * @param msgBody     IM的message bean
      * @param messageType 消息类型
      * @return 极光的message bean
      */
@@ -58,4 +59,18 @@ public class CommonUtil {
                     .build();
         }
     }
+
+    public static String subJimString(String jimString, int length) {
+        while (jimString.getBytes().length > length - 3) {
+            jimString = jimString.substring(0, jimString.length() - 1);
+        }
+        return jimString + "...";
+    }
+//
+//    public static void main(String[] args) {
+//        String jimString = "巴克莱饿阿坝、操东东、黄奕、小恶魔、哲学王、李四";
+//        String result = subJimString(jimString, 64);
+//        System.out.println(result);
+//        System.out.println(result.getBytes().length);
+//    }
 }

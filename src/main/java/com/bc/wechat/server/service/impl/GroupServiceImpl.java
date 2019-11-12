@@ -55,7 +55,11 @@ public class GroupServiceImpl implements GroupService {
                                              String desc, String... userIdList) {
         ResponseEntity<Group> responseEntity;
         try {
-            // gname和desc过长会报错,这边直接写死,APP获取群组信息从本地DB获取
+            // 防止groupName过长
+            // groupName限长64位
+            // The length of group name must not more than 64 bytes.
+            groupName = CommonUtil.subJimString(groupName, 64);
+
             CreateGroupResult createGroupResult = jMessageClient.createGroup(owner,
                     groupName, desc, "", 1, userIdList);
 
