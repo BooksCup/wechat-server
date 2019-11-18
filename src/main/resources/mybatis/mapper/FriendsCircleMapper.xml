@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.FriendsCircleMapper">
+
+    <resultMap id="BaseResultMap" type="com.bc.wechat.server.entity.FriendsCircle">
+        <id column="circle_id" property="circleId" jdbcType="VARCHAR"/>
+        <result column="circle_user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="circle_content" property="circleContent" jdbcType="VARCHAR"/>
+        <result column="circle_photos" property="circlePhotos" jdbcType="VARCHAR"/>
+        <result column="circle_create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="circle_timestamp" property="timestamp" jdbcType="BIGINT"/>
+
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="getFriendsCircleListByUserId" resultMap="BaseResultMap" parameterType="String">
+        select fc.*, u.user_nick_name, u.user_avatar
+          from t_friends_circle fc
+            inner join t_user_rela ur on fc.circle_user_id = ur.rela_friend_id
+            left join t_user u on fc.circle_user_id = u.user_id
+            where ur.rela_user_id = #{userId}
+            order by fc.circle_timestamp desc
+    </select>
+</mapper>
