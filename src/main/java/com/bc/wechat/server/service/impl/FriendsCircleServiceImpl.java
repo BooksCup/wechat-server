@@ -19,6 +19,12 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     @Resource
     private FriendsCircleMapper friendsCircleMapper;
 
+    /**
+     * 查找某个用户的朋友圈列表
+     *
+     * @param userId 用户ID
+     * @return 朋友圈列表
+     */
     @Override
     public List<FriendsCircle> getFriendsCircleListByUserId(String userId) {
         return friendsCircleMapper.getFriendsCircleListByUserId(userId);

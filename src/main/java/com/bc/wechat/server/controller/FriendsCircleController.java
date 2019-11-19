@@ -26,7 +26,13 @@ public class FriendsCircleController {
     @Resource
     private FriendsCircleService friendsCircleService;
 
-    @ApiOperation(value = "新增好友申请", notes = "新增好友申请")
+    /**
+     * 查找某个用户的朋友圈列表
+     *
+     * @param userId 用户ID
+     * @return 朋友圈列表
+     */
+    @ApiOperation(value = "查找朋友圈列表", notes = "查找朋友圈列表")
     @PostMapping(value = "")
     public ResponseEntity<List<FriendsCircle>> addFriendApply(
             @RequestParam String userId) {
