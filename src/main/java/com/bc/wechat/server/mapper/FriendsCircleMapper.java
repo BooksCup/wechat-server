@@ -3,6 +3,7 @@ package com.bc.wechat.server.mapper;
 import com.bc.wechat.server.entity.FriendsCircle;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 朋友圈dao
@@ -22,8 +23,8 @@ public interface FriendsCircleMapper {
     /**
      * 查找某个用户的朋友圈列表
      *
-     * @param userId 用户ID
+     * @param paramMap 参数map
      * @return 朋友圈列表
      */
-    List<FriendsCircle> getFriendsCircleListByUserId(String userId);
+    List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap);
 }

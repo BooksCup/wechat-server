@@ -3,6 +3,7 @@ package com.bc.wechat.server.service;
 import com.bc.wechat.server.entity.FriendsCircle;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 朋友圈业务类接口
@@ -21,8 +22,8 @@ public interface FriendsCircleService {
     /**
      * 查找某个用户的朋友圈列表
      *
-     * @param userId 用户ID
+     * @param paramMap 参数map
      * @return 朋友圈列表
      */
-    List<FriendsCircle> getFriendsCircleListByUserId(String userId);
+    List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap);
 }

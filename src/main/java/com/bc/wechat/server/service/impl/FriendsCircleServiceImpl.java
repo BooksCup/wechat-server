@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 朋友圈业务类实现类
@@ -33,11 +34,11 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     /**
      * 查找某个用户的朋友圈列表
      *
-     * @param userId 用户ID
+     * @param paramMap 参数map
      * @return 朋友圈列表
      */
     @Override
-    public List<FriendsCircle> getFriendsCircleListByUserId(String userId) {
-        return friendsCircleMapper.getFriendsCircleListByUserId(userId);
+    public List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap) {
+        return friendsCircleMapper.getFriendsCircleListByUserId(paramMap);
     }
 }
