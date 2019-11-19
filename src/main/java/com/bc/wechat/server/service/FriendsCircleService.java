@@ -10,6 +10,14 @@ import java.util.List;
  * @author zhou
  */
 public interface FriendsCircleService {
+
+    /**
+     * 新增朋友圈实体
+     *
+     * @param friendsCircle 朋友圈实体
+     */
+    void addFriendsCircle(FriendsCircle friendsCircle);
+
     /**
      * 查找某个用户的朋友圈列表
      *

@@ -14,6 +14,28 @@
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <insert id="addFriendsCircle" parameterType="com.bc.wechat.server.entity.FriendsCircle">
+        insert into t_friends_circle
+        (
+            circle_id,
+            circle_user_id,
+            circle_content,
+            circle_photos,
+            circle_create_time,
+            circle_timestamp
+        )
+        values
+        (
+            #{circleId},
+            #{userId},
+            #{circleContent},
+            #{circlePhotos},
+            #{createTime},
+            #{timestamp}
+        )
+    </insert>
+
+
     <select id="getFriendsCircleListByUserId" resultMap="BaseResultMap" parameterType="String">
         select fc.*, u.user_nick_name, u.user_avatar
           from t_friends_circle fc

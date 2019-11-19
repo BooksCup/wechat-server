@@ -20,6 +20,17 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     private FriendsCircleMapper friendsCircleMapper;
 
     /**
+     * 新增朋友圈实体
+     *
+     * @param friendsCircle 朋友圈实体
+     */
+    @Override
+    public void addFriendsCircle(FriendsCircle friendsCircle){
+        friendsCircleMapper.addFriendsCircle(friendsCircle);
+    }
+
+
+    /**
      * 查找某个用户的朋友圈列表
      *
      * @param userId 用户ID

@@ -1,5 +1,7 @@
 package com.bc.wechat.server.entity;
 
+import com.bc.wechat.server.utils.CommonUtil;
+
 /**
  * 朋友圈
  *
@@ -15,6 +17,20 @@ public class FriendsCircle {
     private String circlePhotos;
     private String createTime;
     private Long timestamp;
+
+    public FriendsCircle() {
+
+    }
+
+    public FriendsCircle(String userId, String circleContent, String circlePhotos) {
+        this.circleId = CommonUtil.generateId();
+        this.userId = userId;
+        this.circleContent = circleContent;
+        this.circlePhotos = circlePhotos;
+        this.createTime = CommonUtil.now();
+        this.timestamp = System.currentTimeMillis();
+
+    }
 
     public String getCircleId() {
         return circleId;

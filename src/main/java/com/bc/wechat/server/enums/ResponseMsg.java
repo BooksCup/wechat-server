@@ -31,7 +31,11 @@ public enum ResponseMsg {
     ACCEPT_FRIEND_APPLY_ERROR("接受好友申请失败"),
 
     UPDATE_GROUP_NAME_SUCCESS("修改群名成功"),
-    UPDATE_GROUP_NAME_ERROR("修改群名失败"),;
+    UPDATE_GROUP_NAME_ERROR("修改群名失败"),
+
+    ADD_FRIENDS_CIRCLE_SUCCESS("发朋友圈成功"),
+    ADD_FRIENDS_CIRCLE_ERROR("发朋友圈失败"),;
+
     private final String reasonPhrase;
 
     ResponseMsg(String reasonPhrase) {
