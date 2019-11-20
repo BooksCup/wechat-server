@@ -67,9 +67,13 @@ public class FriendsCircleController {
     public ResponseEntity<List<FriendsCircle>> getFriendsCircleListByUserId(
             @RequestParam String userId,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false) Long timestamp) {
+            @RequestParam(required = false, defaultValue = "0") Long timestamp) {
         ResponseEntity<List<FriendsCircle>> responseEntity;
         try {
+            if (0L == timestamp || null == timestamp) {
+                timestamp = System.currentTimeMillis();
+            }
+
             Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("pageSize", pageSize);
