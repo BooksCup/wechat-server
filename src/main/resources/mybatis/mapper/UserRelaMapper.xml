@@ -16,6 +16,7 @@
         <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
         <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
         <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
+        <result column="user_lastest_circle_photos" property="userLastestCirclePhotos" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getUserRelaListByUserIdAndFriendId" resultMap="BaseResultMap" parameterType="map">
