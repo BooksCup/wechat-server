@@ -56,7 +56,7 @@
           from t_friends_circle
           where circle_user_id =#{userId}
             and circle_photos is not null
-          order by circle_timestamp
+          order by circle_timestamp desc
           limit 0, 4
     </select>
 </mapper>
