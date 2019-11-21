@@ -94,6 +94,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改朋友圈最新图片
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserLastestCirclePhotos(Map<String, String> paramMap) {
+        userMapper.updateUserLastestCirclePhotos(paramMap);
+    }
+
+    /**
      * 通过关键字搜索用户
      *
      * @param keyword 关键字  手机号/微信号

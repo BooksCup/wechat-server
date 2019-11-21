@@ -26,4 +26,12 @@ public interface FriendsCircleService {
      * @return 朋友圈列表
      */
     List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap);
+
+    /**
+     * 获取最近n张朋友圈图片
+     *
+     * @param userId 用户ID
+     * @return 最近n张朋友圈图片
+     */
+    List<String> getLastestCirclePhotosByUserId(String userId);
 }

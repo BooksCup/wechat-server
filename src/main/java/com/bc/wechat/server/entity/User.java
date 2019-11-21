@@ -25,6 +25,8 @@ public class User implements Serializable {
     private String isFriend;
     private List<User> friendList;
 
+    private String userLastestCirclePhotos;
+
     public User() {
 
     }
@@ -122,5 +124,13 @@ public class User implements Serializable {
 
     public void setFriendList(List<User> friendList) {
         this.friendList = friendList;
+    }
+
+    public String getUserLastestCirclePhotos() {
+        return userLastestCirclePhotos;
+    }
+
+    public void setUserLastestCirclePhotos(String userLastestCirclePhotos) {
+        this.userLastestCirclePhotos = userLastestCirclePhotos;
     }
 }

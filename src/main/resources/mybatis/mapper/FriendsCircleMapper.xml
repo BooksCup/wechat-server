@@ -38,6 +38,7 @@
 
     <select id="getFriendsCircleListByUserId" resultMap="BaseResultMap" parameterType="map">
         <![CDATA[
+
         select fc.*, u.user_nick_name, u.user_avatar
           from t_friends_circle fc
             inner join t_user_rela ur on fc.circle_user_id = ur.rela_friend_id
@@ -46,6 +47,16 @@
             and fc.circle_timestamp < #{timestamp}
             order by fc.circle_timestamp desc
             limit #{pageSize}
+
         ]]>
+    </select>
+
+    <select id="getLastestCirclePhotosByUserId" resultType="String" parameterType="String">
+        select circle_photos
+          from t_friends_circle
+          where circle_user_id =#{userId}
+            and circle_photos is not null
+          order by circle_timestamp
+          limit 0, 4
     </select>
 </mapper>

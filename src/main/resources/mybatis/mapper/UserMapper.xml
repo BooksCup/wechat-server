@@ -76,6 +76,12 @@
             where user_id = #{userId}
     </update>
 
+    <update id="updateUserLastestCirclePhotos" parameterType="map">
+        update t_user
+          set user_lastest_circle_photos = #{userLastestCirclePhotos}
+            where user_id = #{userId}
+    </update>
+
     <select id="getUserByKeyword" resultMap="BaseResultMap" parameterType="String">
         select
           *

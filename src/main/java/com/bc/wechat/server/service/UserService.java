@@ -62,6 +62,13 @@ public interface UserService {
     void updateUserSign(Map<String, String> paramMap);
 
     /**
+     * 修改朋友圈最新图片
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserLastestCirclePhotos(Map<String, String> paramMap);
+
+    /**
      * 通过关键字搜索用户
      *
      * @param keyword 关键字  手机号/微信号

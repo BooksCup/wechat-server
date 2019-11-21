@@ -1,9 +1,11 @@
 package com.bc.wechat.server.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
+import com.bc.wechat.server.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ public class FriendsCircleController {
     @Resource
     private FriendsCircleService friendsCircleService;
 
+    @Resource
+    private UserService userService;
+
     /**
      * 发朋友圈
      *
@@ -45,6 +50,15 @@ public class FriendsCircleController {
         try {
             FriendsCircle friendsCircle = new FriendsCircle(userId, content, photos);
             friendsCircleService.addFriendsCircle(friendsCircle);
+
+            // 更新该用户最新n张朋友圈照片
+            List<String> lastestCirclePhotoList = friendsCircleService.getLastestCirclePhotosByUserId(userId);
+            Map<String, String> paramMap = new HashMap<>();
+            paramMap.put("userId", userId);
+            paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
+            userService.updateUserLastestCirclePhotos(paramMap);
+
+
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_SUCCESS.value(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
