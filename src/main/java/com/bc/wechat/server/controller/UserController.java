@@ -192,7 +192,7 @@ public class UserController {
     /**
      * 修改头像
      *
-     * @param userId  用户ID
+     * @param userId     用户ID
      * @param userAvatar 用户头像
      * @return ResponseEntity
      */
@@ -280,4 +280,24 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 根据ID获取用户
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "根据ID获取用户", notes = "根据ID获取用户")
+    @GetMapping(value = "/{userId}")
+    public ResponseEntity<User> getUserById(
+            @PathVariable String userId) {
+        ResponseEntity<User> responseEntity;
+        try {
+            User user = userService.getUserByUserId(userId);
+            responseEntity = new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("getUserById error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }
