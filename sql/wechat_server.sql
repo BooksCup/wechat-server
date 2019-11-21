@@ -104,6 +104,7 @@ CREATE TABLE `t_user` (
   `user_sex` varchar(2) DEFAULT NULL COMMENT '"1":"男" "2":"女"',
   `user_password` varchar(50) DEFAULT NULL COMMENT '密码',
   `user_sign` varchar(100) DEFAULT NULL COMMENT '签名',
+  `user_lastest_circle_photos` varchar(1024) DEFAULT NULL COMMENT '最新n张朋友圈照片,n=4',
   `user_create_time` varchar(20) DEFAULT NULL COMMENT '用户创建时间',
   `user_modify_time` varchar(20) DEFAULT NULL COMMENT '用户修改时间',
   PRIMARY KEY (`user_id`)
