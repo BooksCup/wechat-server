@@ -45,10 +45,12 @@ public class JimController {
             List<User> userList = userService.getAllUserList();
             for (User user : userList) {
                 jMessageClient.registerAdmins(user.getUserId(), "123456");
+                Thread.sleep(200L);
                 jMessageClient.updateUserInfo(user.getUserId(), user.getUserNickName(),
                         "1970-01-01", user.getUserSign(),
                         0, "", "", user.getUserAvatar());
 
+                Thread.sleep(200L);
             }
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_TO_JIM_SUCCESS.value(), HttpStatus.OK);
         } catch (Exception e) {
