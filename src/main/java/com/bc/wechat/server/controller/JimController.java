@@ -48,12 +48,12 @@ public class JimController {
             List<User> userList = userService.getAllUserList();
             for (User user : userList) {
                 jMessageClient.registerAdmins(user.getUserId(), "123456");
-                Thread.sleep(200L);
+                Thread.sleep(1000L);
                 jMessageClient.updateUserInfo(user.getUserId(), user.getUserNickName(),
                         "1970-01-01", user.getUserSign(),
                         0, "", "", user.getUserAvatar());
 
-                Thread.sleep(200L);
+                Thread.sleep(1000L);
             }
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_TO_JIM_SUCCESS.value(), HttpStatus.OK);
         } catch (Exception e) {
@@ -88,9 +88,8 @@ public class JimController {
             totalPage = totalPage == null ? 100 : totalPage;
 
             for (int i = 0; i < totalPage; i++) {
-                int start = i * pageSize;
                 int count = pageSize;
-                UserListResult userListResult = jMessageClient.getAdminListByAppkey(start, count);
+                UserListResult userListResult = jMessageClient.getAdminListByAppkey(0, count);
                 UserInfoResult[] userInfoResults = userListResult.getUsers();
                 for (UserInfoResult userInfoResult : userInfoResults) {
                     userCount++;
@@ -100,7 +99,7 @@ public class JimController {
                     // 删除用户
                     jMessageClient.deleteUser(username);
                 }
-                Thread.sleep(1000);
+                Thread.sleep(1000L);
             }
         } catch (Exception e) {
             logger.error(e.getMessage());
