@@ -45,4 +45,9 @@ public class Constant {
      * 普通成员
      */
     public static final int IM_GROUP_NOT_OWNER = 0;
+
+    /**
+     * 高危操作密码
+     */
+    public static final String HIGH_RISK_OPER_PASSWORD = "1qaz2wsx";
 }

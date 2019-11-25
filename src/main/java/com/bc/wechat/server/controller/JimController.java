@@ -1,6 +1,9 @@
 package com.bc.wechat.server.controller;
 
 import cn.jmessage.api.JMessageClient;
+import cn.jmessage.api.user.UserInfoResult;
+import cn.jmessage.api.user.UserListResult;
+import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.UserService;
@@ -38,8 +41,8 @@ public class JimController {
      * @return ResponseEntity
      */
     @ApiOperation(value = "添加用户至极光", notes = "添加用户至极光")
-    @PostMapping(value = "")
-    public ResponseEntity<String> addUsers() {
+    @PostMapping(value = "/")
+    public ResponseEntity<String> addUsersToJim() {
         ResponseEntity<String> responseEntity;
         try {
             List<User> userList = userService.getAllUserList();
@@ -59,7 +62,51 @@ public class JimController {
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_TO_JIM_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-
         return responseEntity;
+    }
+
+    /**
+     * 清除所有JIM用户
+     *
+     * @param password  高危操作密码
+     * @param totalPage 总页数
+     * @param pageSize  单页大小
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "清除JIM的用户", notes = "清除JIM的用户")
+    @DeleteMapping(value = "/")
+    public ResponseEntity<String> clearJimUsers(@RequestParam String password,
+                                                @RequestParam Integer totalPage,
+                                                @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+        long beginTimeStamp = System.currentTimeMillis();
+        int userCount = 0;
+        if (!Constant.HIGH_RISK_OPER_PASSWORD.equals(password)) {
+            return new ResponseEntity<>("password not correct!", HttpStatus.BAD_REQUEST);
+        }
+        // 获取JIM所有用户
+        try {
+            totalPage = totalPage == null ? 100 : totalPage;
+
+            for (int i = 0; i < totalPage; i++) {
+                int start = i * pageSize;
+                int count = pageSize;
+                UserListResult userListResult = jMessageClient.getAdminListByAppkey(start, count);
+                UserInfoResult[] userInfoResults = userListResult.getUsers();
+                for (UserInfoResult userInfoResult : userInfoResults) {
+                    userCount++;
+                    String username = userInfoResult.getUsername();
+                    logger.info("username: " + username);
+
+                    // 删除用户
+                    jMessageClient.deleteUser(username);
+                }
+                Thread.sleep(1000);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
+        long endTimeStamp = System.currentTimeMillis();
+        return new ResponseEntity<>("clear finish. clear user count: " + userCount + "cost: "
+                + (endTimeStamp - beginTimeStamp) + "ms.", HttpStatus.OK);
     }
 }
