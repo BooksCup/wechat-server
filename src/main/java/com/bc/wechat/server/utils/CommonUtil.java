@@ -1,12 +1,12 @@
 package com.bc.wechat.server.utils;
 
 import cn.jmessage.api.common.model.message.MessageBody;
+import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.MsgBody;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 通用工具类
@@ -38,11 +38,13 @@ public class CommonUtil {
      */
     public static MessageBody generateMessageBody(MsgBody msgBody, String messageType) {
         if (Constant.MSG_TYPE_TEXT.equals(messageType)) {
+            // 文字消息
             return new MessageBody.Builder()
                     .setText(msgBody.getText())
                     .addExtras(msgBody.getExtras())
                     .build();
         } else if (Constant.MSG_TYPE_IMAGE.equals(messageType)) {
+            // 图片消息
             return new MessageBody.Builder()
                     .setMediaId(msgBody.getMediaId())
                     .setMediaCrc32(msgBody.getMediaCrc32())
@@ -51,6 +53,14 @@ public class CommonUtil {
                     .setFormat(msgBody.getFormat())
                     .setFsize(msgBody.getFsize())
                     .build();
+        } else if (Constant.MSG_TYPE_LOCATION.equals(messageType)) {
+            // 位置消息
+            Map<String, Object> locationMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            locationMap.put("type", Constant.MSG_TYPE_LOCATION);
+            locationMap.put("latitude", msgBody.getLatitude());
+            locationMap.put("longitude", msgBody.getLongitude());
+            locationMap.put("address", msgBody.getAddress());
+            return new MessageBody.Builder().setText(JSON.toJSONString(locationMap)).build();
         } else {
             // 默认文字
             return new MessageBody.Builder()
@@ -66,11 +76,4 @@ public class CommonUtil {
         }
         return jimString + "...";
     }
-//
-//    public static void main(String[] args) {
-//        String jimString = "巴克莱饿阿坝、操东东、黄奕、小恶魔、哲学王、李四";
-//        String result = subJimString(jimString, 64);
-//        System.out.println(result);
-//        System.out.println(result.getBytes().length);
-//    }
 }

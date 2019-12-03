@@ -26,9 +26,30 @@ public class Constant {
      */
     public static final String PUSH_SERVICE_TYPE_ADD_FRIENDS_APPLY = "ADD_FRIENDS_APPLY";
 
+    // 消息类型
+    /**
+     * 文字
+     */
     public static final String MSG_TYPE_TEXT = "text";
+
+    /**
+     * 图片
+     */
     public static final String MSG_TYPE_IMAGE = "image";
+
+    /**
+     * 位置
+     */
+    public static final String MSG_TYPE_LOCATION = "location";
+
+    /**
+     * 语音
+     */
     public static final String MSG_TYPE_VOICE = "voice";
+
+    /**
+     * 自定义消息
+     */
     public static final String MSG_TYPE_CUSTOM = "custom";
 
     public static final String TARGET_TYPE_SINGLE = "single";

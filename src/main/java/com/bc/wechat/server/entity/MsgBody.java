@@ -61,6 +61,24 @@ public class MsgBody {
      */
     private Integer fsize;
 
+
+    // 位置相关
+    /**
+     * 纬度
+     */
+    private Double latitude;
+
+    /**
+     * 经度
+     */
+    private Double longitude;
+
+    /**
+     * 地址
+     */
+    private String address;
+
+
     public MsgBody() {
 
     }
@@ -161,6 +179,30 @@ public class MsgBody {
 
     public void setFsize(Integer fsize) {
         this.fsize = fsize;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public static class Builder {

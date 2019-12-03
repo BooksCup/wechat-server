@@ -39,6 +39,12 @@ public class MessageServiceImpl implements MessageService {
 
     /**
      * 发送single消息
+     * 极光消息类型:
+     * TEXT("text")
+     * IMAGE("image")
+     * VOICE("voice")
+     * CUSTOM("custom")
+     * 非文字，图片，语音消息统归为自定义消息
      *
      * @param targetType  发送目标类型
      * @param targetId    目标id single填username group 填Group id chatroom 填chatroomid（必填）
@@ -98,6 +104,20 @@ public class MessageServiceImpl implements MessageService {
                 // 服务器不再调极光发送图片接口
                 // 接收极光回调的消息ID和消息时间戳
                 // 废弃
+            } else if (Constant.MSG_TYPE_LOCATION.equals(messageType)) {
+                // 位置消息
+                MessagePayload payload = MessagePayload.newBuilder().setVersion(1)
+                        .setTargetType(targetType).setTargetId(jimTargetId).setFromType("admin")
+                        .setFromId(fromId).setMessageType(MessageType.CUSTOM)
+                        .setMessageBody(CommonUtil.generateMessageBody(msgBody, messageType))
+                        // App不接收通知
+                        .setNoNotification(true)
+                        .build();
+
+                sendMessageResult = jMessageClient.sendMessage(payload);
+
+                message.setjId(sendMessageResult.getMsg_id());
+                message.setjCreateTime(sendMessageResult.getMsgCtime());
             } else if (Constant.MSG_TYPE_VOICE.equals(messageType)) {
                 // 语音消息
             }
