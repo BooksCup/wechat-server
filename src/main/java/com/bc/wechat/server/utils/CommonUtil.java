@@ -60,6 +60,9 @@ public class CommonUtil {
             locationMap.put("latitude", msgBody.getLatitude());
             locationMap.put("longitude", msgBody.getLongitude());
             locationMap.put("address", msgBody.getAddress());
+            locationMap.put("addressDetail", msgBody.getAddressDetail());
+            locationMap.put("path", msgBody.getPath());
+
             return new MessageBody.Builder().setText(JSON.toJSONString(locationMap)).build();
         } else {
             // 默认文字

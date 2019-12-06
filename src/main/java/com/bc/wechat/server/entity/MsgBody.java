@@ -78,6 +78,16 @@ public class MsgBody {
      */
     private String address;
 
+    /**
+     * 详细地址
+     */
+    private String addressDetail;
+
+    /**
+     * 地图缩率图http路径
+     */
+    private String path;
+
 
     public MsgBody() {
 
@@ -203,6 +213,22 @@ public class MsgBody {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getAddressDetail() {
+        return addressDetail;
+    }
+
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public static class Builder {
