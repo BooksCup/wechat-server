@@ -15,10 +15,17 @@ public class Constant {
     public static final String IS_NOT_FRIEND = "0";
     public static final String IS_FRIEND = "1";
 
+    public static final String OS_SHORT_NAME_WINDOWS = "win";
+
     /**
-     * 文件存放路径
+     * 文件存放路径-windows
      */
-    public static final String FILE_UPLOAD_PATH = "D://tool//apache-tomcat-8.5.33//webapps//wechat_file";
+    public static final String FILE_UPLOAD_PATH_WINDOWS = "D://tool//apache-tomcat-8.5.33//webapps//wechat_file";
+
+    /**
+     * 文件存放路径-linux
+     */
+    public static final String FILE_UPLOAD_PATH_LINUX = "/usr/local/nginx/html/wechat_file";
 
     // 用于推送的业务类型
     /**

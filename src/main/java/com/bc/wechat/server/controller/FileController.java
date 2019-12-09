@@ -27,7 +27,13 @@ public class FileController {
     @PostMapping(value = "")
     public ResponseEntity<List<String>> uploadFile(HttpServletRequest request) {
         try {
-            String path = Constant.FILE_UPLOAD_PATH;
+            String path;
+            String os = System.getProperty("os.name");
+            if (os.toLowerCase().startsWith(Constant.OS_SHORT_NAME_WINDOWS)) {
+                path = Constant.FILE_UPLOAD_PATH_WINDOWS;
+            } else {
+                path = Constant.FILE_UPLOAD_PATH_LINUX;
+            }
 
             // 路径不存在则创建路径
             File basePath = new File(path);
