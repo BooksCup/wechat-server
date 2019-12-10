@@ -18,6 +18,7 @@ public class User implements Serializable {
     private String userNickName;
     private String userPhone;
     private String userPassword;
+    private String userImPassword;
     private String userAvatar;
     private String userHeader;
     private String userSex;
@@ -76,6 +77,14 @@ public class User implements Serializable {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public String getUserImPassword() {
+        return userImPassword;
+    }
+
+    public void setUserImPassword(String userImPassword) {
+        this.userImPassword = userImPassword;
     }
 
     public String getUserAvatar() {

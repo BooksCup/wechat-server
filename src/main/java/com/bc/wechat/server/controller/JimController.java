@@ -47,7 +47,8 @@ public class JimController {
         try {
             List<User> userList = userService.getAllUserList();
             for (User user : userList) {
-                jMessageClient.registerAdmins(user.getUserId(), "123456");
+                logger.info("register user, id: " + user.getUserId() + ", imPwd: " + user.getUserImPassword());
+                jMessageClient.registerAdmins(user.getUserId(), user.getUserImPassword());
                 Thread.sleep(1000L);
                 jMessageClient.updateUserInfo(user.getUserId(), user.getUserNickName(),
                         "1970-01-01", user.getUserSign(),
