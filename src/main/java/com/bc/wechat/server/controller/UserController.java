@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import cn.jmessage.api.JMessageClient;
-import cn.jpush.api.JPushClient;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
+import com.bc.wechat.server.utils.CommonUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,10 +90,16 @@ public class UserController {
         ResponseEntity<User> responseEntity;
         User user = new User(nickName, phone, password);
         try {
+            String imPassword = CommonUtil.generateRandomNum(6);
+            user.setUserImPassword(imPassword);
             userService.addUser(user);
 
             // 用户注册到极光IM
-            jMessageClient.registerAdmins(user.getUserId(), "123456");
+            jMessageClient.registerAdmins(user.getUserId(), imPassword);
+            // 更改用户昵称，头像
+            jMessageClient.updateUserInfo(user.getUserId(), user.getUserNickName(),
+                    "1970-01-01", user.getUserSign(),
+                    0, "", "", user.getUserAvatar());
 
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);

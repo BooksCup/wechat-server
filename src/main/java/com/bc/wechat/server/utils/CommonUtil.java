@@ -79,4 +79,19 @@ public class CommonUtil {
         }
         return jimString + "...";
     }
+
+
+    /**
+     * 生成随机n位数
+     *
+     * @param len 随机数长度
+     * @return 随机n位数
+     */
+    public static String generateRandomNum(int len) {
+        if (len < 1) {
+            return "";
+        }
+        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
+        return String.valueOf(rs);
+    }
 }

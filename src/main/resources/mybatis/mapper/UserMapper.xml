@@ -29,6 +29,7 @@
             user_nick_name,
             user_phone,
             user_password,
+            user_im_password,
             user_create_time,
             user_modify_time
         )
@@ -38,6 +39,7 @@
             #{userNickName},
             #{userPhone},
             #{userPassword},
+            #{userImPassword},
             now(),
             now()
         )
