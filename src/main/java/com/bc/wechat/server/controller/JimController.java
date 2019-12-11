@@ -5,7 +5,6 @@ import cn.jmessage.api.user.UserInfoResult;
 import cn.jmessage.api.user.UserListResult;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
-import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -43,27 +42,34 @@ public class JimController {
     @ApiOperation(value = "添加用户至极光", notes = "添加用户至极光")
     @PostMapping(value = "/")
     public ResponseEntity<String> addUsersToJim() {
-        ResponseEntity<String> responseEntity;
-        try {
-            List<User> userList = userService.getAllUserList();
-            for (User user : userList) {
-                logger.info("register user, id: " + user.getUserId() + ", imPwd: " + user.getUserImPassword());
+        List<User> userList = userService.getAllUserList();
+        int totalNum = userList.size();
+        int successNum = 0;
+        for (User user : userList) {
+            logger.info("register user, id: " + user.getUserId() + ", imPwd: " + user.getUserImPassword());
+            try {
                 jMessageClient.registerAdmins(user.getUserId(), user.getUserImPassword());
+                successNum++;
                 Thread.sleep(1000L);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error("register user error. userId: " + user.getUserId());
+            }
+
+            try {
                 jMessageClient.updateUserInfo(user.getUserId(), user.getUserNickName(),
                         "1970-01-01", user.getUserSign(),
                         0, "", "", user.getUserAvatar());
-
                 Thread.sleep(1000L);
+            } catch (Exception e) {
+                e.printStackTrace();
+                logger.error("update user error. userId: " + user.getUserId());
             }
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_TO_JIM_SUCCESS.value(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_TO_JIM_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
 
-        return responseEntity;
+        }
+        return new ResponseEntity<>("add user to jim, total:" + totalNum
+                + ", success:" + successNum, HttpStatus.OK);
+
     }
 
     /**
