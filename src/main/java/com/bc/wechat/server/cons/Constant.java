@@ -27,6 +27,17 @@ public class Constant {
      */
     public static final String FILE_UPLOAD_PATH_LINUX = "/usr/local/nginx/html/wechat_file";
 
+    /**
+     * 文件服务器地址-windows
+     */
+    public static final String FILE_SERVER_WINDOWS = "http://192.168.0.153:8080/wechat_file";
+
+
+    /**
+     * 文件服务器地址-linux
+     */
+    public static final String FILE_SERVER_LINUX = "http://49.4.25.11:9999/wechat_file";
+
     // 用于推送的业务类型
     /**
      * 好友申请

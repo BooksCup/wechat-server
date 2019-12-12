@@ -1,6 +1,9 @@
 package com.bc.wechat.server.controller;
 
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,8 @@ import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
+import com.bc.wechat.server.utils.FileUtil;
+import com.bc.wechat.server.utils.QrCodeUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +26,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 
 /**
  * 用户控制器
@@ -303,6 +309,29 @@ public class UserController {
         } catch (Exception e) {
             logger.error("getUserById error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 生成用户二维码
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "生成用户二维码", notes = "生成用户二维码")
+    @PostMapping(value = "/{userId}/userQrCode")
+    public ResponseEntity<String> generateUserQrCode(
+            @PathVariable String userId) {
+        ResponseEntity<String> responseEntity;
+        User user = userService.getUserByUserId(userId);
+        boolean result = userService.refreshUserQrCode(user);
+        if (result) {
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.REFRESH_USER_QR_CODE_SUCCESS.value(), HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.REFRESH_USER_QR_CODE_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

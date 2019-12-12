@@ -90,4 +90,12 @@ public interface UserService {
      * @return 所有用户
      */
     List<User> getAllUserList();
+
+    /**
+     * 刷新用户二维码
+     *
+     * @param user 用户
+     * @return true: 刷新成功  false: 刷新失败
+     */
+    boolean refreshUserQrCode(User user);
 }

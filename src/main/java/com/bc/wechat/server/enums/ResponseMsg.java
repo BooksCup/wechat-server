@@ -25,6 +25,10 @@ public enum ResponseMsg {
     UPDATE_USER_AVATAR_ERROR("修改头像失败"),
     UPDATE_USER_SIGN_SUCCESS("修改签名成功"),
     UPDATE_USER_SIGN_ERROR("修改签名失败"),
+
+    REFRESH_USER_QR_CODE_SUCCESS("刷新二维码成功"),
+    REFRESH_USER_QR_CODE_ERROR("刷新二维码失败"),
+
     ADD_FRIEND_APPLY_SUCCESS("好友申请发送成功"),
     ADD_FRIEND_APPLY_ERROR("好友申请发送失败"),
     ACCEPT_FRIEND_APPLY_SUCCESS("接受好友申请成功"),
