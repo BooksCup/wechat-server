@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -184,6 +185,12 @@ public class UserServiceImpl implements UserService {
 
             String qrCode = fileServer + "/" + qrCodeFileName;
             logger.info("qrcode: " + qrCode);
+
+            // 更新db字段
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", user.getUserId());
+            paramMap.put("userQrCode", qrCode);
+            userMapper.updateUserQrCode(paramMap);
             result = true;
         } catch (Exception e) {
             result = false;

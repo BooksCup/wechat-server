@@ -63,6 +63,13 @@ public interface UserMapper {
     void updateUserSign(Map<String, String> paramMap);
 
     /**
+     * 修改用户二维码
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserQrCode(Map<String, String> paramMap);
+
+    /**
      * 修改朋友圈最新图片
      *
      * @param paramMap 参数map

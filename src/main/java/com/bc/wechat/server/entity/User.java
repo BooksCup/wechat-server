@@ -23,6 +23,7 @@ public class User implements Serializable {
     private String userHeader;
     private String userSex;
     private String userSign;
+    private String userQrCode;
     private String isFriend;
     private List<User> friendList;
 
@@ -117,6 +118,14 @@ public class User implements Serializable {
 
     public void setUserSign(String userSign) {
         this.userSign = userSign;
+    }
+
+    public String getUserQrCode() {
+        return userQrCode;
+    }
+
+    public void setUserQrCode(String userQrCode) {
+        this.userQrCode = userQrCode;
     }
 
     public String getIsFriend() {

@@ -80,6 +80,13 @@
             where user_id = #{userId}
     </update>
 
+    <update id="updateUserQrCode" parameterType="map">
+        update t_user
+          set user_qr_code = #{userQrCode},
+              user_modify_time = now()
+            where user_id = #{userId}
+    </update>
+
     <update id="updateUserLastestCirclePhotos" parameterType="map">
         update t_user
           set user_lastest_circle_photos = #{userLastestCirclePhotos}
