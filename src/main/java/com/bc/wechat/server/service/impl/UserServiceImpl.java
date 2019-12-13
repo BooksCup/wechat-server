@@ -1,6 +1,8 @@
 package com.bc.wechat.server.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
+import com.bc.wechat.server.entity.QrCodeContent;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.UserMapper;
 import com.bc.wechat.server.service.UserService;
@@ -176,7 +178,14 @@ public class UserServiceImpl implements UserService {
             String logoPath = downloadPath + "/" + avatarFileName;
 
             String qrCodeFileName = CommonUtil.generateId() + ".png";
-            BufferedImage image = QrCodeUtil.genBarcode(user.getUserNickName(), 400, 400, logoPath);
+
+            QrCodeContent qrCodeContent = new QrCodeContent();
+            qrCodeContent.setType(QrCodeContent.QR_CODE_TYPE_USER);
+            Map<String, Object> contentMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            contentMap.put("userId", user.getUserId());
+            qrCodeContent.setContentMap(contentMap);
+
+            BufferedImage image = QrCodeUtil.genBarcode(JSON.toJSONString(qrCodeContent), 400, 400, logoPath);
             if (!ImageIO.write(image, "png",
                     new File(downloadPath + "/" + qrCodeFileName))) {
                 logger.error("could not write an image of format");
