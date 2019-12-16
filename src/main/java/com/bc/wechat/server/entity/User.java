@@ -26,6 +26,7 @@ public class User implements Serializable {
     private String userQrCode;
     private String isFriend;
     private List<User> friendList;
+    private String isOwner;
 
     private String userLastestCirclePhotos;
 
@@ -150,5 +151,13 @@ public class User implements Serializable {
 
     public void setUserLastestCirclePhotos(String userLastestCirclePhotos) {
         this.userLastestCirclePhotos = userLastestCirclePhotos;
+    }
+
+    public String getIsOwner() {
+        return isOwner;
+    }
+
+    public void setIsOwner(String isOwner) {
+        this.isOwner = isOwner;
     }
 }

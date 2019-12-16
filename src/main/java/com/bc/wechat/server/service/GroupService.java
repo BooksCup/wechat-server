@@ -30,4 +30,14 @@ public interface GroupService {
      * @return ResponseEntity
      */
     ResponseEntity<String> updateGroupName(String gId, String groupName);
+
+    /**
+     * 添加或者移除群组成员
+     *
+     * @param groupId    群组ID
+     * @param addList    添加成员ID列表
+     * @param removeList 移除成员ID列表
+     * @return ResponseEntity
+     */
+    ResponseEntity<String> addOrRemoveMembers(String groupId, String[] addList, String[] removeList);
 }

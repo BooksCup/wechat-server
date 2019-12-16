@@ -114,4 +114,11 @@
           *
         from t_user
     </select>
+
+    <select id="getUserByUserPhone" resultMap="BaseResultMap">
+        select
+        *
+        from t_user
+          where user_phone = #{userPhone}
+    </select>
 </mapper>

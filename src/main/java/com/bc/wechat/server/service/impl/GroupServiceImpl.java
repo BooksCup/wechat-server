@@ -4,10 +4,11 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jmessage.api.JMessageClient;
 import cn.jmessage.api.group.CreateGroupResult;
-import cn.jmessage.api.group.GroupInfoResult;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Group;
 import com.bc.wechat.server.entity.GroupMembers;
+import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.enums.ResponseContent;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.mapper.GroupMapper;
 import com.bc.wechat.server.service.GroupService;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -142,4 +144,84 @@ public class GroupServiceImpl implements GroupService {
         }
         return responseEntity;
     }
+
+    /**
+     * 添加或者移除群组成员
+     *
+     * @param groupId    群组ID
+     * @param addList    添加成员ID列表
+     * @param removeList 移除成员ID列表
+     * @return ResponseEntity
+     */
+    @Override
+    public ResponseEntity<String> addOrRemoveMembers(String groupId, String[] addList, String[] removeList) {
+        ResponseEntity<String> responseEntity;
+        try {
+            // 添加或移除DB里的群成员
+            List<String> addMemberList = new ArrayList<>();
+            List<String> removeMemberList = new ArrayList<>();
+            if (null != addList && addList.length > 0) {
+                for (String addMember : addList) {
+                    addMemberList.add(addMember);
+                }
+            }
+            if (null != removeList && removeList.length > 0) {
+                for (String removeMember : removeList) {
+                    removeMemberList.add(removeMember);
+                }
+            }
+            Group groupInfo = groupMapper.getGroupInfo(groupId);
+            List<User> currentGroupMembers = groupMapper.getGroupMembers(groupId);
+            List<String> currentGroupMemberIds = new ArrayList<>();
+            for (User user : currentGroupMembers) {
+                currentGroupMemberIds.add(user.getUserId());
+            }
+
+
+            if (!CollectionUtils.isEmpty(addMemberList)) {
+                // t_group_members添加成员
+                List<GroupMembers> groupMembersList = new ArrayList<>();
+                for (String addMember : addMemberList) {
+                    //如果已存在就不添加
+                    if (currentGroupMemberIds.contains(addMember)) {
+                        continue;
+                    }
+                    GroupMembers groupMembers = new GroupMembers(
+                            groupInfo.getGroupId(), addMember, Constant.IM_GROUP_NOT_OWNER);
+                    groupMembersList.add(groupMembers);
+                }
+                if (!CollectionUtils.isEmpty(groupMembersList)) {
+                    groupMapper.addGroupMembers(groupMembersList);
+                }
+
+            }
+            if (!CollectionUtils.isEmpty(removeMemberList)) {
+
+                for (String removeMember : removeMemberList) {
+                    Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+                    paramMap.put("groupId", groupId);
+                    paramMap.put("userId", removeMember);
+
+                    // t_group_members移除成员
+                    groupMapper.deleteGroupMembersForRemoveMembers(paramMap);
+
+                }
+            }
+            // 添加或移除极光里的群成员
+            jMessageClient.addOrRemoveMembers(groupInfo.getjId(), addList, removeList);
+
+            responseEntity = new ResponseEntity<>(ResponseContent.ADD_OR_REMOVE_MEMBERS_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (APIConnectionException e) {
+            e.printStackTrace();
+            logger.error("addOrRemoveMembers error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseContent.ADD_OR_REMOVE_MEMBERS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (APIRequestException e) {
+            e.printStackTrace();
+            logger.error("addOrRemoveMembers error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseContent.ADD_OR_REMOVE_MEMBERS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+
 }

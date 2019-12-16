@@ -1,6 +1,7 @@
 package com.bc.wechat.server.controller;
 
 import com.bc.wechat.server.entity.Group;
+import com.bc.wechat.server.enums.ResponseContent;
 import com.bc.wechat.server.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -64,4 +65,37 @@ public class GroupController {
         return groupService.updateGroupName(gId, groupName);
     }
 
+    /**
+     * 添加或者移除群成员
+     *
+     * @param groupId       群id
+     * @param addUserIds    待添加群成员userId列表(","分隔)
+     * @param removeUserIds 待移除群成员userId列表(","分隔)
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "更新群组成员", notes = "更新群组成员")
+    @PostMapping(value = "/{groupId}/members")
+    public ResponseEntity<String> addOrRemoveMembers(@PathVariable String groupId,
+                                                     @RequestParam(required = false) String addUserIds,
+                                                     @RequestParam(required = false) String removeUserIds) {
+        String[] addList = null;
+        if (!StringUtils.isEmpty(addUserIds)) {
+            try {
+                addList = addUserIds.split(",");
+            } catch (Exception e) {
+                return new ResponseEntity<>(ResponseContent.ADD_USER_ID_LIST_ILLEGAL.getResponseCode(), HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        String[] removeList = null;
+        if (!StringUtils.isEmpty(removeUserIds)) {
+            try {
+                removeList = removeUserIds.split(",");
+            } catch (Exception e) {
+                return new ResponseEntity<>(ResponseContent.REMOVE_USER_ID_LIST_ILLEGAL.getResponseCode(), HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        return groupService.addOrRemoveMembers(groupId, addList, removeList);
+    }
 }

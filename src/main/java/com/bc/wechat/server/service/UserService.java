@@ -92,6 +92,14 @@ public interface UserService {
     List<User> getAllUserList();
 
     /**
+     * 根据用户手机号检查用户是否存在
+     *
+     * @param userPhone 用户手机号
+     * @return true: 存在   false: 不存在
+     */
+    boolean checkUserExistsByUserPhone(String userPhone);
+
+    /**
      * 刷新用户二维码
      *
      * @param user 用户

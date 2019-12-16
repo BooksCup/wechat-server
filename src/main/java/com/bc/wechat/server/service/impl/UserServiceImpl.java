@@ -154,6 +154,22 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 根据用户手机号检查用户是否存在
+     *
+     * @param userPhone 用户手机号
+     * @return true: 存在   false: 不存在
+     */
+    @Override
+    public boolean checkUserExistsByUserPhone(String userPhone) {
+        List<User> userList = userMapper.getUserByUserPhone(userPhone);
+        if (CollectionUtils.isEmpty(userList)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * 刷新用户二维码
      *
      * @param user 用户

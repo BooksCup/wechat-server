@@ -93,6 +93,14 @@ public interface UserMapper {
     List<User> getUserByUserId(String userId);
 
     /**
+     * 根据用户手机号获取用户
+     *
+     * @param userPhone 用户手机号
+     * @return 用户列表
+     */
+    List<User> getUserByUserPhone(String userPhone);
+
+    /**
      * 获取所有用户
      *
      * @return 所有用户

@@ -1,32 +1,27 @@
 package com.bc.wechat.server.controller;
 
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import cn.jmessage.api.JMessageClient;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.enums.ResponseContent;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
-import com.bc.wechat.server.utils.FileUtil;
-import com.bc.wechat.server.utils.QrCodeUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 
 /**
  * 用户控制器
@@ -94,8 +89,18 @@ public class UserController {
             @RequestParam String phone,
             @RequestParam String password) {
         ResponseEntity<User> responseEntity;
-        User user = new User(nickName, phone, password);
         try {
+            boolean isUserExists = userService.checkUserExistsByUserPhone(phone);
+            if (isUserExists) {
+                logger.info("register error, user exists. phone: " + phone);
+                MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+                headers.add("responseCode", ResponseContent.USER_EXISTS.getResponseCode());
+                // responseMessage会乱码，待解决
+                headers.add("responseMessage", ResponseContent.USER_EXISTS.getResponseMessage());
+                return new ResponseEntity<>(new User(), headers, HttpStatus.BAD_REQUEST);
+            }
+
+            User user = new User(nickName, phone, password);
             String imPassword = CommonUtil.generateRandomNum(6);
             user.setUserImPassword(imPassword);
             userService.addUser(user);
