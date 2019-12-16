@@ -37,10 +37,10 @@ public interface GroupMapper {
     /**
      * 获取群组信息
      *
-     * @param groupId 群组id
+     * @param gId 群组id(极光)
      * @return 群组信息
      */
-    Group getGroupInfo(String groupId);
+    Group getGroupInfo(String gId);
 
     /**
      * 获取群组成员列表

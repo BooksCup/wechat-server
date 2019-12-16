@@ -148,13 +148,13 @@ public class GroupServiceImpl implements GroupService {
     /**
      * 添加或者移除群组成员
      *
-     * @param groupId    群组ID
+     * @param gId        群组ID(极光)
      * @param addList    添加成员ID列表
      * @param removeList 移除成员ID列表
      * @return ResponseEntity
      */
     @Override
-    public ResponseEntity<String> addOrRemoveMembers(String groupId, String[] addList, String[] removeList) {
+    public ResponseEntity<String> addOrRemoveMembers(String gId, String[] addList, String[] removeList) {
         ResponseEntity<String> responseEntity;
         try {
             // 添加或移除DB里的群成员
@@ -170,8 +170,8 @@ public class GroupServiceImpl implements GroupService {
                     removeMemberList.add(removeMember);
                 }
             }
-            Group groupInfo = groupMapper.getGroupInfo(groupId);
-            List<User> currentGroupMembers = groupMapper.getGroupMembers(groupId);
+            Group groupInfo = groupMapper.getGroupInfo(gId);
+            List<User> currentGroupMembers = groupMapper.getGroupMembers(groupInfo.getGroupId());
             List<String> currentGroupMemberIds = new ArrayList<>();
             for (User user : currentGroupMembers) {
                 currentGroupMemberIds.add(user.getUserId());
@@ -199,7 +199,7 @@ public class GroupServiceImpl implements GroupService {
 
                 for (String removeMember : removeMemberList) {
                     Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-                    paramMap.put("groupId", groupId);
+                    paramMap.put("groupId", groupInfo.getGroupId());
                     paramMap.put("userId", removeMember);
 
                     // t_group_members移除成员

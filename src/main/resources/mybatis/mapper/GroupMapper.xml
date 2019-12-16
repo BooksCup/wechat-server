@@ -74,10 +74,10 @@
             where group_jim_id = #{gId}
     </update>
 
-    <select id="getGroupInfo" parameterType="String" resultMap="group">
+    <select id="getGroupInfo" resultMap="group">
         select *
           from t_group
-            where group_id = #{groupId}
+            where group_jim_id = #{gId}
     </select>
 
     <select id="getGroupMembers" parameterType="String" resultMap="groupMembers">
