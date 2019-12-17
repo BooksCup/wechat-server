@@ -2,6 +2,7 @@ package com.bc.wechat.server.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.FriendsCircleMapper;
 import com.bc.wechat.server.service.FriendsCircleService;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,17 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     @Override
     public List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap) {
         return friendsCircleMapper.getFriendsCircleListByUserId(paramMap);
+    }
+
+    /**
+     * 获取点赞用户列表
+     *
+     * @param circleId 朋友圈ID
+     * @return 点赞用户列表
+     */
+    @Override
+    public List<User> getLikeUserListByCircleId(String circleId) {
+        return friendsCircleMapper.getLikeUserListByCircleId(circleId);
     }
 
     /**

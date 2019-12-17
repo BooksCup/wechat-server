@@ -1,6 +1,7 @@
 package com.bc.wechat.server.service;
 
 import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.User;
 
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,14 @@ public interface FriendsCircleService {
      * @return 朋友圈列表
      */
     List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap);
+
+    /**
+     * 获取点赞用户列表
+     *
+     * @param circleId 朋友圈ID
+     * @return 点赞用户列表
+     */
+    List<User> getLikeUserListByCircleId(String circleId);
 
     /**
      * 获取最近n张朋友圈图片

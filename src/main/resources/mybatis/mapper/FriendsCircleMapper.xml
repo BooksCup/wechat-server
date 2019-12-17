@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bc.wechat.server.mapper.FriendsCircleMapper">
 
-    <resultMap id="BaseResultMap" type="com.bc.wechat.server.entity.FriendsCircle">
+    <resultMap id="friendsCircle" type="com.bc.wechat.server.entity.FriendsCircle">
         <id column="circle_id" property="circleId" jdbcType="VARCHAR"/>
         <result column="circle_user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="circle_content" property="circleContent" jdbcType="VARCHAR"/>
@@ -10,6 +10,12 @@
         <result column="circle_create_time" property="createTime" jdbcType="VARCHAR"/>
         <result column="circle_timestamp" property="timestamp" jdbcType="BIGINT"/>
 
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="user" type="com.bc.wechat.server.entity.User">
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
     </resultMap>
@@ -36,7 +42,7 @@
     </insert>
 
 
-    <select id="getFriendsCircleListByUserId" resultMap="BaseResultMap" parameterType="map">
+    <select id="getFriendsCircleListByUserId" resultMap="friendsCircle" parameterType="map">
         <![CDATA[
 
         select fc.*, u.user_nick_name, u.user_avatar
@@ -49,6 +55,13 @@
             limit #{pageSize}
 
         ]]>
+    </select>
+
+    <select id="getLikeUserListByCircleId" resultMap="user" parameterType="String">
+        select u.*
+          from t_friends_circle_like l left join t_user u on l.like_user_id = u.user_id
+            where l.like_circle_id = #{circleId}
+
     </select>
 
     <select id="getLastestCirclePhotosByUserId" resultType="String" parameterType="String">

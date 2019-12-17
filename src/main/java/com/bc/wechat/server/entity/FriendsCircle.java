@@ -2,6 +2,8 @@ package com.bc.wechat.server.entity;
 
 import com.bc.wechat.server.utils.CommonUtil;
 
+import java.util.List;
+
 /**
  * 朋友圈
  *
@@ -17,6 +19,11 @@ public class FriendsCircle {
     private String circlePhotos;
     private String createTime;
     private Long timestamp;
+
+    /**
+     * 点赞用户列表
+     */
+    private List<User> likeUserList;
 
     public FriendsCircle() {
 
@@ -94,5 +101,13 @@ public class FriendsCircle {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public List<User> getLikeUserList() {
+        return likeUserList;
+    }
+
+    public void setLikeUserList(List<User> likeUserList) {
+        this.likeUserList = likeUserList;
     }
 }

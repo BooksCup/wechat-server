@@ -3,6 +3,7 @@ package com.bc.wechat.server.controller;
 import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserService;
@@ -93,6 +94,11 @@ public class FriendsCircleController {
             paramMap.put("pageSize", pageSize);
             paramMap.put("timestamp", timestamp);
             List<FriendsCircle> friendsCircleList = friendsCircleService.getFriendsCircleListByUserId(paramMap);
+            for (FriendsCircle friendsCircle : friendsCircleList) {
+                List<User> likeUserList = friendsCircleService.getLikeUserListByCircleId(friendsCircle.getCircleId());
+                friendsCircle.setLikeUserList(likeUserList);
+            }
+
             responseEntity = new ResponseEntity<>(friendsCircleList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
