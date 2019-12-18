@@ -7,7 +7,10 @@ public enum ResponseContent {
     REMOVE_USER_ID_LIST_ILLEGAL("REMOVE_USER_ID_LIST_ILLEGAL", "移除群组成员ID格式不对"),
 
     ADD_OR_REMOVE_MEMBERS_SUCCESS("ADD_OR_REMOVE_MEMBERS_SUCCESS", "添加或删除群组成员失败"),
-    ADD_OR_REMOVE_MEMBERS_ERROR("ADD_OR_REMOVE_MEMBERS_ERROR", "添加或删除群组成员失败"),;
+    ADD_OR_REMOVE_MEMBERS_ERROR("ADD_OR_REMOVE_MEMBERS_ERROR", "添加或删除群组成员失败"),
+
+    LIKE_FRIENDS_CIRCLE_SUCCESS("LIKE_FRIENDS_CIRCLE_SUCCESS", "朋友圈点赞成功"),
+    LIKE_FRIENDS_CIRCLE_ERROR("LIKE_FRIENDS_CIRCLE_ERROR", "朋友圈点赞失败"),;
 
     ResponseContent(String responseCode, String responseMessage) {
         this.responseCode = responseCode;

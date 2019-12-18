@@ -4,9 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.enums.ResponseContent;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserService;
+import com.bc.wechat.server.utils.CommonUtil;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -103,6 +105,34 @@ public class FriendsCircleController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 点赞
+     *
+     * @param circleId 朋友圈ID
+     * @param userId   用户ID
+     * @return ResponseEntity
+     */
+    @PostMapping(value = "/{circleId}/like")
+    public ResponseEntity<String> likeFriendsCircle(
+            @PathVariable String circleId,
+            @RequestParam String userId) {
+        ResponseEntity<String> responseEntity;
+
+        try {
+            Map<String, Object> paramMap = new HashMap<>();
+            paramMap.put("likeId", CommonUtil.generateId());
+            paramMap.put("userId", userId);
+            paramMap.put("circleId", circleId);
+            friendsCircleService.likeFriendsCircle(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseContent.LIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseContent.LIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

@@ -85,4 +85,14 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
         }
         return resultList;
     }
+
+    /**
+     * 点赞
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void likeFriendsCircle(Map<String, Object> paramMap) {
+        friendsCircleMapper.likeFriendsCircle(paramMap);
+    }
 }

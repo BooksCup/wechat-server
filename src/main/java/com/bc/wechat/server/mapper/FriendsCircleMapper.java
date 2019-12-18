@@ -44,4 +44,11 @@ public interface FriendsCircleMapper {
      * @return 最近n张朋友圈图片
      */
     List<String> getLastestCirclePhotosByUserId(String userId);
+
+    /**
+     * 点赞
+     *
+     * @param paramMap 参数map
+     */
+    void likeFriendsCircle(Map<String, Object> paramMap);
 }
