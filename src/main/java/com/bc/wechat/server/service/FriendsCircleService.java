@@ -50,4 +50,11 @@ public interface FriendsCircleService {
      * @param paramMap 参数map
      */
     void likeFriendsCircle(Map<String, Object> paramMap);
+
+    /**
+     * 取消点赞
+     *
+     * @param paramMap 参数map
+     */
+    void unLikeFriendsCircle(Map<String, Object> paramMap);
 }

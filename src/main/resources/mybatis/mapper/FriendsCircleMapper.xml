@@ -46,6 +46,8 @@
         <![CDATA[
 
 
+
+
         select fc.*, u.user_nick_name, u.user_avatar
           from t_friends_circle fc
             inner join t_user_rela ur on fc.circle_user_id = ur.rela_friend_id
@@ -54,6 +56,8 @@
             and fc.circle_timestamp < #{timestamp}
             order by fc.circle_timestamp desc
             limit #{pageSize}
+
+
 
 
         ]]>
@@ -91,4 +95,10 @@
             now()
         )
     </insert>
+
+    <delete id="unLikeFriendsCircle" parameterType="map">
+        delete from t_friends_circle_like
+          where like_circle_id = #{circleId}
+            and like_user_id = #{userId}
+    </delete>
 </mapper>

@@ -45,6 +45,17 @@ CREATE TABLE `t_friends_circle` (
   PRIMARY KEY (`circle_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_friends_circle_like` */
+
+DROP TABLE IF EXISTS `t_friends_circle_like`;
+
+CREATE TABLE `t_friends_circle_like` (
+  `like_id` varchar(32) DEFAULT NULL COMMENT '朋友圈点赞表主键',
+  `like_circle_id` varchar(32) DEFAULT NULL COMMENT '朋友圈表主键',
+  `like_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `like_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_group` */
 
 DROP TABLE IF EXISTS `t_group`;

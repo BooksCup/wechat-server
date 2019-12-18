@@ -170,7 +170,6 @@ public class QrCodeUtil {
             BufferedImage image = new BufferedImage(width, height,
                     BufferedImage.TYPE_INT_RGB);
             Graphics2D graphic = image.createGraphics();
-//            graphic.setColor(Color.BLACK);
             graphic.fillRect(10, 10, width, height);
             graphic.drawRect(100, 360, width, height);
             if (width == destImage.getWidth(null)) {

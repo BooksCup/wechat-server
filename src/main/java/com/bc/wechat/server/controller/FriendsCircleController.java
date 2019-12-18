@@ -5,7 +5,6 @@ import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseContent;
-import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
@@ -56,16 +55,16 @@ public class FriendsCircleController {
 
             // 更新该用户最新n张朋友圈照片
             List<String> lastestCirclePhotoList = friendsCircleService.getLastestCirclePhotosByUserId(userId);
-            Map<String, String> paramMap = new HashMap<>();
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
             userService.updateUserLastestCirclePhotos(paramMap);
 
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_SUCCESS.value(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseContent.ADD_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseContent.ADD_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -123,7 +122,7 @@ public class FriendsCircleController {
         ResponseEntity<String> responseEntity;
 
         try {
-            Map<String, Object> paramMap = new HashMap<>();
+            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("likeId", CommonUtil.generateId());
             paramMap.put("userId", userId);
             paramMap.put("circleId", circleId);
@@ -133,6 +132,35 @@ public class FriendsCircleController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseContent.LIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+
+    /**
+     * 取消点赞
+     *
+     * @param circleId 朋友圈ID
+     * @param userId   用户ID
+     * @return ResponseEntity
+     */
+    @DeleteMapping(value = "/{circleId}/like")
+    public ResponseEntity<String> unLikeFriendsCircle(
+            @PathVariable String circleId,
+            @RequestParam String userId) {
+        ResponseEntity<String> responseEntity;
+
+        try {
+            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("likeId", CommonUtil.generateId());
+            paramMap.put("userId", userId);
+            paramMap.put("circleId", circleId);
+            friendsCircleService.unLikeFriendsCircle(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseContent.UNLIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseContent.UNLIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
