@@ -2,6 +2,7 @@ package com.bc.wechat.server.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.FriendsCircleComment;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.FriendsCircleMapper;
 import com.bc.wechat.server.service.FriendsCircleService;
@@ -104,5 +105,16 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     @Override
     public void unLikeFriendsCircle(Map<String, Object> paramMap) {
         friendsCircleMapper.unLikeFriendsCircle(paramMap);
+    }
+
+    /**
+     * 获取某个朋友圈下的评论
+     *
+     * @param circleId 朋友圈ID
+     * @return 评论列表
+     */
+    @Override
+    public List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId) {
+        return friendsCircleMapper.getFriendsCircleCommentListByCircleId(circleId);
     }
 }

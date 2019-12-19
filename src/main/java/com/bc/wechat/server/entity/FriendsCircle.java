@@ -25,6 +25,11 @@ public class FriendsCircle {
      */
     private List<User> likeUserList;
 
+    /**
+     * 评论列表
+     */
+    private List<FriendsCircleComment> friendsCircleCommentList;
+
     public FriendsCircle() {
 
     }
@@ -109,5 +114,13 @@ public class FriendsCircle {
 
     public void setLikeUserList(List<User> likeUserList) {
         this.likeUserList = likeUserList;
+    }
+
+    public List<FriendsCircleComment> getFriendsCircleCommentList() {
+        return friendsCircleCommentList;
+    }
+
+    public void setFriendsCircleCommentList(List<FriendsCircleComment> friendsCircleCommentList) {
+        this.friendsCircleCommentList = friendsCircleCommentList;
     }
 }

@@ -14,6 +14,20 @@
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="friendsCircleComment" type="com.bc.wechat.server.entity.FriendsCircleComment">
+        <id column="comment_id" property="commentId" jdbcType="VARCHAR"/>
+        <result column="comment_circle_id" property="commentCircleId" jdbcType="VARCHAR"/>
+        <result column="comment_user_id" property="commentUserId" jdbcType="VARCHAR"/>
+        <result column="comment_reply_to_user_id" property="commentReplyToUserId" jdbcType="VARCHAR"/>
+        <result column="comment_content" property="commentContent" jdbcType="VARCHAR"/>
+        <result column="comment_create_time" property="commentCreateTime" jdbcType="BIGINT"/>
+        <result column="comment_delete_flag" property="commentDeleteFlag" jdbcType="VARCHAR"/>
+        <result column="comment_delete_time" property="commentDeleteTime" jdbcType="VARCHAR"/>
+        <result column="commentUserNickName" property="commentUserNickName" jdbcType="VARCHAR"/>
+        <result column="commentReplyToUserNickName" property="commentReplyToUserNickName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
     <resultMap id="user" type="com.bc.wechat.server.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
@@ -45,9 +59,6 @@
     <select id="getFriendsCircleListByUserId" resultMap="friendsCircle" parameterType="map">
         <![CDATA[
 
-
-
-
         select fc.*, u.user_nick_name, u.user_avatar
           from t_friends_circle fc
             inner join t_user_rela ur on fc.circle_user_id = ur.rela_friend_id
@@ -56,9 +67,6 @@
             and fc.circle_timestamp < #{timestamp}
             order by fc.circle_timestamp desc
             limit #{pageSize}
-
-
-
 
         ]]>
     </select>
@@ -101,4 +109,14 @@
           where like_circle_id = #{circleId}
             and like_user_id = #{userId}
     </delete>
+
+    <select id="getFriendsCircleCommentListByCircleId" resultMap="friendsCircleComment" parameterType="String">
+        select c.*,u.user_nick_name as commentUserNickName, ru.user_nick_name as commentReplyToUserNickName
+          from t_friends_circle_comment c
+            left join t_user u on c.comment_user_id = u.user_id
+            left join t_user ru on c.comment_reply_to_user_id = ru.user_id
+
+          where c.comment_circle_id = #{circleId}
+            order by c.comment_create_time asc
+    </select>
 </mapper>

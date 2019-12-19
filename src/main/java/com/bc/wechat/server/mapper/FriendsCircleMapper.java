@@ -1,6 +1,7 @@
 package com.bc.wechat.server.mapper;
 
 import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.FriendsCircleComment;
 import com.bc.wechat.server.entity.User;
 
 import java.util.List;
@@ -58,4 +59,12 @@ public interface FriendsCircleMapper {
      * @param paramMap 参数map
      */
     void unLikeFriendsCircle(Map<String, Object> paramMap);
+
+    /**
+     * 获取某个朋友圈下的评论
+     *
+     * @param circleId 朋友圈ID
+     * @return 评论列表
+     */
+    List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId);
 }
