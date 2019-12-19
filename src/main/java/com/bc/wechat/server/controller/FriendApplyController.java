@@ -67,12 +67,12 @@ public class FriendApplyController {
 
             jpushBiz.sendPush(toUserId, alert, extras);
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIEND_APPLY_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIEND_APPLY_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
 
         } catch (Exception e) {
             logger.error("addFriendApply error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIEND_APPLY_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIEND_APPLY_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -89,10 +89,10 @@ public class FriendApplyController {
             // 双方加好友
             friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId());
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_SUCCESS.value(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             logger.error("acceptFriendApply error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

@@ -8,7 +8,6 @@ import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Group;
 import com.bc.wechat.server.entity.GroupMembers;
 import com.bc.wechat.server.entity.User;
-import com.bc.wechat.server.enums.ResponseContent;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.mapper.GroupMapper;
 import com.bc.wechat.server.service.GroupService;
@@ -137,10 +136,10 @@ public class GroupServiceImpl implements GroupService {
             groupMapper.updateGroupName(paramMap);
             // 极光
             jMessageClient.updateGroupInfo(Long.valueOf(gId), groupName, groupName, "");
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_GROUP_NAME_SUCCESS.value(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_GROUP_NAME_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateGroupName error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_GROUP_NAME_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_GROUP_NAME_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -210,15 +209,15 @@ public class GroupServiceImpl implements GroupService {
             // 添加或移除极光里的群成员
             jMessageClient.addOrRemoveMembers(groupInfo.getjId(), addList, removeList);
 
-            responseEntity = new ResponseEntity<>(ResponseContent.ADD_OR_REMOVE_MEMBERS_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_OR_REMOVE_MEMBERS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (APIConnectionException e) {
             e.printStackTrace();
             logger.error("addOrRemoveMembers error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseContent.ADD_OR_REMOVE_MEMBERS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_OR_REMOVE_MEMBERS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         } catch (APIRequestException e) {
             e.printStackTrace();
             logger.error("addOrRemoveMembers error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseContent.ADD_OR_REMOVE_MEMBERS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_OR_REMOVE_MEMBERS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

@@ -6,7 +6,6 @@ import java.util.*;
 import cn.jmessage.api.JMessageClient;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.User;
-import com.bc.wechat.server.enums.ResponseContent;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
@@ -94,9 +93,9 @@ public class UserController {
             if (isUserExists) {
                 logger.info("register error, user exists. phone: " + phone);
                 MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-                headers.add("responseCode", ResponseContent.USER_EXISTS.getResponseCode());
+                headers.add("responseCode", ResponseMsg.USER_EXISTS.getResponseCode());
                 // responseMessage会乱码，待解决
-                headers.add("responseMessage", ResponseContent.USER_EXISTS.getResponseMessage());
+                headers.add("responseMessage", ResponseMsg.USER_EXISTS.getResponseMessage());
                 return new ResponseEntity<>(new User(), headers, HttpStatus.BAD_REQUEST);
             }
 
@@ -140,11 +139,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userNickName", userNickName);
             userService.updateUserNickName(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserNickName error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_NICK_NAME_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -168,11 +167,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userWxId", userWxId);
             userService.updateUserWxId(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserWxId error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -196,11 +195,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userSex", userSex);
             userService.updateUserSex(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserSex error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -224,11 +223,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userAvatar", userAvatar);
             userService.updateUserAvatar(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserAvatar error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -252,11 +251,11 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("userSign", userSign);
             userService.updateUserSign(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SIGN_SUCCESS.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SIGN_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
             logger.error("updateUserSign error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SIGN_ERROR.value(),
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SIGN_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -333,10 +332,10 @@ public class UserController {
         boolean result = userService.refreshUserQrCode(user);
         if (result) {
             responseEntity = new ResponseEntity<>(
-                    ResponseMsg.REFRESH_USER_QR_CODE_SUCCESS.value(), HttpStatus.OK);
+                    ResponseMsg.REFRESH_USER_QR_CODE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } else {
             responseEntity = new ResponseEntity<>(
-                    ResponseMsg.REFRESH_USER_QR_CODE_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
+                    ResponseMsg.REFRESH_USER_QR_CODE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

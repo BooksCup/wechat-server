@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.entity.User;
-import com.bc.wechat.server.enums.ResponseContent;
+import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
@@ -61,10 +61,10 @@ public class FriendsCircleController {
             userService.updateUserLastestCirclePhotos(paramMap);
 
 
-            responseEntity = new ResponseEntity<>(ResponseContent.ADD_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseContent.ADD_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -128,10 +128,10 @@ public class FriendsCircleController {
             paramMap.put("circleId", circleId);
             friendsCircleService.likeFriendsCircle(paramMap);
 
-            responseEntity = new ResponseEntity<>(ResponseContent.LIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseContent.LIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -157,10 +157,10 @@ public class FriendsCircleController {
             paramMap.put("circleId", circleId);
             friendsCircleService.unLikeFriendsCircle(paramMap);
 
-            responseEntity = new ResponseEntity<>(ResponseContent.UNLIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseContent.UNLIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

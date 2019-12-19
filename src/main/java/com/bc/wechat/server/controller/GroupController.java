@@ -1,7 +1,7 @@
 package com.bc.wechat.server.controller;
 
 import com.bc.wechat.server.entity.Group;
-import com.bc.wechat.server.enums.ResponseContent;
+import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.GroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -83,7 +83,7 @@ public class GroupController {
             try {
                 addList = addUserIds.split(",");
             } catch (Exception e) {
-                return new ResponseEntity<>(ResponseContent.ADD_USER_ID_LIST_ILLEGAL.getResponseCode(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(ResponseMsg.ADD_USER_ID_LIST_ILLEGAL.getResponseCode(), HttpStatus.BAD_REQUEST);
             }
         }
 
@@ -92,7 +92,7 @@ public class GroupController {
             try {
                 removeList = removeUserIds.split(",");
             } catch (Exception e) {
-                return new ResponseEntity<>(ResponseContent.REMOVE_USER_ID_LIST_ILLEGAL.getResponseCode(), HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(ResponseMsg.REMOVE_USER_ID_LIST_ILLEGAL.getResponseCode(), HttpStatus.BAD_REQUEST);
             }
         }
 
