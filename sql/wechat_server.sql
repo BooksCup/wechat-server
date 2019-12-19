@@ -45,6 +45,22 @@ CREATE TABLE `t_friends_circle` (
   PRIMARY KEY (`circle_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_friends_circle_comment` */
+
+DROP TABLE IF EXISTS `t_friends_circle_comment`;
+
+CREATE TABLE `t_friends_circle_comment` (
+  `comment_id` varchar(32) NOT NULL COMMENT '朋友圈评论表主键',
+  `comment_circle_id` varchar(32) DEFAULT NULL COMMENT '朋友圈主键',
+  `comment_user_id` varchar(32) DEFAULT NULL COMMENT '评论人主键',
+  `comment_reply_to_user_id` varchar(32) DEFAULT NULL COMMENT '回复用户主键',
+  `comment_content` varchar(1024) DEFAULT NULL COMMENT '评论内容',
+  `comment_create_time` varchar(20) DEFAULT NULL COMMENT '评论时间',
+  `comment_delete_flag` varchar(2) DEFAULT '0' COMMENT '"0":"未删除" "1":"已删除"',
+  `comment_delete_time` varchar(20) DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`comment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_friends_circle_like` */
 
 DROP TABLE IF EXISTS `t_friends_circle_like`;
