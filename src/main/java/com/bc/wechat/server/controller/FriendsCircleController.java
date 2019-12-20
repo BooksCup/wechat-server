@@ -10,6 +10,8 @@ import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +30,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/friendsCircle")
 public class FriendsCircleController {
+
+    private static final Logger logger = LoggerFactory.getLogger(FriendsCircleController.class);
 
     @Resource
     private FriendsCircleService friendsCircleService;
@@ -85,6 +89,7 @@ public class FriendsCircleController {
             @RequestParam String userId,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(required = false, defaultValue = "0") Long timestamp) {
+        long beginTimeStamp = System.currentTimeMillis();
         ResponseEntity<List<FriendsCircle>> responseEntity;
         try {
             if (0L == timestamp || null == timestamp) {
@@ -110,6 +115,8 @@ public class FriendsCircleController {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        long endTimeStamp = System.currentTimeMillis();
+        logger.info("getFriendsCircleListByUserId, userId: " + userId + ", cost: " + (endTimeStamp - beginTimeStamp) + "ms");
         return responseEntity;
     }
 

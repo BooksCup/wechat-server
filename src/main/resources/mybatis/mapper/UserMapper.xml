@@ -27,6 +27,7 @@
         insert into t_user
         (
             user_id,
+            user_wx_id,
             user_nick_name,
             user_phone,
             user_password,
@@ -37,6 +38,7 @@
         values
         (
             #{userId},
+            #{userWxId},
             #{userNickName},
             #{userPhone},
             #{userPassword},

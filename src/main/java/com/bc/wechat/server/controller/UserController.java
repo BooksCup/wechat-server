@@ -102,6 +102,9 @@ public class UserController {
             User user = new User(nickName, phone, password);
             String imPassword = CommonUtil.generateRandomNum(6);
             user.setUserImPassword(imPassword);
+            // 存在可能重复的BUG
+            String initWxId = CommonUtil.generateInitWxId();
+            user.setUserWxId(initWxId);
             userService.addUser(user);
 
             // 用户注册到极光IM

@@ -24,6 +24,34 @@ public class CommonUtil {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
+    /**
+     * 生成初始化微信号
+     *
+     * @return 初始化微信号
+     */
+    public static String generateInitWxId() {
+        Random random = new Random();
+        String wxId = "";
+        for (int i = 0; i < 14; i++) {
+            String str = random.nextInt(2) % 2 == 0 ? "num" : "char";
+            if ("char".equalsIgnoreCase(str)) {
+                // 产生字母
+                int nextInt = random.nextInt(2) % 2 == 0 ? 65 : 97;
+                wxId += (char) (nextInt + random.nextInt(26));
+            } else if ("num".equalsIgnoreCase(str)) {
+                // 产生数字
+                wxId += String.valueOf(random.nextInt(10));
+            }
+        }
+        return "wxid_" + wxId.toLowerCase();
+
+    }
+
+    /**
+     * 获取当前时间
+     *
+     * @return 当前时间
+     */
     public static String now() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(new Date());
@@ -93,5 +121,9 @@ public class CommonUtil {
         }
         int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, len - 1));
         return String.valueOf(rs);
+    }
+
+    public static void main(String[] args){
+        System.out.println(generateInitWxId());
     }
 }
