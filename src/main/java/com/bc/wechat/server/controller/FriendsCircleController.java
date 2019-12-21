@@ -186,24 +186,25 @@ public class FriendsCircleController {
      * @return ResponseEntity
      */
     @PostMapping(value = "/{circleId}/comment")
-    public ResponseEntity<String> addFriendsCircleComment(
+    public ResponseEntity<FriendsCircleComment> addFriendsCircleComment(
             @PathVariable String circleId,
             @RequestParam String userId,
             @RequestParam String content) {
-        ResponseEntity<String> responseEntity;
+        ResponseEntity<FriendsCircleComment> responseEntity;
+
 
         try {
-            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("commentId", CommonUtil.generateId());
-            paramMap.put("userId", userId);
-            paramMap.put("circleId", circleId);
-            paramMap.put("content", content);
-            friendsCircleService.addFriendsCircleComment(paramMap);
+            FriendsCircleComment friendsCircleComment = new FriendsCircleComment();
+            friendsCircleComment.setCommentId(CommonUtil.generateId());
+            friendsCircleComment.setCommentUserId(userId);
+            friendsCircleComment.setCommentCircleId(circleId);
+            friendsCircleComment.setCommentContent(content);
+            friendsCircleService.addFriendsCircleComment(friendsCircleComment);
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_COMMENT_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(friendsCircleComment, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_COMMENT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(new FriendsCircleComment(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

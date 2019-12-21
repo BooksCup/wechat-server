@@ -121,10 +121,10 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     /**
      * 朋友圈发表评论
      *
-     * @param paramMap 参数map
+     * @param friendsCircleComment 朋友圈评论
      */
     @Override
-    public void addFriendsCircleComment(Map<String, Object> paramMap) {
-        friendsCircleMapper.addFriendsCircleComment(paramMap);
+    public void addFriendsCircleComment(FriendsCircleComment friendsCircleComment) {
+        friendsCircleMapper.addFriendsCircleComment(friendsCircleComment);
     }
 }

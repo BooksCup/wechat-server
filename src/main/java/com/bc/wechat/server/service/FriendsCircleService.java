@@ -70,7 +70,7 @@ public interface FriendsCircleService {
     /**
      * 朋友圈发表评论
      *
-     * @param paramMap 参数map
+     * @param friendsCircleComment 朋友圈评论
      */
-    void addFriendsCircleComment(Map<String, Object> paramMap);
+    void addFriendsCircleComment(FriendsCircleComment friendsCircleComment);
 }

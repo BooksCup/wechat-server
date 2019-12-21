@@ -120,7 +120,7 @@
             order by c.comment_create_time asc
     </select>
 
-    <insert id="addFriendsCircleComment" parameterType="map">
+    <insert id="addFriendsCircleComment" parameterType="com.bc.wechat.server.entity.FriendsCircleComment">
         insert into t_friends_circle_comment
         (
             comment_id,
@@ -132,9 +132,9 @@
         values
         (
             #{commentId},
-            #{circleId},
-            #{userId},
-            #{content},
+            #{commentCircleId},
+            #{commentUserId},
+            #{commentContent},
             now()
         )
     </insert>
