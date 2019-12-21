@@ -67,4 +67,11 @@ public interface FriendsCircleMapper {
      * @return 评论列表
      */
     List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId);
+
+    /**
+     * 朋友圈发表评论
+     *
+     * @param paramMap 参数map
+     */
+    void addFriendsCircleComment(Map<String, Object> paramMap);
 }

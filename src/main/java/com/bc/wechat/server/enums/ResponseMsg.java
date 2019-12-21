@@ -51,7 +51,10 @@ public enum ResponseMsg {
     LIKE_FRIENDS_CIRCLE_ERROR("LIKE_FRIENDS_CIRCLE_ERROR", "朋友圈点赞失败"),
 
     UNLIKE_FRIENDS_CIRCLE_SUCCESS("UNLIKE_FRIENDS_CIRCLE_SUCCESS", "朋友圈取消点赞成功"),
-    UNLIKE_FRIENDS_CIRCLE_ERROR("UNLIKE_FRIENDS_CIRCLE_ERROR", "朋友圈取消点赞失败"),;
+    UNLIKE_FRIENDS_CIRCLE_ERROR("UNLIKE_FRIENDS_CIRCLE_ERROR", "朋友圈取消点赞失败"),
+
+    ADD_FRIENDS_CIRCLE_COMMENT_SUCCESS("ADD_FRIENDS_CIRCLE_COMMENT_SUCCESS", "朋友圈添加评论成功"),
+    ADD_FRIENDS_CIRCLE_COMMENT_ERROR("ADD_FRIENDS_CIRCLE_COMMENT_ERROR", "朋友圈添加评论失败"),;
 
     ResponseMsg(String responseCode, String responseMessage) {
         this.responseCode = responseCode;

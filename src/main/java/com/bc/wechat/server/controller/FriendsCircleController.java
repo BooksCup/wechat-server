@@ -176,4 +176,35 @@ public class FriendsCircleController {
         }
         return responseEntity;
     }
+
+    /**
+     * 朋友圈添加评论
+     *
+     * @param circleId 朋友圈ID
+     * @param userId   用户ID
+     * @param content  评论内容
+     * @return ResponseEntity
+     */
+    @PostMapping(value = "/{circleId}/comment")
+    public ResponseEntity<String> addFriendsCircleComment(
+            @PathVariable String circleId,
+            @RequestParam String userId,
+            @RequestParam String content) {
+        ResponseEntity<String> responseEntity;
+
+        try {
+            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("commentId", CommonUtil.generateId());
+            paramMap.put("userId", userId);
+            paramMap.put("circleId", circleId);
+            paramMap.put("content", content);
+            friendsCircleService.addFriendsCircleComment(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_COMMENT_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_COMMENT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

@@ -117,4 +117,14 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
     public List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId) {
         return friendsCircleMapper.getFriendsCircleCommentListByCircleId(circleId);
     }
+
+    /**
+     * 朋友圈发表评论
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void addFriendsCircleComment(Map<String, Object> paramMap) {
+        friendsCircleMapper.addFriendsCircleComment(paramMap);
+    }
 }
