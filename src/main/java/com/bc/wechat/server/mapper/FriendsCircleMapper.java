@@ -74,4 +74,12 @@ public interface FriendsCircleMapper {
      * @param friendsCircleComment 朋友圈评论
      */
     void addFriendsCircleComment(FriendsCircleComment friendsCircleComment);
+
+    /**
+     * 查找某个用户的朋友圈列表
+     *
+     * @param paramMap 参数map
+     * @return 某个用户的朋友圈列表
+     */
+    List<FriendsCircle> getFriendsCircleListByPublishUserId(Map<String, Object> paramMap);
 }

@@ -138,4 +138,16 @@
             now()
         )
     </insert>
+
+    <select id="getFriendsCircleListByPublishUserId" resultMap="friendsCircle" parameterType="map">
+        <![CDATA[
+        select fc.*, u.user_nick_name, u.user_avatar
+          from t_friends_circle fc
+            left join t_user u on fc.circle_user_id = u.user_id
+            where fc.circle_user_id = #{userId}
+            and fc.circle_timestamp < #{timestamp}
+            order by fc.circle_timestamp desc
+            limit #{pageSize}
+        ]]>
+    </select>
 </mapper>

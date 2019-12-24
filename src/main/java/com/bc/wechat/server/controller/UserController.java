@@ -5,8 +5,10 @@ import java.util.*;
 
 import cn.jmessage.api.JMessageClient;
 import com.bc.wechat.server.cons.Constant;
+import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
+import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
@@ -41,6 +43,9 @@ public class UserController {
 
     @Resource
     private UserRelaService userRelaService;
+
+    @Resource
+    private FriendsCircleService friendsCircleService;
 
     /**
      * 登录
@@ -342,4 +347,40 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 查找某个用户发布的朋友圈列表
+     *
+     * @param userId    用户ID
+     * @param pageSize  每页数量
+     * @param timestamp 时间戳
+     * @return 朋友圈列表
+     */
+    @ApiOperation(value = "获取用户发布的朋友圈列表", notes = "获取用户发布的朋友圈列表")
+    @PostMapping(value = "/{userId}/friendsCircle")
+    public ResponseEntity<List<FriendsCircle>> getFriendsCircleListByPublishUserId(
+            @PathVariable String userId,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestParam(required = false, defaultValue = "0") Long timestamp) {
+        ResponseEntity<List<FriendsCircle>> responseEntity;
+        try {
+
+            if (0L == timestamp || null == timestamp) {
+                timestamp = System.currentTimeMillis();
+            }
+
+            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("pageSize", pageSize);
+            paramMap.put("timestamp", timestamp);
+            List<FriendsCircle> friendsCircleList = friendsCircleService.getFriendsCircleListByPublishUserId(paramMap);
+            responseEntity = new ResponseEntity<>(friendsCircleList, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("getFriendsCircleListByPublishUserId error: " + e.getMessage());
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
 }
