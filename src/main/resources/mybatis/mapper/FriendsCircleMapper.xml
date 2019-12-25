@@ -79,12 +79,14 @@
     </select>
 
     <select id="getLastestCirclePhotosByUserId" resultType="String" parameterType="String">
+        <![CDATA[
         select circle_photos
           from t_friends_circle
           where circle_user_id =#{userId}
-            and circle_photos is not null
+            and (circle_photos is not null and circle_photos <> '')
           order by circle_timestamp desc
           limit 0, 4
+        ]]>
     </select>
 
     <insert id="likeFriendsCircle" parameterType="map">

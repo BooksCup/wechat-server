@@ -4,6 +4,7 @@ package com.bc.wechat.server.controller;
 import java.util.*;
 
 import cn.jmessage.api.JMessageClient;
+import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.entity.User;
@@ -344,6 +345,37 @@ public class UserController {
         } else {
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.REFRESH_USER_QR_CODE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 更新用户最新N张朋友圈图片
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "更新用户最新N张朋友圈图片", notes = "更新用户最新N张朋友圈图片")
+    @PutMapping(value = "/{userId}/friendsCircle")
+    public ResponseEntity<String> refreshUserLastestCirclePhotos(
+            @PathVariable String userId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            // 更新该用户最新n张朋友圈照片
+            List<String> lastestCirclePhotoList = friendsCircleService.getLastestCirclePhotosByUserId(userId);
+
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
+            userService.updateUserLastestCirclePhotos(paramMap);
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.REFRESH_USER_LASTEST_CIRCLE_PHOTOS_SUCCESS.getResponseCode(), HttpStatus.OK);
+
+        } catch (Exception e) {
+            logger.error("refreshUserLastestCirclePhotos error: " + e.getMessage());
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.REFRESH_USER_LASTEST_CIRCLE_PHOTOS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

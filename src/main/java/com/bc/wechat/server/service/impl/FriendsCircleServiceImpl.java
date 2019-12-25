@@ -72,6 +72,9 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
                 List<String> photoes;
                 try {
                     photoes = JSONArray.parseArray(lastestCirclePhoto, String.class);
+                    if (null == photoes) {
+                        photoes = new ArrayList<>();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                     photoes = new ArrayList<>();

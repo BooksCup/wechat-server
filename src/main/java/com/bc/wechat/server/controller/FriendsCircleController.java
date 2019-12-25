@@ -65,7 +65,6 @@ public class FriendsCircleController {
             paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
             userService.updateUserLastestCirclePhotos(paramMap);
 
-
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,7 +190,6 @@ public class FriendsCircleController {
             @RequestParam String userId,
             @RequestParam String content) {
         ResponseEntity<FriendsCircleComment> responseEntity;
-
 
         try {
             FriendsCircleComment friendsCircleComment = new FriendsCircleComment();
