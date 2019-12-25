@@ -357,7 +357,7 @@ public class UserController {
      * @return 朋友圈列表
      */
     @ApiOperation(value = "获取用户发布的朋友圈列表", notes = "获取用户发布的朋友圈列表")
-    @PostMapping(value = "/{userId}/friendsCircle")
+    @GetMapping(value = "/{userId}/friendsCircle")
     public ResponseEntity<List<FriendsCircle>> getFriendsCircleListByPublishUserId(
             @PathVariable String userId,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
