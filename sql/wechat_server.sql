@@ -148,6 +148,8 @@ CREATE TABLE `t_user_rela` (
   `rela_user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
   `rela_friend_id` varchar(32) DEFAULT NULL COMMENT '好友ID',
   `rela_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `rela_delete_flag` varchar(1) DEFAULT '0' COMMENT '"0":未删除  "1":已删除',
+  `rela_delete_time` varchar(20) DEFAULT NULL COMMENT '删除时间',
   PRIMARY KEY (`rela_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -48,6 +48,7 @@
         select u.* from t_user_rela ur
 	      left join t_user u on ur.rela_friend_id = u.user_id
             where ur.rela_user_id = #{userId}
+              and ur.rela_delete_flag = '0'
     </select>
 
     <update id="deleteFriend" parameterType="map">
