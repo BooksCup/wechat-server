@@ -47,6 +47,14 @@
     <select id="getFriendList" resultMap="User" parameterType="String">
         select u.* from t_user_rela ur
 	      left join t_user u on ur.rela_friend_id = u.user_id
-            where ur.rela_user_id = #{userId};
+            where ur.rela_user_id = #{userId}
     </select>
+
+    <update id="deleteFriend" parameterType="map">
+        update t_user_rela
+          set rela_delete_flag = '1',
+              rela_delete_time = now()
+          where rela_user_id = #{userId}
+            and rela_friend_id = #{friendId}
+    </update>
 </mapper>

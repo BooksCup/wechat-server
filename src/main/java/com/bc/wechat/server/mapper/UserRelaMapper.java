@@ -35,4 +35,12 @@ public interface UserRelaMapper {
      * @return 好友列表
      */
     List<User> getFriendList(String userId);
+
+    /**
+     * 删除好友
+     *
+     * @param paramMap 参数map
+     *                 包含用户ID和好友ID
+     */
+    void deleteFriend(Map<String, String> paramMap);
 }

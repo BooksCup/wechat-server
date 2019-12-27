@@ -415,4 +415,30 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 删除好友
+     *
+     * @param userId   用户ID
+     * @param friendId 好友ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "删除好友", notes = "删除好友")
+    @DeleteMapping(value = "/{userId}/friends/{friendId}")
+    public ResponseEntity<String> deleteFriend(
+            @PathVariable String userId,
+            @PathVariable String friendId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", friendId);
+            userRelaService.deleteFriend(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("deleteFriend error: " + e.getMessage());
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

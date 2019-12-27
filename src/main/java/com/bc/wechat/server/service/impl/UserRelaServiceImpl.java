@@ -47,4 +47,15 @@ public class UserRelaServiceImpl implements UserRelaService {
     public List<User> getFriendList(String userId) {
         return userRelaMapper.getFriendList(userId);
     }
+
+    /**
+     * 删除好友
+     *
+     * @param paramMap 参数map
+     *                 包含用户ID和好友ID
+     */
+    @Override
+    public void deleteFriend(Map<String, String> paramMap) {
+        userRelaMapper.deleteFriend(paramMap);
+    }
 }
