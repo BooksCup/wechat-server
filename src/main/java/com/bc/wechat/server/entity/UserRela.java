@@ -13,6 +13,10 @@ public class UserRela {
     private String relaFriendId;
     private String relaCreateTime;
 
+    private String relaFriendPhone;
+    private String relaFriendRemark;
+    private String relaFriendDesc;
+
     public UserRela() {
 
     }
@@ -53,5 +57,29 @@ public class UserRela {
 
     public void setRelaCreateTime(String relaCreateTime) {
         this.relaCreateTime = relaCreateTime;
+    }
+
+    public String getRelaFriendPhone() {
+        return relaFriendPhone;
+    }
+
+    public void setRelaFriendPhone(String relaFriendPhone) {
+        this.relaFriendPhone = relaFriendPhone;
+    }
+
+    public String getRelaFriendRemark() {
+        return relaFriendRemark;
+    }
+
+    public void setRelaFriendRemark(String relaFriendRemark) {
+        this.relaFriendRemark = relaFriendRemark;
+    }
+
+    public String getRelaFriendDesc() {
+        return relaFriendDesc;
+    }
+
+    public void setRelaFriendDesc(String relaFriendDesc) {
+        this.relaFriendDesc = relaFriendDesc;
     }
 }

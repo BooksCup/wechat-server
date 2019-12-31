@@ -6,6 +6,10 @@
         <result column="rela_user_id" property="relaUserId" jdbcType="VARCHAR"/>
         <result column="rela_friend_id" property="relaFriendId" jdbcType="VARCHAR"/>
         <result column="rela_create_time" property="relaCreateTime" jdbcType="VARCHAR"/>
+
+        <result column="rela_friend_phone" property="relaFriendPhone" jdbcType="VARCHAR"/>
+        <result column="rela_friend_remark" property="relaFriendRemark" jdbcType="VARCHAR"/>
+        <result column="rela_friend_desc" property="relaFriendDesc" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="User" type="com.bc.wechat.server.entity.User">
@@ -25,6 +29,7 @@
         from t_user_rela
           where rela_user_id = #{userId}
             and rela_friend_id = #{friendId}
+            and rela_delete_flag = '0'
     </select>
 
     <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserRela">

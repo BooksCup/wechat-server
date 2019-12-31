@@ -30,6 +30,11 @@ public class User implements Serializable {
 
     private String userLastestCirclePhotos;
 
+    // 好友相关
+    private String userFriendPhone;
+    private String userFriendRemark;
+    private String userFriendDesc;
+
     public User() {
 
     }
@@ -159,5 +164,29 @@ public class User implements Serializable {
 
     public void setIsOwner(String isOwner) {
         this.isOwner = isOwner;
+    }
+
+    public String getUserFriendPhone() {
+        return userFriendPhone;
+    }
+
+    public void setUserFriendPhone(String userFriendPhone) {
+        this.userFriendPhone = userFriendPhone;
+    }
+
+    public String getUserFriendRemark() {
+        return userFriendRemark;
+    }
+
+    public void setUserFriendRemark(String userFriendRemark) {
+        this.userFriendRemark = userFriendRemark;
+    }
+
+    public String getUserFriendDesc() {
+        return userFriendDesc;
+    }
+
+    public void setUserFriendDesc(String userFriendDesc) {
+        this.userFriendDesc = userFriendDesc;
     }
 }

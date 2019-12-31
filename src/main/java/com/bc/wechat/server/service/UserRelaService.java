@@ -1,6 +1,7 @@
 package com.bc.wechat.server.service;
 
 import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.entity.UserRela;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,14 @@ public interface UserRelaService {
      * @return true:是  false:否
      */
     boolean checkIsFriend(Map<String, String> paramMap);
+
+    /**
+     * 获取用户关系列表
+     *
+     * @param paramMap 参数map
+     * @return 用户关系列表
+     */
+    List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap);
 
     /**
      * 获取好友列表

@@ -38,6 +38,17 @@ public class UserRelaServiceImpl implements UserRelaService {
     }
 
     /**
+     * 获取用户关系列表
+     *
+     * @param paramMap 参数map
+     * @return 用户关系列表
+     */
+    @Override
+    public List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap) {
+        return userRelaMapper.getUserRelaListByUserIdAndFriendId(paramMap);
+    }
+
+    /**
      * 获取好友列表
      *
      * @param userId 用户ID

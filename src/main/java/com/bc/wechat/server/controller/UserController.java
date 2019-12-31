@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.entity.UserRela;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
 import com.bc.wechat.server.service.UserRelaService;
@@ -438,6 +439,47 @@ public class UserController {
             logger.error("deleteFriend error: " + e.getMessage());
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 根据ID获取朋友详情
+     *
+     * @param userId   用户ID
+     * @param friendId 朋友ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "根据ID获取朋友详情", notes = "根据ID获取朋友详情")
+    @GetMapping(value = "/{userId}/friends/{friendId}")
+    public ResponseEntity<User> getFriendById(
+            @PathVariable String userId,
+            @PathVariable String friendId) {
+        ResponseEntity<User> responseEntity;
+        try {
+            User user = userService.getUserByUserId(friendId);
+
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", user.getUserId());
+
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
+
+            if (CollectionUtils.isEmpty(userRelaList)) {
+                user.setIsFriend(Constant.IS_NOT_FRIEND);
+            } else {
+                user.setIsFriend(Constant.IS_FRIEND);
+
+                UserRela userRela = userRelaList.get(0);
+                user.setUserFriendPhone(userRela.getRelaFriendPhone());
+                user.setUserFriendRemark(userRela.getRelaFriendRemark());
+                user.setUserFriendDesc(userRela.getRelaFriendDesc());
+            }
+
+            responseEntity = new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("getFriendById error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
