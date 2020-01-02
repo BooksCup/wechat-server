@@ -300,6 +300,13 @@ public class UserController {
                 user.setIsFriend(Constant.IS_NOT_FRIEND);
             }
 
+            // 来源
+            if (keyword.equals(user.getUserPhone())) {
+                user.setFriendSource(Constant.FRIENDS_SOURCE_BY_PHONE);
+            } else if (keyword.equals(user.getUserWxId())) {
+                user.setFriendSource(Constant.FRIENDS_SOURCE_BY_WX_ID);
+            }
+
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         }

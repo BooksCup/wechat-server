@@ -89,4 +89,15 @@ public class Constant {
      * 高危操作密码
      */
     public static final String HIGH_RISK_OPER_PASSWORD = "1qaz2wsx";
+
+    // 好友来源
+    /**
+     * 来自手机号搜索
+     */
+    public static final String FRIENDS_SOURCE_BY_PHONE = "1";
+
+    /**
+     * 来自微信号搜索
+     */
+    public static final String FRIENDS_SOURCE_BY_WX_ID = "2";
 }
