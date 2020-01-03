@@ -1,5 +1,6 @@
 package com.bc.wechat.server.service.impl;
 
+import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendApply;
 import com.bc.wechat.server.entity.UserRela;
 import com.bc.wechat.server.mapper.FriendApplyMapper;
@@ -64,6 +65,10 @@ public class FriendApplyServiceImpl implements FriendApplyService {
     public void makeFriends(String fromUserId, String toUserId) {
         UserRela userRela = new UserRela(fromUserId, toUserId);
         UserRela friendUserRela = new UserRela(toUserId, fromUserId);
+
+        userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
+        friendUserRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
+
         userRelaMapper.addUserRela(userRela);
         userRelaMapper.addUserRela(friendUserRela);
     }

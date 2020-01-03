@@ -100,4 +100,20 @@ public class Constant {
      * 来自微信号搜索
      */
     public static final String FRIENDS_SOURCE_BY_WX_ID = "2";
+
+    // 关系状态
+    /**
+     * 路人
+     */
+    public static final String RELA_STATUS_STRANGER = "0";
+
+    /**
+     * 好友
+     */
+    public static final String RELA_STATUS_FRIEND = "1";
+
+    /**
+     * 黑名单
+     */
+    public static final String RELA_STATUS_BLACK_LIST = "2";
 }

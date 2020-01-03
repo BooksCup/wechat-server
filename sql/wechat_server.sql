@@ -147,6 +147,7 @@ CREATE TABLE `t_user_rela` (
   `rela_id` varchar(32) NOT NULL COMMENT '用户关系表主键',
   `rela_user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
   `rela_friend_id` varchar(32) DEFAULT NULL COMMENT '好友ID',
+  `rela_status` varchar(2) DEFAULT NULL COMMENT '"0":陌生人 "1":好友 "2":黑名单',
   `rela_friend_phone` varchar(20) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系)',
   `rela_friend_remark` varchar(200) DEFAULT NULL COMMENT '好友备注(设置备注和标签中添加)',
   `rela_friend_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',

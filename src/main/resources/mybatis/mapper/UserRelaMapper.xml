@@ -30,6 +30,7 @@
           where rela_user_id = #{userId}
             and rela_friend_id = #{friendId}
             and rela_delete_flag = '0'
+            and rela_status = '1'
     </select>
 
     <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserRela">
@@ -38,6 +39,7 @@
             rela_id,
             rela_user_id,
             rela_friend_id,
+            rela_status,
             rela_create_time
         )
         values
@@ -45,6 +47,7 @@
             #{relaId},
             #{relaUserId},
             #{relaFriendId},
+            #{relaStatus},
             now()
         )
     </insert>
@@ -54,6 +57,7 @@
 	      left join t_user u on ur.rela_friend_id = u.user_id
             where ur.rela_user_id = #{userId}
               and ur.rela_delete_flag = '0'
+              and rela_status = '1'
     </select>
 
     <update id="deleteFriend" parameterType="map">
