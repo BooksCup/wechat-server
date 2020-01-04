@@ -14,6 +14,20 @@ import java.util.Map;
 public interface UserRelaService {
 
     /**
+     * 新增用户关系
+     *
+     * @param userRela 用户关系
+     */
+    void addUserRela(UserRela userRela);
+
+    /**
+     * 修改用户关系
+     *
+     * @param userRela 用户关系
+     */
+    void updateUserRela(UserRela userRela);
+
+    /**
      * 检查是否好友关系
      *
      * @param paramMap 参数map

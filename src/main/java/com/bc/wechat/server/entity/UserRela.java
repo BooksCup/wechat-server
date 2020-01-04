@@ -29,6 +29,17 @@ public class UserRela {
         this.relaFriendId = relaFriendId;
     }
 
+    public UserRela(String relaUserId, String relaFriendId,
+                    String relaFriendRemark, String relaFriendPhone, String relaFriendDesc) {
+        this.relaId = CommonUtil.generateId();
+        this.relaUserId = relaUserId;
+        this.relaFriendId = relaFriendId;
+        this.relaFriendRemark = relaFriendRemark;
+        this.relaFriendPhone = relaFriendPhone;
+        this.relaFriendDesc = relaFriendDesc;
+    }
+
+
     public String getRelaId() {
         return relaId;
     }

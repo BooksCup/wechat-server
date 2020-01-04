@@ -23,6 +23,26 @@ public class UserRelaServiceImpl implements UserRelaService {
     private UserRelaMapper userRelaMapper;
 
     /**
+     * 新增用户关系
+     *
+     * @param userRela 用户关系
+     */
+    @Override
+    public void addUserRela(UserRela userRela) {
+        userRelaMapper.addUserRela(userRela);
+    }
+
+    /**
+     * 修改用户关系
+     *
+     * @param userRela 用户关系
+     */
+    @Override
+    public void updateUserRela(UserRela userRela) {
+        userRelaMapper.updateUserRela(userRela);
+    }
+
+    /**
      * 检查是否好友关系
      *
      * @param paramMap 参数map

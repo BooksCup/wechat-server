@@ -293,6 +293,7 @@ public class UserController {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("friendId", user.getUserId());
+            paramMap.put("status", Constant.RELA_STATUS_FRIEND);
             boolean isFriend = userRelaService.checkIsFriend(paramMap);
             if (isFriend) {
                 user.setIsFriend(Constant.IS_FRIEND);
@@ -305,6 +306,17 @@ public class UserController {
                 user.setFriendSource(Constant.FRIENDS_SOURCE_BY_PHONE);
             } else if (keyword.equals(user.getUserWxId())) {
                 user.setFriendSource(Constant.FRIENDS_SOURCE_BY_WX_ID);
+            }
+
+            paramMap.clear();
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", user.getUserId());
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
+            if (!CollectionUtils.isEmpty(userRelaList)) {
+                UserRela userRela = userRelaList.get(0);
+                user.setUserFriendRemark(userRela.getRelaFriendRemark());
+                user.setUserFriendPhone(userRela.getRelaFriendPhone());
+                user.setUserFriendDesc(userRela.getRelaFriendDesc());
             }
 
             responseEntity = new ResponseEntity<>(user,
@@ -469,14 +481,21 @@ public class UserController {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("friendId", user.getUserId());
+            paramMap.put("status", Constant.RELA_STATUS_FRIEND);
 
+            boolean isFriend = userRelaService.checkIsFriend(paramMap);
+            if (isFriend) {
+                user.setIsFriend(Constant.IS_FRIEND);
+            } else {
+                user.setIsFriend(Constant.IS_NOT_FRIEND);
+            }
+
+            paramMap.clear();
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", user.getUserId());
             List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
 
-            if (CollectionUtils.isEmpty(userRelaList)) {
-                user.setIsFriend(Constant.IS_NOT_FRIEND);
-            } else {
-                user.setIsFriend(Constant.IS_FRIEND);
-
+            if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
                 user.setUserFriendPhone(userRela.getRelaFriendPhone());
                 user.setUserFriendRemark(userRela.getRelaFriendRemark());
@@ -487,6 +506,45 @@ public class UserController {
         } catch (Exception e) {
             logger.error("getFriendById error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @ApiOperation(value = "修改用户备注信息", notes = "修改用户备注信息")
+    @PutMapping(value = "/{userId}/remarks")
+    public ResponseEntity<String> updateUserRemarks(
+            @PathVariable String userId,
+            @RequestParam(required = false) String friendId,
+            @RequestParam(required = false) String friendRemark,
+            @RequestParam(required = false) String friendPhone,
+            @RequestParam(required = false) String friendDesc) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", friendId);
+
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
+
+            UserRela userRela = new UserRela(userId, friendId, friendRemark, friendPhone, friendDesc);
+
+            if (CollectionUtils.isEmpty(userRelaList)) {
+                // 用户关系不存在
+                // 非好友
+                // insert
+                userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
+                userRelaService.addUserRela(userRela);
+            } else {
+                // 用户关系存在
+                // update
+                userRela.setRelaId(userRelaList.get(0).getRelaId());
+                userRelaService.updateUserRela(userRela);
+            }
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REMARKS_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserRemarks error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REMARKS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
