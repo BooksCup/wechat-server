@@ -510,6 +510,16 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 修改用户备注信息
+     *
+     * @param userId       用户ID
+     * @param friendId     好友ID
+     * @param friendRemark 用户备注
+     * @param friendPhone  用户手机号
+     * @param friendDesc   用户描述
+     * @return ResponseEntity
+     */
     @ApiOperation(value = "修改用户备注信息", notes = "修改用户备注信息")
     @PutMapping(value = "/{userId}/remarks")
     public ResponseEntity<String> updateUserRemarks(
