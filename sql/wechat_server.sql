@@ -151,9 +151,11 @@ CREATE TABLE `t_user_rela` (
   `rela_friend_phone` varchar(20) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系)',
   `rela_friend_remark` varchar(200) DEFAULT NULL COMMENT '好友备注(设置备注和标签中添加)',
   `rela_friend_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
+  `rela_auth` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
+  `rela_not_see_me` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看我 "1":不让他看我',
+  `rela_not_see_him` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看他 "1":不看他',
   `rela_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
-  `rela_delete_flag` varchar(1) DEFAULT '0' COMMENT '"0":未删除  "1":已删除',
-  `rela_delete_time` varchar(20) DEFAULT NULL COMMENT '删除时间',
+  `rela_update_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`rela_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
