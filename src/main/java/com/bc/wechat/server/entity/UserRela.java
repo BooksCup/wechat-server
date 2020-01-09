@@ -19,6 +19,10 @@ public class UserRela {
     private String relaFriendRemark;
     private String relaFriendDesc;
 
+    private String relaAuth;
+    private String relaNotSeeMe;
+    private String relaNotSeeHim;
+
     public UserRela() {
 
     }
@@ -37,6 +41,17 @@ public class UserRela {
         this.relaFriendRemark = relaFriendRemark;
         this.relaFriendPhone = relaFriendPhone;
         this.relaFriendDesc = relaFriendDesc;
+    }
+
+    public UserRela(String relaUserId, String relaFriendId,
+                    String relaFriendRemark, String relaAuth, String relaNotSeeMe, String relaNotSeeHim) {
+        this.relaId = CommonUtil.generateId();
+        this.relaUserId = relaUserId;
+        this.relaFriendId = relaFriendId;
+        this.relaFriendRemark = relaFriendRemark;
+        this.relaAuth = relaAuth;
+        this.relaNotSeeMe = relaNotSeeMe;
+        this.relaNotSeeHim = relaNotSeeHim;
     }
 
 
@@ -102,5 +117,29 @@ public class UserRela {
 
     public void setRelaFriendDesc(String relaFriendDesc) {
         this.relaFriendDesc = relaFriendDesc;
+    }
+
+    public String getRelaAuth() {
+        return relaAuth;
+    }
+
+    public void setRelaAuth(String relaAuth) {
+        this.relaAuth = relaAuth;
+    }
+
+    public String getRelaNotSeeMe() {
+        return relaNotSeeMe;
+    }
+
+    public void setRelaNotSeeMe(String relaNotSeeMe) {
+        this.relaNotSeeMe = relaNotSeeMe;
+    }
+
+    public String getRelaNotSeeHim() {
+        return relaNotSeeHim;
+    }
+
+    public void setRelaNotSeeHim(String relaNotSeeHim) {
+        this.relaNotSeeHim = relaNotSeeHim;
     }
 }

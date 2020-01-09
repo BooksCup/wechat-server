@@ -7,6 +7,7 @@ import com.bc.wechat.server.entity.FriendApply;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendApplyService;
+import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -37,6 +38,9 @@ public class FriendApplyController {
     private FriendApplyService friendApplyService;
 
     @Resource
+    private UserRelaService userRelaService;
+
+    @Resource
     private JpushBiz jpushBiz;
 
     @ApiOperation(value = "新增好友申请", notes = "新增好友申请")
@@ -44,11 +48,18 @@ public class FriendApplyController {
     public ResponseEntity<String> addFriendApply(
             @RequestParam String fromUserId,
             @RequestParam String toUserId,
-            @RequestParam String applyRemark) {
+            @RequestParam String applyRemark,
+            @RequestParam(required = false) String relaRemark,
+            @RequestParam(required = false, defaultValue = Constant.RELA_AUTH_ALL) String relaAuth,
+            @RequestParam(required = false, defaultValue = Constant.RELA_CAN_SEE_ME) String relaNotSeeMe,
+            @RequestParam(required = false, defaultValue = Constant.RELA_CAN_SEE_HIM) String relaNotSeeHim) {
         ResponseEntity<String> responseEntity;
         FriendApply friendApply = new FriendApply(fromUserId, toUserId, applyRemark);
         try {
             friendApplyService.addFriendApply(friendApply);
+            userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaRemark,
+                    relaAuth, relaNotSeeMe, relaNotSeeHim);
+
 
             User user = userService.getUserByUserId(fromUserId);
             String alert = user.getUserNickName() + "请求加你为好友";

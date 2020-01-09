@@ -58,4 +58,8 @@ public interface UserRelaService {
      *                 包含用户ID和好友ID
      */
     void deleteFriend(Map<String, String> paramMap);
+
+    void addSingleUserRelaByFriendApply(String fromUserId, String toUserId,
+                                        String relaRemark, String relaAuth,
+                                        String relaNotSeeMe, String relaNotSeeHim);
 }

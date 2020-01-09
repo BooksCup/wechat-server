@@ -29,7 +29,6 @@
         from t_user_rela
         where rela_user_id = #{userId}
         and rela_friend_id = #{friendId}
-        and rela_delete_flag = '0'
         <if test="status != null and '' != status">
             and rela_status = #{status}
         </if>
@@ -45,6 +44,9 @@
             rela_friend_phone,
             rela_friend_remark,
             rela_friend_desc,
+            rela_auth,
+            rela_not_see_me,
+            rela_not_see_him,
             rela_create_time
         )
         values
@@ -56,6 +58,9 @@
             #{relaFriendPhone},
             #{relaFriendRemark},
             #{relaFriendDesc},
+            #{relaAuth},
+            #{relaNotSeeMe},
+            #{relaNotSeeHim},
             now()
         )
     </insert>
@@ -73,18 +78,26 @@
         where rela_id = #{relaId}
     </update>
 
+    <update id="updateUserRelaByFriendApply" parameterType="com.bc.wechat.server.entity.UserRela">
+        update t_user_rela
+        set
+        rela_friend_remark = #{relaFriendRemark},
+        rela_auth = #{relaAuth},
+        rela_not_see_me = #{relaNotSeeMe},
+        rela_not_see_him = #{relaNotSeeHim},
+        rela_update_time = now()
+        where rela_id = #{relaId}
+    </update>
+
     <select id="getFriendList" resultMap="User" parameterType="String">
         select u.* from t_user_rela ur
 	      left join t_user u on ur.rela_friend_id = u.user_id
             where ur.rela_user_id = #{userId}
-              and ur.rela_delete_flag = '0'
               and rela_status = '1'
     </select>
 
     <update id="deleteFriend" parameterType="map">
-        update t_user_rela
-          set rela_delete_flag = '1',
-              rela_delete_time = now()
+        delete from t_user_rela
           where rela_user_id = #{userId}
             and rela_friend_id = #{friendId}
     </update>
