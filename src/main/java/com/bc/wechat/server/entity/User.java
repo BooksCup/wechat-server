@@ -32,7 +32,9 @@ public class User implements Serializable {
 
     private String friendSource;
 
-    // 好友相关
+    /**
+     * 好友相关
+     */
     private String userFriendPhone;
     private String userFriendRemark;
     private String userFriendDesc;
