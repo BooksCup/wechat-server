@@ -63,7 +63,6 @@
             inner join t_user_rela ur on fc.circle_user_id = ur.rela_friend_id
             left join t_user u on fc.circle_user_id = u.user_id
             where ur.rela_user_id = #{userId}
-              and ur.rela_delete_flag = '0'
               and fc.circle_timestamp < #{timestamp}
               order by fc.circle_timestamp desc
               limit #{pageSize}
