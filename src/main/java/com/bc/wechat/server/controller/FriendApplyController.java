@@ -89,16 +89,33 @@ public class FriendApplyController {
         return responseEntity;
     }
 
+    /**
+     * 接受好友申请
+     * eg:接受者给申请者添加备注
+     *
+     * @param applyId       申请ID
+     * @param relaRemark    好友备注
+     * @param relaAuth      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param relaNotSeeMe  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param relaNotSeeHim 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @return ResponseEntity
+     */
     @ApiOperation(value = "接受好友申请", notes = "接受好友申请")
     @PutMapping(value = "")
-    public ResponseEntity<String> acceptFriendApply(@RequestParam String applyId) {
+    public ResponseEntity<String> acceptFriendApply(
+            @RequestParam String applyId,
+            @RequestParam(required = false) String relaRemark,
+            @RequestParam(required = false, defaultValue = Constant.RELA_AUTH_ALL) String relaAuth,
+            @RequestParam(required = false, defaultValue = Constant.RELA_CAN_SEE_ME) String relaNotSeeMe,
+            @RequestParam(required = false, defaultValue = Constant.RELA_CAN_SEE_HIM) String relaNotSeeHim) {
         ResponseEntity<String> responseEntity;
         try {
             friendApplyService.acceptFriendApply(applyId);
 
             FriendApply friendApply = friendApplyService.getFriendApplyById(applyId);
             // 双方加好友
-            friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId());
+            friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId(),
+                    relaRemark, relaAuth, relaNotSeeMe, relaNotSeeHim);
 
             responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
