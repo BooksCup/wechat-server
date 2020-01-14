@@ -92,7 +92,7 @@ public class FriendApplyServiceImpl implements FriendApplyService {
         paramMap.put("toUserId", fromUserId);
         List<UserRela> friendUserRelaList = userRelaMapper.getUserRelaListByUserIdAndFriendId(paramMap);
         if (CollectionUtils.isEmpty(friendUserRelaList)) {
-            UserRela userRela = new UserRela(fromUserId, toUserId, relaRemark,
+            UserRela userRela = new UserRela(toUserId, fromUserId, relaRemark,
                     relaAuth, relaNotSeeMe, relaNotSeeHim);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
             userRelaMapper.addUserRela(userRela);
