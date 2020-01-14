@@ -4,11 +4,13 @@ import cn.jiguang.common.resp.APIConnectionException;
 import cn.jiguang.common.resp.APIRequestException;
 import cn.jpush.api.JPushClient;
 import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.Message;
 import cn.jpush.api.push.model.Platform;
 import cn.jpush.api.push.model.PushPayload;
 import cn.jpush.api.push.model.audience.Audience;
 import cn.jpush.api.push.model.notification.Notification;
 import cn.jpush.api.push.model.notification.PlatformNotification;
+import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -52,6 +54,25 @@ public class JpushBiz {
                 .build();
 
         try {
+            PushResult result = jPushClient.sendPush(pushPayload);
+            logger.info("Got result - " + result);
+        } catch (APIConnectionException e) {
+            logger.error("Connection error, should retry later", e);
+        } catch (APIRequestException e) {
+            logger.error("Should review the error, and fix the request", e);
+            logger.info("HTTP Status: " + e.getStatus());
+            logger.info("Error Code: " + e.getErrorCode());
+            logger.info("Error Message: " + e.getErrorMessage());
+        }
+    }
+
+    public void sendPushWithoutNotification(String alias, Map<String, String> extras) {
+        try {
+            PushPayload pushPayload = PushPayload.newBuilder()
+                    .setPlatform(Platform.all())
+                    .setAudience(Audience.alias(alias))
+                    .setMessage(Message.content(JSON.toJSONString(extras)))
+                    .build();
             PushResult result = jPushClient.sendPush(pushPayload);
             logger.info("Got result - " + result);
         } catch (APIConnectionException e) {

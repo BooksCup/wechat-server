@@ -44,6 +44,11 @@ public class Constant {
      */
     public static final String PUSH_SERVICE_TYPE_ADD_FRIENDS_APPLY = "ADD_FRIENDS_APPLY";
 
+    /**
+     * 好友接收
+     */
+    public static final String PUSH_SERVICE_TYPE_ADD_FRIENDS_ACCEPT = "ADD_FRIENDS_ACCEPT";
+
     // 消息类型
     /**
      * 文字

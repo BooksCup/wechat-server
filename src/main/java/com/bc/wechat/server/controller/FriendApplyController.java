@@ -117,6 +117,13 @@ public class FriendApplyController {
             friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId(),
                     relaRemark, relaAuth, relaNotSeeMe, relaNotSeeHim);
 
+            User toUser = userService.getUserByUserId(friendApply.getToUserId());
+            toUser.setIsFriend(Constant.IS_FRIEND);
+            Map<String, String> extras = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            extras.put("serviceType", Constant.PUSH_SERVICE_TYPE_ADD_FRIENDS_ACCEPT);
+            extras.put("user", JSON.toJSONString(toUser));
+            jpushBiz.sendPushWithoutNotification(friendApply.getFromUserId(), extras);
+
             responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             logger.error("acceptFriendApply error: " + e.getMessage());
