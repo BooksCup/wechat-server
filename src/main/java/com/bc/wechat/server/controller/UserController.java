@@ -500,6 +500,7 @@ public class UserController {
                 user.setUserFriendPhone(userRela.getRelaFriendPhone());
                 user.setUserFriendRemark(userRela.getRelaFriendRemark());
                 user.setUserFriendDesc(userRela.getRelaFriendDesc());
+                user.setIsStarFriend(userRela.getRelaIsStarFriend());
             }
 
             responseEntity = new ResponseEntity<>(user, HttpStatus.OK);

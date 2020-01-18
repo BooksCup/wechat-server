@@ -23,6 +23,8 @@ public class UserRela {
     private String relaNotSeeMe;
     private String relaNotSeeHim;
 
+    private String relaIsStarFriend;
+
     public UserRela() {
 
     }
@@ -141,5 +143,13 @@ public class UserRela {
 
     public void setRelaNotSeeHim(String relaNotSeeHim) {
         this.relaNotSeeHim = relaNotSeeHim;
+    }
+
+    public String getRelaIsStarFriend() {
+        return relaIsStarFriend;
+    }
+
+    public void setRelaIsStarFriend(String relaIsStarFriend) {
+        this.relaIsStarFriend = relaIsStarFriend;
     }
 }

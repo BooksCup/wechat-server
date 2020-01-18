@@ -39,6 +39,8 @@ public class User implements Serializable {
     private String userFriendRemark;
     private String userFriendDesc;
 
+    private String isStarFriend;
+
     public User() {
 
     }
@@ -200,5 +202,13 @@ public class User implements Serializable {
 
     public void setUserFriendDesc(String userFriendDesc) {
         this.userFriendDesc = userFriendDesc;
+    }
+
+    public String getIsStarFriend() {
+        return isStarFriend;
+    }
+
+    public void setIsStarFriend(String isStarFriend) {
+        this.isStarFriend = isStarFriend;
     }
 }

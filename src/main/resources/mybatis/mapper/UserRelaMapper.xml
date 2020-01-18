@@ -10,6 +10,8 @@
         <result column="rela_friend_phone" property="relaFriendPhone" jdbcType="VARCHAR"/>
         <result column="rela_friend_remark" property="relaFriendRemark" jdbcType="VARCHAR"/>
         <result column="rela_friend_desc" property="relaFriendDesc" jdbcType="VARCHAR"/>
+
+        <result column="rela_is_star_friend" property="relaIsStarFriend" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="User" type="com.bc.wechat.server.entity.User">
