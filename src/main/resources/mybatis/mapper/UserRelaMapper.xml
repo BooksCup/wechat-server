@@ -103,4 +103,12 @@
           where rela_user_id = #{userId}
             and rela_friend_id = #{friendId}
     </update>
+
+    <update id="updateUserStarFriend" parameterType="map">
+        update t_user_rela
+        set
+        rela_is_star_friend = #{isStarFriend}
+        where rela_user_id = #{userId}
+          and rela_friend_id = #{friendId}
+    </update>
 </mapper>

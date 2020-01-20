@@ -60,7 +60,10 @@ public enum ResponseMsg {
     REFRESH_USER_LASTEST_CIRCLE_PHOTOS_ERROR("REFRESH_USER_LASTEST_CIRCLE_PHOTOS_ERROR", "更新用户最新N张朋友圈图片失败"),
 
     UPDATE_USER_REMARKS_SUCCESS("UPDATE_USER_REMARKS_SUCCESS", "更新用户备注信息成功"),
-    UPDATE_USER_REMARKS_ERROR("UPDATE_USER_REMARKS_ERROR", "更新用户备注信息失败");
+    UPDATE_USER_REMARKS_ERROR("UPDATE_USER_REMARKS_ERROR", "更新用户备注信息失败"),
+
+    UPDATE_USER_STAR_FRIEND_SUCCESS("UPDATE_USER_STAR_FRIEND_SUCCESS", "设置或取消星标朋友成功"),
+    UPDATE_USER_STAR_FRIEND_ERROR("UPDATE_USER_STAR_FRIEND_ERROR", "设置或取消星标朋友失败");
 
     ResponseMsg(String responseCode, String responseMessage) {
         this.responseCode = responseCode;

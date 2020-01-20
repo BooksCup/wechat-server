@@ -58,4 +58,12 @@ public interface UserRelaMapper {
      *                 包含用户ID和好友ID
      */
     void deleteFriend(Map<String, String> paramMap);
+
+    /**
+     * 设置或取消星标朋友
+     *
+     * @param paramMap 参数map
+     * @return ResponseEntity
+     */
+    void updateUserStarFriend(Map<String, String> paramMap);
 }

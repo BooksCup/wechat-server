@@ -125,4 +125,15 @@ public class UserRelaServiceImpl implements UserRelaService {
             userRelaMapper.updateUserRelaByFriendApply(userRela);
         }
     }
+
+    /**
+     * 设置或取消星标朋友
+     *
+     * @param paramMap 参数map
+     * @return ResponseEntity
+     */
+    @Override
+    public void updateUserStarFriend(Map<String, String> paramMap) {
+        userRelaMapper.updateUserStarFriend(paramMap);
+    }
 }

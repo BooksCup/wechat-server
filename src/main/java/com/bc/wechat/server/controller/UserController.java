@@ -559,4 +559,35 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 设置或取消星标朋友
+     *
+     * @param userId       用户ID
+     * @param friendId     好友ID
+     * @param isStarFriend 是否星标好友 "0":否 "1":"是"
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "设置或取消星标朋友", notes = "设置或取消星标朋友")
+    @PutMapping(value = "/{userId}/starFriend")
+    public ResponseEntity<String> updateUserStarFriend(
+            @PathVariable String userId,
+            @RequestParam String friendId,
+            @RequestParam String isStarFriend) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("friendId", friendId);
+            paramMap.put("isStarFriend", isStarFriend);
+
+            userRelaService.updateUserStarFriend(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_STAR_FRIEND_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("updateUserStarFriend error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_STAR_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

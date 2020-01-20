@@ -73,4 +73,12 @@ public interface UserRelaService {
     void addSingleUserRelaByFriendApply(String fromUserId, String toUserId,
                                         String relaRemark, String relaAuth,
                                         String relaNotSeeMe, String relaNotSeeHim);
+
+    /**
+     * 设置或取消星标朋友
+     *
+     * @param paramMap 参数map
+     * @return ResponseEntity
+     */
+    void updateUserStarFriend(Map<String, String> paramMap);
 }
