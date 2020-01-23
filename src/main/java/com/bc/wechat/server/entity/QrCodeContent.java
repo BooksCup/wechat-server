@@ -11,6 +11,7 @@ public class QrCodeContent {
     public final static String QR_CODE_TYPE_USER = "user";
 
     private String type;
+
     private Map<String, Object> contentMap;
 
     public String getType() {

@@ -155,4 +155,16 @@ public class Constant {
      * 朋友圈时视频动态-不看他
      */
     public static final String RELA_NOT_SEE_HIM = "1";
+
+
+    // 系统日志类型
+    /**
+     * 登录
+     */
+    public static final String SYS_LOG_TYPE_LOG_IN = "LOG_IN";
+
+    /**
+     * 登出
+     */
+    public static final String SYS_LOG_TYPE_LOG_OUT = "LOG_OUT";
 }

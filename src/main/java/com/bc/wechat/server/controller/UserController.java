@@ -7,10 +7,12 @@ import cn.jmessage.api.JMessageClient;
 import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.SysLog;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.entity.UserRela;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendsCircleService;
+import com.bc.wechat.server.service.SysLogService;
 import com.bc.wechat.server.service.UserRelaService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
@@ -49,6 +51,9 @@ public class UserController {
     @Resource
     private FriendsCircleService friendsCircleService;
 
+    @Resource
+    private SysLogService sysLogService;
+
     /**
      * 登录
      *
@@ -77,6 +82,9 @@ public class UserController {
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         }
+
+        sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, "phone: " + phone));
+
         return responseEntity;
     }
 
