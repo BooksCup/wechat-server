@@ -71,9 +71,16 @@ public class UserController {
         paramMap.put("phone", phone);
         paramMap.put("password", password);
         List<User> userList = userService.getUserByLogin(paramMap);
+
+        StringBuffer sysLogBuffer = new StringBuffer();
+
         if (CollectionUtils.isEmpty(userList)) {
             responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.BAD_REQUEST);
+
+            sysLogBuffer.append("phone: ").append(phone).append(", ")
+                    .append("status: login error.");
+            sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, sysLogBuffer.toString()));
         } else {
             User user = userList.get(0);
             List<User> friendList = userRelaService.getFriendList(user.getUserId());
@@ -81,9 +88,11 @@ public class UserController {
 
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
-        }
 
-        sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, "phone: " + phone));
+            sysLogBuffer.append("phone: ").append(phone).append(", ")
+                    .append("status: login success.");
+            sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, user.getUserId(), sysLogBuffer.toString()));
+        }
 
         return responseEntity;
     }

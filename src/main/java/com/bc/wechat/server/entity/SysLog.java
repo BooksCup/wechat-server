@@ -10,6 +10,7 @@ import com.bc.wechat.server.utils.CommonUtil;
 public class SysLog {
     private String id;
     private String type;
+    private String userId;
     private String content;
     private String createTime;
 
@@ -20,6 +21,14 @@ public class SysLog {
     public SysLog(String type, String content) {
         this.id = CommonUtil.generateId();
         this.type = type;
+        this.content = content;
+    }
+
+
+    public SysLog(String type, String userId, String content) {
+        this.id = CommonUtil.generateId();
+        this.type = type;
+        this.userId = userId;
         this.content = content;
     }
 
@@ -37,6 +46,14 @@ public class SysLog {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getContent() {
