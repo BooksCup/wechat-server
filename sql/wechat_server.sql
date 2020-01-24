@@ -125,7 +125,8 @@ DROP TABLE IF EXISTS `t_sys_log`;
 CREATE TABLE `t_sys_log` (
   `log_id` varchar(32) NOT NULL COMMENT '系统日志表主键',
   `log_type` varchar(20) DEFAULT NULL COMMENT '日志类型',
-  `log_text` varchar(32) DEFAULT NULL COMMENT '日志内容',
+  `log_user_id` varchar(32) DEFAULT NULL COMMENT '日志相关用户表主键',
+  `log_content` varchar(300) DEFAULT NULL COMMENT '日志内容',
   `log_create_time` varchar(20) DEFAULT NULL COMMENT '日志创建时间',
   PRIMARY KEY (`log_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
