@@ -11,6 +11,7 @@
         <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
         <result column="user_im_password" property="userImPassword" jdbcType="VARCHAR"/>
         <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
+        <result column="user_wx_id_modify_flag" property="userWxIdModifyFlag" jdbcType="VARCHAR"/>
         <result column="user_qr_code" property="userQrCode" jdbcType="VARCHAR"/>
         <result column="user_lastest_circle_photos" property="userLastestCirclePhotos" jdbcType="VARCHAR"/>
     </resultMap>

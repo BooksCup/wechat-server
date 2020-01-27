@@ -28,6 +28,7 @@ public class User implements Serializable {
     private List<User> friendList;
     private String isOwner;
 
+    private String userWxIdModifyFlag;
     private String userLastestCirclePhotos;
 
     private String friendSource;
@@ -156,20 +157,28 @@ public class User implements Serializable {
         this.friendList = friendList;
     }
 
-    public String getUserLastestCirclePhotos() {
-        return userLastestCirclePhotos;
-    }
-
-    public void setUserLastestCirclePhotos(String userLastestCirclePhotos) {
-        this.userLastestCirclePhotos = userLastestCirclePhotos;
-    }
-
     public String getIsOwner() {
         return isOwner;
     }
 
     public void setIsOwner(String isOwner) {
         this.isOwner = isOwner;
+    }
+
+    public String getUserWxIdModifyFlag() {
+        return userWxIdModifyFlag;
+    }
+
+    public void setUserWxIdModifyFlag(String userWxIdModifyFlag) {
+        this.userWxIdModifyFlag = userWxIdModifyFlag;
+    }
+
+    public String getUserLastestCirclePhotos() {
+        return userLastestCirclePhotos;
+    }
+
+    public void setUserLastestCirclePhotos(String userLastestCirclePhotos) {
+        this.userLastestCirclePhotos = userLastestCirclePhotos;
     }
 
     public String getFriendSource() {
