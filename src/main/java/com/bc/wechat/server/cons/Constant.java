@@ -167,4 +167,9 @@ public class Constant {
      * 登出
      */
     public static final String SYS_LOG_TYPE_LOG_OUT = "LOG_OUT";
+
+    /**
+     * 用户微信号修改标记
+     */
+    public static final String USER_WX_ID_MODIFY_FLAG_TRUE = "1";
 }

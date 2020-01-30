@@ -59,6 +59,7 @@
     <update id="updateUserWxId" parameterType="map">
         update t_user
           set user_wx_id = #{userWxId},
+              user_wx_id_modify_flag = #{userWxIdModifyFlag},
               user_modify_time = now()
             where user_id = #{userId}
     </update>

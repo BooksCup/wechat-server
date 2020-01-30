@@ -193,6 +193,7 @@ public class UserController {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("userWxId", userWxId);
+            paramMap.put("userWxIdModifyFlag", Constant.USER_WX_ID_MODIFY_FLAG_TRUE);
             userService.updateUserWxId(paramMap);
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_WX_ID_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
