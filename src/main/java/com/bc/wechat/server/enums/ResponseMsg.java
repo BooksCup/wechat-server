@@ -67,6 +67,9 @@ public enum ResponseMsg {
 
     OSS_CREATE_BUCKET_SUCCESS("OSS_CREATE_BUCKET_SUCCESS", "创建存储空间成功"),
     OSS_CREATE_BUCKET_ERROR("OSS_CREATE_BUCKET_ERROR", "创建存储空间失败"),
+
+    OSS_DELETE_BUCKET_SUCCESS("OSS_DELETE_BUCKET_SUCCESS", "删除存储空间成功"),
+    OSS_DELETE_BUCKET_ERROR("OSS_DELETE_BUCKET_ERROR", "删除存储空间失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {

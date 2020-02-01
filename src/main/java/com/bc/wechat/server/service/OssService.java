@@ -24,4 +24,11 @@ public interface OssService {
      * @return 存储空间列表
      */
     List<Bucket> listBuckets();
+
+    /**
+     * 删除存储空间
+     *
+     * @param bucketName 存储空间的名称
+     */
+    void deleteBucket(String bucketName);
 }

@@ -26,6 +26,8 @@ public class OssServiceImpl implements OssService {
     @Value("${oss.secret}")
     private String accessKeySecret;
 
+    // === bucket ===
+
     /**
      * 创建存储空间
      *
@@ -58,4 +60,20 @@ public class OssServiceImpl implements OssService {
         ossClient.shutdown();
         return buckets;
     }
+
+    /**
+     * 删除存储空间
+     *
+     * @param bucketName 存储空间的名称
+     */
+    @Override
+    public void deleteBucket(String bucketName) {
+        // 创建OSSClient实例
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        // 删除存储空间
+        ossClient.deleteBucket(bucketName);
+        // 关闭OSSClient
+        ossClient.shutdown();
+    }
+    // === bucket ===
 }

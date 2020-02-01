@@ -28,6 +28,7 @@ public class OssController {
     @Resource
     private OssService ossService;
 
+    // === bucket ===
     /**
      * 创建存储空间
      * 存储空间（Bucket）是存储对象（Object）的容器。对象都隶属于存储空间。
@@ -76,4 +77,30 @@ public class OssController {
         }
         return responseEntity;
     }
+
+    /**
+     * 删除存储空间
+     *
+     * @param bucketName 存储空间的名称
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "删除存储空间", notes = "删除存储空间")
+    @DeleteMapping(value = "/bucket")
+    public ResponseEntity<String> deleteBucket(
+            @RequestParam String bucketName) {
+        ResponseEntity<String> responseEntity;
+        try {
+            ossService.deleteBucket(bucketName);
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.OSS_DELETE_BUCKET_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("[deleteBucket] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.OSS_DELETE_BUCKET_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    // === bucket ===
 }
