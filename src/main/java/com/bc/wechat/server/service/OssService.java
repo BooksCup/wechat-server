@@ -1,5 +1,9 @@
 package com.bc.wechat.server.service;
 
+import com.aliyun.oss.model.Bucket;
+
+import java.util.List;
+
 /**
  * 对象存储oss
  *
@@ -13,4 +17,11 @@ public interface OssService {
      * @param bucketName 存储空间的名称
      */
     void createBucket(String bucketName);
+
+    /**
+     * 列举存储空间
+     *
+     * @return 存储空间列表
+     */
+    List<Bucket> listBuckets();
 }

@@ -2,10 +2,13 @@ package com.bc.wechat.server.service.impl;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.Bucket;
 import com.aliyun.oss.model.CreateBucketRequest;
 import com.bc.wechat.server.service.OssService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 对象存储oss
@@ -38,5 +41,21 @@ public class OssServiceImpl implements OssService {
         ossClient.createBucket(createBucketRequest);
         // 关闭OSSClient
         ossClient.shutdown();
+    }
+
+    /**
+     * 列举存储空间
+     *
+     * @return 存储空间列表
+     */
+    @Override
+    public List<Bucket> listBuckets() {
+        // 创建OSSClient实例
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        // 列举存储空间
+        List<Bucket> buckets = ossClient.listBuckets();
+        // 关闭OSSClient
+        ossClient.shutdown();
+        return buckets;
     }
 }

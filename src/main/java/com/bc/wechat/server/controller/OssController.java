@@ -1,5 +1,6 @@
 package com.bc.wechat.server.controller;
 
+import com.aliyun.oss.model.Bucket;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.OssService;
 import io.swagger.annotations.ApiOperation;
@@ -7,12 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 对象存储oss
@@ -53,6 +53,26 @@ public class OssController {
             logger.error("[createBucket] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.OSS_CREATE_BUCKET_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 列举存储空间
+     *
+     * @return 存储空间列表
+     */
+    @ApiOperation(value = "列举存储空间", notes = "列举存储空间")
+    @GetMapping(value = "/bucket")
+    public ResponseEntity<List<Bucket>> listBuckets() {
+        ResponseEntity<List<Bucket>> responseEntity;
+        try {
+            List<Bucket> bucketList = ossService.listBuckets();
+            responseEntity = new ResponseEntity<>(bucketList, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("[listBuckets] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
