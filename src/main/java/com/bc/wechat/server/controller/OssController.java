@@ -1,18 +1,25 @@
 package com.bc.wechat.server.controller;
 
 import com.aliyun.oss.model.Bucket;
+import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.OssService;
 import io.swagger.annotations.ApiOperation;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 对象存储oss
@@ -29,6 +36,7 @@ public class OssController {
     private OssService ossService;
 
     // === bucket ===
+
     /**
      * 创建存储空间
      * 存储空间（Bucket）是存储对象（Object）的容器。对象都隶属于存储空间。
@@ -103,4 +111,48 @@ public class OssController {
     }
 
     // === bucket ===
+
+    /**
+     * 上传文件至oss
+     *
+     * @param request 请求
+     * @return 上传成功的文件URL列表
+     */
+    @ApiOperation(value = "上传文件", notes = "上传文件")
+    @PostMapping(value = "/file")
+    public ResponseEntity<List<String>> uploadFile(HttpServletRequest request) {
+        try {
+            List<String> imgUrlList = new ArrayList<>();
+
+            // 检测是不是存在上传文件
+            boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+            // 判断 request 是否有文件上传,即多部分请求
+            if (isMultipart) {
+                // 转换成多部分request
+                MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+                // 取得request中的所有文件名
+                Iterator<String> iter = multiRequest.getFileNames();
+                while (iter.hasNext()) {
+                    // 取得上传文件
+                    MultipartFile file = multiRequest.getFile(iter.next());
+                    String originFileName = file.getOriginalFilename();
+                    String prefix = originFileName.substring(originFileName.lastIndexOf(".") + 1);
+                    if (file != null) {
+                        try {
+                            // //取得当前上传文件的文件名称
+                            String fileName = UUID.randomUUID().toString().replaceAll("-", "") + '.' + prefix;
+                            ossService.putObject("erp-wd-com", fileName, file.getBytes());
+                            imgUrlList.add(fileName);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+            return new ResponseEntity<>(imgUrlList, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

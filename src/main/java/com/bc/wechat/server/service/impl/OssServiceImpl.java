@@ -8,6 +8,7 @@ import com.bc.wechat.server.service.OssService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 /**
@@ -76,4 +77,22 @@ public class OssServiceImpl implements OssService {
         ossClient.shutdown();
     }
     // === bucket ===
+
+
+    /**
+     * 上传文件(简单上传)
+     *
+     * @param bucketName 存储空间的名称
+     * @param fileName   文件名
+     * @param content    上传内容(Byte数组)
+     */
+    @Override
+    public void putObject(String bucketName, String fileName, byte[] content) {
+        // 创建OSSClient实例
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        // 上传Byte数组
+        ossClient.putObject(bucketName, fileName, new ByteArrayInputStream(content));
+        // 关闭OSSClient
+        ossClient.shutdown();
+    }
 }

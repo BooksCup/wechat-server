@@ -31,4 +31,13 @@ public interface OssService {
      * @param bucketName 存储空间的名称
      */
     void deleteBucket(String bucketName);
+
+    /**
+     * 上传文件(简单上传)
+     *
+     * @param bucketName 存储空间的名称
+     * @param fileName   文件名
+     * @param content    上传内容(Byte数组)
+     */
+    void putObject(String bucketName, String fileName, byte[] content);
 }
