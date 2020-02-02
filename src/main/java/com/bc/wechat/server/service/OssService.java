@@ -38,6 +38,7 @@ public interface OssService {
      * @param bucketName 存储空间的名称
      * @param fileName   文件名
      * @param content    上传内容(Byte数组)
+     * @return 存储在oss的文件的绝对路径
      */
-    void putObject(String bucketName, String fileName, byte[] content);
+    String putObject(String bucketName, String fileName, byte[] content);
 }

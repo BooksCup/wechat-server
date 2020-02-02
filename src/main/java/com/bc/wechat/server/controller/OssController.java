@@ -1,7 +1,6 @@
 package com.bc.wechat.server.controller;
 
 import com.aliyun.oss.model.Bucket;
-import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.OssService;
 import io.swagger.annotations.ApiOperation;
@@ -141,8 +140,8 @@ public class OssController {
                         try {
                             // //取得当前上传文件的文件名称
                             String fileName = UUID.randomUUID().toString().replaceAll("-", "") + '.' + prefix;
-                            ossService.putObject("erp-wd-com", fileName, file.getBytes());
-                            imgUrlList.add(fileName);
+                            String url = ossService.putObject("erp-wd-com", fileName, file.getBytes());
+                            imgUrlList.add(url);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

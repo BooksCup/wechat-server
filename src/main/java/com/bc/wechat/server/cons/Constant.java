@@ -172,4 +172,14 @@ public class Constant {
      * 用户微信号修改标记
      */
     public static final String USER_WX_ID_MODIFY_FLAG_TRUE = "1";
+
+    /**
+     * 协议-"http"
+     */
+    public static final String PROTOCOL_HTTP_PREFIX = "http://";
+
+    /**
+     * 协议-"https"
+     */
+    public static final String PROTOCOL_HTTPS_PREFIX = "https://";
 }
