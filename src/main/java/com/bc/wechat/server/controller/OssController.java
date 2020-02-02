@@ -121,7 +121,7 @@ public class OssController {
     @PostMapping(value = "/file")
     public ResponseEntity<List<String>> uploadFile(HttpServletRequest request) {
         try {
-            List<String> imgUrlList = new ArrayList<>();
+            List<String> fileUrlList = new ArrayList<>();
 
             // 检测是不是存在上传文件
             boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -141,14 +141,14 @@ public class OssController {
                             // //取得当前上传文件的文件名称
                             String fileName = UUID.randomUUID().toString().replaceAll("-", "") + '.' + prefix;
                             String url = ossService.putObject("erp-wd-com", fileName, file.getBytes());
-                            imgUrlList.add(url);
+                            fileUrlList.add(url);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }
             }
-            return new ResponseEntity<>(imgUrlList, HttpStatus.OK);
+            return new ResponseEntity<>(fileUrlList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
