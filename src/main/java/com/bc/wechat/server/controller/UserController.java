@@ -110,7 +110,8 @@ public class UserController {
     public ResponseEntity<User> register(
             @RequestParam String nickName,
             @RequestParam String phone,
-            @RequestParam String password) {
+            @RequestParam String password,
+            @RequestParam(required = false) String avatar) {
         ResponseEntity<User> responseEntity;
         try {
             boolean isUserExists = userService.checkUserExistsByUserPhone(phone);
@@ -129,6 +130,7 @@ public class UserController {
             // 存在可能重复的BUG
             String initWxId = CommonUtil.generateInitWxId();
             user.setUserWxId(initWxId);
+            user.setUserAvatar(avatar);
             userService.addUser(user);
 
             // 用户注册到极光IM
