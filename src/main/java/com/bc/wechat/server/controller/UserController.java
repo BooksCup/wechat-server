@@ -6,15 +6,9 @@ import java.util.*;
 import cn.jmessage.api.JMessageClient;
 import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
-import com.bc.wechat.server.entity.FriendsCircle;
-import com.bc.wechat.server.entity.SysLog;
-import com.bc.wechat.server.entity.User;
-import com.bc.wechat.server.entity.UserRela;
+import com.bc.wechat.server.entity.*;
 import com.bc.wechat.server.enums.ResponseMsg;
-import com.bc.wechat.server.service.FriendsCircleService;
-import com.bc.wechat.server.service.SysLogService;
-import com.bc.wechat.server.service.UserRelaService;
-import com.bc.wechat.server.service.UserService;
+import com.bc.wechat.server.service.*;
 import com.bc.wechat.server.utils.CommonUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -50,6 +44,9 @@ public class UserController {
 
     @Resource
     private FriendsCircleService friendsCircleService;
+
+    @Resource
+    private AddressService addressService;
 
     @Resource
     private SysLogService sysLogService;
@@ -610,4 +607,28 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 获取用户的地址列表
+     *
+     * @param userId 用户ID
+     * @return 地址列表
+     */
+    @ApiOperation(value = "获取用户的地址列表", notes = "获取用户的地址列表")
+    @GetMapping(value = "/{userId}/address")
+    public ResponseEntity<List<Address>> getAddressListByUserId(
+            @PathVariable String userId) {
+        ResponseEntity<List<Address>> responseEntity;
+        try {
+            List<Address> addressList = addressService.getAddressListByUserId(userId);
+            responseEntity = new ResponseEntity<>(addressList, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[getAddressListByUserId] error: " + e.getMessage());
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+
 }
