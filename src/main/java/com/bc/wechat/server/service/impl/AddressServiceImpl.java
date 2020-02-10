@@ -1,14 +1,12 @@
 package com.bc.wechat.server.service.impl;
 
 import com.bc.wechat.server.entity.Address;
-import com.bc.wechat.server.entity.FriendsCircle;
 import com.bc.wechat.server.mapper.AddressMapper;
 import com.bc.wechat.server.service.AddressService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 地址
@@ -30,5 +28,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<Address> getAddressListByUserId(String userId) {
         return addressMapper.getAddressListByUserId(userId);
+    }
+
+    /**
+     * 保存地址
+     *
+     * @param address 地址
+     */
+    @Override
+    public void addAddress(Address address) {
+        addressMapper.addAddress(address);
     }
 }

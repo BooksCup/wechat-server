@@ -17,4 +17,11 @@ public interface AddressService {
      * @return 用户地址列表
      */
     List<Address> getAddressListByUserId(String userId);
+
+    /**
+     * 保存地址
+     *
+     * @param address 地址
+     */
+    void addAddress(Address address);
 }

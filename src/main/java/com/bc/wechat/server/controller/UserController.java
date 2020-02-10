@@ -630,5 +630,34 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 保存地址
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "保存地址", notes = "保存地址")
+    @PostMapping(value = "/{userId}/address")
+    public ResponseEntity<String> addAddress(
+            @PathVariable String userId,
+            @RequestParam String addressName,
+            @RequestParam String addressPhone,
+            @RequestParam String addressProvince,
+            @RequestParam String addressCity,
+            @RequestParam String addressDistrict,
+            @RequestParam String addressDetail,
+            @RequestParam String addressPostCode) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Address address = new Address(userId, addressName, addressPhone, addressProvince,
+                    addressCity, addressDistrict, addressDetail, addressPostCode);
+            logger.error("[addAddress] address: " + address);
+            addressService.addAddress(address);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.bc.wechat.server.entity;
 
+import com.bc.wechat.server.utils.CommonUtil;
+
 /**
  * 地址
  *
@@ -17,6 +19,29 @@ public class Address {
     private String addressPostCode;
     private String createTime;
     private String modifyTime;
+
+    public Address() {
+
+    }
+
+    public Address(String userId,
+                   String addressName,
+                   String addressPhone,
+                   String addressProvince,
+                   String addressCity,
+                   String addressDistrict,
+                   String addressDetail,
+                   String addressPostCode) {
+        this.addressId = CommonUtil.generateId();
+        this.userId = userId;
+        this.addressName = addressName;
+        this.addressPhone = addressPhone;
+        this.addressProvince = addressProvince;
+        this.addressCity = addressCity;
+        this.addressDistrict = addressDistrict;
+        this.addressDetail = addressDetail;
+        this.addressPostCode = addressPostCode;
+    }
 
     public String getAddressId() {
         return addressId;
@@ -104,5 +129,22 @@ public class Address {
 
     public void setModifyTime(String modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "addressId='" + addressId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", addressName='" + addressName + '\'' +
+                ", addressPhone='" + addressPhone + '\'' +
+                ", addressProvince='" + addressProvince + '\'' +
+                ", addressCity='" + addressCity + '\'' +
+                ", addressDistrict='" + addressDistrict + '\'' +
+                ", addressDetail='" + addressDetail + '\'' +
+                ", addressPostCode='" + addressPostCode + '\'' +
+                ", createTime='" + createTime + '\'' +
+                ", modifyTime='" + modifyTime + '\'' +
+                '}';
     }
 }

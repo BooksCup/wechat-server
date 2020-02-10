@@ -16,6 +16,37 @@
         <result column="address_modify_time" property="modifyTime" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <insert id="addAddress" parameterType="com.bc.wechat.server.entity.Address">
+        insert into t_user_address
+        (
+            address_id,
+            user_id,
+            address_name,
+            address_phone,
+            address_province,
+            address_city,
+            address_district,
+            address_detail,
+            address_post_code,
+            address_create_time,
+            address_modify_time
+        )
+        values
+        (
+            #{addressId},
+            #{userId},
+            #{addressName},
+            #{addressPhone},
+            #{addressProvince},
+            #{addressCity},
+            #{addressDistrict},
+            #{addressDetail},
+            #{addressPostCode},
+            now(),
+            now()
+        )
+    </insert>
+
     <select id="getAddressListByUserId" resultMap="address" parameterType="String">
         select *
         from t_user_address
