@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.24 (32 bit)
-MySQL - 5.7.27-log : Database - wechat_server
+MySQL - 5.6.43-log : Database - wechat_server
 *********************************************************************
 */
 
@@ -147,9 +147,29 @@ CREATE TABLE `t_user` (
   `user_sign` varchar(100) DEFAULT NULL COMMENT '签名',
   `user_qr_code` varchar(200) DEFAULT NULL COMMENT '用户二维码地址',
   `user_lastest_circle_photos` varchar(1024) DEFAULT NULL COMMENT '最新n张朋友圈照片,n=4',
+  `user_wx_id_modify_flag` varchar(2) DEFAULT '0' COMMENT '微信号修改标记',
   `user_create_time` varchar(20) DEFAULT NULL COMMENT '用户创建时间',
   `user_modify_time` varchar(20) DEFAULT NULL COMMENT '用户修改时间',
   PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_user_address` */
+
+DROP TABLE IF EXISTS `t_user_address`;
+
+CREATE TABLE `t_user_address` (
+  `address_id` varchar(32) NOT NULL COMMENT '地址表主键',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `address_name` varchar(100) DEFAULT NULL COMMENT '收货人',
+  `address_phone` varchar(50) DEFAULT NULL COMMENT '手机号码',
+  `address_province` varchar(20) DEFAULT NULL COMMENT '地区信息-省',
+  `address_city` varchar(20) DEFAULT NULL COMMENT '地区信息-市',
+  `address_district` varchar(20) DEFAULT NULL COMMENT '地区信息-区',
+  `address_detail` varchar(200) DEFAULT NULL COMMENT '详细地址',
+  `address_post_code` varchar(20) DEFAULT NULL COMMENT '邮政编码',
+  `address_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `address_modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_user_rela` */
