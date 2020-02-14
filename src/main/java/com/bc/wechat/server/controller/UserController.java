@@ -445,7 +445,7 @@ public class UserController {
             List<FriendsCircle> friendsCircleList = friendsCircleService.getFriendsCircleListByPublishUserId(paramMap);
             responseEntity = new ResponseEntity<>(friendsCircleList, HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("getFriendsCircleListByPublishUserId error: " + e.getMessage());
+            logger.error("[getFriendsCircleListByPublishUserId] error: " + e.getMessage());
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -472,7 +472,7 @@ public class UserController {
             userRelaService.deleteFriend(paramMap);
             responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("deleteFriend error: " + e.getMessage());
+            logger.error("[deleteFriend] error: " + e.getMessage());
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -522,7 +522,7 @@ public class UserController {
 
             responseEntity = new ResponseEntity<>(user, HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("getFriendById error: " + e.getMessage());
+            logger.error("[getFriendById] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -571,7 +571,7 @@ public class UserController {
 
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REMARKS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("updateUserRemarks error: " + e.getMessage());
+            logger.error("[updateUserRemarks] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REMARKS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -602,7 +602,7 @@ public class UserController {
 
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_STAR_FRIEND_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("updateUserStarFriend error: " + e.getMessage());
+            logger.error("[updateUserStarFriend] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_STAR_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
@@ -646,7 +646,7 @@ public class UserController {
             @RequestParam String addressCity,
             @RequestParam String addressDistrict,
             @RequestParam String addressDetail,
-            @RequestParam String addressPostCode) {
+            @RequestParam(required = false) String addressPostCode) {
         ResponseEntity<String> responseEntity;
         try {
             Address address = new Address(userId, addressName, addressPhone, addressProvince,
