@@ -51,5 +51,6 @@
         select *
         from t_user_address
         where user_id = #{userId}
+        order by address_modify_time desc
     </select>
 </mapper>
