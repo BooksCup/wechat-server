@@ -651,7 +651,7 @@ public class UserController {
         try {
             Address address = new Address(userId, addressName, addressPhone, addressProvince,
                     addressCity, addressDistrict, addressDetail, addressPostCode);
-            logger.error("[addAddress] address: " + address);
+            logger.info("[addAddress] address: " + address);
             addressService.addAddress(address);
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
