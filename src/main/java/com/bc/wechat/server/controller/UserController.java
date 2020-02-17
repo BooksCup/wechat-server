@@ -633,8 +633,15 @@ public class UserController {
     /**
      * 保存地址
      *
-     * @param userId 用户ID
-     * @return ResponseEntity
+     * @param userId          用户ID
+     * @param addressName     收货人
+     * @param addressPhone    手机号码
+     * @param addressProvince 地区信息-省
+     * @param addressCity     地区信息-市
+     * @param addressDistrict 地区信息-区
+     * @param addressDetail   详细地址
+     * @param addressPostCode 邮政编码
+     * @return
      */
     @ApiOperation(value = "保存地址", notes = "保存地址")
     @PostMapping(value = "/{userId}/address")
@@ -655,9 +662,49 @@ public class UserController {
             addressService.addAddress(address);
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
+            logger.error("[addAddress] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
 
+    /**
+     * 修改地址
+     *
+     * @param userId          用户ID
+     * @param addressId       地址ID
+     * @param addressName     收货人
+     * @param addressPhone    手机号码
+     * @param addressProvince 地区信息-省
+     * @param addressCity     地区信息-市
+     * @param addressDistrict 地区信息-区
+     * @param addressDetail   详细地址
+     * @param addressPostCode 邮政编码
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改地址", notes = "修改地址")
+    @PutMapping(value = "/{userId}/address/{addressId}")
+    public ResponseEntity<String> modifyAddress(
+            @PathVariable String userId,
+            @PathVariable String addressId,
+            @RequestParam String addressName,
+            @RequestParam String addressPhone,
+            @RequestParam String addressProvince,
+            @RequestParam String addressCity,
+            @RequestParam String addressDistrict,
+            @RequestParam String addressDetail,
+            @RequestParam(required = false) String addressPostCode) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Address address = new Address(userId, addressId, addressName, addressPhone, addressProvince,
+                    addressCity, addressDistrict, addressDetail, addressPostCode);
+            logger.info("[modifyAddress] address: " + address);
+            addressService.modifyAddress(address);
+            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[modifyAddress] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

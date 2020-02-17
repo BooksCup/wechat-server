@@ -24,4 +24,11 @@ public interface AddressService {
      * @param address 地址
      */
     void addAddress(Address address);
+
+    /**
+     * 修改地址
+     *
+     * @param address 地址
+     */
+    void modifyAddress(Address address);
 }

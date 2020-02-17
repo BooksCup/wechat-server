@@ -43,6 +43,27 @@ public class Address {
         this.addressPostCode = addressPostCode;
     }
 
+    public Address(String userId,
+                   String addressId,
+                   String addressName,
+                   String addressPhone,
+                   String addressProvince,
+                   String addressCity,
+                   String addressDistrict,
+                   String addressDetail,
+                   String addressPostCode) {
+        this.addressId = CommonUtil.generateId();
+        this.userId = userId;
+        this.addressId = addressId;
+        this.addressName = addressName;
+        this.addressPhone = addressPhone;
+        this.addressProvince = addressProvince;
+        this.addressCity = addressCity;
+        this.addressDistrict = addressDistrict;
+        this.addressDetail = addressDetail;
+        this.addressPostCode = addressPostCode;
+    }
+
     public String getAddressId() {
         return addressId;
     }

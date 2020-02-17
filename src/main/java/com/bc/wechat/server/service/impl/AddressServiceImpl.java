@@ -39,4 +39,14 @@ public class AddressServiceImpl implements AddressService {
     public void addAddress(Address address) {
         addressMapper.addAddress(address);
     }
+
+    /**
+     * 修改地址
+     *
+     * @param address 地址
+     */
+    @Override
+    public void modifyAddress(Address address) {
+        addressMapper.modifyAddress(address);
+    }
 }

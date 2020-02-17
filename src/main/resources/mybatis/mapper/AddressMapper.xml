@@ -19,33 +19,52 @@
     <insert id="addAddress" parameterType="com.bc.wechat.server.entity.Address">
         insert into t_user_address
         (
-            address_id,
-            user_id,
-            address_name,
-            address_phone,
-            address_province,
-            address_city,
-            address_district,
-            address_detail,
-            address_post_code,
-            address_create_time,
-            address_modify_time
+        address_id,
+        user_id,
+        address_name,
+        address_phone,
+        address_province,
+        address_city,
+        address_district,
+        address_detail,
+        address_post_code,
+        address_create_time,
+        address_modify_time
         )
         values
         (
-            #{addressId},
-            #{userId},
-            #{addressName},
-            #{addressPhone},
-            #{addressProvince},
-            #{addressCity},
-            #{addressDistrict},
-            #{addressDetail},
-            #{addressPostCode},
-            now(),
-            now()
+        #{addressId},
+        #{userId},
+        #{addressName},
+        #{addressPhone},
+        #{addressProvince},
+        #{addressCity},
+        #{addressDistrict},
+        #{addressDetail},
+        #{addressPostCode},
+        now(),
+        now()
         )
     </insert>
+
+    <update id="modifyAddress" parameterType="com.bc.wechat.server.entity.Address">
+        update t_user_address
+        set address_name = #{addressName},
+        address_phone = #{addressPhone},
+        <if test="addressProvince != null and addressProvince != ''">
+            address_province = #{addressProvince},
+        </if>
+        <if test="addressCity!=null and addressCity != ''">
+            address_city = #{addressCity},
+        </if>
+        <if test="addressProvince != null and addressProvince != ''">
+            address_district = #{addressDistrict},
+        </if>
+        address_detail = #{addressDetail},
+        address_post_code = #{addressPostCode},
+        address_modify_time = now()
+        where address_id = #{addressId}
+    </update>
 
     <select id="getAddressListByUserId" resultMap="address" parameterType="String">
         select *
