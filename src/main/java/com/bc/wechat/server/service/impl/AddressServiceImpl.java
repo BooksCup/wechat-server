@@ -49,4 +49,14 @@ public class AddressServiceImpl implements AddressService {
     public void modifyAddress(Address address) {
         addressMapper.modifyAddress(address);
     }
+
+    /**
+     * 删除地址
+     *
+     * @param addressId 地址ID
+     */
+    @Override
+    public void deleteAddress(String addressId) {
+        addressMapper.deleteAddress(addressId);
+    }
 }

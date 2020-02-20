@@ -31,4 +31,11 @@ public interface AddressMapper {
      * @param address 地址
      */
     void modifyAddress(Address address);
+
+    /**
+     * 删除地址
+     *
+     * @param addressId 地址ID
+     */
+    void deleteAddress(String addressId);
 }

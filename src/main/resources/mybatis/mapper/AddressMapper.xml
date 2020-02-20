@@ -72,4 +72,9 @@
         where user_id = #{userId}
         order by address_modify_time desc
     </select>
+
+    <delete id="deleteAddress" parameterType="String">
+        delete from t_user_address
+        where address_id = #{addressId}
+    </delete>
 </mapper>

@@ -707,4 +707,26 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 修改地址
+     *
+     * @param addressId 地址ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "删除地址", notes = "删除地址")
+    @DeleteMapping(value = "/{userId}/address/{addressId}")
+    public ResponseEntity<String> deleteAddress(
+            @PathVariable String addressId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[deleteAddress] addressId: " + addressId);
+            addressService.deleteAddress(addressId);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[deleteAddress] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }
