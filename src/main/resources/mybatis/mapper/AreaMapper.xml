@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.AreaMapper">
+
+    <insert id="saveProvince" parameterType="com.bc.wechat.server.entity.area.Province">
+        insert into t_temp_province
+        (
+        province_id,
+        province_name,
+        province_seq
+        )
+        values
+        (
+        #{id},
+        #{name},
+        #{seq}
+        )
+    </insert>
+
+    <insert id="saveCity" parameterType="com.bc.wechat.server.entity.area.City">
+        insert into t_temp_city
+        (
+        city_id,
+        province_id,
+        city_name,
+        city_seq
+        )
+        values
+        (
+        #{id},
+        #{provinceId},
+        #{name},
+        #{seq}
+        )
+    </insert>
+
+    <insert id="saveDistrict" parameterType="com.bc.wechat.server.entity.area.District">
+        insert into t_temp_district
+        (
+        district_id,
+        city_id,
+        district_name,
+        district_post_code,
+        district_seq
+        )
+        values
+        (
+        #{id},
+        #{cityId},
+        #{name},
+        #{postCode},
+        #{seq}
+        )
+    </insert>
+
+</mapper>

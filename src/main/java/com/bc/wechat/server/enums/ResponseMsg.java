@@ -79,6 +79,9 @@ public enum ResponseMsg {
 
     OSS_DELETE_BUCKET_SUCCESS("OSS_DELETE_BUCKET_SUCCESS", "删除存储空间成功"),
     OSS_DELETE_BUCKET_ERROR("OSS_DELETE_BUCKET_ERROR", "删除存储空间失败"),
+
+    INIT_AREA_SUCCESS("INIT_AREA_SUCCESS", "初始化省市区成功"),
+    INIT_AREA_ERROR("INIT_AREA_ERROR", "初始化省市区失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {
