@@ -78,7 +78,6 @@
         select *
         from t_temp_province
         order by province_seq asc
-        limit 0, 5
     </select>
 
     <select id="getCityListByProvinceId" resultMap="City" parameterType="String">
@@ -86,7 +85,6 @@
         from t_temp_city
         where province_id = #{provinceId}
         order by city_seq asc
-        limit 0, 5
     </select>
 
     <select id="getDistrictListByCityId" resultMap="District" parameterType="String">
@@ -94,7 +92,6 @@
         from t_temp_district
         where city_id = #{cityId}
         order by district_seq asc
-        limit 0, 5
     </select>
 
 </mapper>

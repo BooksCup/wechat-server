@@ -88,6 +88,11 @@ public class AreaController {
         return responseEntity;
     }
 
+    /**
+     * 初始化省市区JSON
+     *
+     * @return ResponseEntity<String>
+     */
     @ApiOperation(value = "初始化省市区JSON", notes = "初始化省市区JSON")
     @PostMapping(value = "/json")
     public ResponseEntity<String> initAreaJson() {
