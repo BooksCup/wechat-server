@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bc.wechat.server.mapper.AreaMapper">
 
+    <resultMap id="Province" type="com.bc.wechat.server.entity.area.Province">
+        <id column="province_id" property="id" jdbcType="VARCHAR"/>
+        <result column="province_name" property="name" jdbcType="VARCHAR"/>
+        <result column="province_seq" property="seq" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="City" type="com.bc.wechat.server.entity.area.City">
+        <id column="city_id" property="id" jdbcType="VARCHAR"/>
+        <result column="province_id" property="provinceId" jdbcType="VARCHAR"/>
+        <result column="city_name" property="name" jdbcType="VARCHAR"/>
+        <result column="city_seq" property="seq" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="District" type="com.bc.wechat.server.entity.area.District">
+        <id column="district_id" property="id" jdbcType="VARCHAR"/>
+        <result column="city_id" property="cityId" jdbcType="VARCHAR"/>
+        <result column="district_name" property="name" jdbcType="VARCHAR"/>
+        <result column="district_post_code" property="postCode" jdbcType="VARCHAR"/>
+        <result column="district_seq" property="seq" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="saveProvince" parameterType="com.bc.wechat.server.entity.area.Province">
         insert into t_temp_province
         (
@@ -52,5 +73,28 @@
         #{seq}
         )
     </insert>
+
+    <select id="getProvinceList" resultMap="Province">
+        select *
+        from t_temp_province
+        order by province_seq asc
+        limit 0, 5
+    </select>
+
+    <select id="getCityListByProvinceId" resultMap="City" parameterType="String">
+        select *
+        from t_temp_city
+        where province_id = #{provinceId}
+        order by city_seq asc
+        limit 0, 5
+    </select>
+
+    <select id="getDistrictListByCityId" resultMap="District" parameterType="String">
+        select *
+        from t_temp_district
+        where city_id = #{cityId}
+        order by district_seq asc
+        limit 0, 5
+    </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.bc.wechat.server.entity.area;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.bc.wechat.server.utils.CommonUtil;
 
 /**
@@ -8,10 +9,13 @@ import com.bc.wechat.server.utils.CommonUtil;
  * @author zhou
  */
 public class District {
+    @JSONField(serialize = false)
     private String id;
+    @JSONField(serialize = false)
     private String cityId;
     private String name;
     private String postCode;
+    @JSONField(serialize = false)
     private Integer seq;
 
     public District() {

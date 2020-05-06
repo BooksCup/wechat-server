@@ -8,6 +8,7 @@ import com.bc.wechat.server.service.AreaService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 地区
@@ -49,4 +50,37 @@ public class AreaServiceImpl implements AreaService {
     public void saveDistrict(District district) {
         areaMapper.saveDistrict(district);
     }
+
+    /**
+     * 获取省列表
+     *
+     * @return 省列表
+     */
+    @Override
+    public List<Province> getProvinceList() {
+        return areaMapper.getProvinceList();
+    }
+
+    /**
+     * 通过省ID获取市列表
+     *
+     * @param provinceId 省ID
+     * @return 市列表
+     */
+    @Override
+    public List<City> getCityListByProvinceId(String provinceId) {
+        return areaMapper.getCityListByProvinceId(provinceId);
+    }
+
+    /**
+     * 通过市ID获取区县列表
+     *
+     * @param cityId 市ID
+     * @return 区县列表
+     */
+    @Override
+    public List<District> getDistrictListByCityId(String cityId) {
+        return areaMapper.getDistrictListByCityId(cityId);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.bc.wechat.server.entity.area;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.bc.wechat.server.utils.CommonUtil;
 
 import java.util.List;
@@ -10,11 +11,14 @@ import java.util.List;
  * @author zhou
  */
 public class City {
+    @JSONField(serialize = false)
     private String id;
+    @JSONField(serialize = false)
     private String provinceId;
     private String name;
+    @JSONField(serialize = false)
     private Integer seq;
-    private List<String> area;
+    private List<District> district;
 
     public City() {
 
@@ -59,11 +63,11 @@ public class City {
         this.seq = seq;
     }
 
-    public List<String> getArea() {
-        return area;
+    public List<District> getDistrict() {
+        return district;
     }
 
-    public void setArea(List<String> area) {
-        this.area = area;
+    public void setDistrict(List<District> district) {
+        this.district = district;
     }
 }
