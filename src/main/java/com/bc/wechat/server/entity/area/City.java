@@ -1,6 +1,7 @@
 package com.bc.wechat.server.entity.area;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONType;
 import com.bc.wechat.server.utils.CommonUtil;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @author zhou
  */
+@JSONType(orders = {"name", "district"})
 public class City {
     @JSONField(serialize = false)
     private String id;

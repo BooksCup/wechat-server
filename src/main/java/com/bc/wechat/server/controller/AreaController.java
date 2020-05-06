@@ -105,7 +105,7 @@ public class AreaController {
                 }
             }
             File file = ResourceUtils.getFile("classpath:area-wx.json");
-            System.out.println(file.getPath());
+            logger.info("json file's path: " + file.getPath());
             FileWriter fw = new FileWriter(file);
             String jsonContent = JSON.toJSONString(provinceList);
             fw.write(jsonContent);
