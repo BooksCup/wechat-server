@@ -18,7 +18,7 @@ public class MsgBody {
      */
     private Map<String, String> extras;
 
-    private String imageUrl;
+    private String imgUrl;
 
     /**
      * msg_type_image(独立)
@@ -129,12 +129,12 @@ public class MsgBody {
         this.extras = extras;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
     public Integer getWidth() {

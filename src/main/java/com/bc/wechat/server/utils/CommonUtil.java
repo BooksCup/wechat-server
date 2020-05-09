@@ -75,8 +75,7 @@ public class CommonUtil {
             // 图片消息
             Map<String, Object> imageMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             imageMap.put("type", Constant.MSG_TYPE_IMAGE);
-            imageMap.put("imgUrl", msgBody.getImageUrl());
-
+            imageMap.put("imgUrl", msgBody.getImgUrl());
             return new MessageBody.Builder().setText(JSON.toJSONString(imageMap)).build();
 
         } else if (Constant.MSG_TYPE_LOCATION.equals(messageType)) {
