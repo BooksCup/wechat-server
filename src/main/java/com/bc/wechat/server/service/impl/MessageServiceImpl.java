@@ -87,16 +87,19 @@ public class MessageServiceImpl implements MessageService {
             } else if (Constant.MSG_TYPE_IMAGE.equals(messageType)) {
                 MessagePayload payload = MessagePayload.newBuilder().setVersion(1)
                         .setTargetType(targetType).setTargetId(jimTargetId).setFromType("admin")
-                        .setFromId(fromId).setMessageType(MessageType.IMAGE)
+                        .setFromId(fromId).setMessageType(MessageType.CUSTOM)
                         .setMessageBody(CommonUtil.generateMessageBody(msgBody, messageType))
                         // App不接收通知
                         .setNoNotification(true)
                         .build();
 
+                // 文字消息
                 sendMessageResult = jMessageClient.sendMessage(payload);
 
                 message.setjId(sendMessageResult.getMsg_id());
                 message.setjCreateTime(sendMessageResult.getMsgCtime());
+
+
                 // 极光发送图片如果通过服务器发,会获取不到messageId
                 // 格式类似于下面这种
                 // "msgId_1538963584988297"

@@ -18,6 +18,8 @@ public class MsgBody {
      */
     private Map<String, String> extras;
 
+    private String imageUrl;
+
     /**
      * msg_type_image(独立)
      * 图片原始宽度
@@ -125,6 +127,14 @@ public class MsgBody {
 
     public void setExtras(Map<String, String> extras) {
         this.extras = extras;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Integer getWidth() {

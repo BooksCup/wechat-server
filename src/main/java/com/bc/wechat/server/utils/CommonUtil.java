@@ -73,14 +73,12 @@ public class CommonUtil {
                     .build();
         } else if (Constant.MSG_TYPE_IMAGE.equals(messageType)) {
             // 图片消息
-            return new MessageBody.Builder()
-                    .setMediaId(msgBody.getMediaId())
-                    .setMediaCrc32(msgBody.getMediaCrc32())
-                    .setWidth(msgBody.getWidth())
-                    .setHeight(msgBody.getHeight())
-                    .setFormat(msgBody.getFormat())
-                    .setFsize(msgBody.getFsize())
-                    .build();
+            Map<String, Object> imageMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            imageMap.put("type", Constant.MSG_TYPE_IMAGE);
+            imageMap.put("imgUrl", msgBody.getImageUrl());
+
+            return new MessageBody.Builder().setText(JSON.toJSONString(imageMap)).build();
+
         } else if (Constant.MSG_TYPE_LOCATION.equals(messageType)) {
             // 位置消息
             Map<String, Object> locationMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
