@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -101,6 +102,32 @@ public class OssServiceImpl implements OssService {
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         // 上传Byte数组
         ossClient.putObject(bucketName, fileName, new ByteArrayInputStream(content));
+
+        // 关闭OSSClient
+        ossClient.shutdown();
+
+        endpoint = endpoint.replace(Constant.PROTOCOL_HTTP_PREFIX, "");
+
+        // 如果Object是公共读/公共读写权限，那么文件URL的格式为：BucketName.Endpoint/ObjectName
+        String url = Constant.PROTOCOL_HTTPS_PREFIX + bucketName + "." + endpoint + "/" + fileName;
+        logger.info("[putObject] url: " + url);
+        return url;
+    }
+
+    /**
+     * 上传文件(简单上传)
+     *
+     * @param bucketName 存储空间的名称
+     * @param fileName   文件名
+     * @param file       文件
+     * @return 存储在oss的文件的绝对路径
+     */
+    @Override
+    public String putObject(String bucketName, String fileName, File file) {
+        // 创建OSSClient实例
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        // 上传Byte数组
+        ossClient.putObject(bucketName, fileName, file);
 
         // 关闭OSSClient
         ossClient.shutdown();

@@ -2,6 +2,7 @@ package com.bc.wechat.server.service;
 
 import com.aliyun.oss.model.Bucket;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -41,4 +42,14 @@ public interface OssService {
      * @return 存储在oss的文件的绝对路径
      */
     String putObject(String bucketName, String fileName, byte[] content);
+
+    /**
+     * 上传文件(简单上传)
+     *
+     * @param bucketName 存储空间的名称
+     * @param fileName   文件名
+     * @param file       文件
+     * @return 存储在oss的文件的绝对路径
+     */
+    String putObject(String bucketName, String fileName, File file);
 }

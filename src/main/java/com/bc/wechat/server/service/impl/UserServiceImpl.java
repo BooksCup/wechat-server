@@ -5,6 +5,7 @@ import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.QrCodeContent;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.UserMapper;
+import com.bc.wechat.server.service.OssService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
 import com.bc.wechat.server.utils.FileUtil;
@@ -31,6 +32,9 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    @Resource
+    private OssService ossService;
 
     @Resource
     private UserMapper userMapper;
@@ -180,14 +184,11 @@ public class UserServiceImpl implements UserService {
         boolean result;
         try {
             String downloadPath;
-            String fileServer;
             String os = System.getProperty("os.name");
             if (os.toLowerCase().startsWith(Constant.OS_SHORT_NAME_WINDOWS)) {
                 downloadPath = Constant.FILE_UPLOAD_PATH_WINDOWS;
-                fileServer = Constant.FILE_SERVER_WINDOWS;
             } else {
                 downloadPath = Constant.FILE_UPLOAD_PATH_LINUX;
-                fileServer = Constant.FILE_SERVER_LINUX;
             }
 
             String avatarFileName = FileUtil.downLoadFromUrl(user.getUserAvatar(), downloadPath);
@@ -201,20 +202,22 @@ public class UserServiceImpl implements UserService {
             contentMap.put("userId", user.getUserId());
             qrCodeContent.setContentMap(contentMap);
 
-            BufferedImage image = QrCodeUtil.genBarcode(JSON.toJSONString(qrCodeContent), 400, 400, logoPath);
-            if (!ImageIO.write(image, "png",
-                    new File(downloadPath + "/" + qrCodeFileName))) {
+            BufferedImage image = QrCodeUtil.genQrCodeWithAvatar(JSON.toJSONString(qrCodeContent), 400, 400, logoPath);
+            File qrCodeFile = new File(downloadPath + "/" + qrCodeFileName);
+            if (!ImageIO.write(image, "png", qrCodeFile)) {
                 logger.error("could not write an image of format");
                 return false;
             }
 
-            String qrCode = fileServer + "/" + qrCodeFileName;
-            logger.info("qrcode: " + qrCode);
+            // 上传至OSS
+            String qrcode = ossService.putObject("erp-wd-com", qrCodeFileName, qrCodeFile);
+//            String qrCode = fileServer + "/" + qrCodeFileName;
+            logger.info("qrcode: " + qrcode);
 
             // 更新db字段
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", user.getUserId());
-            paramMap.put("userQrCode", qrCode);
+            paramMap.put("userQrCode", qrcode);
             userMapper.updateUserQrCode(paramMap);
             result = true;
         } catch (Exception e) {
