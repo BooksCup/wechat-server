@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bc.wechat.server.mapper.PeopleNearbyMapper">
+    <resultMap id="PositionInfo" type="com.bc.wechat.server.entity.PeopleNearby">
+        <id column="nearby_id" property="id" jdbcType="VARCHAR"/>
+        <result column="nearby_user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="nearby_longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="nearby_latitude" property="latitude" jdbcType="VARCHAR"/>
+        <result column="nearby_region" property="region" jdbcType="VARCHAR"/>
+    </resultMap>
 
     <insert id="addPeopleNearby" parameterType="com.bc.wechat.server.entity.PeopleNearby">
         insert into t_people_nearby
@@ -22,4 +29,20 @@
         now()
         )
     </insert>
+
+    <update id="updatePeopleNearby" parameterType="com.bc.wechat.server.entity.PeopleNearby">
+        update t_people_nearby
+        set nearby_longitude = #{longitude},
+        nearby_latitude = #{latitude},
+        nearby_region = #{region},
+        nearby_modify_time = now()
+        where nearby_id = #{id}
+    </update>
+
+    <select id="getPositionInfoListByUserId" resultMap="PositionInfo" parameterType="String">
+        select
+        *
+        from t_people_nearby
+        where nearby_user_id = #{userId}
+    </select>
 </mapper>

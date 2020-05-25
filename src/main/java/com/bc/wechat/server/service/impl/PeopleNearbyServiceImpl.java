@@ -4,8 +4,11 @@ import com.bc.wechat.server.entity.PeopleNearby;
 import com.bc.wechat.server.mapper.PeopleNearbyMapper;
 import com.bc.wechat.server.service.PeopleNearbyService;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 附近的人
@@ -24,6 +27,12 @@ public class PeopleNearbyServiceImpl implements PeopleNearbyService {
      */
     @Override
     public void getPeopleNearbyList(PeopleNearby peopleNearby) {
-        peopleNearbyMapper.addPeopleNearby(peopleNearby);
+        List<PeopleNearby> positionInfoList = peopleNearbyMapper.getPositionInfoListByUserId(peopleNearby.getUserId());
+        if (CollectionUtils.isEmpty(positionInfoList)) {
+            peopleNearbyMapper.addPeopleNearby(peopleNearby);
+        } else {
+            peopleNearby.setId(positionInfoList.get(0).getId());
+            peopleNearbyMapper.updatePeopleNearby(peopleNearby);
+        }
     }
 }

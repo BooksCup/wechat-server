@@ -2,6 +2,8 @@ package com.bc.wechat.server.service;
 
 import com.bc.wechat.server.entity.PeopleNearby;
 
+import java.util.List;
+
 /**
  * 附近的人
  *
