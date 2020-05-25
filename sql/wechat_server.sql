@@ -118,6 +118,21 @@ CREATE TABLE `t_message` (
   PRIMARY KEY (`message_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_people_nearby` */
+
+DROP TABLE IF EXISTS `t_people_nearby`;
+
+CREATE TABLE `t_people_nearby` (
+  `nearby_id` varchar(32) NOT NULL COMMENT '附近的人表主键',
+  `nearby_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `nearby_longitude` varchar(100) DEFAULT NULL COMMENT '经度',
+  `nearby_latitude` varchar(100) DEFAULT NULL COMMENT '纬度',
+  `nearby_region` varchar(100) DEFAULT NULL COMMENT '区域',
+  `nearby_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `nearby_modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`nearby_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_sys_log` */
 
 DROP TABLE IF EXISTS `t_sys_log`;
@@ -129,6 +144,41 @@ CREATE TABLE `t_sys_log` (
   `log_content` varchar(300) DEFAULT NULL COMMENT '日志内容',
   `log_create_time` varchar(20) DEFAULT NULL COMMENT '日志创建时间',
   PRIMARY KEY (`log_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_temp_city` */
+
+DROP TABLE IF EXISTS `t_temp_city`;
+
+CREATE TABLE `t_temp_city` (
+  `city_id` varchar(32) DEFAULT NULL COMMENT '市表主键',
+  `province_id` varchar(32) DEFAULT NULL COMMENT '省表主键',
+  `city_name` varchar(100) DEFAULT NULL COMMENT '市名',
+  `city_seq` int(5) DEFAULT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_temp_district` */
+
+DROP TABLE IF EXISTS `t_temp_district`;
+
+CREATE TABLE `t_temp_district` (
+  `district_id` varchar(32) NOT NULL COMMENT '区表主键',
+  `city_id` varchar(32) DEFAULT NULL COMMENT '市表主键',
+  `district_name` varchar(100) DEFAULT NULL COMMENT '区名',
+  `district_post_code` varchar(50) DEFAULT NULL COMMENT '区邮编',
+  `district_seq` int(5) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`district_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_temp_province` */
+
+DROP TABLE IF EXISTS `t_temp_province`;
+
+CREATE TABLE `t_temp_province` (
+  `province_id` varchar(32) NOT NULL COMMENT '省表主键',
+  `province_name` varchar(100) DEFAULT NULL COMMENT '省名',
+  `province_seq` int(5) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`province_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_user` */
