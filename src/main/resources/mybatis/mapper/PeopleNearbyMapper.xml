@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.PeopleNearbyMapper">
+
+    <insert id="addPeopleNearby" parameterType="com.bc.wechat.server.entity.PeopleNearby">
+        insert into t_people_nearby
+        (
+        nearby_id,
+        nearby_user_id,
+        nearby_longitude,
+        nearby_latitude,
+        nearby_region,
+        nearby_create_time
+        )
+        values
+        (
+        #{id},
+        #{userId},
+        #{longitude},
+        #{latitude},
+        #{region},
+        now()
+        )
+    </insert>
+</mapper>
