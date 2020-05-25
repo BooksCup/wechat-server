@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -191,8 +192,6 @@ public class UserServiceImpl implements UserService {
                 downloadPath = Constant.FILE_UPLOAD_PATH_LINUX;
             }
 
-            String avatarFileName = FileUtil.downLoadFromUrl(user.getUserAvatar(), downloadPath);
-            String logoPath = downloadPath + "/" + avatarFileName;
 
             String qrCodeFileName = CommonUtil.generateId() + ".png";
 
@@ -202,12 +201,20 @@ public class UserServiceImpl implements UserService {
             contentMap.put("userId", user.getUserId());
             qrCodeContent.setContentMap(contentMap);
 
-            BufferedImage image = QrCodeUtil.genQrCodeWithAvatar(JSON.toJSONString(qrCodeContent), 400, 400, logoPath);
             File qrCodeFile = new File(downloadPath + "/" + qrCodeFileName);
-            if (!ImageIO.write(image, "png", qrCodeFile)) {
-                logger.error("could not write an image of format");
-                return false;
+
+            if (StringUtils.isEmpty(user.getUserAvatar())) {
+                QrCodeUtil.genQrCode(JSON.toJSONString(qrCodeContent), 400, 400, qrCodeFile);
+            } else {
+                String avatarFileName = FileUtil.downLoadFromUrl(user.getUserAvatar(), downloadPath);
+                String logoPath = downloadPath + "/" + avatarFileName;
+                BufferedImage image = QrCodeUtil.genQrCodeWithAvatar(JSON.toJSONString(qrCodeContent), 400, 400, logoPath);
+                if (!ImageIO.write(image, "png", qrCodeFile)) {
+                    logger.error("could not write an image of format");
+                    return false;
+                }
             }
+
 
             // 上传至OSS
             String qrcode = ossService.putObject("erp-wd-com", qrCodeFileName, qrCodeFile);

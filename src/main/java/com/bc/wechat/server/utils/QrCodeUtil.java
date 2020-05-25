@@ -11,6 +11,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ import com.bc.wechat.server.cons.Constant;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
@@ -51,9 +52,25 @@ public class QrCodeUtil {
      */
     private static MultiFormatWriter mutiWriter = new MultiFormatWriter();
 
+    public static void genQrCode(String content, int width,
+                                 int height, File qrCodeFile) throws Exception {
+        Map<EncodeHintType, Object> hint = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+        // 内容编码
+        hint.put(EncodeHintType.CHARACTER_SET, "utf-8");
+        // 错误等级
+        hint.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
+        // 设置二维码外边框的空白区域的宽度
+        hint.put(EncodeHintType.MARGIN, 1);
+        // 生成二维码
+        BitMatrix matrix = mutiWriter.encode(content, BarcodeFormat.QR_CODE,
+                width, height, hint);
+        Path qrCodeFilePath = qrCodeFile.toPath();
+
+        MatrixToImageWriter.writeToPath(matrix, "png", qrCodeFilePath);
+    }
+
     public static BufferedImage genQrCodeWithAvatar(String content, int width,
-                                            int height, String srcImagePath) throws WriterException,
-            IOException {
+                                                    int height, String srcImagePath) throws Exception {
         // 读取源图像
         BufferedImage scaleImage = scale(srcImagePath, IMAGE_WIDTH,
                 IMAGE_HEIGHT, true);
