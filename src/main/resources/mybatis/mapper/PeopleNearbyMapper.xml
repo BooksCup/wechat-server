@@ -9,6 +9,19 @@
         <result column="nearby_region" property="region" jdbcType="VARCHAR"/>
     </resultMap>
 
+    <resultMap id="PeopleNearby" type="com.bc.wechat.server.entity.PeopleNearby">
+        <id column="nearby_id" property="id" jdbcType="VARCHAR"/>
+        <result column="nearby_user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="nearby_longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="nearby_latitude" property="latitude" jdbcType="VARCHAR"/>
+        <result column="nearby_region" property="region" jdbcType="VARCHAR"/>
+
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+        <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
+        <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="addPeopleNearby" parameterType="com.bc.wechat.server.entity.PeopleNearby">
         insert into t_people_nearby
         (
@@ -44,5 +57,37 @@
         *
         from t_people_nearby
         where nearby_user_id = #{userId}
+    </select>
+
+    <select id="getPeopleNearbyListByUserId" resultMap="PeopleNearby"
+            parameterType="com.bc.wechat.server.entity.PeopleNearby">
+        <![CDATA[
+        select p.*, u.user_avatar, u.user_nick_name, u.user_sex, u.user_sign,
+        round(
+        6378.138 * 2 * asin(
+        sqrt(
+        pow(
+        sin(
+        (
+        #{latitude} * pi() / 180 - p.nearby_latitude * pi() / 180
+        ) / 2
+        ),
+        2
+        ) + cos(#{latitude} * pi() / 180) * cos(p.nearby_latitude * pi() / 180) * pow(
+        sin(
+        (
+        #{longitude} * pi() / 180 - p.nearby_longitude * pi() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        )
+        ) as distance
+        from
+        t_people_nearby p left join t_user u on p.nearby_user_id = u.user_id
+        where p.nearby_user_id <> #{userId}
+        order by distance asc
+        ]]>
     </select>
 </mapper>

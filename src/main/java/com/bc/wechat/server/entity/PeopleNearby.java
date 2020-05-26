@@ -14,6 +14,12 @@ public class PeopleNearby {
     private String latitude;
     private String region;
 
+    // 用户信息
+    private String userNickName;
+    private String userAvatar;
+    private String userSex;
+    private String userSign;
+
     public PeopleNearby() {
 
     }
@@ -64,5 +70,37 @@ public class PeopleNearby {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
+
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
+    }
+
+    public String getUserAvatar() {
+        return userAvatar;
+    }
+
+    public void setUserAvatar(String userAvatar) {
+        this.userAvatar = userAvatar;
+    }
+
+    public String getUserSex() {
+        return userSex;
+    }
+
+    public void setUserSex(String userSex) {
+        this.userSex = userSex;
+    }
+
+    public String getUserSign() {
+        return userSign;
+    }
+
+    public void setUserSign(String userSign) {
+        this.userSign = userSign;
     }
 }

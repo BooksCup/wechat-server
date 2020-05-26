@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,7 +25,7 @@ public class PeopleNearbyServiceImpl implements PeopleNearbyService {
      * @param peopleNearby 附近的人(位置信息)
      */
     @Override
-    public void getPeopleNearbyList(PeopleNearby peopleNearby) {
+    public List<PeopleNearby> getPeopleNearbyList(PeopleNearby peopleNearby) {
         List<PeopleNearby> positionInfoList = peopleNearbyMapper.getPositionInfoListByUserId(peopleNearby.getUserId());
         if (CollectionUtils.isEmpty(positionInfoList)) {
             peopleNearbyMapper.addPeopleNearby(peopleNearby);
@@ -34,5 +33,8 @@ public class PeopleNearbyServiceImpl implements PeopleNearbyService {
             peopleNearby.setId(positionInfoList.get(0).getId());
             peopleNearbyMapper.updatePeopleNearby(peopleNearby);
         }
+
+        List<PeopleNearby> peopleNearbyList = peopleNearbyMapper.getPeopleNearbyListByUserId(peopleNearby);
+        return peopleNearbyList;
     }
 }

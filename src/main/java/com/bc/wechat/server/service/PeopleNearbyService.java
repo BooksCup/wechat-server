@@ -16,5 +16,5 @@ public interface PeopleNearbyService {
      *
      * @param peopleNearby 附近的人(位置信息)
      */
-    void getPeopleNearbyList(PeopleNearby peopleNearby);
+    List<PeopleNearby> getPeopleNearbyList(PeopleNearby peopleNearby);
 }
