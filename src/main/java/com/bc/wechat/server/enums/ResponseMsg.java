@@ -82,6 +82,9 @@ public enum ResponseMsg {
 
     INIT_AREA_SUCCESS("INIT_AREA_SUCCESS", "初始化省市区成功"),
     INIT_AREA_ERROR("INIT_AREA_ERROR", "初始化省市区失败"),
+
+    DELETE_POSITION_INFO_SUCCESS("DELETE_POSITION_INFO_SUCCESS", "删除位置信息成功"),
+    DELETE_POSITION_INFO_ERROR("DELETE_POSITION_INFO_ERROR", "删除位置信息失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {

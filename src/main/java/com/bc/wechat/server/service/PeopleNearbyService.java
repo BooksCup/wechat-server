@@ -17,4 +17,11 @@ public interface PeopleNearbyService {
      * @param peopleNearby 附近的人(位置信息)
      */
     List<PeopleNearby> getPeopleNearbyList(PeopleNearby peopleNearby);
+
+    /**
+     * 清除某个用户的位置信息
+     *
+     * @param userId 用户ID
+     */
+    void deletePositionInfo(String userId);
 }

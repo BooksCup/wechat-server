@@ -37,4 +37,14 @@ public class PeopleNearbyServiceImpl implements PeopleNearbyService {
         List<PeopleNearby> peopleNearbyList = peopleNearbyMapper.getPeopleNearbyListByUserId(peopleNearby);
         return peopleNearbyList;
     }
+
+    /**
+     * 清除某个用户的位置信息
+     *
+     * @param userId 用户ID
+     */
+    @Override
+    public void deletePositionInfo(String userId) {
+        peopleNearbyMapper.deletePositionInfo(userId);
+    }
 }

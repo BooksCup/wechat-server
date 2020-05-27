@@ -90,4 +90,9 @@
         order by distance asc
         ]]>
     </select>
+
+    <delete id="deletePositionInfo" parameterType="String">
+        delete from t_people_nearby
+        where nearby_user_id = #{userId}
+    </delete>
 </mapper>

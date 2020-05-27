@@ -39,4 +39,11 @@ public interface PeopleNearbyMapper {
      * @return 某个用户的附近的人列表
      */
     List<PeopleNearby> getPeopleNearbyListByUserId(PeopleNearby peopleNearby);
+
+    /**
+     * 清除某个用户的位置信息
+     *
+     * @param userId 用户ID
+     */
+    void deletePositionInfo(String userId);
 }
