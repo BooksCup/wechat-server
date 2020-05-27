@@ -8,6 +8,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 附近的人
@@ -20,12 +21,12 @@ public class PeopleNearbyServiceImpl implements PeopleNearbyService {
     private PeopleNearbyMapper peopleNearbyMapper;
 
     /**
-     * 上传位置信息并获取附近的人列表
+     * 上次位置信息
      *
-     * @param peopleNearby 附近的人(位置信息)
+     * @param peopleNearby 位置信息
      */
     @Override
-    public List<PeopleNearby> getPeopleNearbyList(PeopleNearby peopleNearby) {
+    public void uploadPositionInfo(PeopleNearby peopleNearby) {
         List<PeopleNearby> positionInfoList = peopleNearbyMapper.getPositionInfoListByUserId(peopleNearby.getUserId());
         if (CollectionUtils.isEmpty(positionInfoList)) {
             peopleNearbyMapper.addPeopleNearby(peopleNearby);
@@ -33,8 +34,17 @@ public class PeopleNearbyServiceImpl implements PeopleNearbyService {
             peopleNearby.setId(positionInfoList.get(0).getId());
             peopleNearbyMapper.updatePeopleNearby(peopleNearby);
         }
+    }
 
-        List<PeopleNearby> peopleNearbyList = peopleNearbyMapper.getPeopleNearbyListByUserId(peopleNearby);
+    /**
+     * 获取附近的人列表
+     *
+     * @param paramMap 参数map，包含用户ID(userId)和用户性别(userSex)
+     * @return 附近的人列表
+     */
+    @Override
+    public List<PeopleNearby> getPeopleNearbyList(Map<String, String> paramMap) {
+        List<PeopleNearby> peopleNearbyList = peopleNearbyMapper.getPeopleNearbyListByUserId(paramMap);
         return peopleNearbyList;
     }
 

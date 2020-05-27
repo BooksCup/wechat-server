@@ -3,6 +3,7 @@ package com.bc.wechat.server.mapper;
 import com.bc.wechat.server.entity.PeopleNearby;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 附近的人
@@ -33,12 +34,12 @@ public interface PeopleNearbyMapper {
     List<PeopleNearby> getPositionInfoListByUserId(String userId);
 
     /**
-     * 获取某个用户的附近的人列表
+     * 获取附近的人列表
      *
-     * @param peopleNearby 某个用户的个人信息及位置信息
-     * @return 某个用户的附近的人列表
+     * @param paramMap 参数map，包含用户ID(userId)和用户性别(userSex)
+     * @return 附近的人列表
      */
-    List<PeopleNearby> getPeopleNearbyListByUserId(PeopleNearby peopleNearby);
+    List<PeopleNearby> getPeopleNearbyListByUserId(Map<String, String> paramMap);
 
     /**
      * 清除某个用户的位置信息
