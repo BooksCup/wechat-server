@@ -24,12 +24,13 @@ public class PeopleNearby {
 
     }
 
-    public PeopleNearby(String userId, String longitude, String latitude, String region) {
+    public PeopleNearby(String userId, String longitude, String latitude, String region, String userSex) {
         this.id = CommonUtil.generateId();
         this.userId = userId;
         this.longitude = longitude;
         this.latitude = latitude;
         this.region = region;
+        this.userSex = userSex;
     }
 
     public String getId() {

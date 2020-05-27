@@ -61,7 +61,6 @@
 
     <select id="getPeopleNearbyListByUserId" resultMap="PeopleNearby"
             parameterType="com.bc.wechat.server.entity.PeopleNearby">
-        <![CDATA[
         select p.*, u.user_avatar, u.user_nick_name, u.user_sex, u.user_sign,
         round(
         6378.138 * 2 * asin(
@@ -86,9 +85,11 @@
         ) as distance
         from
         t_people_nearby p left join t_user u on p.nearby_user_id = u.user_id
-        where p.nearby_user_id <> #{userId}
+        where p.nearby_user_id <![CDATA[<>]]> #{userId}
+        <if test="userSex != null and userSex != ''">
+            and u.user_sex = #{userSex}
+        </if>
         order by distance asc
-        ]]>
     </select>
 
     <delete id="deletePositionInfo" parameterType="String">

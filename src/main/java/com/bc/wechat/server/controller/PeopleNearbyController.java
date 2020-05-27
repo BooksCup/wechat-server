@@ -45,10 +45,11 @@ public class PeopleNearbyController {
             @RequestParam String userId,
             @RequestParam String longitude,
             @RequestParam String latitude,
-            @RequestParam(required = false) String district) {
+            @RequestParam(required = false) String district,
+            @RequestParam(required = false) String userSex) {
         ResponseEntity<List<PeopleNearby>> responseEntity;
         try {
-            PeopleNearby peopleNearby = new PeopleNearby(userId, longitude, latitude, district);
+            PeopleNearby peopleNearby = new PeopleNearby(userId, longitude, latitude, district, userSex);
             List<PeopleNearby> peopleNearbyList = peopleNearbyService.getPeopleNearbyList(peopleNearby);
             responseEntity = new ResponseEntity<>(peopleNearbyList, HttpStatus.OK);
         } catch (Exception e) {
