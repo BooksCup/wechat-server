@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.UserLoginDeviceMapper">
+
+    <insert id="addUserLoginDevice" parameterType="com.bc.wechat.server.entity.UserLoginDevice">
+        insert into t_user_login_device
+        (
+        device_id,
+        device_user_id,
+        device_phone_brand,
+        device_phone_model,
+        device_os,
+        device_resolution,
+        device_operator,
+        device_login_time
+        )
+        values
+        (
+        #{deviceId},
+        #{userId},
+        #{phoneBrand},
+        #{phoneModel},
+        #{os},
+        #{resolution},
+        #{operator},
+        now()
+        )
+    </insert>
+
+</mapper>

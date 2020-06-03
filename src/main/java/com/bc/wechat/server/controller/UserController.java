@@ -5,6 +5,7 @@ import java.util.*;
 
 import cn.jmessage.api.JMessageClient;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.*;
 import com.bc.wechat.server.enums.ResponseMsg;
@@ -51,6 +52,9 @@ public class UserController {
     @Resource
     private SysLogService sysLogService;
 
+    @Resource
+    private UserLoginDeviceService userLoginDeviceService;
+
     /**
      * 登录
      *
@@ -62,8 +66,10 @@ public class UserController {
     @GetMapping(value = "/login")
     public ResponseEntity<User> login(
             @RequestParam String phone,
-            @RequestParam String password) {
+            @RequestParam String password,
+            @RequestParam(required = false) String deviceInfo) {
         ResponseEntity<User> responseEntity;
+
         Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
         paramMap.put("phone", phone);
         paramMap.put("password", password);
@@ -89,6 +95,16 @@ public class UserController {
             sysLogBuffer.append("phone: ").append(phone).append(", ")
                     .append("status: login success.");
             sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, user.getUserId(), sysLogBuffer.toString()));
+
+            // 保存登录设备信息
+            try {
+                UserLoginDevice userLoginDevice = JSONObject.parseObject(deviceInfo, UserLoginDevice.class);
+                userLoginDevice.setDeviceId(CommonUtil.generateId());
+                userLoginDevice.setUserId(user.getUserId());
+                userLoginDeviceService.addUserLoginDevice(userLoginDevice);
+            } catch (Exception e) {
+                logger.error("[login] parse DeviceInfo error: " + e.getMessage());
+            }
         }
 
         return responseEntity;
