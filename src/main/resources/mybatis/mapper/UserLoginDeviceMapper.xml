@@ -2,6 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bc.wechat.server.mapper.UserLoginDeviceMapper">
 
+    <resultMap id="userLoginDevice" type="com.bc.wechat.server.entity.UserLoginDevice">
+        <id column="device_id" property="deviceId" jdbcType="VARCHAR"/>
+        <result column="device_user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="device_phone_brand" property="phoneBrand" jdbcType="VARCHAR"/>
+        <result column="device_phone_model" property="phoneModel" jdbcType="VARCHAR"/>
+        <result column="device_os" property="os" jdbcType="VARCHAR"/>
+        <result column="device_resolution" property="resolution" jdbcType="BIGINT"/>
+        <result column="device_operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="device_login_time" property="loginTime" jdbcType="VARCHAR"/>
+    </resultMap>
+
     <insert id="addUserLoginDevice" parameterType="com.bc.wechat.server.entity.UserLoginDevice">
         insert into t_user_login_device
         (
@@ -26,5 +37,12 @@
         now()
         )
     </insert>
+
+    <select id="getUserLoginDeviceListByUserId" resultMap="userLoginDevice" parameterType="String">
+        select *
+        from t_user_login_device
+        where device_user_id = #{userId}
+        order by device_login_time desc
+    </select>
 
 </mapper>

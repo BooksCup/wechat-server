@@ -745,4 +745,26 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 获取用户的登录设备信息列表
+     *
+     * @param userId 用户ID
+     * @return 登录设备信息列表
+     */
+    @ApiOperation(value = "获取用户的登录设备信息列表", notes = "获取用户的登录设备信息列表")
+    @GetMapping(value = "/{userId}/devices")
+    public ResponseEntity<List<UserLoginDevice>> getDeviceInfoListByUserId(
+            @PathVariable String userId) {
+        ResponseEntity<List<UserLoginDevice>> responseEntity;
+        try {
+            List<UserLoginDevice> userLoginDeviceList = userLoginDeviceService.getUserLoginDeviceListByUserId(userId);
+            responseEntity = new ResponseEntity<>(userLoginDeviceList, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[getDeviceInfoListByUserId] error: " + e.getMessage());
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

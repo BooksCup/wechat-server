@@ -35,6 +35,8 @@ public class UserLoginDevice {
      */
     private String operator;
 
+    private String loginTime;
+
     public String getDeviceId() {
         return deviceId;
     }
@@ -89,5 +91,13 @@ public class UserLoginDevice {
 
     public void setOperator(String operator) {
         this.operator = operator;
+    }
+
+    public String getLoginTime() {
+        return loginTime;
+    }
+
+    public void setLoginTime(String loginTime) {
+        this.loginTime = loginTime;
     }
 }
