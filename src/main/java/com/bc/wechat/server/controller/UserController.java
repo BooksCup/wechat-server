@@ -767,4 +767,25 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    @ApiOperation(value = "修改登录设备信息", notes = "修改登录设备信息")
+    @PutMapping(value = "/{userId}/devices/{deviceId}")
+    public ResponseEntity<String> modifyDevice(
+            @PathVariable String deviceId,
+            @RequestParam String phoneModelAlias) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[modifyDevice] deviceId: " + deviceId + ", phoneModelAlias: " + phoneModelAlias);
+            UserLoginDevice userLoginDevice = new UserLoginDevice();
+            userLoginDevice.setDeviceId(deviceId);
+            userLoginDevice.setPhoneModelAlias(phoneModelAlias);
+            userLoginDeviceService.updateUserLoginDevice(userLoginDevice);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_DEVICE_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[modifyDevice] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_DEVICE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

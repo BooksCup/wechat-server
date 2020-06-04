@@ -1,6 +1,5 @@
 package com.bc.wechat.server.service.impl;
 
-import com.bc.wechat.server.entity.Address;
 import com.bc.wechat.server.entity.UserLoginDevice;
 import com.bc.wechat.server.mapper.UserLoginDeviceMapper;
 import com.bc.wechat.server.service.UserLoginDeviceService;
@@ -40,5 +39,15 @@ public class UserLoginDeviceServiceImpl implements UserLoginDeviceService {
     @Override
     public void addUserLoginDevice(UserLoginDevice userLoginDevice) {
         userLoginDeviceMapper.addUserLoginDevice(userLoginDevice);
+    }
+
+    /**
+     * 修改用户登录设备信息
+     *
+     * @param userLoginDevice 用户登录设备信息
+     */
+    @Override
+    public void updateUserLoginDevice(UserLoginDevice userLoginDevice) {
+        userLoginDeviceMapper.updateUserLoginDevice(userLoginDevice);
     }
 }

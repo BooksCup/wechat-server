@@ -88,6 +88,9 @@ public enum ResponseMsg {
 
     DELETE_POSITION_INFO_SUCCESS("DELETE_POSITION_INFO_SUCCESS", "删除位置信息成功"),
     DELETE_POSITION_INFO_ERROR("DELETE_POSITION_INFO_ERROR", "删除位置信息失败"),
+
+    MODIFY_DEVICE_SUCCESS("MODIFY_DEVICE_SUCCESS", "修改登录设备信息成功"),
+    MODIFY_DEVICE_ERROR("MODIFY_DEVICE_ERROR", "修改登录设备信息失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {

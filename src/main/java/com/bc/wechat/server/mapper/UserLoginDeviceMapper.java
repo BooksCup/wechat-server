@@ -25,4 +25,11 @@ public interface UserLoginDeviceMapper {
      * @param userLoginDevice 用户登录设备信息
      */
     void addUserLoginDevice(UserLoginDevice userLoginDevice);
+
+    /**
+     * 修改用户登录设备信息
+     *
+     * @param userLoginDevice 用户登录设备信息
+     */
+    void updateUserLoginDevice(UserLoginDevice userLoginDevice);
 }

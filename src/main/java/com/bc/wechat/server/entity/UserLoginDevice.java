@@ -21,6 +21,11 @@ public class UserLoginDevice {
     private String phoneModel;
 
     /**
+     * 手机型号别名(用户备注)
+     */
+    private String phoneModelAlias;
+
+    /**
      * 操作系统版本
      */
     private String os;
@@ -67,6 +72,14 @@ public class UserLoginDevice {
 
     public void setPhoneModel(String phoneModel) {
         this.phoneModel = phoneModel;
+    }
+
+    public String getPhoneModelAlias() {
+        return phoneModelAlias;
+    }
+
+    public void setPhoneModelAlias(String phoneModelAlias) {
+        this.phoneModelAlias = phoneModelAlias;
     }
 
     public String getOs() {
