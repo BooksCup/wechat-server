@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.VerificationCodeMapper">
+
+    <insert id="addVerificationCode" parameterType="com.bc.wechat.server.entity.VerificationCode">
+        insert into t_verification_code
+        (
+        vc_id,
+        vc_phone,
+        vc_code,
+        vc_create_time,
+        vc_expire_time
+        )
+        values
+        (
+        #{id},
+        #{phone},
+        #{code},
+        #{createTime},
+        #{expireTime}
+        )
+    </insert>
+</mapper>

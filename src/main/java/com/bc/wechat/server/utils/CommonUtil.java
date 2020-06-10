@@ -120,8 +120,21 @@ public class CommonUtil {
         return String.valueOf(rs);
     }
 
+    /**
+     * 计算失效时间
+     *
+     * @param period 时间间隔(单位秒)
+     * @return 失效时间
+     */
+    public static String getExpireTime(long period) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date expireDate = new Date(System.currentTimeMillis() + period * 1000);
+        return simpleDateFormat.format(expireDate);
+    }
+
     public static void main(String[] args) {
-        System.out.println(generateInitWxId());
+//        System.out.println(generateInitWxId());
+        System.out.println(getExpireTime(30 * 60));
     }
 
 }
