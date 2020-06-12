@@ -222,6 +222,23 @@ CREATE TABLE `t_user_address` (
   PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_user_login_device` */
+
+DROP TABLE IF EXISTS `t_user_login_device`;
+
+CREATE TABLE `t_user_login_device` (
+  `device_id` varchar(32) NOT NULL COMMENT '登录设备表主键',
+  `device_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `device_phone_brand` varchar(100) DEFAULT NULL COMMENT '手机品牌',
+  `device_phone_model` varchar(100) DEFAULT NULL COMMENT '手机型号',
+  `device_phone_model_alias` varchar(100) DEFAULT NULL COMMENT '手机型号别名(用户备注)',
+  `device_os` varchar(100) DEFAULT NULL COMMENT '操作系统版本',
+  `device_resolution` varchar(100) DEFAULT NULL COMMENT '分辨率',
+  `device_operator` varchar(100) DEFAULT NULL COMMENT '运营商信息',
+  `device_login_time` varchar(20) DEFAULT NULL COMMENT '设备登录时间',
+  PRIMARY KEY (`device_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_user_rela` */
 
 DROP TABLE IF EXISTS `t_user_rela`;
@@ -241,6 +258,20 @@ CREATE TABLE `t_user_rela` (
   `rela_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
   `rela_update_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`rela_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_verification_code` */
+
+DROP TABLE IF EXISTS `t_verification_code`;
+
+CREATE TABLE `t_verification_code` (
+  `vc_id` varchar(32) NOT NULL COMMENT '验证码表主键',
+  `vc_phone` varchar(100) DEFAULT NULL COMMENT '手机号',
+  `vc_code` varchar(50) DEFAULT NULL COMMENT '验证码内容',
+  `vc_service_type` varchar(50) DEFAULT NULL COMMENT '验证码业务类型 "0":"登录"',
+  `vc_create_time` varchar(20) DEFAULT NULL COMMENT '验证码创建时间',
+  `vc_expire_time` varchar(20) DEFAULT NULL COMMENT '验证码失效时间',
+  PRIMARY KEY (`vc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
