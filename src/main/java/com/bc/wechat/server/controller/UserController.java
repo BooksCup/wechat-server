@@ -65,15 +65,15 @@ public class UserController {
     @ApiOperation(value = "登录", notes = "登录")
     @GetMapping(value = "/login")
     public ResponseEntity<User> login(
-            @RequestParam String phone,
-            @RequestParam String password,
+            @RequestParam(required = false, defaultValue = Constant.LOGIN_TYPE_PHONE_AND_PASSWORD) String loginType,
+            @RequestParam(required = false) String phone,
+            @RequestParam(required = false) String password,
+            @RequestParam(required = false) String verificationCode,
+            @RequestParam(required = false) String otherAccount,
             @RequestParam(required = false) String deviceInfo) {
         ResponseEntity<User> responseEntity;
 
-        Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-        paramMap.put("phone", phone);
-        paramMap.put("password", password);
-        List<User> userList = userService.getUserByLogin(paramMap);
+        List<User> userList = userService.getUserByLogin(loginType, phone, password, verificationCode, otherAccount);
 
         StringBuffer sysLogBuffer = new StringBuffer();
 

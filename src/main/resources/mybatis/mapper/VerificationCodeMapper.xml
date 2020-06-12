@@ -8,6 +8,7 @@
         vc_id,
         vc_phone,
         vc_code,
+        vc_service_type,
         vc_create_time,
         vc_expire_time
         )
@@ -16,8 +17,20 @@
         #{id},
         #{phone},
         #{code},
+        #{serviceType},
         #{createTime},
         #{expireTime}
         )
     </insert>
+
+    <select id="getVerificationCodeList" parameterType="map" resultType="String">
+        <![CDATA[
+        select
+        vc_code
+        from t_verification_code
+        where vc_phone = #{phone}
+        and vc_service_type = #{serviceType}
+        and vc_expire_time > now()
+        ]]>
+    </select>
 </mapper>

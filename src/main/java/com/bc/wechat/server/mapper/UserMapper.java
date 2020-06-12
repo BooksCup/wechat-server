@@ -18,7 +18,7 @@ public interface UserMapper {
      * @param paramMap 参数map
      * @return 用户列表
      */
-    List<User> getUserByLogin(Map<String, String> paramMap);
+    List<User> getUserByPhoneAndPassword(Map<String, String> paramMap);
 
     /**
      * 新增用户

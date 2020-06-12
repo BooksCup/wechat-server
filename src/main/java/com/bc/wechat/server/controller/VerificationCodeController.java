@@ -1,6 +1,7 @@
 package com.bc.wechat.server.controller;
 
 import com.bc.wechat.server.entity.VerificationCode;
+import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.VerificationCodeService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -40,16 +41,17 @@ public class VerificationCodeController {
     @ApiOperation(value = "获取验证码", notes = "获取验证码")
     @PostMapping(value = "")
     public ResponseEntity<String> getVerificationCode(
-            @RequestParam String phone) {
+            @RequestParam String phone,
+            @RequestParam String serviceType) {
         ResponseEntity<String> responseEntity;
         try {
-            VerificationCode verificationCode = new VerificationCode(phone, "123456", 10 * 60);
+            VerificationCode verificationCode = new VerificationCode(phone, "123456", serviceType, 10 * 60);
             verificationCodeService.addVerificationCode(verificationCode);
-            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.GET_VERIFICATION_CODE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("[addVerificationCode] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.error("[getVerificationCode] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.GET_VERIFICATION_CODE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

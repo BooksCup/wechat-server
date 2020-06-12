@@ -11,6 +11,7 @@ public class VerificationCode {
     private String id;
     private String phone;
     private String code;
+    private String serviceType;
     private String createTime;
     private String expireTime;
 
@@ -18,10 +19,11 @@ public class VerificationCode {
 
     }
 
-    public VerificationCode(String phone, String code, long period) {
+    public VerificationCode(String phone, String code, String serviceType, long period) {
         this.id = CommonUtil.generateId();
         this.phone = phone;
         this.code = code;
+        this.serviceType = serviceType;
         this.createTime = CommonUtil.now();
         this.expireTime = CommonUtil.getExpireTime(period);
     }
@@ -48,6 +50,14 @@ public class VerificationCode {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(String serviceType) {
+        this.serviceType = serviceType;
     }
 
     public String getCreateTime() {

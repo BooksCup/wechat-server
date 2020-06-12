@@ -16,7 +16,7 @@
         <result column="user_lastest_circle_photos" property="userLastestCirclePhotos" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getUserByLogin" resultMap="BaseResultMap">
+    <select id="getUserByPhoneAndPassword" resultMap="BaseResultMap">
         select
           *
         from t_user
@@ -32,6 +32,7 @@
             user_nick_name,
             user_phone,
             user_avatar,
+            user_sex,
             user_password,
             user_im_password,
             user_create_time,
@@ -44,6 +45,7 @@
             #{userNickName},
             #{userPhone},
             #{userAvatar},
+            #{userSex},
             #{userPassword},
             #{userImPassword},
             now(),

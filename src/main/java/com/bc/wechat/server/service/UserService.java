@@ -11,13 +11,21 @@ import java.util.Map;
  * @author zhou
  */
 public interface UserService {
+
     /**
-     * 通过用户名和密码获取用户列表(用于登录)
+     * 通过登录获取用户列表
      *
-     * @param paramMap 参数map
+     * @param loginType        登录类型
+     *                         手机号密码登录
+     *                         手机号验证码登录
+     *                         其他账号(微信号/QQ/邮箱登录)密码登录
+     * @param phone            手机号
+     * @param password         密码
+     * @param verificationCode 验证码
+     * @param otherAccount     其他账号(微信号/QQ/邮箱登录)
      * @return 用户列表
      */
-    List<User> getUserByLogin(Map<String, String> paramMap);
+    List<User> getUserByLogin(String loginType, String phone, String password, String verificationCode, String otherAccount);
 
     /**
      * 新增用户

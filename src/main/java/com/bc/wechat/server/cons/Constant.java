@@ -182,4 +182,25 @@ public class Constant {
      * 协议-"https"
      */
     public static final String PROTOCOL_HTTPS_PREFIX = "https://";
+
+    // 登录方式
+    /**
+     * 手机号/密码登录
+     */
+    public static final String LOGIN_TYPE_PHONE_AND_PASSWORD = "0";
+
+    /**
+     * 手机号/验证码登录
+     */
+    public static final String LOGIN_TYPE_PHONE_AND_VERIFICATION_CODE = "1";
+
+    /**
+     * 微信号/QQ/邮箱登录
+     */
+    public static final String LOGIN_TYPE_OTHER_ACCOUNTS_AND_PASSWORD = "2";
+
+    /**
+     * 验证码业务类型-"登录"
+     */
+    public static final String VERIFICATION_CODE_SERVICE_TYPE_LOGIN = "0";
 }

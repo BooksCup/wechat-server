@@ -5,6 +5,7 @@ import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.QrCodeContent;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.UserMapper;
+import com.bc.wechat.server.mapper.VerificationCodeMapper;
 import com.bc.wechat.server.service.OssService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
@@ -40,15 +41,43 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private VerificationCodeMapper verificationCodeMapper;
+
     /**
-     * 通过用户名和密码获取用户列表(用于登录)
+     * 通过登录获取用户列表
      *
-     * @param paramMap 参数map
+     * @param loginType        登录类型
+     *                         手机号密码登录
+     *                         手机号验证码登录
+     *                         其他账号(微信号/QQ/邮箱登录)密码登录
+     * @param phone            手机号
+     * @param password         密码
+     * @param verificationCode 验证码
+     * @param otherAccount     其他账号(微信号/QQ/邮箱登录)
      * @return 用户列表
      */
     @Override
-    public List<User> getUserByLogin(Map<String, String> paramMap) {
-        return userMapper.getUserByLogin(paramMap);
+    public List<User> getUserByLogin(String loginType, String phone, String password, String verificationCode, String otherAccount) {
+        if (Constant.LOGIN_TYPE_PHONE_AND_PASSWORD.equals(loginType)) {
+            // 手机号密码登录
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("phone", phone);
+            paramMap.put("password", password);
+            return userMapper.getUserByPhoneAndPassword(paramMap);
+        } else if (Constant.LOGIN_TYPE_PHONE_AND_VERIFICATION_CODE.equals(loginType)) {
+            // 手机号验证码登录
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("phone", phone);
+            paramMap.put("serviceType", Constant.VERIFICATION_CODE_SERVICE_TYPE_LOGIN);
+            List<String> verificationCodeList = verificationCodeMapper.getVerificationCodeList(paramMap);
+            if (!CollectionUtils.isEmpty(verificationCodeList)) {
+                if (verificationCodeList.get(0).equals(verificationCode)) {
+                    return userMapper.getUserByUserPhone(phone);
+                }
+            }
+        }
+        return null;
     }
 
     /**
