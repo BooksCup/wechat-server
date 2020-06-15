@@ -23,6 +23,8 @@ public class User implements Serializable {
     private String userHeader;
     private String userSex;
     private String userSign;
+    private String userEmail;
+    private String userIsEmailLinked;
     private String userQrCode;
     private String isFriend;
     private List<User> friendList;
@@ -131,6 +133,22 @@ public class User implements Serializable {
 
     public void setUserSign(String userSign) {
         this.userSign = userSign;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserIsEmailLinked() {
+        return userIsEmailLinked;
+    }
+
+    public void setUserIsEmailLinked(String userIsEmailLinked) {
+        this.userIsEmailLinked = userIsEmailLinked;
     }
 
     public String getUserQrCode() {

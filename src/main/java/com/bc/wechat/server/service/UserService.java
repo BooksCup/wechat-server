@@ -70,6 +70,13 @@ public interface UserService {
     void updateUserSign(Map<String, String> paramMap);
 
     /**
+     * 修改用户邮箱
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserEmail(Map<String, String> paramMap);
+
+    /**
      * 修改朋友圈最新图片
      *
      * @param paramMap 参数map

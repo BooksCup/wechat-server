@@ -8,6 +8,8 @@
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
         <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
         <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
+        <result column="user_email" property="userEmail" jdbcType="VARCHAR"/>
+        <result column="user_is_email_linked" property="userIsEmailLinked" jdbcType="VARCHAR"/>
         <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
         <result column="user_im_password" property="userImPassword" jdbcType="VARCHAR"/>
         <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
@@ -86,6 +88,13 @@
         update t_user
         set user_sign = #{userSign},
         user_modify_time = now()
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateUserEmail" parameterType="map">
+        update t_user
+        set user_email = #{userEmail},
+        user_is_email_linked = #{userIsEmailLinked}
         where user_id = #{userId}
     </update>
 

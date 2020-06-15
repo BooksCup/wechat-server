@@ -63,6 +63,13 @@ public interface UserMapper {
     void updateUserSign(Map<String, String> paramMap);
 
     /**
+     * 修改用户邮箱
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserEmail(Map<String, String> paramMap);
+
+    /**
      * 修改用户二维码
      *
      * @param paramMap 参数map

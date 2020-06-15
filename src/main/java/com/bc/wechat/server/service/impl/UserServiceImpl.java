@@ -142,6 +142,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户邮箱
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserEmail(Map<String, String> paramMap) {
+        userMapper.updateUserEmail(paramMap);
+    }
+
+    /**
      * 修改朋友圈最新图片
      *
      * @param paramMap 参数map
