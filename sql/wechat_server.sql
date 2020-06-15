@@ -198,6 +198,7 @@ CREATE TABLE `t_user` (
   `user_qr_code` varchar(200) DEFAULT NULL COMMENT '用户二维码地址',
   `user_lastest_circle_photos` varchar(1024) DEFAULT NULL COMMENT '最新n张朋友圈照片,n=4',
   `user_wx_id_modify_flag` varchar(2) DEFAULT '0' COMMENT '微信号修改标记',
+  `user_last_login_time` varchar(20) DEFAULT NULL COMMENT '用户最后一次登录时间',
   `user_create_time` varchar(20) DEFAULT NULL COMMENT '用户创建时间',
   `user_modify_time` varchar(20) DEFAULT NULL COMMENT '用户修改时间',
   PRIMARY KEY (`user_id`)
