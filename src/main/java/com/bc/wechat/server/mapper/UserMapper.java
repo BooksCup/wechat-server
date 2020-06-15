@@ -77,6 +77,13 @@ public interface UserMapper {
     void updateUserLastestCirclePhotos(Map<String, String> paramMap);
 
     /**
+     * 修改用户最后一次登录时间
+     *
+     * @param userId 用户ID
+     */
+    void updateUserLastLoginTime(String userId);
+
+    /**
      * 通过关键字搜索用户
      *
      * @param keyword 关键字  手机号/微信号

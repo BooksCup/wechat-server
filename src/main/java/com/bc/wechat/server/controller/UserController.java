@@ -92,6 +92,10 @@ public class UserController {
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
 
+            // 修改最后一次登录时间
+            userService.updateUserLastLoginTime(user.getUserId());
+
+            // 保存系统日志
             sysLogBuffer.append("phone: ").append(phone).append(", ")
                     .append("status: login success.");
             sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, user.getUserId(), sysLogBuffer.toString()));

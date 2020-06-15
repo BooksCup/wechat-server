@@ -18,108 +18,114 @@
 
     <select id="getUserByPhoneAndPassword" resultMap="BaseResultMap">
         select
-          *
+        *
         from t_user
-          where user_phone = #{phone}
-          and user_password = #{password}
+        where user_phone = #{phone}
+        and user_password = #{password}
     </select>
 
     <insert id="addUser" parameterType="com.bc.wechat.server.entity.User">
         insert into t_user
         (
-            user_id,
-            user_wx_id,
-            user_nick_name,
-            user_phone,
-            user_avatar,
-            user_sex,
-            user_password,
-            user_im_password,
-            user_create_time,
-            user_modify_time
+        user_id,
+        user_wx_id,
+        user_nick_name,
+        user_phone,
+        user_avatar,
+        user_sex,
+        user_password,
+        user_im_password,
+        user_create_time,
+        user_modify_time
         )
         values
         (
-            #{userId},
-            #{userWxId},
-            #{userNickName},
-            #{userPhone},
-            #{userAvatar},
-            #{userSex},
-            #{userPassword},
-            #{userImPassword},
-            now(),
-            now()
+        #{userId},
+        #{userWxId},
+        #{userNickName},
+        #{userPhone},
+        #{userAvatar},
+        #{userSex},
+        #{userPassword},
+        #{userImPassword},
+        now(),
+        now()
         )
     </insert>
 
     <update id="updateUserNickName" parameterType="map">
         update t_user
-          set user_nick_name = #{userNickName},
-              user_modify_time = now()
-            where user_id = #{userId}
+        set user_nick_name = #{userNickName},
+        user_modify_time = now()
+        where user_id = #{userId}
     </update>
 
     <update id="updateUserWxId" parameterType="map">
         update t_user
-          set user_wx_id = #{userWxId},
-              user_wx_id_modify_flag = #{userWxIdModifyFlag},
-              user_modify_time = now()
-            where user_id = #{userId}
+        set user_wx_id = #{userWxId},
+        user_wx_id_modify_flag = #{userWxIdModifyFlag},
+        user_modify_time = now()
+        where user_id = #{userId}
     </update>
 
     <update id="updateUserSex" parameterType="map">
         update t_user
-          set user_sex = #{userSex},
-              user_modify_time = now()
-            where user_id = #{userId}
+        set user_sex = #{userSex},
+        user_modify_time = now()
+        where user_id = #{userId}
     </update>
 
     <update id="updateUserAvatar" parameterType="map">
         update t_user
-          set user_avatar = #{userAvatar},
-              user_modify_time = now()
-            where user_id = #{userId}
+        set user_avatar = #{userAvatar},
+        user_modify_time = now()
+        where user_id = #{userId}
     </update>
 
     <update id="updateUserSign" parameterType="map">
         update t_user
-          set user_sign = #{userSign},
-              user_modify_time = now()
-            where user_id = #{userId}
+        set user_sign = #{userSign},
+        user_modify_time = now()
+        where user_id = #{userId}
     </update>
 
     <update id="updateUserQrCode" parameterType="map">
         update t_user
-          set user_qr_code = #{userQrCode},
-              user_modify_time = now()
-            where user_id = #{userId}
+        set user_qr_code = #{userQrCode},
+        user_modify_time = now()
+        where user_id = #{userId}
     </update>
 
     <update id="updateUserLastestCirclePhotos" parameterType="map">
         update t_user
-          set user_lastest_circle_photos = #{userLastestCirclePhotos}
-            where user_id = #{userId}
+        set user_lastest_circle_photos = #{userLastestCirclePhotos}
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateUserLastLoginTime" parameterType="String">
+        update t_user
+        set user_last_login_time = now()
+        where user_id = #{userId}
     </update>
 
     <select id="getUserByKeyword" resultMap="BaseResultMap" parameterType="String">
         select
-          *
+        *
         from t_user
-          where user_phone = #{keyword}
-            or user_wx_id = #{keyword}
+        where user_phone = #{keyword}
+        or user_wx_id = #{keyword}
     </select>
 
     <select id="getUserByUserId" resultMap="BaseResultMap" parameterType="String">
         select
-          *
+        *
         from t_user
-          where user_id = #{userId}
+        where user_id = #{userId}
     </select>
 
     <select id="getAllUserList" resultMap="BaseResultMap">
         select
-          *
+        *
         from t_user
     </select>
 
@@ -127,6 +133,6 @@
         select
         *
         from t_user
-          where user_phone = #{userPhone}
+        where user_phone = #{userPhone}
     </select>
 </mapper>

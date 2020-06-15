@@ -152,6 +152,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户最后一次登录时间
+     *
+     * @param userId 用户ID
+     */
+    @Override
+    public void updateUserLastLoginTime(String userId) {
+        userMapper.updateUserLastLoginTime(userId);
+    }
+
+    /**
      * 通过关键字搜索用户
      *
      * @param keyword 关键字  手机号/微信号
