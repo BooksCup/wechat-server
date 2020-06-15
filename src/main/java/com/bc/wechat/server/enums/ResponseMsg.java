@@ -94,6 +94,9 @@ public enum ResponseMsg {
 
     MODIFY_DEVICE_SUCCESS("MODIFY_DEVICE_SUCCESS", "修改登录设备信息成功"),
     MODIFY_DEVICE_ERROR("MODIFY_DEVICE_ERROR", "修改登录设备信息失败"),
+
+    SEND_MAIL_MESSAGE_SUCCESS("SEND_MAIL_SUCCESS", "邮件发送成功"),
+    SEND_MAIL_MESSAGE_ERROR("SEND_MAIL_ERROR", "邮件发送失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {
