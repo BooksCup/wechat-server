@@ -41,15 +41,15 @@ public class EmailController {
     private UserService userService;
 
     /**
-     * 邮箱验证
+     * 发送验证邮件
      *
      * @param to       接收者
      * @param wechatId 微信号
      * @return ResponseEntity<String>
      */
-    @ApiOperation(value = "邮箱验证", notes = "邮箱验证")
+    @ApiOperation(value = "发送验证邮件", notes = "发送验证邮件")
     @PostMapping(value = "/link")
-    public ResponseEntity<String> linkEmail(
+    public ResponseEntity<String> sendVerificationEmail(
             @RequestParam String userId,
             @RequestParam String to,
             @RequestParam String wechatId) {
@@ -72,11 +72,11 @@ public class EmailController {
 
             emailService.sendHtmlMessage(to, subject, buildLinkEmailContent(to, wechatId), imageMap);
             responseEntity = new ResponseEntity<>(
-                    ResponseMsg.SEND_MAIL_MESSAGE_SUCCESS.getResponseCode(), HttpStatus.OK);
+                    ResponseMsg.SEND_VERIFICATION_EMAIL_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(
-                    ResponseMsg.SEND_MAIL_MESSAGE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+                    ResponseMsg.SEND_VERIFICATION_EMAIL_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

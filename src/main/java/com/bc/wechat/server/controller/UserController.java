@@ -72,7 +72,7 @@ public class UserController {
             @RequestParam(required = false) String otherAccount,
             @RequestParam(required = false) String deviceInfo) {
         ResponseEntity<User> responseEntity;
-
+        logger.info("[login] phone: " + phone);
         List<User> userList = userService.getUserByLogin(loginType, phone, password, verificationCode, otherAccount);
 
         StringBuffer sysLogBuffer = new StringBuffer();
@@ -789,6 +789,64 @@ public class UserController {
         } catch (Exception e) {
             logger.error("[modifyDevice] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_DEVICE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 绑定邮箱
+     * ps:只是做个流程，不然需要做链接加密，时间戳认证etc
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "绑定邮箱", notes = "绑定邮箱")
+    @GetMapping(value = "/{userId}/emailLink")
+    public ResponseEntity<String> linkEmail(
+            @PathVariable String userId,
+            @RequestParam String email) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[linkEmail] userId: " + userId);
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userEmail", email);
+            // 邮箱已绑定但为验证
+            paramMap.put("userIsEmailLinked", Constant.EMAIL_VERIFIED);
+            userService.updateUserEmail(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.LINK_EMAIL_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[linkEmail] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.LINK_EMAIL_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 解绑邮箱
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "解绑邮箱", notes = "解绑邮箱")
+    @DeleteMapping(value = "/{userId}/emailLink")
+    public ResponseEntity<String> unLinkEmail(
+            @PathVariable String userId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[unLinkEmail] userId: " + userId);
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userEmail", "");
+            // 邮箱已绑定但为验证
+            paramMap.put("userIsEmailLinked", Constant.EMAIL_NOT_LINK);
+            userService.updateUserEmail(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLINK_EMAIL_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[unLinkEmail] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLINK_EMAIL_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
