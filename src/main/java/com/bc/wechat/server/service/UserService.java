@@ -77,6 +77,13 @@ public interface UserService {
     void updateUserEmail(Map<String, String> paramMap);
 
     /**
+     * 修改用户QQ号
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserQqId(Map<String, String> paramMap);
+
+    /**
      * 修改朋友圈最新图片
      *
      * @param paramMap 参数map

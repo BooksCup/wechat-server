@@ -25,6 +25,9 @@ public class User implements Serializable {
     private String userSign;
     private String userEmail;
     private String userIsEmailLinked;
+    private String userQqId;
+    private String userQqPassword;
+    private String userIsQqLinked;
     private String userQrCode;
     private String isFriend;
     private List<User> friendList;
@@ -149,6 +152,30 @@ public class User implements Serializable {
 
     public void setUserIsEmailLinked(String userIsEmailLinked) {
         this.userIsEmailLinked = userIsEmailLinked;
+    }
+
+    public String getUserQqId() {
+        return userQqId;
+    }
+
+    public void setUserQqId(String userQqId) {
+        this.userQqId = userQqId;
+    }
+
+    public String getUserQqPassword() {
+        return userQqPassword;
+    }
+
+    public void setUserQqPassword(String userQqPassword) {
+        this.userQqPassword = userQqPassword;
+    }
+
+    public String getUserIsQqLinked() {
+        return userIsQqLinked;
+    }
+
+    public void setUserIsQqLinked(String userIsQqLinked) {
+        this.userIsQqLinked = userIsQqLinked;
     }
 
     public String getUserQrCode() {

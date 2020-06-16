@@ -152,6 +152,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户QQ号
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserQqId(Map<String, String> paramMap) {
+        userMapper.updateUserQqId(paramMap);
+    }
+
+    /**
      * 修改朋友圈最新图片
      *
      * @param paramMap 参数map

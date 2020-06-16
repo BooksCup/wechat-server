@@ -850,4 +850,35 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 绑定QQ号
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "绑定QQ号", notes = "绑定QQ号")
+    @PostMapping(value = "/{userId}/qqIdLink")
+    public ResponseEntity<String> linkQqId(
+            @PathVariable String userId,
+            @RequestParam String userQqId,
+            @RequestParam String userQqPassword) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[linkQqId] userId: " + userId + ", userQqId: " + userQqId);
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userQqId", userQqId);
+            paramMap.put("userQqPassword", userQqPassword);
+            // 邮箱已绑定但为验证
+            paramMap.put("userIsQqLinked", Constant.QQ_ID_LINKED);
+            userService.updateUserQqId(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.LINK_QQ_ID_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[linkQqId] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.LINK_QQ_ID_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }

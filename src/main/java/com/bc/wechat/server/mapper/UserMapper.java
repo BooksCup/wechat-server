@@ -70,6 +70,13 @@ public interface UserMapper {
     void updateUserEmail(Map<String, String> paramMap);
 
     /**
+     * 修改用户QQ号
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserQqId(Map<String, String> paramMap);
+
+    /**
      * 修改用户二维码
      *
      * @param paramMap 参数map

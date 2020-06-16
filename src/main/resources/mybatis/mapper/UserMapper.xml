@@ -98,6 +98,15 @@
         where user_id = #{userId}
     </update>
 
+    <update id="updateUserQqId" parameterType="map">
+        update t_user
+        set user_qq_id = #{userQqId},
+        user_qq_password = #{userQqPassword},
+        user_is_qq_id_linked = #{userIsQqLinked}
+        where user_id = #{userId}
+    </update>
+
+
     <update id="updateUserQrCode" parameterType="map">
         update t_user
         set user_qr_code = #{userQrCode},

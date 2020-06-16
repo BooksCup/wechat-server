@@ -103,6 +103,9 @@ public enum ResponseMsg {
 
     UNLINK_EMAIL_SUCCESS("UNLINK_EMAIL_SUCCESS", "解绑邮箱成功"),
     UNLINK_EMAIL_ERROR("UNLINK_EMAIL_ERROR", "解绑邮箱失败"),
+
+    LINK_QQ_ID_SUCCESS("LINK_QQ_ID_SUCCESS", "绑定QQ号成功"),
+    LINK_QQ_ID_ERROR("LINK_QQ_ID_ERROR", "绑定QQ号失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {
