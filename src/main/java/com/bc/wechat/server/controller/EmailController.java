@@ -4,6 +4,7 @@ import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.EmailService;
 import com.bc.wechat.server.service.UserService;
+import com.bc.wechat.server.utils.NetUtil;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,7 +71,7 @@ public class EmailController {
 
             String subject = "微信注册确认";
 
-            emailService.sendHtmlMessage(to, subject, buildLinkEmailContent(to, wechatId), imageMap);
+            emailService.sendHtmlMessage(to, subject, buildLinkEmailContent(userId, to, wechatId), imageMap);
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.SEND_VERIFICATION_EMAIL_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
@@ -89,7 +90,7 @@ public class EmailController {
      * @return 网页邮件内容
      * @throws IOException 异常
      */
-    private String buildLinkEmailContent(String email, String wechatId) throws IOException {
+    private String buildLinkEmailContent(String userId, String email, String wechatId) throws IOException {
         // 加载邮件html模板
         String fileName = "email-template/link-email-template.html";
         InputStream inputStream = ClassLoader.getSystemResourceAsStream(fileName);
@@ -106,8 +107,11 @@ public class EmailController {
             inputStream.close();
             fileReader.close();
         }
+        String verificationUrl = Constant.PROTOCOL_HTTP_PREFIX + NetUtil.getIpAndPort()
+                + "/users/" + userId + "/emailLink?email=" + email;
+        logger.info("[buildLinkEmailContent] verificationUrl: " + verificationUrl);
         // 填充html模板
-        String htmlText = MessageFormat.format(buffer.toString(), wechatId, email, wechatId);
+        String htmlText = MessageFormat.format(buffer.toString(), wechatId, email, wechatId, verificationUrl);
         return htmlText;
     }
 }
