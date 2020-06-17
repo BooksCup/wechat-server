@@ -881,4 +881,34 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 解绑QQ号
+     *
+     * @param userId 用户ID
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "解绑QQ号", notes = "解绑QQ号")
+    @DeleteMapping(value = "/{userId}/qqIdLink")
+    public ResponseEntity<String> unLinkQqId(
+            @PathVariable String userId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[unLinkQqId] userId: " + userId);
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userQqId", "");
+            paramMap.put("userQqPassword", "");
+            // 邮箱已绑定但为验证
+            paramMap.put("userIsQqLinked", Constant.QQ_ID_NOT_LINK);
+            userService.updateUserQqId(paramMap);
+
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLINK_QQ_ID_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[unLinkQqId] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLINK_QQ_ID_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
 }
