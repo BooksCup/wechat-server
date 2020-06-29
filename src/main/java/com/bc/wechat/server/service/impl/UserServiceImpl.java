@@ -132,6 +132,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户密码
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserPassword(Map<String, String> paramMap){
+        userMapper.updateUserPassword(paramMap);
+    }
+
+    /**
      * 修改用户签名
      *
      * @param paramMap 参数map

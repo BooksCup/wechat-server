@@ -87,6 +87,13 @@
         where user_id = #{userId}
     </update>
 
+    <update id="updateUserPassword" parameterType="map">
+        update t_user
+        set user_password = #{userPassword},
+        user_modify_time = now()
+        where user_id = #{userId}
+    </update>
+
     <update id="updateUserSign" parameterType="map">
         update t_user
         set user_sign = #{userSign},

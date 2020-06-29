@@ -245,12 +245,48 @@ public class UserController {
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("updateUserSex error: " + e.getMessage());
+            logger.error("[updateUserSex] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_SEX_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
+
+    /**
+     * 修改密码
+     *
+     * @param userId      用户ID
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改密码", notes = "修改密码")
+    @PutMapping(value = "/{userId}/userPassword")
+    public ResponseEntity<String> updateUserPassword(
+            @PathVariable String userId,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword) {
+        ResponseEntity<String> responseEntity;
+        try {
+            User user = userService.getUserByUserId(userId);
+            if (!oldPassword.equals(user.getUserPassword())) {
+                return new ResponseEntity<>(ResponseMsg.OLD_PASSWORD_INCORRECT.getResponseCode(),
+                        HttpStatus.BAD_REQUEST);
+            }
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userPassword", newPassword);
+            userService.updateUserPassword(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_PASSWORD_SUCCESS.getResponseCode(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[updateUserPassword] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_PASSWORD_ERROR.getResponseCode(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
 
     /**
      * 修改头像
@@ -273,7 +309,7 @@ public class UserController {
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_SUCCESS.getResponseCode(),
                     HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("updateUserAvatar error: " + e.getMessage());
+            logger.error("[updateUserAvatar] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_AVATAR_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }

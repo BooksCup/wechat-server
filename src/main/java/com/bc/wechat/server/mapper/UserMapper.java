@@ -56,6 +56,13 @@ public interface UserMapper {
     void updateUserAvatar(Map<String, String> paramMap);
 
     /**
+     * 修改用户密码
+     *
+     * @param paramMap 参数map
+     */
+    void updateUserPassword(Map<String, String> paramMap);
+
+    /**
      * 修改用户签名
      *
      * @param paramMap 参数map
