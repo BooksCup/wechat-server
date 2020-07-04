@@ -300,9 +300,9 @@ CREATE TABLE `t_user_rela` (
   `rela_contact_mobiles` varchar(1024) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系,json格式)',
   `rela_contact_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
   `rela_is_starred` varchar(1) DEFAULT '0' COMMENT '是否星标好友 "0":否 "1":是',
-  `rela_auth` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
-  `rela_not_see_me` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看我 "1":不让他看我',
-  `rela_not_see_him` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看他 "1":不看他',
+  `rela_privacy` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
+  `rela_hide_my_posts` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看我 "1":不让他看我',
+  `rela_hide_his_posts` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看他 "1":不看他',
   `rela_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
   `rela_update_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`rela_id`)
