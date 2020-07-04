@@ -28,6 +28,13 @@ public interface UserRelaService {
     void updateUserRela(UserRela userRela);
 
     /**
+     * 设置朋友权限
+     *
+     * @param userRela 用户关系
+     */
+    void setContactPrivacy(UserRela userRela);
+
+    /**
      * 检查是否好友关系
      *
      * @param paramMap 参数map

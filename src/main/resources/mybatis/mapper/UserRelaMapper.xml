@@ -11,6 +11,10 @@
         <result column="rela_contact_mobiles" property="relaContactMobiles" jdbcType="VARCHAR"/>
         <result column="rela_contact_desc" property="relaContactDesc" jdbcType="VARCHAR"/>
 
+        <result column="rela_privacy" property="relaPrivacy" jdbcType="VARCHAR"/>
+        <result column="rela_hide_my_posts" property="relaHideMyPosts" jdbcType="VARCHAR"/>
+        <result column="rela_hide_his_posts" property="relaHideHisPosts" jdbcType="VARCHAR"/>
+
         <result column="rela_is_star_friend" property="relaIsStarFriend" jdbcType="VARCHAR"/>
     </resultMap>
 
@@ -81,6 +85,22 @@
         rela_contact_mobiles = #{relaContactMobiles},
         rela_contact_alias = #{relaContactAlias},
         rela_contact_desc = #{relaContactDesc},
+        rela_update_time = now()
+        where rela_id = #{relaId}
+    </update>
+
+    <update id="setContactPrivacy" parameterType="com.bc.wechat.server.entity.UserRela">
+        update t_user_rela
+        set
+        <if test="relaPrivacy != null and relaPrivacy !=''">
+            rela_privacy = #{relaPrivacy},
+        </if>
+        <if test="relaHideMyPosts != null and relaHideMyPosts !=''">
+            rela_hide_my_posts = #{relaHideMyPosts},
+        </if>
+        <if test="relaHideHisPosts != null and relaHideHisPosts !=''">
+            rela_hide_his_posts = #{relaHideHisPosts},
+        </if>
         rela_update_time = now()
         where rela_id = #{relaId}
     </update>

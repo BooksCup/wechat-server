@@ -19,9 +19,9 @@ public class UserRela {
     private String relaContactMobiles;
     private String relaContactDesc;
 
-    private String relaAuth;
-    private String relaNotSeeMe;
-    private String relaNotSeeHim;
+    private String relaPrivacy;
+    private String relaHideMyPosts;
+    private String relaHideHisPosts;
 
     private String relaIsStarFriend;
 
@@ -46,14 +46,21 @@ public class UserRela {
     }
 
     public UserRela(String relaUserId, String relaContactId,
-                    String relaContactAlias, String relaAuth, String relaNotSeeMe, String relaNotSeeHim) {
+                    String relaContactAlias, String relaPrivacy, String relaHideMyPosts, String relaHideHisPosts) {
         this.relaId = CommonUtil.generateId();
         this.relaUserId = relaUserId;
         this.relaContactId = relaContactId;
         this.relaContactAlias = relaContactAlias;
-        this.relaAuth = relaAuth;
-        this.relaNotSeeMe = relaNotSeeMe;
-        this.relaNotSeeHim = relaNotSeeHim;
+        this.relaPrivacy = relaPrivacy;
+        this.relaHideMyPosts = relaHideMyPosts;
+        this.relaHideHisPosts = relaHideHisPosts;
+    }
+
+    public UserRela(String relaId, String relaPrivacy, String relaHideMyPosts, String relaHideHisPosts) {
+        this.relaId = relaId;
+        this.relaPrivacy = relaPrivacy;
+        this.relaHideMyPosts = relaHideMyPosts;
+        this.relaHideHisPosts = relaHideHisPosts;
     }
 
     public String getRelaId() {
@@ -120,28 +127,28 @@ public class UserRela {
         this.relaContactDesc = relaContactDesc;
     }
 
-    public String getRelaAuth() {
-        return relaAuth;
+    public String getRelaPrivacy() {
+        return relaPrivacy;
     }
 
-    public void setRelaAuth(String relaAuth) {
-        this.relaAuth = relaAuth;
+    public void setRelaPrivacy(String relaPrivacy) {
+        this.relaPrivacy = relaPrivacy;
     }
 
-    public String getRelaNotSeeMe() {
-        return relaNotSeeMe;
+    public String getRelaHideMyPosts() {
+        return relaHideMyPosts;
     }
 
-    public void setRelaNotSeeMe(String relaNotSeeMe) {
-        this.relaNotSeeMe = relaNotSeeMe;
+    public void setRelaHideMyPosts(String relaHideMyPosts) {
+        this.relaHideMyPosts = relaHideMyPosts;
     }
 
-    public String getRelaNotSeeHim() {
-        return relaNotSeeHim;
+    public String getRelaHideHisPosts() {
+        return relaHideHisPosts;
     }
 
-    public void setRelaNotSeeHim(String relaNotSeeHim) {
-        this.relaNotSeeHim = relaNotSeeHim;
+    public void setRelaHideHisPosts(String relaHideHisPosts) {
+        this.relaHideHisPosts = relaHideHisPosts;
     }
 
     public String getRelaIsStarFriend() {

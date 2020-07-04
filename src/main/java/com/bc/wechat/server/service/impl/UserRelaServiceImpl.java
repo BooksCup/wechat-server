@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 用户关系业务类实现类
+ * 用户关系
  *
  * @author zhou
  */
@@ -42,6 +42,16 @@ public class UserRelaServiceImpl implements UserRelaService {
     @Override
     public void updateUserRela(UserRela userRela) {
         userRelaMapper.updateUserRela(userRela);
+    }
+
+    /**
+     * 设置朋友权限
+     *
+     * @param userRela 用户关系
+     */
+    @Override
+    public void setContactPrivacy(UserRela userRela) {
+        userRelaMapper.setContactPrivacy(userRela);
     }
 
     /**
@@ -118,9 +128,9 @@ public class UserRelaServiceImpl implements UserRelaService {
         } else {
             UserRela userRela = userRelaList.get(0);
             userRela.setRelaContactAlias(relaRemark);
-            userRela.setRelaAuth(relaAuth);
-            userRela.setRelaNotSeeMe(relaNotSeeMe);
-            userRela.setRelaNotSeeHim(relaNotSeeHim);
+            userRela.setRelaPrivacy(relaAuth);
+            userRela.setRelaHideMyPosts(relaNotSeeMe);
+            userRela.setRelaHideHisPosts(relaNotSeeHim);
 
             userRelaMapper.updateUserRelaByFriendApply(userRela);
         }

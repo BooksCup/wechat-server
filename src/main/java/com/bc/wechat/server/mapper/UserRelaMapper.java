@@ -28,6 +28,13 @@ public interface UserRelaMapper {
     void updateUserRela(UserRela userRela);
 
     /**
+     * 设置朋友权限
+     *
+     * @param userRela 用户关系
+     */
+    void setContactPrivacy(UserRela userRela);
+
+    /**
      * 修改用户关系信息
      * 场景：发送好友申请时候所设置的备注和权限
      *

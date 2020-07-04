@@ -643,12 +643,19 @@ public class UserController {
 
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
+                // 备注和标签
                 contact.setUserContactAlias(userRela.getRelaContactAlias());
                 contact.setUserContactMobiles(userRela.getRelaContactMobiles());
                 contact.setUserContactDesc(userRela.getRelaContactDesc());
+
+                // 权限
+                contact.setUserContactPrivacy(userRela.getRelaPrivacy());
+                contact.setUserContactHideMyPosts(userRela.getRelaHideMyPosts());
+                contact.setUserContactHideHisPosts(userRela.getRelaHideHisPosts());
+
+                // 星标好友
                 contact.setIsStarFriend(userRela.getRelaIsStarFriend());
             }
-
             responseEntity = new ResponseEntity<>(contact, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("[getContactById] error: " + e.getMessage());
@@ -703,6 +710,46 @@ public class UserController {
         } catch (Exception e) {
             logger.error("[editContact] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 设置朋友权限
+     *
+     * @param userId       用户ID
+     * @param contactId    联系人ID
+     * @param privacy      朋友权限
+     * @param hideMyPosts  不让他看我
+     * @param hideHisPosts 不看他
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "设置朋友权限", notes = "设置朋友权限")
+    @PutMapping(value = "/{userId}/contacts/{contactId}/privacy")
+    public ResponseEntity<String> setContactPrivacy(
+            @PathVariable String userId,
+            @PathVariable String contactId,
+            @RequestParam(required = false) String privacy,
+            @RequestParam(required = false) String hideMyPosts,
+            @RequestParam(required = false) String hideHisPosts) {
+        logger.info("[setContactPrivacy] userId: " + userId + ", contactId: " + contactId + ", privacy: " + privacy +
+                ", hideMyPosts: " + hideMyPosts + ", hideHisPosts: " + hideHisPosts);
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("contactId", contactId);
+
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
+
+            if (!CollectionUtils.isEmpty(userRelaList)) {
+                UserRela userRela = new UserRela(userRelaList.get(0).getRelaId(), privacy, hideMyPosts, hideHisPosts);
+                userRelaService.setContactPrivacy(userRela);
+            }
+            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_PRIVACY_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[setContactPrivacy] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_PRIVACY_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

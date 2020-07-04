@@ -54,6 +54,13 @@ public class User implements Serializable {
     private String userContactMobiles;
     private String userContactDesc;
 
+    /**
+     * 联系人权限相关
+     */
+    private String userContactPrivacy;
+    private String userContactHideMyPosts;
+    private String userContactHideHisPosts;
+
     private String isStarFriend;
 
     private String userLastLoginTime;
@@ -284,6 +291,30 @@ public class User implements Serializable {
 
     public void setUserContactDesc(String userContactDesc) {
         this.userContactDesc = userContactDesc;
+    }
+
+    public String getUserContactPrivacy() {
+        return userContactPrivacy;
+    }
+
+    public void setUserContactPrivacy(String userContactPrivacy) {
+        this.userContactPrivacy = userContactPrivacy;
+    }
+
+    public String getUserContactHideMyPosts() {
+        return userContactHideMyPosts;
+    }
+
+    public void setUserContactHideMyPosts(String userContactHideMyPosts) {
+        this.userContactHideMyPosts = userContactHideMyPosts;
+    }
+
+    public String getUserContactHideHisPosts() {
+        return userContactHideHisPosts;
+    }
+
+    public void setUserContactHideHisPosts(String userContactHideHisPosts) {
+        this.userContactHideHisPosts = userContactHideHisPosts;
     }
 
     public String getIsStarFriend() {
