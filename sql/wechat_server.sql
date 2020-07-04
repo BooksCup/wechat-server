@@ -132,6 +132,20 @@ CREATE TABLE `t_people_nearby` (
   PRIMARY KEY (`nearby_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_region` */
+
+DROP TABLE IF EXISTS `t_region`;
+
+CREATE TABLE `t_region` (
+  `region_id` varchar(32) NOT NULL COMMENT '地区表主键',
+  `region_parent_id` varchar(32) DEFAULT NULL COMMENT '地区父级ID',
+  `region_level` int(5) DEFAULT NULL COMMENT '地区层级',
+  `region_name` varchar(100) DEFAULT NULL COMMENT '地区名',
+  `region_code` varchar(100) DEFAULT NULL COMMENT '区号',
+  `region_seq` float DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`region_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_search_history` */
 
 DROP TABLE IF EXISTS `t_search_history`;
@@ -199,6 +213,7 @@ DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
   `user_id` varchar(32) NOT NULL COMMENT '用户表主键',
   `user_wx_id` varchar(200) DEFAULT NULL COMMENT '用户微信号',
+  `user_type` varchar(50) DEFAULT NULL COMMENT '用户类型',
   `user_nick_name` varchar(200) DEFAULT NULL COMMENT '昵称',
   `user_avatar` varchar(200) DEFAULT NULL COMMENT '头像',
   `user_phone` varchar(50) DEFAULT NULL COMMENT '手机号',
@@ -206,6 +221,7 @@ CREATE TABLE `t_user` (
   `user_qq_id` varchar(50) DEFAULT NULL COMMENT '用户QQ号',
   `user_qq_password` varchar(200) DEFAULT NULL COMMENT '用户QQ密码',
   `user_sex` varchar(2) DEFAULT NULL COMMENT '"1":"男" "2":"女"',
+  `user_region` varchar(100) DEFAULT NULL COMMENT '用户地区',
   `user_password` varchar(50) DEFAULT NULL COMMENT '密码',
   `user_im_password` varchar(20) DEFAULT NULL COMMENT '极光密码',
   `user_sign` varchar(100) DEFAULT NULL COMMENT '签名',
@@ -213,7 +229,9 @@ CREATE TABLE `t_user` (
   `user_is_email_linked` varchar(2) DEFAULT '0' COMMENT '用户邮箱是否绑定 0:未绑定 1:未验证 2:已验证',
   `user_is_qq_id_linked` varchar(2) DEFAULT NULL COMMENT '用户QQ号是否绑定',
   `user_lastest_moments_photos` varchar(1024) DEFAULT NULL COMMENT '最新n张朋友圈照片,n=4',
+  `user_moments_cover` varchar(200) DEFAULT NULL COMMENT '用户朋友圈封面',
   `user_wx_id_modify_flag` varchar(2) DEFAULT '0' COMMENT '微信号修改标记',
+  `user_tags` varchar(1024) DEFAULT NULL COMMENT '用户对好友贴的标签',
   `user_last_login_time` varchar(20) DEFAULT NULL COMMENT '用户最后一次登录时间',
   `user_create_time` varchar(20) DEFAULT NULL COMMENT '用户创建时间',
   `user_modify_time` varchar(20) DEFAULT NULL COMMENT '用户修改时间',
@@ -237,6 +255,19 @@ CREATE TABLE `t_user_address` (
   `address_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
   `address_modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`address_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_user_contact_tag` */
+
+DROP TABLE IF EXISTS `t_user_contact_tag`;
+
+CREATE TABLE `t_user_contact_tag` (
+  `tag_id` varchar(32) NOT NULL COMMENT '好友标签表主键',
+  `tag_user_id` varchar(32) DEFAULT NULL COMMENT '关系表主键',
+  `tag_contact_id` varchar(32) DEFAULT NULL COMMENT '联系人用户ID',
+  `tag_name` varchar(200) DEFAULT NULL COMMENT '标签名',
+  `tag_create_time` varchar(20) DEFAULT NULL COMMENT '标签创建时间',
+  PRIMARY KEY (`tag_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_user_login_device` */
@@ -263,12 +294,12 @@ DROP TABLE IF EXISTS `t_user_rela`;
 CREATE TABLE `t_user_rela` (
   `rela_id` varchar(32) NOT NULL COMMENT '用户关系表主键',
   `rela_user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
-  `rela_friend_id` varchar(32) DEFAULT NULL COMMENT '好友ID',
+  `rela_contact_id` varchar(32) DEFAULT NULL COMMENT '好友ID',
   `rela_status` varchar(2) DEFAULT NULL COMMENT '"0":陌生人 "1":好友 "2":黑名单',
-  `rela_friend_phone` varchar(20) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系)',
-  `rela_friend_remark` varchar(200) DEFAULT NULL COMMENT '好友备注(设置备注和标签中添加)',
-  `rela_friend_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
-  `rela_is_star_friend` varchar(1) DEFAULT '0' COMMENT '是否星标好友 "0":否 "1":是',
+  `rela_contact_alias` varchar(200) DEFAULT NULL COMMENT '好友备注(设置备注和标签中添加)',
+  `rela_contact_mobiles` varchar(1024) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系,json格式)',
+  `rela_contact_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
+  `rela_is_starred` varchar(1) DEFAULT '0' COMMENT '是否星标好友 "0":否 "1":是',
   `rela_auth` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
   `rela_not_see_me` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看我 "1":不让他看我',
   `rela_not_see_him` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看他 "1":不看他',
@@ -289,6 +320,22 @@ CREATE TABLE `t_verification_code` (
   `vc_create_time` varchar(20) DEFAULT NULL COMMENT '验证码创建时间',
   `vc_expire_time` varchar(20) DEFAULT NULL COMMENT '验证码失效时间',
   PRIMARY KEY (`vc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_weave_price` */
+
+DROP TABLE IF EXISTS `t_weave_price`;
+
+CREATE TABLE `t_weave_price` (
+  `price_id` varchar(32) NOT NULL COMMENT '针织价格表主键',
+  `price_type` varchar(100) DEFAULT NULL COMMENT '类型',
+  `price_name` varchar(200) DEFAULT NULL COMMENT '品名',
+  `price_last_trade` varchar(100) DEFAULT NULL COMMENT '价格',
+  `price_unit` varchar(100) DEFAULT NULL COMMENT '单位',
+  `price_change` varchar(100) DEFAULT NULL COMMENT '涨跌',
+  `price_date` varchar(100) DEFAULT NULL COMMENT '报价日期',
+  `price_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`price_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
