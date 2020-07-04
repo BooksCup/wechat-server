@@ -73,9 +73,9 @@ public class FriendApplyServiceImpl implements FriendApplyService {
     public void makeFriends(String fromUserId, String toUserId, String relaRemark,
                             String relaAuth, String relaNotSeeMe, String relaNotSeeHim) {
         // 更新申请者userRela
-        Map<String, String> paramMap = new HashMap<>();
+        Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
         paramMap.put("userId", fromUserId);
-        paramMap.put("friendId", toUserId);
+        paramMap.put("contactId", toUserId);
         List<UserRela> userRelaList = userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
         if (CollectionUtils.isEmpty(userRelaList)) {
             UserRela userRela = new UserRela(fromUserId, toUserId);
@@ -88,8 +88,8 @@ public class FriendApplyServiceImpl implements FriendApplyService {
         }
 
         paramMap.clear();
-        paramMap.put("fromUserId", toUserId);
-        paramMap.put("toUserId", fromUserId);
+        paramMap.put("userId", toUserId);
+        paramMap.put("contactId", fromUserId);
         List<UserRela> friendUserRelaList = userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
         if (CollectionUtils.isEmpty(friendUserRelaList)) {
             UserRela userRela = new UserRela(toUserId, fromUserId, relaRemark,

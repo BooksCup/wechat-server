@@ -49,16 +49,16 @@ public class FriendApplyController {
             @RequestParam String fromUserId,
             @RequestParam String toUserId,
             @RequestParam String applyRemark,
-            @RequestParam(required = false) String relaRemark,
-            @RequestParam(required = false, defaultValue = Constant.RELA_AUTH_ALL) String relaAuth,
-            @RequestParam(required = false, defaultValue = Constant.RELA_CAN_SEE_ME) String relaNotSeeMe,
-            @RequestParam(required = false, defaultValue = Constant.RELA_CAN_SEE_HIM) String relaNotSeeHim) {
+            @RequestParam(required = false) String relaContactAlias,
+            @RequestParam(required = false, defaultValue = Constant.PRIVACY_CHATS_MOMENTS_WERUN_ETC) String relaPrivacy,
+            @RequestParam(required = false, defaultValue = Constant.SHOW_MY_POSTS) String relaHideMyPosts,
+            @RequestParam(required = false, defaultValue = Constant.SHOW_HIS_POSTS) String relaHideHisPosts) {
         ResponseEntity<String> responseEntity;
         FriendApply friendApply = new FriendApply(fromUserId, toUserId, applyRemark);
         try {
             friendApplyService.addFriendApply(friendApply);
-            userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaRemark,
-                    relaAuth, relaNotSeeMe, relaNotSeeHim);
+            userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaContactAlias,
+                    relaPrivacy, relaHideMyPosts, relaHideHisPosts);
 
 
             User user = userService.getUserByUserId(fromUserId);

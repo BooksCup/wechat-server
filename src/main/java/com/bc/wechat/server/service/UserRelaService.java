@@ -70,16 +70,16 @@ public interface UserRelaService {
      * 通过好友申请的方式建立初始化的单向用户关系
      * 主要初始化备注信息，朋友权限，朋友圈和视频动态
      *
-     * @param fromUserId    用户ID
-     * @param toUserId      好友ID
-     * @param relaRemark    好友备注
-     * @param relaAuth      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
-     * @param relaNotSeeMe  朋友圈和视频动态 "0":可以看我 "1":不让他看我
-     * @param relaNotSeeHim 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @param fromUserId       用户ID
+     * @param toUserId         好友ID
+     * @param relaContactAlias 好友备注
+     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
      */
     void addSingleUserRelaByFriendApply(String fromUserId, String toUserId,
-                                        String relaRemark, String relaAuth,
-                                        String relaNotSeeMe, String relaNotSeeHim);
+                                        String relaContactAlias, String relaPrivacy,
+                                        String relaHideMyPosts, String relaHideHisPosts);
 
     /**
      * 设置或取消星标朋友

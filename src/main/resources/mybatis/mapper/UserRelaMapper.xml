@@ -55,9 +55,9 @@
         rela_contact_mobiles,
         rela_contact_alias,
         rela_contact_desc,
-        rela_auth,
-        rela_not_see_me,
-        rela_not_see_him,
+        rela_privacy,
+        rela_hide_my_posts,
+        rela_hide_his_posts,
         rela_create_time
         )
         values
@@ -69,9 +69,9 @@
         #{relaContactMobiles},
         #{relaContactAlias},
         #{relaContactDesc},
-        #{relaAuth},
-        #{relaNotSeeMe},
-        #{relaNotSeeHim},
+        #{relaPrivacy},
+        #{relaHideMyPosts},
+        #{relaHideHisPosts},
         now()
         )
     </insert>
@@ -108,10 +108,10 @@
     <update id="updateUserRelaByFriendApply" parameterType="com.bc.wechat.server.entity.UserRela">
         update t_user_rela
         set
-        rela_friend_remark = #{relaFriendRemark},
-        rela_auth = #{relaAuth},
-        rela_not_see_me = #{relaNotSeeMe},
-        rela_not_see_him = #{relaNotSeeHim},
+        rela_contact_alias = #{relaContactAlias},
+        rela_privacy = #{relaPrivacy},
+        rela_hide_my_posts = #{relaHideMyPosts},
+        rela_hide_his_posts = #{relaHideHisPosts},
         rela_update_time = now()
         where rela_id = #{relaId}
     </update>

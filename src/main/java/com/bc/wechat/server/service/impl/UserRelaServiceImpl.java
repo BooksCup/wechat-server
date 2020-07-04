@@ -106,32 +106,31 @@ public class UserRelaServiceImpl implements UserRelaService {
      * 通过好友申请的方式建立初始化的单向用户关系
      * 主要初始化备注信息，朋友权限，朋友圈和视频动态
      *
-     * @param fromUserId    用户ID
-     * @param toUserId      好友ID
-     * @param relaRemark    好友备注
-     * @param relaAuth      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
-     * @param relaNotSeeMe  朋友圈和视频动态 "0":可以看我 "1":不让他看我
-     * @param relaNotSeeHim 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @param fromUserId       用户ID
+     * @param toUserId         好友ID
+     * @param relaContactAlias 好友备注
+     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
      */
     @Override
     public void addSingleUserRelaByFriendApply(String fromUserId, String toUserId,
-                                               String relaRemark, String relaAuth,
-                                               String relaNotSeeMe, String relaNotSeeHim) {
+                                               String relaContactAlias, String relaPrivacy,
+                                               String relaHideMyPosts, String relaHideHisPosts) {
         Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
         paramMap.put("userId", fromUserId);
-        paramMap.put("friendId", toUserId);
+        paramMap.put("contactId", toUserId);
         List<UserRela> userRelaList = userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
         if (CollectionUtils.isEmpty(userRelaList)) {
-            UserRela userRela = new UserRela(fromUserId, toUserId, relaRemark, relaAuth, relaNotSeeMe, relaNotSeeHim);
+            UserRela userRela = new UserRela(fromUserId, toUserId, relaContactAlias, relaPrivacy, relaHideMyPosts, relaHideHisPosts);
             userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
             userRelaMapper.addUserRela(userRela);
         } else {
             UserRela userRela = userRelaList.get(0);
-            userRela.setRelaContactAlias(relaRemark);
-            userRela.setRelaPrivacy(relaAuth);
-            userRela.setRelaHideMyPosts(relaNotSeeMe);
-            userRela.setRelaHideHisPosts(relaNotSeeHim);
-
+            userRela.setRelaContactAlias(relaContactAlias);
+            userRela.setRelaPrivacy(relaPrivacy);
+            userRela.setRelaHideMyPosts(relaHideMyPosts);
+            userRela.setRelaHideHisPosts(relaHideHisPosts);
             userRelaMapper.updateUserRelaByFriendApply(userRela);
         }
     }

@@ -708,6 +708,7 @@ public class UserController {
             }
             responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("[editContact] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
