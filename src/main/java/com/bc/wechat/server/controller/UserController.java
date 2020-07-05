@@ -646,6 +646,7 @@ public class UserController {
                 UserRela userRela = userRelaList.get(0);
                 // 备注和标签
                 contact.setUserContactAlias(userRela.getRelaContactAlias());
+                contact.setUserContactTags(userRela.getRelaContactTags());
                 contact.setUserContactMobiles(userRela.getRelaContactMobiles());
                 contact.setUserContactDesc(userRela.getRelaContactDesc());
 
