@@ -411,7 +411,7 @@ public class UserController {
             User user = userList.get(0);
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("friendId", user.getUserId());
+            paramMap.put("contactId", user.getUserId());
             paramMap.put("status", Constant.RELA_STATUS_FRIEND);
             boolean isFriend = userRelaService.checkIsFriend(paramMap);
             if (isFriend) {
@@ -422,18 +422,19 @@ public class UserController {
 
             // 来源
             if (keyword.equals(user.getUserPhone())) {
-                user.setFriendSource(Constant.FRIENDS_SOURCE_BY_PHONE);
+                user.setUserContactFrom(Constant.CONTACTS_FROM_PHONE);
             } else if (keyword.equals(user.getUserWxId())) {
-                user.setFriendSource(Constant.FRIENDS_SOURCE_BY_WX_ID);
+                user.setUserContactFrom(Constant.CONTACTS_FROM_WX_ID);
             }
 
             paramMap.clear();
             paramMap.put("userId", userId);
-            paramMap.put("friendId", user.getUserId());
+            paramMap.put("contactId", user.getUserId());
             List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
                 user.setUserContactAlias(userRela.getRelaContactAlias());
+                user.setUserContactTags(userRela.getRelaContactTags());
                 user.setUserContactMobiles(userRela.getRelaContactMobiles());
                 user.setUserContactDesc(userRela.getRelaContactDesc());
             }

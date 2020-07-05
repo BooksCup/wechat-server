@@ -8,6 +8,7 @@
         <result column="rela_create_time" property="relaCreateTime" jdbcType="VARCHAR"/>
 
         <result column="rela_contact_alias" property="relaContactAlias" jdbcType="VARCHAR"/>
+        <result column="rela_contact_tags" property="relaContactTags" jdbcType="VARCHAR"/>
         <result column="rela_contact_mobiles" property="relaContactMobiles" jdbcType="VARCHAR"/>
         <result column="rela_contact_desc" property="relaContactDesc" jdbcType="VARCHAR"/>
 

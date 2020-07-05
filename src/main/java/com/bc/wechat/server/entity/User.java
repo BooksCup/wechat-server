@@ -45,12 +45,16 @@ public class User implements Serializable {
     private String userWxIdModifyFlag;
     private String userLastestMomentsPhotos;
 
-    private String friendSource;
+    /**
+     * 联系人来源
+     */
+    private String userContactFrom;
 
     /**
      * 联系人相关
      */
     private String userContactAlias;
+    private String userContactTags;
     private String userContactMobiles;
     private String userContactDesc;
 
@@ -261,12 +265,12 @@ public class User implements Serializable {
         this.userLastestMomentsPhotos = userLastestMomentsPhotos;
     }
 
-    public String getFriendSource() {
-        return friendSource;
+    public String getUserContactFrom() {
+        return userContactFrom;
     }
 
-    public void setFriendSource(String friendSource) {
-        this.friendSource = friendSource;
+    public void setUserContactFrom(String userContactFrom) {
+        this.userContactFrom = userContactFrom;
     }
 
     public String getUserContactAlias() {
@@ -275,6 +279,14 @@ public class User implements Serializable {
 
     public void setUserContactAlias(String userContactAlias) {
         this.userContactAlias = userContactAlias;
+    }
+
+    public String getUserContactTags() {
+        return userContactTags;
+    }
+
+    public void setUserContactTags(String userContactTags) {
+        this.userContactTags = userContactTags;
     }
 
     public String getUserContactMobiles() {

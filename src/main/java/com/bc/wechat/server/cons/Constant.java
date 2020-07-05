@@ -99,12 +99,12 @@ public class Constant {
     /**
      * 来自手机号搜索
      */
-    public static final String FRIENDS_SOURCE_BY_PHONE = "1";
+    public static final String CONTACTS_FROM_PHONE = "1";
 
     /**
      * 来自微信号搜索
      */
-    public static final String FRIENDS_SOURCE_BY_WX_ID = "2";
+    public static final String CONTACTS_FROM_WX_ID = "2";
 
     // 关系状态
     /**
