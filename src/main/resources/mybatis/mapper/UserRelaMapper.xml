@@ -130,6 +130,35 @@
         and rela_friend_id = #{friendId}
     </update>
 
+    <insert id="addUserRelaTags" parameterType="com.bc.wechat.server.entity.UserRela">
+        insert into t_user_rela
+        (
+        rela_id,
+        rela_user_id,
+        rela_contact_id,
+        rela_status,
+        rela_contact_tags,
+        rela_create_time
+        )
+        values
+        (
+        #{relaId},
+        #{relaUserId},
+        #{relaContactId},
+        #{relaStatus},
+        #{relaContactTags},
+        now()
+        )
+    </insert>
+
+    <update id="updateUserRelaTags" parameterType="com.bc.wechat.server.entity.UserRela">
+        update t_user_rela
+        set
+        rela_contact_tags = #{relaContactTags},
+        rela_update_time = now()
+        where rela_id = #{relaId}
+    </update>
+
     <update id="updateUserStarFriend" parameterType="map">
         update t_user_rela
         set

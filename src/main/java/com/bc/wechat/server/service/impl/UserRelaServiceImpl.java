@@ -136,6 +136,26 @@ public class UserRelaServiceImpl implements UserRelaService {
     }
 
     /**
+     * 保存标签时新增用户关系
+     *
+     * @param userRela 用户关系(带标签)
+     */
+    @Override
+    public void addUserRelaTags(UserRela userRela) {
+        userRelaMapper.addUserRelaTags(userRela);
+    }
+
+    /**
+     * 保存标签时修改用户关系
+     *
+     * @param userRela 用户关系(带标签)
+     */
+    @Override
+    public void updateUserRelaTags(UserRela userRela) {
+        userRelaMapper.updateUserRelaTags(userRela);
+    }
+
+    /**
      * 设置或取消星标朋友
      *
      * @param paramMap 参数map

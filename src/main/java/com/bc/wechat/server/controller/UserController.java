@@ -1144,6 +1144,7 @@ public class UserController {
         logger.info("[saveUserContactTags], userId: " + userId + ", contactTags: " + contactTags + ", tags:" + tags);
         ResponseEntity<String> responseEntity;
         try {
+            // 保存联系人标签
             List<String> contactTagList;
             try {
                 contactTagList = JSON.parseArray(contactTags, String.class);
@@ -1157,10 +1158,25 @@ public class UserController {
                 UserContactTag userContactTag = new UserContactTag(userId, contactId, contactTag);
                 userContactTagList.add(userContactTag);
             }
-
             userService.batchSaveUserContactTags(userId, userContactTagList);
 
+            // 保存标签至用户关系中
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("contactId", contactId);
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
+            UserRela userRela = new UserRela(userId, contactId);
+            userRela.setRelaContactTags(contactTags);
+            if (CollectionUtils.isEmpty(userRelaList)) {
+                userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
+                userRelaService.addUserRelaTags(userRela);
+            } else {
+                userRela.setRelaId(userRelaList.get(0).getRelaId());
+                userRelaService.updateUserRelaTags(userRela);
+            }
+
+            // 保存用户所有标签
+            paramMap.clear();
             paramMap.put("userId", userId);
             paramMap.put("tags", tags);
             userService.saveUserTags(paramMap);

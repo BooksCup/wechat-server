@@ -82,6 +82,20 @@ public interface UserRelaService {
                                         String relaHideMyPosts, String relaHideHisPosts);
 
     /**
+     * 保存标签时新增用户关系
+     *
+     * @param userRela 用户关系(带标签)
+     */
+    void addUserRelaTags(UserRela userRela);
+
+    /**
+     * 保存标签时修改用户关系
+     *
+     * @param userRela 用户关系(带标签)
+     */
+    void updateUserRelaTags(UserRela userRela);
+
+    /**
      * 设置或取消星标朋友
      *
      * @param paramMap 参数map

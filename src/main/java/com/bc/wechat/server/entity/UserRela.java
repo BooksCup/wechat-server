@@ -16,6 +16,7 @@ public class UserRela {
     private String relaStatus;
 
     private String relaContactAlias;
+    private String relaContactTags;
     private String relaContactMobiles;
     private String relaContactDesc;
 
@@ -117,6 +118,14 @@ public class UserRela {
 
     public void setRelaContactMobiles(String relaContactMobiles) {
         this.relaContactMobiles = relaContactMobiles;
+    }
+
+    public String getRelaContactTags() {
+        return relaContactTags;
+    }
+
+    public void setRelaContactTags(String relaContactTags) {
+        this.relaContactTags = relaContactTags;
     }
 
     public String getRelaContactDesc() {
