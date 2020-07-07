@@ -137,7 +137,7 @@ public class UserServiceImpl implements UserService {
      * @param paramMap 参数map
      */
     @Override
-    public void updateUserPassword(Map<String, String> paramMap){
+    public void updateUserPassword(Map<String, String> paramMap) {
         userMapper.updateUserPassword(paramMap);
     }
 
@@ -241,6 +241,17 @@ public class UserServiceImpl implements UserService {
         } else {
             return true;
         }
+    }
+
+    /**
+     * 通过手机号列表获取用户列表
+     *
+     * @param phoneList 手机号列表
+     * @return 用户列表
+     */
+    @Override
+    public List<User> getUserListByPhoneList(List<String> phoneList) {
+        return userMapper.getUserListByPhoneList(phoneList);
     }
 
     /**

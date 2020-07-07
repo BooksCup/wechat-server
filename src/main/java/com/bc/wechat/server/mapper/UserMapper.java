@@ -134,4 +134,12 @@ public interface UserMapper {
      * @return 所有用户
      */
     List<User> getAllUserList();
+
+    /**
+     * 通过手机号列表获取用户列表
+     *
+     * @param phoneList 手机列表
+     * @return 用户列表
+     */
+    List<User> getUserListByPhoneList(List<String> phoneList);
 }

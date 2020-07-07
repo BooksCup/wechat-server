@@ -136,6 +136,14 @@ public interface UserService {
     boolean checkUserExistsByUserPhone(String userPhone);
 
     /**
+     * 通过手机号列表获取用户列表
+     *
+     * @param phoneList 手机列表
+     * @return 用户列表
+     */
+    List<User> getUserListByPhoneList(List<String> phoneList);
+
+    /**
      * 刷新用户二维码
      *
      * @param user 用户

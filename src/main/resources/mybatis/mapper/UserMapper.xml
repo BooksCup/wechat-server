@@ -163,4 +163,14 @@
         from t_user
         where user_phone = #{userPhone}
     </select>
+
+    <select id="getUserListByPhoneList" resultMap="BaseResultMap" parameterType="list">
+        select
+        *
+        from t_user
+        where user_phone in
+        <foreach item="item" collection="list" separator="," open="(" close=")" index="">
+            #{item}
+        </foreach>
+    </select>
 </mapper>

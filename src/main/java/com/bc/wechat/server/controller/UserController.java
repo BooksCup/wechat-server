@@ -947,4 +947,33 @@ public class UserController {
         return responseEntity;
     }
 
+    /**
+     * 获取通讯录里的微信好友列表
+     *
+     * @param phones 手机号列表(json格式)
+     * @return 通讯录里的微信好友列表
+     */
+    @ApiOperation(value = "获取通讯录里的微信好友列表", notes = "获取通讯录里的微信好友列表")
+    @PostMapping(value = "/{userId}/phoneContact")
+    public ResponseEntity<List<User>> getPhoneContactList(
+            @RequestParam String phones) {
+        ResponseEntity<List<User>> responseEntity;
+        try {
+            List<String> phoneList = new ArrayList<>();
+            try {
+                phoneList = JSON.parseArray(phones, String.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            logger.info("[getPhoneContactList], phoneList: " + phoneList);
+            List<User> userList = userService.getUserListByPhoneList(phoneList);
+            responseEntity = new ResponseEntity<>(userList, HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[getPhoneContactList] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+
 }
