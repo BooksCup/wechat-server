@@ -656,7 +656,7 @@ public class UserController {
                 contact.setUserContactHideHisPosts(userRela.getRelaHideHisPosts());
 
                 // 星标好友
-                contact.setIsStarFriend(userRela.getRelaIsStarFriend());
+                contact.setIsStarred(userRela.getRelaIsStarred());
             }
             responseEntity = new ResponseEntity<>(contact, HttpStatus.OK);
         } catch (Exception e) {

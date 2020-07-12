@@ -65,7 +65,7 @@ public class User implements Serializable {
     private String userContactHideMyPosts;
     private String userContactHideHisPosts;
 
-    private String isStarFriend;
+    private String isStarred;
 
     private String userLastLoginTime;
     private String userCreateTime;
@@ -329,12 +329,12 @@ public class User implements Serializable {
         this.userContactHideHisPosts = userContactHideHisPosts;
     }
 
-    public String getIsStarFriend() {
-        return isStarFriend;
+    public String getIsStarred() {
+        return isStarred;
     }
 
-    public void setIsStarFriend(String isStarFriend) {
-        this.isStarFriend = isStarFriend;
+    public void setIsStarred(String isStarred) {
+        this.isStarred = isStarred;
     }
 
     public String getUserLastLoginTime() {

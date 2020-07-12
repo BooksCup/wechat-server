@@ -24,7 +24,7 @@ public class UserRela {
     private String relaHideMyPosts;
     private String relaHideHisPosts;
 
-    private String relaIsStarFriend;
+    private String relaIsStarred;
 
     public UserRela() {
 
@@ -160,11 +160,11 @@ public class UserRela {
         this.relaHideHisPosts = relaHideHisPosts;
     }
 
-    public String getRelaIsStarFriend() {
-        return relaIsStarFriend;
+    public String getRelaIsStarred() {
+        return relaIsStarred;
     }
 
-    public void setRelaIsStarFriend(String relaIsStarFriend) {
-        this.relaIsStarFriend = relaIsStarFriend;
+    public void setRelaIsStarred(String relaIsStarred) {
+        this.relaIsStarred = relaIsStarred;
     }
 }

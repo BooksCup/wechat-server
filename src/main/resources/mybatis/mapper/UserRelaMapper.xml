@@ -16,7 +16,7 @@
         <result column="rela_hide_my_posts" property="relaHideMyPosts" jdbcType="VARCHAR"/>
         <result column="rela_hide_his_posts" property="relaHideHisPosts" jdbcType="VARCHAR"/>
 
-        <result column="rela_is_star_friend" property="relaIsStarFriend" jdbcType="VARCHAR"/>
+        <result column="rela_is_starred" property="relaIsStarred" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="User" type="com.bc.wechat.server.entity.User">
