@@ -160,11 +160,11 @@
         where rela_id = #{relaId}
     </update>
 
-    <update id="updateUserStarFriend" parameterType="map">
+    <update id="setContactStarred" parameterType="map">
         update t_user_rela
         set
-        rela_is_star_friend = #{isStarFriend}
+        rela_is_starred = #{isStarred}
         where rela_user_id = #{userId}
-        and rela_friend_id = #{friendId}
+        and rela_contact_id = #{contactId}
     </update>
 </mapper>

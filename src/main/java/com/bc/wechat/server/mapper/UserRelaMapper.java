@@ -85,5 +85,5 @@ public interface UserRelaMapper {
      * @param paramMap 参数map
      * @return ResponseEntity
      */
-    void updateUserStarFriend(Map<String, String> paramMap);
+    void setContactStarred(Map<String, String> paramMap);
 }

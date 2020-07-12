@@ -172,7 +172,7 @@ public class UserRelaServiceImpl implements UserRelaService {
      * @return ResponseEntity
      */
     @Override
-    public void updateUserStarFriend(Map<String, String> paramMap) {
-        userRelaMapper.updateUserStarFriend(paramMap);
+    public void setContactStarred(Map<String, String> paramMap) {
+        userRelaMapper.setContactStarred(paramMap);
     }
 }

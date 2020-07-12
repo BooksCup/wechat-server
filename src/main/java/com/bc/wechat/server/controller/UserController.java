@@ -760,30 +760,30 @@ public class UserController {
     /**
      * 设置或取消星标朋友
      *
-     * @param userId       用户ID
-     * @param friendId     好友ID
-     * @param isStarFriend 是否星标好友 "0":否 "1":"是"
+     * @param userId    用户ID
+     * @param contactId 联系人ID
+     * @param isStarred 是否星标好友 "0":否 "1":"是"
      * @return ResponseEntity
      */
     @ApiOperation(value = "设置或取消星标朋友", notes = "设置或取消星标朋友")
-    @PutMapping(value = "/{userId}/starFriend")
-    public ResponseEntity<String> updateUserStarFriend(
+    @PutMapping(value = "/{userId}/contacts/{contactId}/star")
+    public ResponseEntity<String> setContactStarred(
             @PathVariable String userId,
-            @RequestParam String friendId,
-            @RequestParam String isStarFriend) {
+            @PathVariable String contactId,
+            @RequestParam String isStarred) {
         ResponseEntity<String> responseEntity;
         try {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("friendId", friendId);
-            paramMap.put("isStarFriend", isStarFriend);
+            paramMap.put("contactId", contactId);
+            paramMap.put("isStarred", isStarred);
 
-            userRelaService.updateUserStarFriend(paramMap);
+            userRelaService.setContactStarred(paramMap);
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_STAR_FRIEND_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_STARRED_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("[updateUserStarFriend] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_STAR_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.error("[setContactStarred] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_STARRED_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
