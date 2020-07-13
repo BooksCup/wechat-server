@@ -4,6 +4,7 @@ import cn.jmessage.api.common.model.message.MessageBody;
 import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.MsgBody;
+import org.apache.commons.beanutils.BeanUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -130,6 +131,30 @@ public class CommonUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date expireDate = new Date(System.currentTimeMillis() + period * 1000);
         return simpleDateFormat.format(expireDate);
+    }
+
+    /**
+     * map转对象
+     *
+     * @param map       map
+     * @param beanClass 对象的class
+     * @return 对象实体
+     */
+    public static Object map2Object(Map<String, Object> map, Class<?> beanClass) {
+        Object obj;
+        try {
+            if (map == null) {
+                return null;
+            }
+            obj = beanClass.newInstance();
+
+            BeanUtils.populate(obj, map);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            obj = null;
+        }
+        return obj;
     }
 
     public static void main(String[] args) {

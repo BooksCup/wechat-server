@@ -183,6 +183,41 @@ public class Constant {
      */
     public static final String PROTOCOL_HTTPS_PREFIX = "https://";
 
+    /**
+     * 排序-升序
+     */
+    public static final String SORT_DIRECTION_ASC = "asc";
+
+    /**
+     * 排序-倒序
+     */
+    public static final String SORT_DIRECTION_DESC = "desc";
+
+    /**
+     * 高亮-开启
+     */
+    public static final String HIGHLIGHT_FLAG_OPEN = "1";
+
+    /**
+     * 高亮-关闭
+     */
+    public static final String HIGHLIGHT_FLAG_CLOSE = "0";
+
+    /**
+     * 字段类型-拼音
+     */
+    public static final String FIELD_TYPE_PINYIN = ".pinyin";
+
+    /**
+     * index-'file_item'
+     */
+    public static final String INDEX_NAME_FILE_ITEM = "file_item";
+
+    /**
+     * type-'file_item'
+     */
+    public static final String TYPE_NAME_FILE_ITEM = "file_item";
+
     // 登录方式
     /**
      * 手机号/密码登录
