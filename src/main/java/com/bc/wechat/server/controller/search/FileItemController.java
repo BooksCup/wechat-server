@@ -327,8 +327,10 @@ public class FileItemController {
             ResponseEntity<Page<FileItem>> response = searchV3(searchKey, diskName, color, page,
                     limit, sortField, sortDirection, highLightFlag);
             if (response.getBody().getTotalPages() < page) {
+                logger.info("[searchV4], empty list");
                 responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
             } else {
+                logger.info("[searchV4], list.size: " + response.getBody().getContent().size());
                 responseEntity = new ResponseEntity<>(response.getBody().getContent(), HttpStatus.OK);
             }
         } catch (Exception e) {
