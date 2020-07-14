@@ -133,6 +133,18 @@ CREATE TABLE `t_people_nearby` (
   PRIMARY KEY (`nearby_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_search_history` */
+
+DROP TABLE IF EXISTS `t_search_history`;
+
+CREATE TABLE `t_search_history` (
+  `search_id` varchar(32) NOT NULL COMMENT '搜索历史表主键',
+  `search_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `search_keyword` varchar(200) DEFAULT NULL COMMENT '搜索关键字',
+  `search_create_time` varchar(20) DEFAULT NULL COMMENT '搜索时间',
+  PRIMARY KEY (`search_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_sys_log` */
 
 DROP TABLE IF EXISTS `t_sys_log`;
