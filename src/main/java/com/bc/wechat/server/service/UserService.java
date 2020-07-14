@@ -150,4 +150,11 @@ public interface UserService {
      * @return true: 刷新成功  false: 刷新失败
      */
     boolean refreshUserQrCode(User user);
+
+    /**
+     * 保存搜索历史
+     *
+     * @param paramMap
+     */
+    void saveSearchHistory(Map<String, String> paramMap);
 }

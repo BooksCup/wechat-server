@@ -113,6 +113,9 @@ public enum ResponseMsg {
 
     UNLINK_QQ_ID_SUCCESS("UNLINK_QQ_ID_SUCCESS", "解绑QQ号成功"),
     UNLINK_QQ_ID_ERROR("UNLINK_QQ_ID_ERROR", "解绑QQ号失败"),
+
+    SAVE_SEARCH_HISTORY_SUCCESS("SAVE_SEARCH_HISTORY_SUCCESS", "解绑QQ号成功"),
+    SAVE_SEARCH_HISTORY_ERROR("SAVE_SEARCH_HISTORY_ERROR", "解绑QQ号失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {

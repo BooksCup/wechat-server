@@ -312,4 +312,14 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
+
+    /**
+     * 保存搜索历史
+     *
+     * @param paramMap
+     */
+    @Override
+    public void saveSearchHistory(Map<String, String> paramMap) {
+        userMapper.saveSearchHistory(paramMap);
+    }
 }

@@ -142,4 +142,11 @@ public interface UserMapper {
      * @return 用户列表
      */
     List<User> getUserListByPhoneList(List<String> phoneList);
+
+    /**
+     * 保存搜索历史
+     *
+     * @param paramMap
+     */
+    void saveSearchHistory(Map<String, String> paramMap);
 }

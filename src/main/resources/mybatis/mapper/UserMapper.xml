@@ -173,4 +173,21 @@
             #{item}
         </foreach>
     </select>
+
+    <insert id="saveSearchHistory" parameterType="map">
+        insert into t_search_history
+        (
+        search_id,
+        search_user_id,
+        search_keyword,
+        search_create_time
+        )
+        values
+        (
+        #{id},
+        #{userId},
+        #{keyword},
+        now()
+        )
+    </insert>
 </mapper>

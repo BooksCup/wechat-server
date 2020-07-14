@@ -975,5 +975,31 @@ public class UserController {
         return responseEntity;
     }
 
-
+    /**
+     * 保存搜索历史
+     *
+     * @param userId  用户ID
+     * @param keyword 搜索关键字
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "保存搜索历史", notes = "保存搜索历史")
+    @PostMapping(value = "/{userId}/searchHistory")
+    public ResponseEntity<String> saveSearchHistory(
+            @PathVariable String userId,
+            @RequestParam String keyword) {
+        logger.info("[saveSearchHistory], userId: " + userId + ", keyword: " + keyword);
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("id", CommonUtil.generateId());
+            paramMap.put("userId", userId);
+            paramMap.put("keyword", keyword);
+            userService.saveSearchHistory(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.SAVE_SEARCH_HISTORY_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[saveSearchHistory] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.SAVE_SEARCH_HISTORY_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }
