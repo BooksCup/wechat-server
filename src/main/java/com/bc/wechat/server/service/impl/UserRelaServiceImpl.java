@@ -169,10 +169,19 @@ public class UserRelaServiceImpl implements UserRelaService {
      * 设置或取消星标朋友
      *
      * @param paramMap 参数map
-     * @return ResponseEntity
      */
     @Override
     public void setContactStarred(Map<String, String> paramMap) {
         userRelaMapper.setContactStarred(paramMap);
+    }
+
+    /**
+     * 设置或取消加入黑名单
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void setContactBlocked(Map<String, String> paramMap) {
+        userRelaMapper.setContactBlocked(paramMap);
     }
 }

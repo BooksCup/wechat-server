@@ -109,4 +109,11 @@ public interface UserRelaService {
      * @return ResponseEntity
      */
     void setContactStarred(Map<String, String> paramMap);
+
+    /**
+     * 设置或取消加入黑名单
+     *
+     * @param paramMap 参数map
+     */
+    void setContactBlocked(Map<String, String> paramMap);
 }

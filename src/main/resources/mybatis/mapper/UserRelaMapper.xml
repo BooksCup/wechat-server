@@ -167,4 +167,12 @@
         where rela_user_id = #{userId}
         and rela_contact_id = #{contactId}
     </update>
+
+    <update id="setContactBlocked" parameterType="map">
+        update t_user_rela
+        set
+        rela_is_blocked = #{isBlocked}
+        where rela_user_id = #{userId}
+        and rela_contact_id = #{contactId}
+    </update>
 </mapper>

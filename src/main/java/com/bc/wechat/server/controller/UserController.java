@@ -789,6 +789,36 @@ public class UserController {
     }
 
     /**
+     * 设置或取消加入黑名单
+     *
+     * @param userId    用户ID
+     * @param contactId 联系人ID
+     * @param isBlocked   是否加入黑名单 "0":否 "1":是
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "设置或取消加入黑名单", notes = "设置或取消加入黑名单")
+    @PutMapping(value = "/{userId}/contacts/{contactId}/block")
+    public ResponseEntity<String> setContactBlocked(
+            @PathVariable String userId,
+            @PathVariable String contactId,
+            @RequestParam String isBlocked) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("contactId", contactId);
+            paramMap.put("isBlocked", isBlocked);
+
+            userRelaService.setContactBlocked(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_BLOCKED_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[setContactBlocked] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_BLOCKED_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
      * 获取用户的地址列表
      *
      * @param userId 用户ID
