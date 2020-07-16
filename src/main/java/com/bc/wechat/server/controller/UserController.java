@@ -657,6 +657,7 @@ public class UserController {
 
                 // 星标好友
                 contact.setIsStarred(userRela.getRelaIsStarred());
+                contact.setIsBlocked(userRela.getRelaIsBlocked());
             }
             responseEntity = new ResponseEntity<>(contact, HttpStatus.OK);
         } catch (Exception e) {
@@ -793,7 +794,7 @@ public class UserController {
      *
      * @param userId    用户ID
      * @param contactId 联系人ID
-     * @param isBlocked   是否加入黑名单 "0":否 "1":是
+     * @param isBlocked 是否加入黑名单 "0":否 "1":是
      * @return ResponseEntity
      */
     @ApiOperation(value = "设置或取消加入黑名单", notes = "设置或取消加入黑名单")

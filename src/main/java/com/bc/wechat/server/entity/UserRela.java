@@ -25,6 +25,7 @@ public class UserRela {
     private String relaHideHisPosts;
 
     private String relaIsStarred;
+    private String relaIsBlocked;
 
     public UserRela() {
 
@@ -166,5 +167,13 @@ public class UserRela {
 
     public void setRelaIsStarred(String relaIsStarred) {
         this.relaIsStarred = relaIsStarred;
+    }
+
+    public String getRelaIsBlocked() {
+        return relaIsBlocked;
+    }
+
+    public void setRelaIsBlocked(String relaIsBlocked) {
+        this.relaIsBlocked = relaIsBlocked;
     }
 }

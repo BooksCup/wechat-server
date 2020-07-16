@@ -66,6 +66,7 @@ public class User implements Serializable {
     private String userContactHideHisPosts;
 
     private String isStarred;
+    private String isBlocked;
 
     private String userLastLoginTime;
     private String userCreateTime;
@@ -335,6 +336,14 @@ public class User implements Serializable {
 
     public void setIsStarred(String isStarred) {
         this.isStarred = isStarred;
+    }
+
+    public String getIsBlocked() {
+        return isBlocked;
+    }
+
+    public void setIsBlocked(String isBlocked) {
+        this.isBlocked = isBlocked;
     }
 
     public String getUserLastLoginTime() {
