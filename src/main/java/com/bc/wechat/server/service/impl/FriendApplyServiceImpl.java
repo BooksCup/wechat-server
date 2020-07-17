@@ -101,7 +101,7 @@ public class FriendApplyServiceImpl implements FriendApplyService {
             userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.addUserRela(userRela);
         } else {
-            UserRela userRela = userRelaList.get(0);
+            UserRela userRela = friendUserRelaList.get(0);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
             userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.updateUserRela(userRela);

@@ -177,6 +177,7 @@ public class UserController {
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.error("register error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(new User(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
@@ -1112,8 +1113,8 @@ public class UserController {
      * @return 通讯录里的微信好友列表
      */
     @ApiOperation(value = "获取通讯录里的微信好友列表", notes = "获取通讯录里的微信好友列表")
-    @PostMapping(value = "/{userId}/phoneContact")
-    public ResponseEntity<List<User>> getPhoneContactList(
+    @PostMapping(value = "/{userId}/mobileContacts")
+    public ResponseEntity<List<User>> getMobileContactList(
             @RequestParam String phones) {
         ResponseEntity<List<User>> responseEntity;
         try {
@@ -1123,11 +1124,11 @@ public class UserController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            logger.info("[getPhoneContactList], phoneList: " + phoneList);
+            logger.info("[getMobileContactList], phoneList: " + phoneList);
             List<User> userList = userService.getUserListByPhoneList(phoneList);
             responseEntity = new ResponseEntity<>(userList, HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("[getPhoneContactList] error: " + e.getMessage());
+            logger.error("[getMobileContactList] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
