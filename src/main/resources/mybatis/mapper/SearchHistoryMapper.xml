@@ -10,11 +10,12 @@
         <result column="count" property="count" jdbcType="INTEGER"/>
     </resultMap>
 
-    <select id="getHotSearchHistoryList" resultMap="SearchHistory">
+    <select id="getHotSearchHistoryList" resultMap="SearchHistory" parameterType="Integer">
         select search_keyword, count(*) as count
         from t_search_history
         group by search_keyword
         order by count desc
+        limit #{topSize}
     </select>
 
 </mapper>

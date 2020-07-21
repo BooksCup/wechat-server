@@ -1,5 +1,6 @@
 package com.bc.wechat.server.controller.search;
 
+import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.search.SearchHistory;
 import com.bc.wechat.server.service.SearchHistoryService;
 import io.swagger.annotations.ApiOperation;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -36,10 +38,12 @@ public class SearchHistoryController {
      */
     @ApiOperation(value = "获取热门搜索列表", notes = "获取热门搜索列表")
     @GetMapping(value = "/hot")
-    public ResponseEntity<List<SearchHistory>> getHotSearchHistoryList() {
+    public ResponseEntity<List<SearchHistory>> getHotSearchHistoryList(
+            @RequestParam(required = false, defaultValue = Constant.HOT_SEARCH_TOP_SIZE) Integer topSize) {
         ResponseEntity<List<SearchHistory>> responseEntity;
+        logger.info("[getHotSearchHistoryList] topSize: " + topSize);
         try {
-            List<SearchHistory> searchHistoryList = searchHistoryService.getHotSearchHistoryList();
+            List<SearchHistory> searchHistoryList = searchHistoryService.getHotSearchHistoryList(topSize);
             responseEntity = new ResponseEntity<>(searchHistoryList, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("[getHotSearchHistoryList] error: " + e.getMessage());

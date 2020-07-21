@@ -22,10 +22,11 @@ public class SearchHistoryServiceImpl implements SearchHistoryService {
     /**
      * 获取热门搜索列表
      *
+     * @param topSize 列表条数
      * @return 热门搜索列表
      */
     @Override
-    public List<SearchHistory> getHotSearchHistoryList() {
-        return searchHistoryMapper.getHotSearchHistoryList();
+    public List<SearchHistory> getHotSearchHistoryList(Integer topSize) {
+        return searchHistoryMapper.getHotSearchHistoryList(topSize);
     }
 }

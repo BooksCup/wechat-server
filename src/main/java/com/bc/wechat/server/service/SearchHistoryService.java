@@ -13,7 +13,8 @@ public interface SearchHistoryService {
     /**
      * 获取热门搜索列表
      *
+     * @param topSize 列表条数
      * @return 热门搜索列表
      */
-    List<SearchHistory> getHotSearchHistoryList();
+    List<SearchHistory> getHotSearchHistoryList(Integer topSize);
 }
