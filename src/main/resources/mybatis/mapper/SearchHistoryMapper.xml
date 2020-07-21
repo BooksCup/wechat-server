@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.SearchHistoryMapper">
+
+    <resultMap id="SearchHistory" type="com.bc.wechat.server.entity.search.SearchHistory">
+        <id column="search_id" property="id" jdbcType="VARCHAR"/>
+        <result column="search_user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="search_keyword" property="keyword" jdbcType="VARCHAR"/>
+        <result column="search_create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="count" property="count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <select id="getHotSearchHistoryList" resultMap="SearchHistory">
+        select search_keyword, count(*) as count
+        from t_search_history
+        group by search_keyword
+        order by count desc
+    </select>
+
+</mapper>
