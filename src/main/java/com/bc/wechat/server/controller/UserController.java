@@ -44,7 +44,7 @@ public class UserController {
     private UserRelaService userRelaService;
 
     @Resource
-    private FriendsCircleService friendsCircleService;
+    private MomentsService friendsCircleService;
 
     @Resource
     private AddressService addressService;
@@ -455,7 +455,7 @@ public class UserController {
         ResponseEntity<String> responseEntity;
         try {
             // 更新该用户最新n张朋友圈照片
-            List<String> lastestCirclePhotoList = friendsCircleService.getLastestCirclePhotosByUserId(userId);
+            List<String> lastestCirclePhotoList = friendsCircleService.getLastestMomentsPhotosByUserId(userId);
 
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
@@ -483,11 +483,11 @@ public class UserController {
      */
     @ApiOperation(value = "获取用户发布的朋友圈列表", notes = "获取用户发布的朋友圈列表")
     @GetMapping(value = "/{userId}/friendsCircle")
-    public ResponseEntity<List<FriendsCircle>> getFriendsCircleListByPublishUserId(
+    public ResponseEntity<List<Moments>> getFriendsCircleListByPublishUserId(
             @PathVariable String userId,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(required = false, defaultValue = "0") Long timestamp) {
-        ResponseEntity<List<FriendsCircle>> responseEntity;
+        ResponseEntity<List<Moments>> responseEntity;
         try {
 
             if (0L == timestamp || null == timestamp) {
@@ -498,7 +498,7 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("pageSize", pageSize);
             paramMap.put("timestamp", timestamp);
-            List<FriendsCircle> friendsCircleList = friendsCircleService.getFriendsCircleListByPublishUserId(paramMap);
+            List<Moments> friendsCircleList = friendsCircleService.getMomentsListByPublishUserId(paramMap);
             responseEntity = new ResponseEntity<>(friendsCircleList, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("[getFriendsCircleListByPublishUserId] error: " + e.getMessage());

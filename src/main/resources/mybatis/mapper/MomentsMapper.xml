@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.MomentsMapper">
+
+    <resultMap id="moments" type="com.bc.wechat.server.entity.Moments">
+        <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
+        <result column="moments_user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="moments_content" property="momentsContent" jdbcType="VARCHAR"/>
+        <result column="moments_photos" property="momentsPhotos" jdbcType="VARCHAR"/>
+        <result column="moments_create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="moments_timestamp" property="timestamp" jdbcType="BIGINT"/>
+
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="friendsCircleComment" type="com.bc.wechat.server.entity.FriendsCircleComment">
+        <id column="comment_id" property="commentId" jdbcType="VARCHAR"/>
+        <result column="comment_circle_id" property="commentCircleId" jdbcType="VARCHAR"/>
+        <result column="comment_user_id" property="commentUserId" jdbcType="VARCHAR"/>
+        <result column="comment_reply_to_user_id" property="commentReplyToUserId" jdbcType="VARCHAR"/>
+        <result column="comment_content" property="commentContent" jdbcType="VARCHAR"/>
+        <result column="comment_create_time" property="commentCreateTime" jdbcType="BIGINT"/>
+        <result column="comment_delete_flag" property="commentDeleteFlag" jdbcType="VARCHAR"/>
+        <result column="comment_delete_time" property="commentDeleteTime" jdbcType="VARCHAR"/>
+        <result column="commentUserNickName" property="commentUserNickName" jdbcType="VARCHAR"/>
+        <result column="commentReplyToUserNickName" property="commentReplyToUserNickName" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <resultMap id="user" type="com.bc.wechat.server.entity.User">
+        <id column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addMoments" parameterType="com.bc.wechat.server.entity.Moments">
+        insert into t_moments
+        (
+        moments_id,
+        moments_user_id,
+        moments_content,
+        moments_photos,
+        moments_create_time,
+        moments_timestamp
+        )
+        values
+        (
+        #{momentsId},
+        #{userId},
+        #{momentsContent},
+        #{momentsPhotos},
+        #{createTime},
+        #{timestamp}
+        )
+    </insert>
+
+    <select id="getMomentsListByUserId" resultMap="moments" parameterType="map">
+        <![CDATA[
+        select m.*, u.user_nick_name, u.user_avatar
+          from t_moments m
+            inner join t_user_rela ur on m.moments_user_id = ur.rela_friend_id
+            left join t_user u on m.moments_user_id = u.user_id
+            where ur.rela_user_id = #{userId}
+              and m.moments_timestamp < #{timestamp}
+              order by m.moments_timestamp desc
+              limit #{pageSize}
+        ]]>
+    </select>
+
+    <select id="getLikeUserListByMomentsId" resultMap="user" parameterType="String">
+        select u.*
+        from t_moments_like l left join t_user u on l.like_user_id = u.user_id
+        where l.like_moments_id = #{momentsId}
+
+    </select>
+
+    <select id="getLastestMomentsPhotosByUserId" resultType="String" parameterType="String">
+        <![CDATA[
+        select moments_photos
+          from t_moments
+          where moments_user_id =#{userId}
+            and (moments_photos is not null and moments_photos <> '')
+          order by moments_timestamp desc
+          limit 0, 4
+        ]]>
+    </select>
+
+    <insert id="likeMoments" parameterType="map">
+        insert into t_moments_like
+        (
+        like_id,
+        like_moments_id,
+        like_user_id,
+        like_create_time
+        )
+        values
+        (
+        #{likeId},
+        #{momentsId},
+        #{userId},
+        now()
+        )
+    </insert>
+
+    <delete id="unLikeMoments" parameterType="map">
+        delete from t_moments_like
+        where like_moments_id = #{momentsId}
+        and like_user_id = #{userId}
+    </delete>
+
+    <select id="getFriendsCircleCommentListByCircleId" resultMap="friendsCircleComment" parameterType="String">
+        select c.*,u.user_nick_name as commentUserNickName, ru.user_nick_name as commentReplyToUserNickName
+        from t_friends_circle_comment c
+        left join t_user u on c.comment_user_id = u.user_id
+        left join t_user ru on c.comment_reply_to_user_id = ru.user_id
+
+        where c.comment_circle_id = #{circleId}
+        order by c.comment_create_time asc
+    </select>
+
+    <insert id="addFriendsCircleComment" parameterType="com.bc.wechat.server.entity.FriendsCircleComment">
+        insert into t_friends_circle_comment
+        (
+        comment_id,
+        comment_circle_id,
+        comment_user_id,
+        comment_content,
+        comment_create_time
+        )
+        values
+        (
+        #{commentId},
+        #{commentCircleId},
+        #{commentUserId},
+        #{commentContent},
+        now()
+        )
+    </insert>
+
+    <select id="getFriendsCircleListByPublishUserId" resultMap="moments" parameterType="map">
+        <![CDATA[
+        select fc.*, u.user_nick_name, u.user_avatar
+          from t_friends_circle fc
+            left join t_user u on fc.circle_user_id = u.user_id
+            where fc.circle_user_id = #{userId}
+            and fc.circle_timestamp < #{timestamp}
+            order by fc.circle_timestamp desc
+            limit #{pageSize}
+        ]]>
+    </select>
+</mapper>

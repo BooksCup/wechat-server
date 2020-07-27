@@ -1,11 +1,11 @@
 package com.bc.wechat.server.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
-import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.Moments;
 import com.bc.wechat.server.entity.FriendsCircleComment;
 import com.bc.wechat.server.entity.User;
-import com.bc.wechat.server.mapper.FriendsCircleMapper;
-import com.bc.wechat.server.service.FriendsCircleService;
+import com.bc.wechat.server.mapper.MomentsMapper;
+import com.bc.wechat.server.service.MomentsService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -20,10 +20,10 @@ import java.util.Map;
  * @author zhou
  */
 @Service("friendsCircleService")
-public class FriendsCircleServiceImpl implements FriendsCircleService {
+public class MomentsServiceImpl implements MomentsService {
 
     @Resource
-    private FriendsCircleMapper friendsCircleMapper;
+    private MomentsMapper momentsMapper;
 
     /**
      * 新增朋友圈实体
@@ -31,8 +31,8 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @param friendsCircle 朋友圈实体
      */
     @Override
-    public void addFriendsCircle(FriendsCircle friendsCircle) {
-        friendsCircleMapper.addFriendsCircle(friendsCircle);
+    public void addMoments(Moments friendsCircle) {
+        momentsMapper.addMoments(friendsCircle);
     }
 
     /**
@@ -42,8 +42,8 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @return 朋友圈列表
      */
     @Override
-    public List<FriendsCircle> getFriendsCircleListByUserId(Map<String, Object> paramMap) {
-        return friendsCircleMapper.getFriendsCircleListByUserId(paramMap);
+    public List<Moments> getMomentsListByUserId(Map<String, Object> paramMap) {
+        return momentsMapper.getMomentsListByUserId(paramMap);
     }
 
     /**
@@ -53,8 +53,8 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @return 点赞用户列表
      */
     @Override
-    public List<User> getLikeUserListByCircleId(String circleId) {
-        return friendsCircleMapper.getLikeUserListByCircleId(circleId);
+    public List<User> getLikeUserListByMomentsId(String circleId) {
+        return momentsMapper.getLikeUserListByMomentsId(circleId);
     }
 
     /**
@@ -64,9 +64,9 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @return 最近n张朋友圈图片
      */
     @Override
-    public List<String> getLastestCirclePhotosByUserId(String userId) {
+    public List<String> getLastestMomentsPhotosByUserId(String userId) {
         List<String> resultList = new ArrayList<>();
-        List<String> lastestCirclePhotoList = friendsCircleMapper.getLastestCirclePhotosByUserId(userId);
+        List<String> lastestCirclePhotoList = momentsMapper.getLastestMomentsPhotosByUserId(userId);
         if (!CollectionUtils.isEmpty(lastestCirclePhotoList)) {
             for (String lastestCirclePhoto : lastestCirclePhotoList) {
                 List<String> photoes;
@@ -96,8 +96,8 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @param paramMap 参数map
      */
     @Override
-    public void likeFriendsCircle(Map<String, Object> paramMap) {
-        friendsCircleMapper.likeFriendsCircle(paramMap);
+    public void likeMoments(Map<String, Object> paramMap) {
+        momentsMapper.likeMoments(paramMap);
     }
 
     /**
@@ -106,8 +106,8 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @param paramMap 参数map
      */
     @Override
-    public void unLikeFriendsCircle(Map<String, Object> paramMap) {
-        friendsCircleMapper.unLikeFriendsCircle(paramMap);
+    public void unLikeMoments(Map<String, Object> paramMap) {
+        momentsMapper.unLikeMoments(paramMap);
     }
 
     /**
@@ -118,7 +118,7 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      */
     @Override
     public List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId) {
-        return friendsCircleMapper.getFriendsCircleCommentListByCircleId(circleId);
+        return momentsMapper.getFriendsCircleCommentListByCircleId(circleId);
     }
 
     /**
@@ -128,7 +128,7 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      */
     @Override
     public void addFriendsCircleComment(FriendsCircleComment friendsCircleComment) {
-        friendsCircleMapper.addFriendsCircleComment(friendsCircleComment);
+        momentsMapper.addFriendsCircleComment(friendsCircleComment);
     }
 
     /**
@@ -138,7 +138,7 @@ public class FriendsCircleServiceImpl implements FriendsCircleService {
      * @return 某个用户的朋友圈列表
      */
     @Override
-    public List<FriendsCircle> getFriendsCircleListByPublishUserId(Map<String, Object> paramMap) {
-        return friendsCircleMapper.getFriendsCircleListByPublishUserId(paramMap);
+    public List<Moments> getMomentsListByPublishUserId(Map<String, Object> paramMap) {
+        return momentsMapper.getMomentsListByPublishUserId(paramMap);
     }
 }

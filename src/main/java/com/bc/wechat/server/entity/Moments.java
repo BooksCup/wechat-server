@@ -9,14 +9,14 @@ import java.util.List;
  *
  * @author zhou
  */
-public class FriendsCircle {
+public class Moments {
 
-    private String circleId;
+    private String momentsId;
     private String userId;
     private String userNickName;
     private String userAvatar;
-    private String circleContent;
-    private String circlePhotos;
+    private String momentsContent;
+    private String momentsPhotos;
     private String createTime;
     private Long timestamp;
 
@@ -30,26 +30,26 @@ public class FriendsCircle {
      */
     private List<FriendsCircleComment> friendsCircleCommentList;
 
-    public FriendsCircle() {
+    public Moments() {
 
     }
 
-    public FriendsCircle(String userId, String circleContent, String circlePhotos) {
-        this.circleId = CommonUtil.generateId();
+    public Moments(String userId, String momentsContent, String momentsPhotos) {
+        this.momentsId = CommonUtil.generateId();
         this.userId = userId;
-        this.circleContent = circleContent;
-        this.circlePhotos = circlePhotos;
+        this.momentsContent = momentsContent;
+        this.momentsPhotos = momentsPhotos;
         this.createTime = CommonUtil.now();
         this.timestamp = System.currentTimeMillis();
 
     }
 
-    public String getCircleId() {
-        return circleId;
+    public String getMomentsId() {
+        return momentsId;
     }
 
-    public void setCircleId(String circleId) {
-        this.circleId = circleId;
+    public void setMomentsId(String momentsId) {
+        this.momentsId = momentsId;
     }
 
     public String getUserId() {
@@ -76,20 +76,20 @@ public class FriendsCircle {
         this.userAvatar = userAvatar;
     }
 
-    public String getCircleContent() {
-        return circleContent;
+    public String getMomentsContent() {
+        return momentsContent;
     }
 
-    public void setCircleContent(String circleContent) {
-        this.circleContent = circleContent;
+    public void setMomentsContent(String momentsContent) {
+        this.momentsContent = momentsContent;
     }
 
-    public String getCirclePhotos() {
-        return circlePhotos;
+    public String getMomentsPhotos() {
+        return momentsPhotos;
     }
 
-    public void setCirclePhotos(String circlePhotos) {
-        this.circlePhotos = circlePhotos;
+    public void setMomentsPhotos(String momentsPhotos) {
+        this.momentsPhotos = momentsPhotos;
     }
 
     public String getCreateTime() {

@@ -2,11 +2,11 @@ package com.bc.wechat.server.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
-import com.bc.wechat.server.entity.FriendsCircle;
+import com.bc.wechat.server.entity.Moments;
 import com.bc.wechat.server.entity.FriendsCircleComment;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
-import com.bc.wechat.server.service.FriendsCircleService;
+import com.bc.wechat.server.service.MomentsService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
 import io.swagger.annotations.ApiOperation;
@@ -23,18 +23,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 朋友圈控制器
+ * 朋友圈
  *
  * @author zhou
  */
 @RestController
-@RequestMapping("/friendsCircle")
-public class FriendsCircleController {
+@RequestMapping("/moments")
+public class MomentsController {
 
-    private static final Logger logger = LoggerFactory.getLogger(FriendsCircleController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MomentsController.class);
 
     @Resource
-    private FriendsCircleService friendsCircleService;
+    private MomentsService momentsService;
 
     @Resource
     private UserService userService;
@@ -49,30 +49,29 @@ public class FriendsCircleController {
      */
     @ApiOperation(value = "发朋友圈", notes = "发朋友圈")
     @PostMapping(value = "")
-    public ResponseEntity<String> addFriendsCircle(
+    public ResponseEntity<String> addMoments(
             @RequestParam String userId,
             @RequestParam String content,
             @RequestParam String photos) {
         ResponseEntity<String> responseEntity;
         try {
-            FriendsCircle friendsCircle = new FriendsCircle(userId, content, photos);
-            friendsCircleService.addFriendsCircle(friendsCircle);
+            Moments moments = new Moments(userId, content, photos);
+            momentsService.addMoments(moments);
 
             // 更新该用户最新n张朋友圈照片
-            List<String> lastestCirclePhotoList = friendsCircleService.getLastestCirclePhotosByUserId(userId);
+            List<String> lastestCirclePhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
             userService.updateUserLastestCirclePhotos(paramMap);
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_MOMENTS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
-
 
     /**
      * 查找某个用户的朋友圈列表
@@ -84,12 +83,12 @@ public class FriendsCircleController {
      */
     @ApiOperation(value = "查找朋友圈列表", notes = "查找朋友圈列表")
     @GetMapping(value = "")
-    public ResponseEntity<List<FriendsCircle>> getFriendsCircleListByUserId(
+    public ResponseEntity<List<Moments>> getMomentsListByUserId(
             @RequestParam String userId,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(required = false, defaultValue = "0") Long timestamp) {
         long beginTimeStamp = System.currentTimeMillis();
-        ResponseEntity<List<FriendsCircle>> responseEntity;
+        ResponseEntity<List<Moments>> responseEntity;
         try {
             if (0L == timestamp || null == timestamp) {
                 timestamp = System.currentTimeMillis();
@@ -99,36 +98,36 @@ public class FriendsCircleController {
             paramMap.put("userId", userId);
             paramMap.put("pageSize", pageSize);
             paramMap.put("timestamp", timestamp);
-            List<FriendsCircle> friendsCircleList = friendsCircleService.getFriendsCircleListByUserId(paramMap);
-            for (FriendsCircle friendsCircle : friendsCircleList) {
-                List<User> likeUserList = friendsCircleService.getLikeUserListByCircleId(friendsCircle.getCircleId());
-                friendsCircle.setLikeUserList(likeUserList);
+            List<Moments> momentsList = momentsService.getMomentsListByUserId(paramMap);
+            for (Moments moments : momentsList) {
+                List<User> likeUserList = momentsService.getLikeUserListByMomentsId(moments.getMomentsId());
+                moments.setLikeUserList(likeUserList);
 
                 List<FriendsCircleComment> friendsCircleCommentList =
-                        friendsCircleService.getFriendsCircleCommentListByCircleId(friendsCircle.getCircleId());
-                friendsCircle.setFriendsCircleCommentList(friendsCircleCommentList);
+                        momentsService.getFriendsCircleCommentListByCircleId(moments.getMomentsId());
+                moments.setFriendsCircleCommentList(friendsCircleCommentList);
             }
 
-            responseEntity = new ResponseEntity<>(friendsCircleList, HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(momentsList, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         long endTimeStamp = System.currentTimeMillis();
-        logger.info("getFriendsCircleListByUserId, userId: " + userId + ", cost: " + (endTimeStamp - beginTimeStamp) + "ms");
+        logger.info("getMomentsListByUserId, userId: " + userId + ", cost: " + (endTimeStamp - beginTimeStamp) + "ms");
         return responseEntity;
     }
 
     /**
      * 点赞
      *
-     * @param circleId 朋友圈ID
-     * @param userId   用户ID
+     * @param momentsId 朋友圈ID
+     * @param userId    用户ID
      * @return ResponseEntity
      */
-    @PostMapping(value = "/{circleId}/like")
-    public ResponseEntity<String> likeFriendsCircle(
-            @PathVariable String circleId,
+    @PostMapping(value = "/{momentsId}/like")
+    public ResponseEntity<String> likeMoments(
+            @PathVariable String momentsId,
             @RequestParam String userId) {
         ResponseEntity<String> responseEntity;
 
@@ -136,28 +135,27 @@ public class FriendsCircleController {
             Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("likeId", CommonUtil.generateId());
             paramMap.put("userId", userId);
-            paramMap.put("circleId", circleId);
-            friendsCircleService.likeFriendsCircle(paramMap);
+            paramMap.put("momentsId", momentsId);
+            momentsService.likeMoments(paramMap);
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_MOMENTS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
 
-
     /**
      * 取消点赞
      *
-     * @param circleId 朋友圈ID
+     * @param momentsId 朋友圈ID
      * @param userId   用户ID
      * @return ResponseEntity
      */
-    @DeleteMapping(value = "/{circleId}/like")
-    public ResponseEntity<String> unLikeFriendsCircle(
-            @PathVariable String circleId,
+    @DeleteMapping(value = "/{momentsId}/like")
+    public ResponseEntity<String> unLikeMoments(
+            @PathVariable String momentsId,
             @RequestParam String userId) {
         ResponseEntity<String> responseEntity;
 
@@ -165,13 +163,13 @@ public class FriendsCircleController {
             Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("likeId", CommonUtil.generateId());
             paramMap.put("userId", userId);
-            paramMap.put("circleId", circleId);
-            friendsCircleService.unLikeFriendsCircle(paramMap);
+            paramMap.put("momentsId", momentsId);
+            momentsService.unLikeMoments(paramMap);
 
-            responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_FRIENDS_CIRCLE_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_MOMENTS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_FRIENDS_CIRCLE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -197,7 +195,7 @@ public class FriendsCircleController {
             friendsCircleComment.setCommentUserId(userId);
             friendsCircleComment.setCommentCircleId(circleId);
             friendsCircleComment.setCommentContent(content);
-            friendsCircleService.addFriendsCircleComment(friendsCircleComment);
+            momentsService.addFriendsCircleComment(friendsCircleComment);
 
             responseEntity = new ResponseEntity<>(friendsCircleComment, HttpStatus.OK);
         } catch (Exception e) {
