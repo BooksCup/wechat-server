@@ -14,7 +14,7 @@
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <resultMap id="friendsCircleComment" type="com.bc.wechat.server.entity.FriendsCircleComment">
+    <resultMap id="friendsCircleComment" type="com.bc.wechat.server.entity.MomentsComment">
         <id column="comment_id" property="commentId" jdbcType="VARCHAR"/>
         <result column="comment_circle_id" property="commentCircleId" jdbcType="VARCHAR"/>
         <result column="comment_user_id" property="commentUserId" jdbcType="VARCHAR"/>
@@ -109,21 +109,20 @@
         and like_user_id = #{userId}
     </delete>
 
-    <select id="getFriendsCircleCommentListByCircleId" resultMap="friendsCircleComment" parameterType="String">
+    <select id="getMomentsCommentListByMomentsId" resultMap="friendsCircleComment" parameterType="String">
         select c.*,u.user_nick_name as commentUserNickName, ru.user_nick_name as commentReplyToUserNickName
-        from t_friends_circle_comment c
+        from t_moments_comment c
         left join t_user u on c.comment_user_id = u.user_id
         left join t_user ru on c.comment_reply_to_user_id = ru.user_id
-
-        where c.comment_circle_id = #{circleId}
+        where c.comment_moments_id = #{circleId}
         order by c.comment_create_time asc
     </select>
 
-    <insert id="addFriendsCircleComment" parameterType="com.bc.wechat.server.entity.FriendsCircleComment">
-        insert into t_friends_circle_comment
+    <insert id="addMomentsComment" parameterType="com.bc.wechat.server.entity.MomentsComment">
+        insert into t_moments_comment
         (
         comment_id,
-        comment_circle_id,
+        comment_moments_id,
         comment_user_id,
         comment_content,
         comment_create_time
@@ -131,7 +130,7 @@
         values
         (
         #{commentId},
-        #{commentCircleId},
+        #{commentMomentsId},
         #{commentUserId},
         #{commentContent},
         now()

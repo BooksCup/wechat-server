@@ -1,7 +1,7 @@
 package com.bc.wechat.server.service;
 
 import com.bc.wechat.server.entity.Moments;
-import com.bc.wechat.server.entity.FriendsCircleComment;
+import com.bc.wechat.server.entity.MomentsComment;
 import com.bc.wechat.server.entity.User;
 
 import java.util.List;
@@ -32,10 +32,10 @@ public interface MomentsService {
     /**
      * 获取点赞用户列表
      *
-     * @param circleId 朋友圈ID
+     * @param momentsId 朋友圈ID
      * @return 点赞用户列表
      */
-    List<User> getLikeUserListByMomentsId(String circleId);
+    List<User> getLikeUserListByMomentsId(String momentsId);
 
     /**
      * 获取最近n张朋友圈图片
@@ -62,17 +62,17 @@ public interface MomentsService {
     /**
      * 获取某个朋友圈下的评论
      *
-     * @param circleId 朋友圈ID
+     * @param momentsId 朋友圈ID
      * @return 评论列表
      */
-    List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId);
+    List<MomentsComment> getMomentsCommentListByMomentsId(String momentsId);
 
     /**
      * 朋友圈发表评论
      *
-     * @param friendsCircleComment 朋友圈评论
+     * @param momentsComment 朋友圈评论
      */
-    void addFriendsCircleComment(FriendsCircleComment friendsCircleComment);
+    void addMomentsComment(MomentsComment momentsComment);
 
     /**
      * 查找某个用户的朋友圈列表

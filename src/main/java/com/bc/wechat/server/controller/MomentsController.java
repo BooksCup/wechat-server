@@ -3,7 +3,7 @@ package com.bc.wechat.server.controller;
 import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Moments;
-import com.bc.wechat.server.entity.FriendsCircleComment;
+import com.bc.wechat.server.entity.MomentsComment;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.MomentsService;
@@ -103,9 +103,9 @@ public class MomentsController {
                 List<User> likeUserList = momentsService.getLikeUserListByMomentsId(moments.getMomentsId());
                 moments.setLikeUserList(likeUserList);
 
-                List<FriendsCircleComment> friendsCircleCommentList =
-                        momentsService.getFriendsCircleCommentListByCircleId(moments.getMomentsId());
-                moments.setFriendsCircleCommentList(friendsCircleCommentList);
+                List<MomentsComment> friendsCircleCommentList =
+                        momentsService.getMomentsCommentListByMomentsId(moments.getMomentsId());
+                moments.setMomentsCommentList(friendsCircleCommentList);
             }
 
             responseEntity = new ResponseEntity<>(momentsList, HttpStatus.OK);
@@ -150,7 +150,7 @@ public class MomentsController {
      * 取消点赞
      *
      * @param momentsId 朋友圈ID
-     * @param userId   用户ID
+     * @param userId    用户ID
      * @return ResponseEntity
      */
     @DeleteMapping(value = "/{momentsId}/like")
@@ -177,30 +177,30 @@ public class MomentsController {
     /**
      * 朋友圈添加评论
      *
-     * @param circleId 朋友圈ID
-     * @param userId   用户ID
-     * @param content  评论内容
+     * @param momentsId 朋友圈ID
+     * @param userId    用户ID
+     * @param content   评论内容
      * @return ResponseEntity
      */
-    @PostMapping(value = "/{circleId}/comment")
-    public ResponseEntity<FriendsCircleComment> addFriendsCircleComment(
-            @PathVariable String circleId,
+    @PostMapping(value = "/{momentsId}/comment")
+    public ResponseEntity<MomentsComment> addMomentsComment(
+            @PathVariable String momentsId,
             @RequestParam String userId,
             @RequestParam String content) {
-        ResponseEntity<FriendsCircleComment> responseEntity;
+        ResponseEntity<MomentsComment> responseEntity;
 
         try {
-            FriendsCircleComment friendsCircleComment = new FriendsCircleComment();
-            friendsCircleComment.setCommentId(CommonUtil.generateId());
-            friendsCircleComment.setCommentUserId(userId);
-            friendsCircleComment.setCommentCircleId(circleId);
-            friendsCircleComment.setCommentContent(content);
-            momentsService.addFriendsCircleComment(friendsCircleComment);
+            MomentsComment momentsComment = new MomentsComment();
+            momentsComment.setCommentId(CommonUtil.generateId());
+            momentsComment.setCommentUserId(userId);
+            momentsComment.setCommentMomentsId(momentsId);
+            momentsComment.setCommentContent(content);
+            momentsService.addMomentsComment(momentsComment);
 
-            responseEntity = new ResponseEntity<>(friendsCircleComment, HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(momentsComment, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new FriendsCircleComment(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(new MomentsComment(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

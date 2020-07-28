@@ -28,7 +28,7 @@ public class Moments {
     /**
      * 评论列表
      */
-    private List<FriendsCircleComment> friendsCircleCommentList;
+    private List<MomentsComment> momentsCommentList;
 
     public Moments() {
 
@@ -116,11 +116,11 @@ public class Moments {
         this.likeUserList = likeUserList;
     }
 
-    public List<FriendsCircleComment> getFriendsCircleCommentList() {
-        return friendsCircleCommentList;
+    public List<MomentsComment> getMomentsCommentList() {
+        return momentsCommentList;
     }
 
-    public void setFriendsCircleCommentList(List<FriendsCircleComment> friendsCircleCommentList) {
-        this.friendsCircleCommentList = friendsCircleCommentList;
+    public void setMomentsCommentList(List<MomentsComment> momentsCommentList) {
+        this.momentsCommentList = momentsCommentList;
     }
 }

@@ -5,9 +5,9 @@ package com.bc.wechat.server.entity;
  *
  * @author zhou
  */
-public class FriendsCircleComment {
+public class MomentsComment {
     private String commentId;
-    private String commentCircleId;
+    private String commentMomentsId;
     private String commentUserId;
     private String commentUserNickName;
 
@@ -27,12 +27,12 @@ public class FriendsCircleComment {
         this.commentId = commentId;
     }
 
-    public String getCommentCircleId() {
-        return commentCircleId;
+    public String getCommentMomentsId() {
+        return commentMomentsId;
     }
 
-    public void setCommentCircleId(String commentCircleId) {
-        this.commentCircleId = commentCircleId;
+    public void setCommentMomentsId(String commentMomentsId) {
+        this.commentMomentsId = commentMomentsId;
     }
 
     public String getCommentUserId() {

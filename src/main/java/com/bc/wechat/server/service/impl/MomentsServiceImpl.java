@@ -2,7 +2,7 @@ package com.bc.wechat.server.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.bc.wechat.server.entity.Moments;
-import com.bc.wechat.server.entity.FriendsCircleComment;
+import com.bc.wechat.server.entity.MomentsComment;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.mapper.MomentsMapper;
 import com.bc.wechat.server.service.MomentsService;
@@ -19,7 +19,7 @@ import java.util.Map;
  *
  * @author zhou
  */
-@Service("friendsCircleService")
+@Service("momentsService")
 public class MomentsServiceImpl implements MomentsService {
 
     @Resource
@@ -28,11 +28,11 @@ public class MomentsServiceImpl implements MomentsService {
     /**
      * 新增朋友圈实体
      *
-     * @param friendsCircle 朋友圈实体
+     * @param moments 朋友圈实体
      */
     @Override
-    public void addMoments(Moments friendsCircle) {
-        momentsMapper.addMoments(friendsCircle);
+    public void addMoments(Moments moments) {
+        momentsMapper.addMoments(moments);
     }
 
     /**
@@ -49,12 +49,12 @@ public class MomentsServiceImpl implements MomentsService {
     /**
      * 获取点赞用户列表
      *
-     * @param circleId 朋友圈ID
+     * @param momentsId 朋友圈ID
      * @return 点赞用户列表
      */
     @Override
-    public List<User> getLikeUserListByMomentsId(String circleId) {
-        return momentsMapper.getLikeUserListByMomentsId(circleId);
+    public List<User> getLikeUserListByMomentsId(String momentsId) {
+        return momentsMapper.getLikeUserListByMomentsId(momentsId);
     }
 
     /**
@@ -113,22 +113,22 @@ public class MomentsServiceImpl implements MomentsService {
     /**
      * 获取某个朋友圈下的评论
      *
-     * @param circleId 朋友圈ID
+     * @param momentsId 朋友圈ID
      * @return 评论列表
      */
     @Override
-    public List<FriendsCircleComment> getFriendsCircleCommentListByCircleId(String circleId) {
-        return momentsMapper.getFriendsCircleCommentListByCircleId(circleId);
+    public List<MomentsComment> getMomentsCommentListByMomentsId(String momentsId) {
+        return momentsMapper.getMomentsCommentListByMomentsId(momentsId);
     }
 
     /**
      * 朋友圈发表评论
      *
-     * @param friendsCircleComment 朋友圈评论
+     * @param momentsComment 朋友圈评论
      */
     @Override
-    public void addFriendsCircleComment(FriendsCircleComment friendsCircleComment) {
-        momentsMapper.addFriendsCircleComment(friendsCircleComment);
+    public void addMomentsComment(MomentsComment momentsComment) {
+        momentsMapper.addMomentsComment(momentsComment);
     }
 
     /**
