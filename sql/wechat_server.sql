@@ -212,7 +212,7 @@ CREATE TABLE `t_user` (
   `user_qr_code` varchar(200) DEFAULT NULL COMMENT '用户二维码地址',
   `user_is_email_linked` varchar(2) DEFAULT '0' COMMENT '用户邮箱是否绑定 0:未绑定 1:未验证 2:已验证',
   `user_is_qq_id_linked` varchar(2) DEFAULT NULL COMMENT '用户QQ号是否绑定',
-  `user_lastest_circle_photos` varchar(1024) DEFAULT NULL COMMENT '最新n张朋友圈照片,n=4',
+  `user_lastest_moments_photos` varchar(1024) DEFAULT NULL COMMENT '最新n张朋友圈照片,n=4',
   `user_wx_id_modify_flag` varchar(2) DEFAULT '0' COMMENT '微信号修改标记',
   `user_last_login_time` varchar(20) DEFAULT NULL COMMENT '用户最后一次登录时间',
   `user_create_time` varchar(20) DEFAULT NULL COMMENT '用户创建时间',
