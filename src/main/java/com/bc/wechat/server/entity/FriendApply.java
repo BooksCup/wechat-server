@@ -18,7 +18,7 @@ public class FriendApply {
     private String fromUserAvatar;
     private String fromUserSex;
     private String fromUserSign;
-    private String fromUserLastestCirclePhotos;
+    private String fromUserLastestMomentsPhotos;
 
     private Long timeStamp;
 
@@ -106,12 +106,12 @@ public class FriendApply {
         this.fromUserSign = fromUserSign;
     }
 
-    public String getFromUserLastestCirclePhotos() {
-        return fromUserLastestCirclePhotos;
+    public String getFromUserLastestMomentsPhotos() {
+        return fromUserLastestMomentsPhotos;
     }
 
-    public void setFromUserLastestCirclePhotos(String fromUserLastestCirclePhotos) {
-        this.fromUserLastestCirclePhotos = fromUserLastestCirclePhotos;
+    public void setFromUserLastestMomentsPhotos(String fromUserLastestMomentsPhotos) {
+        this.fromUserLastestMomentsPhotos = fromUserLastestMomentsPhotos;
     }
 
     public Long getTimeStamp() {

@@ -103,9 +103,9 @@ public class MomentsController {
                 List<User> likeUserList = momentsService.getLikeUserListByMomentsId(moments.getMomentsId());
                 moments.setLikeUserList(likeUserList);
 
-                List<MomentsComment> friendsCircleCommentList =
+                List<MomentsComment> momentsCommentList =
                         momentsService.getMomentsCommentListByMomentsId(moments.getMomentsId());
-                moments.setMomentsCommentList(friendsCircleCommentList);
+                moments.setMomentsCommentList(momentsCommentList);
             }
 
             responseEntity = new ResponseEntity<>(momentsList, HttpStatus.OK);

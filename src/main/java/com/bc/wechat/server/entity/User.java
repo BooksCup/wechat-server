@@ -34,7 +34,7 @@ public class User implements Serializable {
     private String isOwner;
 
     private String userWxIdModifyFlag;
-    private String userLastestCirclePhotos;
+    private String userLastestMomentsPhotos;
 
     private String friendSource;
 
@@ -218,12 +218,12 @@ public class User implements Serializable {
         this.userWxIdModifyFlag = userWxIdModifyFlag;
     }
 
-    public String getUserLastestCirclePhotos() {
-        return userLastestCirclePhotos;
+    public String getUserLastestMomentsPhotos() {
+        return userLastestMomentsPhotos;
     }
 
-    public void setUserLastestCirclePhotos(String userLastestCirclePhotos) {
-        this.userLastestCirclePhotos = userLastestCirclePhotos;
+    public void setUserLastestMomentsPhotos(String userLastestMomentsPhotos) {
+        this.userLastestMomentsPhotos = userLastestMomentsPhotos;
     }
 
     public String getFriendSource() {

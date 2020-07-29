@@ -72,7 +72,7 @@ public class FriendApplyController {
             friendApply.setFromUserSex(user.getUserSex());
 
             friendApply.setFromUserSign(user.getUserSign());
-            friendApply.setFromUserLastestCirclePhotos(user.getUserLastestCirclePhotos());
+            friendApply.setFromUserLastestMomentsPhotos(user.getUserLastestMomentsPhotos());
 
             extras.put("friendApply", JSON.toJSONString(friendApply));
 
@@ -82,7 +82,7 @@ public class FriendApplyController {
                     HttpStatus.OK);
 
         } catch (Exception e) {
-            logger.error("addFriendApply error: " + e.getMessage());
+            logger.error("[addFriendApply] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_FRIEND_APPLY_ERROR.getResponseCode(),
                     HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -126,7 +126,7 @@ public class FriendApplyController {
 
             responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("acceptFriendApply error: " + e.getMessage());
+            logger.error("[acceptFriendApply] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(ResponseMsg.ACCEPT_FRIEND_APPLY_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;

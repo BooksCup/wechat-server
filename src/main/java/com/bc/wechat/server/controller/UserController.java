@@ -455,20 +455,20 @@ public class UserController {
         ResponseEntity<String> responseEntity;
         try {
             // 更新该用户最新n张朋友圈照片
-            List<String> lastestCirclePhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
+            List<String> lastestMomentsPhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
 
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
+            paramMap.put("userLastestMomentsPhotos", JSON.toJSONString(lastestMomentsPhotoList));
             userService.updateUserLastestMomentsPhotos(paramMap);
             responseEntity = new ResponseEntity<>(
-                    ResponseMsg.REFRESH_USER_LASTEST_CIRCLE_PHOTOS_SUCCESS.getResponseCode(), HttpStatus.OK);
+                    ResponseMsg.REFRESH_USER_LASTEST_MOMENTS_PHOTOS_SUCCESS.getResponseCode(), HttpStatus.OK);
 
         } catch (Exception e) {
-            logger.error("refreshUserLastestCirclePhotos error: " + e.getMessage());
+            logger.error("refreshUserLastestMomentsPhotos error: " + e.getMessage());
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(
-                    ResponseMsg.REFRESH_USER_LASTEST_CIRCLE_PHOTOS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+                    ResponseMsg.REFRESH_USER_LASTEST_MOMENTS_PHOTOS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
