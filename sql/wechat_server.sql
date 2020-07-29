@@ -31,47 +31,6 @@ CREATE TABLE `t_friend_apply` (
   PRIMARY KEY (`apply_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Table structure for table `t_friends_circle` */
-
-DROP TABLE IF EXISTS `t_friends_circle`;
-
-CREATE TABLE `t_friends_circle` (
-  `circle_id` varchar(32) NOT NULL COMMENT '朋友圈表主键',
-  `circle_user_id` varchar(32) DEFAULT NULL COMMENT '发布人用户ID',
-  `circle_content` varchar(1024) DEFAULT NULL COMMENT '朋友圈内容',
-  `circle_photos` varchar(1024) DEFAULT NULL COMMENT '朋友圈图片(最多九张,jsonList格式)',
-  `circle_create_time` varchar(20) DEFAULT NULL COMMENT '发布时间',
-  `circle_timestamp` bigint(20) DEFAULT NULL COMMENT '发布时间戳',
-  PRIMARY KEY (`circle_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_friends_circle_comment` */
-
-DROP TABLE IF EXISTS `t_friends_circle_comment`;
-
-CREATE TABLE `t_friends_circle_comment` (
-  `comment_id` varchar(32) NOT NULL COMMENT '朋友圈评论表主键',
-  `comment_circle_id` varchar(32) DEFAULT NULL COMMENT '朋友圈主键',
-  `comment_user_id` varchar(32) DEFAULT NULL COMMENT '评论人主键',
-  `comment_reply_to_user_id` varchar(32) DEFAULT NULL COMMENT '回复用户主键',
-  `comment_content` varchar(1024) DEFAULT NULL COMMENT '评论内容',
-  `comment_create_time` varchar(20) DEFAULT NULL COMMENT '评论时间',
-  `comment_delete_flag` varchar(2) DEFAULT '0' COMMENT '"0":"未删除" "1":"已删除"',
-  `comment_delete_time` varchar(20) DEFAULT NULL COMMENT '删除时间',
-  PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_friends_circle_like` */
-
-DROP TABLE IF EXISTS `t_friends_circle_like`;
-
-CREATE TABLE `t_friends_circle_like` (
-  `like_id` varchar(32) DEFAULT NULL COMMENT '朋友圈点赞表主键',
-  `like_circle_id` varchar(32) DEFAULT NULL COMMENT '朋友圈表主键',
-  `like_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
-  `like_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 /*Table structure for table `t_group` */
 
 DROP TABLE IF EXISTS `t_group`;
@@ -116,6 +75,46 @@ CREATE TABLE `t_message` (
   `message_jim_id` bigint(20) DEFAULT NULL COMMENT '消息ID(极光返回)',
   `message_jim_ctime` bigint(20) DEFAULT NULL COMMENT '消息创建时间(极光返回)',
   PRIMARY KEY (`message_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_moments` */
+
+DROP TABLE IF EXISTS `t_moments`;
+
+CREATE TABLE `t_moments` (
+  `moments_id` varchar(32) NOT NULL COMMENT '朋友圈表主键',
+  `moments_user_id` varchar(32) DEFAULT NULL COMMENT '发布人用户ID',
+  `moments_content` varchar(1024) DEFAULT NULL COMMENT '朋友圈内容',
+  `moments_photos` varchar(1024) DEFAULT NULL COMMENT '朋友圈图片(最多九张,jsonList格式)',
+  `moments_create_time` varchar(20) DEFAULT NULL COMMENT '发布时间',
+  `moments_timestamp` bigint(20) DEFAULT NULL COMMENT '发布时间戳',
+  PRIMARY KEY (`moments_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_moments_comment` */
+
+DROP TABLE IF EXISTS `t_moments_comment`;
+
+CREATE TABLE `t_moments_comment` (
+  `comment_id` varchar(32) DEFAULT NULL COMMENT '朋友圈评论表主键',
+  `comment_moments_id` varchar(32) DEFAULT NULL COMMENT '朋友圈主键',
+  `comment_user_id` varchar(32) DEFAULT NULL COMMENT '评论人主键',
+  `comment_reply_to_user_id` varchar(32) DEFAULT NULL COMMENT '回复用户主键',
+  `comment_content` varchar(1024) DEFAULT NULL COMMENT '评论内容',
+  `comment_create_time` varchar(20) DEFAULT NULL COMMENT '评论时间',
+  `comment_delete_flag` varchar(2) DEFAULT '0' COMMENT '"0":"未删除" "1":"已删除"',
+  `comment_delete_time` varchar(20) DEFAULT NULL COMMENT '删除时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_moments_like` */
+
+DROP TABLE IF EXISTS `t_moments_like`;
+
+CREATE TABLE `t_moments_like` (
+  `like_id` varchar(32) DEFAULT NULL COMMENT '朋友圈点赞表主键',
+  `like_moments_id` varchar(32) DEFAULT NULL COMMENT '朋友圈表主键',
+  `like_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `like_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_people_nearby` */
