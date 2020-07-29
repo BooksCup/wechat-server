@@ -177,8 +177,8 @@ public class UserServiceImpl implements UserService {
      * @param paramMap 参数map
      */
     @Override
-    public void updateUserLastestCirclePhotos(Map<String, String> paramMap) {
-        userMapper.updateUserLastestCirclePhotos(paramMap);
+    public void updateUserLastestMomentsPhotos(Map<String, String> paramMap) {
+        userMapper.updateUserLastestMomentsPhotos(paramMap);
     }
 
     /**

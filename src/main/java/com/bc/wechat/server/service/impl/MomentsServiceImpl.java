@@ -66,12 +66,12 @@ public class MomentsServiceImpl implements MomentsService {
     @Override
     public List<String> getLastestMomentsPhotosByUserId(String userId) {
         List<String> resultList = new ArrayList<>();
-        List<String> lastestCirclePhotoList = momentsMapper.getLastestMomentsPhotosByUserId(userId);
-        if (!CollectionUtils.isEmpty(lastestCirclePhotoList)) {
-            for (String lastestCirclePhoto : lastestCirclePhotoList) {
+        List<String> lastestMomentsPhotoList = momentsMapper.getLastestMomentsPhotosByUserId(userId);
+        if (!CollectionUtils.isEmpty(lastestMomentsPhotoList)) {
+            for (String lastestMomentsPhoto : lastestMomentsPhotoList) {
                 List<String> photoes;
                 try {
-                    photoes = JSONArray.parseArray(lastestCirclePhoto, String.class);
+                    photoes = JSONArray.parseArray(lastestMomentsPhoto, String.class);
                     if (null == photoes) {
                         photoes = new ArrayList<>();
                     }

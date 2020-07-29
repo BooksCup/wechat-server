@@ -44,7 +44,7 @@ public class UserController {
     private UserRelaService userRelaService;
 
     @Resource
-    private MomentsService friendsCircleService;
+    private MomentsService momentsService;
 
     @Resource
     private AddressService addressService;
@@ -449,18 +449,18 @@ public class UserController {
      * @return ResponseEntity
      */
     @ApiOperation(value = "更新用户最新N张朋友圈图片", notes = "更新用户最新N张朋友圈图片")
-    @PutMapping(value = "/{userId}/friendsCircle")
-    public ResponseEntity<String> refreshUserLastestCirclePhotos(
+    @PutMapping(value = "/{userId}/moments")
+    public ResponseEntity<String> refreshUserLastestMomentsPhotos(
             @PathVariable String userId) {
         ResponseEntity<String> responseEntity;
         try {
             // 更新该用户最新n张朋友圈照片
-            List<String> lastestCirclePhotoList = friendsCircleService.getLastestMomentsPhotosByUserId(userId);
+            List<String> lastestCirclePhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
 
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
             paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
-            userService.updateUserLastestCirclePhotos(paramMap);
+            userService.updateUserLastestMomentsPhotos(paramMap);
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.REFRESH_USER_LASTEST_CIRCLE_PHOTOS_SUCCESS.getResponseCode(), HttpStatus.OK);
 
@@ -482,8 +482,8 @@ public class UserController {
      * @return 朋友圈列表
      */
     @ApiOperation(value = "获取用户发布的朋友圈列表", notes = "获取用户发布的朋友圈列表")
-    @GetMapping(value = "/{userId}/friendsCircle")
-    public ResponseEntity<List<Moments>> getFriendsCircleListByPublishUserId(
+    @GetMapping(value = "/{userId}/moments")
+    public ResponseEntity<List<Moments>> getMomentsListByPublishUserId(
             @PathVariable String userId,
             @RequestParam(required = false, defaultValue = "10") Integer pageSize,
             @RequestParam(required = false, defaultValue = "0") Long timestamp) {
@@ -498,10 +498,10 @@ public class UserController {
             paramMap.put("userId", userId);
             paramMap.put("pageSize", pageSize);
             paramMap.put("timestamp", timestamp);
-            List<Moments> friendsCircleList = friendsCircleService.getMomentsListByPublishUserId(paramMap);
-            responseEntity = new ResponseEntity<>(friendsCircleList, HttpStatus.OK);
+            List<Moments> momentsList = momentsService.getMomentsListByPublishUserId(paramMap);
+            responseEntity = new ResponseEntity<>(momentsList, HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("[getFriendsCircleListByPublishUserId] error: " + e.getMessage());
+            logger.error("[getMomentsListByPublishUserId] error: " + e.getMessage());
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

@@ -59,11 +59,11 @@ public class MomentsController {
             momentsService.addMoments(moments);
 
             // 更新该用户最新n张朋友圈照片
-            List<String> lastestCirclePhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
+            List<String> lastestMomentsPhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("userLastestCirclePhotos", JSON.toJSONString(lastestCirclePhotoList));
-            userService.updateUserLastestCirclePhotos(paramMap);
+            paramMap.put("userLastestMomentsPhotos", JSON.toJSONString(lastestMomentsPhotoList));
+            userService.updateUserLastestMomentsPhotos(paramMap);
 
             responseEntity = new ResponseEntity<>(ResponseMsg.ADD_MOMENTS_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {

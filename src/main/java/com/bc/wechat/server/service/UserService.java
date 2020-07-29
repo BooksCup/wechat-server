@@ -95,7 +95,7 @@ public interface UserService {
      *
      * @param paramMap 参数map
      */
-    void updateUserLastestCirclePhotos(Map<String, String> paramMap);
+    void updateUserLastestMomentsPhotos(Map<String, String> paramMap);
 
     /**
      * 修改用户最后一次登录时间
