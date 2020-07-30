@@ -116,10 +116,16 @@
         where user_id = #{userId}
     </update>
 
-
     <update id="updateUserQrCode" parameterType="map">
         update t_user
         set user_qr_code = #{userQrCode},
+        user_modify_time = now()
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateUserMomentsCover" parameterType="map">
+        update t_user
+        set user_moments_cover = #{momentsCover},
         user_modify_time = now()
         where user_id = #{userId}
     </update>

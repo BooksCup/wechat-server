@@ -509,6 +509,35 @@ public class UserController {
     }
 
     /**
+     * 修改用户朋友圈封面
+     *
+     * @param userId       用户ID
+     * @param momentsCover 朋友圈封面
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改用户朋友圈封面", notes = "修改用户朋友圈封面")
+    @PutMapping(value = "/{userId}/momentsCover")
+    public ResponseEntity<String> updateUserMomentsCover(
+            @PathVariable String userId,
+            @RequestParam String momentsCover) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("momentsCover", momentsCover);
+            userService.updateUserMomentsCover(paramMap);
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.UPDATE_USER_MOMENTS_COVER_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[updateUserMomentsCover] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(
+                    ResponseMsg.UPDATE_USER_MOMENTS_COVER_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+
+    /**
      * 删除好友
      *
      * @param userId   用户ID

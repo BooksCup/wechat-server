@@ -182,6 +182,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改朋友圈封面
+     *
+     * @param paramMap 修改朋友圈封面
+     */
+    @Override
+    public void updateUserMomentsCover(Map<String, String> paramMap) {
+        userMapper.updateUserMomentsCover(paramMap);
+    }
+
+    /**
      * 修改用户最后一次登录时间
      *
      * @param userId 用户ID
