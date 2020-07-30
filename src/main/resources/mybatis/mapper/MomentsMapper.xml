@@ -148,4 +148,9 @@
             limit #{pageSize}
         ]]>
     </select>
+
+    <delete id="deleteMomentsCommentByCommentId" parameterType="String">
+        delete from t_moments_comment
+        where comment_id = #{commentId}
+    </delete>
 </mapper>

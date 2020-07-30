@@ -75,6 +75,13 @@ public interface MomentsService {
     void addMomentsComment(MomentsComment momentsComment);
 
     /**
+     * 删除朋友圈下的某个评论
+     *
+     * @param commentId 评论ID
+     */
+    void deleteMomentsCommentByCommentId(String commentId);
+
+    /**
      * 查找某个用户的朋友圈列表
      *
      * @param paramMap 参数map

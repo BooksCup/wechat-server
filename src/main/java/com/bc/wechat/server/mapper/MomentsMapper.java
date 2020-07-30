@@ -69,6 +69,13 @@ public interface MomentsMapper {
     List<MomentsComment> getMomentsCommentListByMomentsId(String momentsId);
 
     /**
+     * 删除朋友圈下的某个评论
+     *
+     * @param commentId 评论ID
+     */
+    void deleteMomentsCommentByCommentId(String commentId);
+
+    /**
      * 朋友圈发表评论
      *
      * @param momentsComment 朋友圈评论

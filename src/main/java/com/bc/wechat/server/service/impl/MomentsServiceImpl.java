@@ -132,6 +132,16 @@ public class MomentsServiceImpl implements MomentsService {
     }
 
     /**
+     * 删除朋友圈下的某个评论
+     *
+     * @param commentId 评论ID
+     */
+    @Override
+    public void deleteMomentsCommentByCommentId(String commentId) {
+        momentsMapper.deleteMomentsCommentByCommentId(commentId);
+    }
+
+    /**
      * 查找某个用户的朋友圈列表
      *
      * @param paramMap 参数map

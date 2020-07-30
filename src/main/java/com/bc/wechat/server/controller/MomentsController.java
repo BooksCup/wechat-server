@@ -204,4 +204,23 @@ public class MomentsController {
         }
         return responseEntity;
     }
+
+    /**
+     * 删除朋友圈下的某个评论
+     *
+     * @param commentId 评论ID
+     * @return ResponseEntity
+     */
+    @DeleteMapping(value = "/{momentsId}/comment/{commentId}")
+    public ResponseEntity<String> deleteMomentsComment(@PathVariable String commentId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            momentsService.deleteMomentsCommentByCommentId(commentId);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_MOMENTS_COMMENT_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_MOMENTS_COMMENT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }
