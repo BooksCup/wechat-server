@@ -253,6 +253,35 @@ public class UserController {
     }
 
     /**
+     * 修改地区
+     *
+     * @param userId     用户ID
+     * @param userRegion 用户地区
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改地区", notes = "修改地区")
+    @PutMapping(value = "/{userId}/userRegion")
+    public ResponseEntity<String> updateUserRegion(
+            @PathVariable String userId,
+            @RequestParam String userRegion) {
+        ResponseEntity<String> responseEntity;
+        try {
+            logger.info("[updateUserRegion] userId: " + userId + ", userRegion: " + userRegion);
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("userRegion", userRegion);
+            userService.updateUserRegion(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REGION_SUCCESS.getResponseCode(),
+                    HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[updateUserRegion] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REGION_ERROR.getResponseCode(),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
      * 修改密码
      *
      * @param userId      用户ID

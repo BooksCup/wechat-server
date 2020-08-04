@@ -122,6 +122,16 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 修改用户地区
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void updateUserRegion(Map<String, String> paramMap) {
+        userMapper.updateUserRegion(paramMap);
+    }
+
+    /**
      * 修改用户头像
      *
      * @param paramMap 参数map

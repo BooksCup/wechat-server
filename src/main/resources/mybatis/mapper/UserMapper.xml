@@ -80,6 +80,13 @@
         where user_id = #{userId}
     </update>
 
+    <update id="updateUserRegion" parameterType="map">
+        update t_user
+        set user_region = #{userRegion},
+        user_modify_time = now()
+        where user_id = #{userId}
+    </update>
+
     <update id="updateUserAvatar" parameterType="map">
         update t_user
         set user_avatar = #{userAvatar},
