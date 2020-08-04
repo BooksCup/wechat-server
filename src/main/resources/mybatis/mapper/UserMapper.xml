@@ -13,6 +13,7 @@
         <result column="user_qq_id" property="userQqId" jdbcType="VARCHAR"/>
         <result column="user_qq_password" property="userQqPassword" jdbcType="VARCHAR"/>
         <result column="user_is_qq_id_linked" property="userIsQqLinked" jdbcType="VARCHAR"/>
+        <result column="user_region" property="userRegion" jdbcType="VARCHAR"/>
         <result column="user_password" property="userPassword" jdbcType="VARCHAR"/>
         <result column="user_im_password" property="userImPassword" jdbcType="VARCHAR"/>
         <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
