@@ -22,6 +22,7 @@ public class User implements Serializable {
     private String userAvatar;
     private String userHeader;
     private String userSex;
+    private String userRegion;
     private String userSign;
     private String userEmail;
     private String userIsEmailLinked;
@@ -128,6 +129,14 @@ public class User implements Serializable {
 
     public void setUserSex(String userSex) {
         this.userSex = userSex;
+    }
+
+    public String getUserRegion() {
+        return userRegion;
+    }
+
+    public void setUserRegion(String userRegion) {
+        this.userRegion = userRegion;
     }
 
     public String getUserSign() {

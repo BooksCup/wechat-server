@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bc.wechat.server.mapper.RegionMapper">
+
+    <resultMap id="region" type="com.bc.wechat.server.entity.Region">
+        <result property="id" column="region_id" jdbcType="VARCHAR"/>
+        <result property="parentId" column="region_parent_id" jdbcType="VARCHAR"/>
+        <result property="level" column="region_level" jdbcType="VARCHAR"/>
+        <result property="name" column="region_name" jdbcType="VARCHAR"/>
+        <result property="code" column="region_code" jdbcType="VARCHAR"/>
+        <result property="seq" column="region_seq" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="addRegion" parameterType="com.bc.wechat.server.entity.Region">
+        insert into t_region
+        (
+        region_id,
+        region_parent_id,
+        region_level,
+        region_name,
+        region_code,
+        region_seq
+        )
+        values
+        (
+        #{id},
+        #{parentId},
+        #{level},
+        #{name},
+        #{code},
+        #{seq}
+        )
+    </insert>
+
+    <select id="getRegionCount" parameterType="map" resultType="long">
+        select count(*) from t_region
+        where 1 = 1
+        <if test="level != null and level != ''">
+            and region_level = #{level}
+        </if>
+        <if test="parentId != null and parentId != ''">
+            and region_parent_id = #{parentId}
+        </if>
+    </select>
+
+    <select id="getRegionList" resultMap="region" parameterType="map">
+        select
+        *
+        from t_region
+        where region_level = #{level}
+        and region_parent_id = #{parentId}
+    </select>
+
+</mapper>
