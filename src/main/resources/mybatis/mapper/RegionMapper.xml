@@ -51,4 +51,9 @@
         and region_parent_id = #{parentId}
     </select>
 
+    <delete id="deleteRegion" parameterType="String">
+        delete from t_region
+        where region_id = #{regionId}
+    </delete>
+
 </mapper>

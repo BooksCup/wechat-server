@@ -33,4 +33,11 @@ public interface RegionMapper {
      * @return 地区列表
      */
     List<Region> getRegionList(Map<String, String> paramMap);
+
+    /**
+     * 删除地区
+     *
+     * @param regionId 地区ID
+     */
+    void deleteRegion(String regionId);
 }

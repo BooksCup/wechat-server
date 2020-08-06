@@ -36,4 +36,11 @@ public interface RegionService {
      * @return 地区分页信息
      */
     PageInfo<Region> getRegionPageInfo(int pageNum, int pageSize, Map<String, String> paramMap);
+
+    /**
+     * 删除地区
+     *
+     * @param regionId 地区ID
+     */
+    void deleteRegion(String regionId);
 }

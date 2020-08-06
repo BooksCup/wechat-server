@@ -1,7 +1,10 @@
 package com.bc.wechat.server.controller.admin;
 
+import cn.jmessage.api.user.UserInfoResult;
+import cn.jmessage.api.user.UserListResult;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Region;
+import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.RegionService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -54,12 +57,10 @@ public class RegionController {
             region.setSeq(regionCount + 1);
 
             regionService.addRegion(region);
-            responseEntity = new ResponseEntity<>(
-                    region, HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(region, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(
-                    new Region(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(new Region(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -90,6 +91,27 @@ public class RegionController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new PageInfo<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 删除地区
+     *
+     * @param regionId 地区ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "删除地区", notes = "删除地区")
+    @DeleteMapping(value = "/{regionId}")
+    public ResponseEntity<String> deleteRegion(@PathVariable String regionId) {
+
+        ResponseEntity<String> responseEntity;
+        try {
+            regionService.deleteRegion(regionId);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_REGION_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_REGION_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

@@ -57,4 +57,14 @@ public class RegionServiceImpl implements RegionService {
         List<Region> regionList = regionMapper.getRegionList(paramMap);
         return new PageInfo<>(regionList);
     }
+
+    /**
+     * 删除地区
+     *
+     * @param regionId 地区ID
+     */
+    @Override
+    public void deleteRegion(String regionId) {
+        regionMapper.deleteRegion(regionId);
+    }
 }
