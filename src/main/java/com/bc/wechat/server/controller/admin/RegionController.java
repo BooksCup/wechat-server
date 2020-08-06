@@ -1,13 +1,13 @@
 package com.bc.wechat.server.controller.admin;
 
-import cn.jmessage.api.user.UserInfoResult;
-import cn.jmessage.api.user.UserListResult;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Region;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.RegionService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +25,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin/region")
 public class RegionController {
+
+    private static final Logger logger = LoggerFactory.getLogger(RegionController.class);
 
     @Resource
     private RegionService regionService;
@@ -54,7 +56,7 @@ public class RegionController {
             paramMap.put("parentId", parentId);
             long regionCount = regionService.getRegionCount(paramMap);
 
-            region.setSeq(regionCount + 1);
+            region.setSeq(regionCount + 1.0f);
 
             regionService.addRegion(region);
             responseEntity = new ResponseEntity<>(region, HttpStatus.OK);
@@ -91,6 +93,33 @@ public class RegionController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new PageInfo<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 修改地区
+     *
+     * @param regionId 地区ID
+     * @param name     地区名
+     * @param code     区号
+     * @param seq      排序
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "修改地区", notes = "修改地区")
+    @PutMapping(value = "/{regionId}")
+    public ResponseEntity<String> updateRegion(@PathVariable String regionId, @RequestParam String name,
+                                               @RequestParam String code, @RequestParam Float seq) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Region region = new Region(name, code, seq);
+            region.setId(regionId);
+            logger.info("[updateRegion], region: " + region);
+            regionService.updateRegion(region);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_REGION_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_REGION_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

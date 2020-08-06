@@ -49,7 +49,16 @@
         from t_region
         where region_level = #{level}
         and region_parent_id = #{parentId}
+        order by region_seq desc
     </select>
+
+    <update id="updateRegion" parameterType="com.bc.wechat.server.entity.Region">
+        update t_region
+        set region_name = #{name},
+        region_code = #{code},
+        region_seq = #{seq}
+        where region_id = #{id}
+    </update>
 
     <delete id="deleteRegion" parameterType="String">
         delete from t_region

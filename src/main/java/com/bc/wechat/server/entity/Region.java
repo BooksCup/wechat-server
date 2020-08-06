@@ -13,7 +13,7 @@ public class Region {
     private String level;
     private String name;
     private String code;
-    private Long seq;
+    private Float seq;
 
     public Region() {
 
@@ -25,6 +25,12 @@ public class Region {
         this.level = level;
         this.name = name;
         this.code = code;
+    }
+
+    public Region(String name, String code, Float seq) {
+        this.name = name;
+        this.code = code;
+        this.seq = seq;
     }
 
     public String getId() {
@@ -67,11 +73,23 @@ public class Region {
         this.code = code;
     }
 
-    public Long getSeq() {
+    public Float getSeq() {
         return seq;
     }
 
-    public void setSeq(Long seq) {
+    public void setSeq(Float seq) {
         this.seq = seq;
+    }
+
+    @Override
+    public String toString() {
+        return "Region{" +
+                "id='" + id + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", level='" + level + '\'' +
+                ", name='" + name + '\'' +
+                ", code='" + code + '\'' +
+                ", seq=" + seq +
+                '}';
     }
 }

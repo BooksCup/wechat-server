@@ -38,6 +38,13 @@ public interface RegionService {
     PageInfo<Region> getRegionPageInfo(int pageNum, int pageSize, Map<String, String> paramMap);
 
     /**
+     * 修改地区
+     *
+     * @param region 地区
+     */
+    void updateRegion(Region region);
+
+    /**
      * 删除地区
      *
      * @param regionId 地区ID

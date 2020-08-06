@@ -59,6 +59,16 @@ public class RegionServiceImpl implements RegionService {
     }
 
     /**
+     * 修改地区
+     *
+     * @param region 地区
+     */
+    @Override
+    public void updateRegion(Region region) {
+        regionMapper.updateRegion(region);
+    }
+
+    /**
      * 删除地区
      *
      * @param regionId 地区ID
