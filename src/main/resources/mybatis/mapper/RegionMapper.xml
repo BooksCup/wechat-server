@@ -49,6 +49,9 @@
         from t_region
         where region_level = #{level}
         and region_parent_id = #{parentId}
+        <if test="name != null and name != ''">
+            and region_name like "%"#{name}"%"
+        </if>
         order by region_seq desc
     </select>
 

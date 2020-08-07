@@ -70,6 +70,7 @@ public class RegionController {
     /**
      * 查询地区分页信息
      *
+     * @param name     地区名
      * @param page     当前分页数
      * @param limit    分页大小
      * @param level    层级
@@ -79,13 +80,16 @@ public class RegionController {
     @ApiOperation(value = "查询地区分页信息", notes = "查询地区分页信息")
     @GetMapping(value = "")
     public ResponseEntity<PageInfo<Region>> getRegionPageInfo(
+            @RequestParam(required = false) String name,
             @RequestParam Integer page,
             @RequestParam Integer limit,
             @RequestParam String level,
             @RequestParam String parentId) {
+        logger.info("[getRegionPageInfo], name: " + name + ", page: " + page);
         ResponseEntity<PageInfo<Region>> responseEntity;
         try {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("name", name);
             paramMap.put("level", level);
             paramMap.put("parentId", parentId);
             PageInfo<Region> regionPageInfo = regionService.getRegionPageInfo(page, limit, paramMap);
