@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,6 +65,40 @@ public class RegionController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(new Region(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 刷新地区排序
+     *
+     * @param level    层级
+     * @param parentId 父地区ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "刷新地区排序", notes = "刷新地区排序")
+    @PostMapping(value = "/refresh")
+    public ResponseEntity<String> refreshRegion(
+            @RequestParam String level,
+            @RequestParam String parentId) {
+        logger.info("[refreshRegion], level: " + level + ", parentId: " + parentId);
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("level", level);
+            paramMap.put("parentId", parentId);
+            List<Region> regionList = regionService.getRegionList(paramMap);
+            List<Region> refreshRegionList = new ArrayList<>();
+            for (int i = 0; i < regionList.size(); i++) {
+                Region region = regionList.get(i);
+                region.setSeq(i + 1.0f);
+                refreshRegionList.add(region);
+            }
+            regionService.batchUpdateRegionSeq(refreshRegionList);
+            responseEntity = new ResponseEntity<>(ResponseMsg.REFRESH_REGION_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.REFRESH_REGION_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

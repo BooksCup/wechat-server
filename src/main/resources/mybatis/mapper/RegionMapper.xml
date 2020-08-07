@@ -52,7 +52,7 @@
         <if test="name != null and name != ''">
             and region_name like "%"#{name}"%"
         </if>
-        order by region_seq desc
+        order by region_seq asc
     </select>
 
     <update id="updateRegion" parameterType="com.bc.wechat.server.entity.Region">
@@ -61,6 +61,16 @@
         region_code = #{code},
         region_seq = #{seq}
         where region_id = #{id}
+    </update>
+
+    <update id="batchUpdateRegionSeq" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_region
+            <set>
+                region_seq = ${item.seq}
+            </set>
+            where region_id = '${item.id}'
+        </foreach>
     </update>
 
     <delete id="deleteRegion" parameterType="String">

@@ -42,6 +42,13 @@ public interface RegionMapper {
     void updateRegion(Region region);
 
     /**
+     * 批量更新地区排序
+     *
+     * @param regionList 地区列表
+     */
+    void batchUpdateRegionSeq(List<Region> regionList);
+
+    /**
      * 删除地区
      *
      * @param regionId 地区ID

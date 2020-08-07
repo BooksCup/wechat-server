@@ -33,6 +33,17 @@ public class RegionServiceImpl implements RegionService {
     }
 
     /**
+     * 获取地区列表
+     *
+     * @param paramMap 参数map
+     * @return 地区列表
+     */
+    @Override
+    public List<Region> getRegionList(Map<String, String> paramMap) {
+        return regionMapper.getRegionList(paramMap);
+    }
+
+    /**
      * 获取地区数量
      *
      * @param paramMap 参数map,包含level和parentId
@@ -66,6 +77,16 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public void updateRegion(Region region) {
         regionMapper.updateRegion(region);
+    }
+
+    /**
+     * 批量更新地区排序
+     *
+     * @param regionList 地区列表
+     */
+    @Override
+    public void batchUpdateRegionSeq(List<Region> regionList) {
+        regionMapper.batchUpdateRegionSeq(regionList);
     }
 
     /**
