@@ -1,5 +1,6 @@
 package com.bc.wechat.server.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.bc.wechat.server.utils.CommonUtil;
 
 /**
@@ -8,6 +9,7 @@ import com.bc.wechat.server.utils.CommonUtil;
  * @author zhou
  */
 public class Region {
+    @JSONField(serialize = false)
     private String id;
     private String parentId;
     private String level;

@@ -1,5 +1,6 @@
 package com.bc.wechat.server.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Region;
 import com.bc.wechat.server.enums.ResponseMsg;
@@ -10,9 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -181,6 +185,41 @@ public class RegionController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_REGION_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 初始化地区JSON
+     *
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "初始化地区JSON", notes = "初始化地区JSON")
+    @PostMapping(value = "/json")
+    public ResponseEntity<String> initRegionJson() {
+        logger.info("[initRegionJson] begin... ");
+        long beginTimeStamp = System.currentTimeMillis();
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("level", "1");
+            paramMap.put("parentId", "0");
+            List<Region> regionList = regionService.getRegionList(paramMap);
+
+            File file = ResourceUtils.getFile("classpath:region-wx.json");
+            logger.info("json file's path: " + file.getPath());
+            FileWriter fw = new FileWriter(file);
+            String jsonContent = JSON.toJSONString(regionList);
+            fw.write(jsonContent);
+            fw.flush();
+            fw.close();
+            long endTimeStamp = System.currentTimeMillis();
+            logger.info("[initRegionJson] finish. cost: " + (endTimeStamp - beginTimeStamp) + "ms.");
+            responseEntity = new ResponseEntity<>(ResponseMsg.INIT_AREA_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("[initRegionJson] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.INIT_AREA_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
