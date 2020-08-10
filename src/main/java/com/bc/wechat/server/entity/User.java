@@ -48,6 +48,9 @@ public class User implements Serializable {
 
     private String isStarFriend;
 
+    private String userLastLoginTime;
+    private String userCreateTime;
+
     public User() {
 
     }
@@ -273,5 +276,21 @@ public class User implements Serializable {
 
     public void setIsStarFriend(String isStarFriend) {
         this.isStarFriend = isStarFriend;
+    }
+
+    public String getUserLastLoginTime() {
+        return userLastLoginTime;
+    }
+
+    public void setUserLastLoginTime(String userLastLoginTime) {
+        this.userLastLoginTime = userLastLoginTime;
+    }
+
+    public String getUserCreateTime() {
+        return userCreateTime;
+    }
+
+    public void setUserCreateTime(String userCreateTime) {
+        this.userCreateTime = userCreateTime;
     }
 }

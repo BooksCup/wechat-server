@@ -163,4 +163,12 @@ public interface UserMapper {
      * @param paramMap
      */
     void saveSearchHistory(Map<String, String> paramMap);
+
+    /**
+     * 获取用户列表(admin端)
+     *
+     * @param paramMap 参数map
+     * @return 用户列表
+     */
+    List<User> getUserListForAdmin(Map<String, String> paramMap);
 }

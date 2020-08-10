@@ -11,6 +11,8 @@ import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
 import com.bc.wechat.server.utils.FileUtil;
 import com.bc.wechat.server.utils.QrCodeUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -342,4 +344,22 @@ public class UserServiceImpl implements UserService {
     public void saveSearchHistory(Map<String, String> paramMap) {
         userMapper.saveSearchHistory(paramMap);
     }
+
+    // admin begin
+
+    /**
+     * 获取用户分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @param paramMap 参数map
+     * @return 用户分页信息
+     */
+    @Override
+    public PageInfo<User> getUserPageInfo(int pageNum, int pageSize, Map<String, String> paramMap) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> userList = userMapper.getUserListForAdmin(paramMap);
+        return new PageInfo<>(userList);
+    }
+    // admin end
 }

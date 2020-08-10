@@ -20,6 +20,8 @@
         <result column="user_wx_id_modify_flag" property="userWxIdModifyFlag" jdbcType="VARCHAR"/>
         <result column="user_qr_code" property="userQrCode" jdbcType="VARCHAR"/>
         <result column="user_lastest_moments_photos" property="userLastestMomentsPhotos" jdbcType="VARCHAR"/>
+        <result column="user_last_login_time" property="userLastLoginTime" jdbcType="VARCHAR"/>
+        <result column="user_create_time" property="userCreateTime" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getUserByPhoneAndPassword" resultMap="BaseResultMap">
@@ -204,4 +206,11 @@
         now()
         )
     </insert>
+
+    <select id="getUserListForAdmin" resultMap="BaseResultMap">
+        select
+        *
+        from t_user
+    </select>
+
 </mapper>

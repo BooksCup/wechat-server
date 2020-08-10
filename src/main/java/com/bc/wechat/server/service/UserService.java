@@ -1,6 +1,7 @@
 package com.bc.wechat.server.service;
 
 import com.bc.wechat.server.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -171,4 +172,17 @@ public interface UserService {
      * @param paramMap
      */
     void saveSearchHistory(Map<String, String> paramMap);
+
+    // admin begin
+
+    /**
+     * 获取用户分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @param paramMap 参数map
+     * @return 用户分页信息
+     */
+    PageInfo<User> getUserPageInfo(int pageNum, int pageSize, Map<String, String> paramMap);
+    // admin end
 }

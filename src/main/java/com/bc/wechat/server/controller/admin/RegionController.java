@@ -125,7 +125,8 @@ public class RegionController {
             @RequestParam Integer limit,
             @RequestParam String level,
             @RequestParam String parentId) {
-        logger.info("[getRegionPageInfo], name: " + name + ", page: " + page);
+        logger.info("[getRegionPageInfo], name: " + name + ", page: " + page
+                + ", limit: " + limit + ", level: " + level + ", parentId: " + parentId);
         ResponseEntity<PageInfo<Region>> responseEntity;
         try {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
