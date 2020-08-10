@@ -207,10 +207,20 @@
         )
     </insert>
 
-    <select id="getUserListForAdmin" resultMap="BaseResultMap">
+    <select id="getUserListForAdmin" resultMap="BaseResultMap" parameterType="map">
         select
         *
         from t_user
+        where 1 = 1
+        <if test="userPhone != null and userPhone != ''">
+            and user_phone = #{userPhone}
+        </if>
+        <if test="userWxId != null and userWxId != ''">
+            and user_wx_id = #{userWxId}
+        </if>
+        <if test="userNickName != null and userNickName != ''">
+            and user_nick_name like "%"#{userNickName}"%"
+        </if>
     </select>
 
 </mapper>

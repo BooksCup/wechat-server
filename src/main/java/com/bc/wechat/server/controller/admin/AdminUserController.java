@@ -40,12 +40,18 @@ public class AdminUserController {
     @ApiOperation(value = "查询用户分页信息", notes = "查询用户分页信息")
     @GetMapping(value = "")
     public ResponseEntity<PageInfo<User>> getUserPageInfo(
+            @RequestParam(required = false) String userNickName,
+            @RequestParam(required = false) String userPhone,
+            @RequestParam(required = false) String userWxId,
             @RequestParam(required = false, defaultValue = "1") Integer page,
             @RequestParam(required = false, defaultValue = "10") Integer limit) {
         logger.info("[getUserPageInfo], page: " + page + ", limit: " + limit);
         ResponseEntity<PageInfo<User>> responseEntity;
         try {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userNickName", userNickName);
+            paramMap.put("userPhone", userPhone);
+            paramMap.put("userWxId", userWxId);
             PageInfo<User> userPageInfo = userService.getUserPageInfo(page, limit, paramMap);
             responseEntity = new ResponseEntity<>(userPageInfo, HttpStatus.OK);
         } catch (Exception e) {
