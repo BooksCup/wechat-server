@@ -10,6 +10,7 @@ public enum ResponseMsg {
      * wechat-server接口返回信息
      */
     USER_EXISTS("USER_EXISTS", "用户已存在"),
+    USER_NOT_EXISTS("USER_NOT_EXISTS", "用户不存在"),
 
     GET_VERIFICATION_CODE_SUCCESS("GET_VERIFICATION_CODE_SUCCESS", "获取验证码成功"),
     GET_VERIFICATION_CODE_ERROR("GET_VERIFICATION_CODE_ERROR", "获取验证码失败"),
