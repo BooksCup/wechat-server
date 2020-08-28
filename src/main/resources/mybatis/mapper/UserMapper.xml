@@ -223,4 +223,9 @@
         </if>
     </select>
 
+    <delete id="deleteUserById" parameterType="String">
+        delete from t_user
+        where user_id =#{userId}
+    </delete>
+
 </mapper>

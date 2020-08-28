@@ -345,6 +345,16 @@ public class UserServiceImpl implements UserService {
         userMapper.saveSearchHistory(paramMap);
     }
 
+    /**
+     * 根据ID删除用户
+     *
+     * @param userId 用户ID
+     */
+    @Override
+    public void deleteUserById(String userId) {
+        userMapper.deleteUserById(userId);
+    }
+
     // admin begin
 
     /**

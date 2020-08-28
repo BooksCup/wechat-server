@@ -1,4 +1,4 @@
-package com.bc.wechat.server.controller;
+package com.bc.wechat.server.controller.admin;
 
 import com.bc.wechat.server.service.MessageService;
 import io.swagger.annotations.ApiOperation;
@@ -14,11 +14,11 @@ import javax.annotation.Resource;
  *
  * @author zhou
  */
+@CrossOrigin
 @RestController
-@RequestMapping("/messages")
-public class MessageController {
-
-    private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
+@RequestMapping("/admin/messages")
+public class AdminMessageController {
+    private static final Logger logger = LoggerFactory.getLogger(AdminMessageController.class);
 
     @Resource
     private MessageService messageService;

@@ -165,6 +165,13 @@ public interface UserMapper {
     void saveSearchHistory(Map<String, String> paramMap);
 
     /**
+     * 根据ID删除用户
+     *
+     * @param userId 用户ID
+     */
+    void deleteUserById(String userId);
+
+    /**
      * 获取用户列表(admin端)
      *
      * @param paramMap 参数map
