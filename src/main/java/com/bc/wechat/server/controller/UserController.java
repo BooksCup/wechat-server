@@ -55,6 +55,9 @@ public class UserController {
     @Resource
     private UserLoginDeviceService userLoginDeviceService;
 
+    @Resource
+    private FriendApplyService friendApplyService;
+
     /**
      * 登录
      *
@@ -156,6 +159,13 @@ public class UserController {
             jMessageClient.updateUserInfo(user.getUserId(), user.getUserNickName(),
                     "1970-01-01", user.getUserSign(),
                     0, "", "", user.getUserAvatar());
+
+            // 添加几个默认好友
+            friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_WEIXIN,
+                    "", "", "", "");
+
+            List<User> friendList = userRelaService.getFriendList(user.getUserId());
+            user.setFriendList(friendList);
 
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
