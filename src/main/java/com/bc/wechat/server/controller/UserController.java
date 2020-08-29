@@ -151,6 +151,7 @@ public class UserController {
             String initWxId = CommonUtil.generateInitWxId();
             user.setUserWxId(initWxId);
             user.setUserAvatar(avatar);
+            user.setUserType(Constant.USER_TYPE_REG);
             userService.addUser(user);
 
             // 用户注册到极光IM

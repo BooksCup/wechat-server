@@ -15,6 +15,14 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private String userId;
     private String userWxId;
+
+    /**
+     * 用户类型
+     * "REG": 普通注册用户
+     * "WEIXIN": 微信团队
+     * "FILEHELPER": 文件传输助手
+     */
+    private String userType;
     private String userNickName;
     private String userPhone;
     private String userPassword;
@@ -76,6 +84,14 @@ public class User implements Serializable {
 
     public void setUserWxId(String userWxId) {
         this.userWxId = userWxId;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getUserNickName() {

@@ -37,6 +37,7 @@
         (
         user_id,
         user_wx_id,
+        user_type,
         user_nick_name,
         user_phone,
         user_avatar,
@@ -50,6 +51,7 @@
         (
         #{userId},
         #{userWxId},
+        #{userType},
         #{userNickName},
         #{userPhone},
         #{userAvatar},

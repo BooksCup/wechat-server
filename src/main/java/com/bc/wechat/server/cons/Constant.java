@@ -274,4 +274,20 @@ public class Constant {
     public static final String HOT_SEARCH_TOP_SIZE = "5";
 
     public static final String SPECIAL_USER_ID_WEIXIN = "00000000000000000000000000000000";
+
+    // 用户类型
+    /**
+     * 普通注册用户
+     */
+    public static final String USER_TYPE_REG = "REG";
+
+    /**
+     * 微信团队
+     */
+    public static final String USER_TYPE_WEIXIN = "WEIXIN";
+
+    /**
+     * 文件传输助手
+     */
+    public static final String USER_TYPE_FILEHELPER = "FILEHELPER";
 }

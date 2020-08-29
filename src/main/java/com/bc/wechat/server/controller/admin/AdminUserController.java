@@ -87,8 +87,9 @@ public class AdminUserController {
      */
     private void initWeixin() {
         User user = new User();
-        user.setUserId("00000000000000000000000000000000");
+        user.setUserId(Constant.SPECIAL_USER_ID_WEIXIN);
         user.setUserWxId("weixin");
+        user.setUserType(Constant.USER_TYPE_WEIXIN);
         user.setUserNickName("微信团队");
         user.setUserPhone("00000000000");
         user.setUserImPassword("000000");
