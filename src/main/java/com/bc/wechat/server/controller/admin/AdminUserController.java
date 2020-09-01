@@ -110,7 +110,7 @@ public class AdminUserController {
         User user = new User();
         user.setUserId(Constant.SPECIAL_USER_ID_FILEHELPER);
         user.setUserWxId("filehelper");
-        user.setUserType(Constant.USER_TYPE_WEIXIN);
+        user.setUserType(Constant.USER_TYPE_FILEHELPER);
         user.setUserNickName("文件传输助手");
         user.setUserPhone("00000000001");
         user.setUserImPassword("000000");

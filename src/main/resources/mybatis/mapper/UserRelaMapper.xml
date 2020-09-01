@@ -17,6 +17,7 @@
     <resultMap id="User" type="com.bc.wechat.server.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="user_wx_id" property="userWxId" jdbcType="VARCHAR"/>
+        <result column="user_type" property="userType" jdbcType="VARCHAR"/>
         <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
         <result column="user_sex" property="userSex" jdbcType="VARCHAR"/>
@@ -39,31 +40,31 @@
     <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserRela">
         insert into t_user_rela
         (
-            rela_id,
-            rela_user_id,
-            rela_friend_id,
-            rela_status,
-            rela_friend_phone,
-            rela_friend_remark,
-            rela_friend_desc,
-            rela_auth,
-            rela_not_see_me,
-            rela_not_see_him,
-            rela_create_time
+        rela_id,
+        rela_user_id,
+        rela_friend_id,
+        rela_status,
+        rela_friend_phone,
+        rela_friend_remark,
+        rela_friend_desc,
+        rela_auth,
+        rela_not_see_me,
+        rela_not_see_him,
+        rela_create_time
         )
         values
         (
-            #{relaId},
-            #{relaUserId},
-            #{relaFriendId},
-            #{relaStatus},
-            #{relaFriendPhone},
-            #{relaFriendRemark},
-            #{relaFriendDesc},
-            #{relaAuth},
-            #{relaNotSeeMe},
-            #{relaNotSeeHim},
-            now()
+        #{relaId},
+        #{relaUserId},
+        #{relaFriendId},
+        #{relaStatus},
+        #{relaFriendPhone},
+        #{relaFriendRemark},
+        #{relaFriendDesc},
+        #{relaAuth},
+        #{relaNotSeeMe},
+        #{relaNotSeeHim},
+        now()
         )
     </insert>
 
@@ -93,15 +94,15 @@
 
     <select id="getFriendList" resultMap="User" parameterType="String">
         select u.* from t_user_rela ur
-	      left join t_user u on ur.rela_friend_id = u.user_id
-            where ur.rela_user_id = #{userId}
-              and rela_status = '1'
+        left join t_user u on ur.rela_friend_id = u.user_id
+        where ur.rela_user_id = #{userId}
+        and rela_status = '1'
     </select>
 
     <update id="deleteFriend" parameterType="map">
         delete from t_user_rela
-          where rela_user_id = #{userId}
-            and rela_friend_id = #{friendId}
+        where rela_user_id = #{userId}
+        and rela_friend_id = #{friendId}
     </update>
 
     <update id="updateUserStarFriend" parameterType="map">
@@ -109,6 +110,6 @@
         set
         rela_is_star_friend = #{isStarFriend}
         where rela_user_id = #{userId}
-          and rela_friend_id = #{friendId}
+        and rela_friend_id = #{friendId}
     </update>
 </mapper>
