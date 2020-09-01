@@ -164,6 +164,8 @@ public class UserController {
             // 添加几个默认好友
             friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_WEIXIN,
                     "", "", "", "");
+            friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_FILEHELPER,
+                    "", "", "", "");
 
             List<User> friendList = userRelaService.getFriendList(user.getUserId());
             user.setFriendList(friendList);

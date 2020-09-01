@@ -74,6 +74,7 @@ public class AdminUserController {
         ResponseEntity<String> responseEntity;
         try {
             initWeixin();
+            initFileHelper();
             responseEntity = new ResponseEntity<>(ResponseMsg.INIT_SPECIAL_USER_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +94,27 @@ public class AdminUserController {
         user.setUserNickName("微信团队");
         user.setUserPhone("00000000000");
         user.setUserImPassword("000000");
-        user.setUserAvatar("https://erp-wd-com.oss-cn-hangzhou.aliyuncs.com/64.jpg");
+        user.setUserAvatar("https://erp-wd-com.oss-cn-hangzhou.aliyuncs.com/user_avatar_weixin.jpg");
+        if (userService.checkUserExistsByUserPhone(user.getUserPhone())) {
+            userService.deleteUserById(user.getUserId());
+            userService.addUser(user);
+        } else {
+            userService.addUser(user);
+        }
+    }
+
+    /**
+     * 初始化"文件传输助手"
+     */
+    private void initFileHelper() {
+        User user = new User();
+        user.setUserId(Constant.SPECIAL_USER_ID_FILEHELPER);
+        user.setUserWxId("filehelper");
+        user.setUserType(Constant.USER_TYPE_WEIXIN);
+        user.setUserNickName("文件传输助手");
+        user.setUserPhone("00000000001");
+        user.setUserImPassword("000000");
+        user.setUserAvatar("https://erp-wd-com.oss-cn-hangzhou.aliyuncs.com/user_avatar_filehelper.jpg");
         if (userService.checkUserExistsByUserPhone(user.getUserPhone())) {
             userService.deleteUserById(user.getUserId());
             userService.addUser(user);

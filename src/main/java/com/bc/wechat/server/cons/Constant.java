@@ -274,6 +274,7 @@ public class Constant {
     public static final String HOT_SEARCH_TOP_SIZE = "5";
 
     public static final String SPECIAL_USER_ID_WEIXIN = "00000000000000000000000000000000";
+    public static final String SPECIAL_USER_ID_FILEHELPER = "00000000000000000000000000000001";
 
     // 用户类型
     /**
