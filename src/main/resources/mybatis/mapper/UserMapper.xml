@@ -210,6 +210,40 @@
         )
     </insert>
 
+    <delete id="deleteUserContactTagsByUserId" parameterType="String">
+        delete from
+        t_user_contact_tag
+        where tag_user_id = #{userId}
+    </delete>
+
+    <insert id="batchSaveUserContactTags" parameterType="java.util.List">
+        insert into t_user_contact_tag
+        (
+        tag_id,
+        tag_user_id,
+        tag_contact_id,
+        tag_name,
+        tag_create_time
+        )
+        values
+        <foreach collection="list" item="userContactTag" index="index" separator=",">
+            (
+            #{userContactTag.tagId},
+            #{userContactTag.userId},
+            #{userContactTag.contactId},
+            #{userContactTag.tagName},
+            now()
+            )
+        </foreach>
+    </insert>
+
+    <update id="saveUserTags" parameterType="map">
+        update t_user
+        set user_tags = #{tags},
+        user_modify_time = now()
+        where user_id = #{userId}
+    </update>
+
     <select id="getUserListForAdmin" resultMap="BaseResultMap" parameterType="map">
         select
         *

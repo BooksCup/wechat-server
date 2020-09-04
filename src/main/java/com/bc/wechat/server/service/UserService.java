@@ -1,6 +1,7 @@
 package com.bc.wechat.server.service;
 
 import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.entity.UserContactTag;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -172,6 +173,21 @@ public interface UserService {
      * @param paramMap
      */
     void saveSearchHistory(Map<String, String> paramMap);
+
+    /**
+     * 批量保存用户标签
+     *
+     * @param userId             用户ID
+     * @param userContactTagList 用户标签列表
+     */
+    void batchSaveUserContactTags(String userId, List<UserContactTag> userContactTagList);
+
+    /**
+     * 保存用户对好友贴的标签
+     *
+     * @param paramMap 参数map
+     */
+    void saveUserTags(Map<String, String> paramMap);
 
     /**
      * 根据ID删除用户

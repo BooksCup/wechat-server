@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.QrCodeContent;
 import com.bc.wechat.server.entity.User;
+import com.bc.wechat.server.entity.UserContactTag;
 import com.bc.wechat.server.mapper.UserMapper;
 import com.bc.wechat.server.mapper.VerificationCodeMapper;
 import com.bc.wechat.server.service.OssService;
@@ -344,6 +345,29 @@ public class UserServiceImpl implements UserService {
     public void saveSearchHistory(Map<String, String> paramMap) {
         userMapper.saveSearchHistory(paramMap);
     }
+
+    /**
+     * 批量保存用户标签
+     *
+     * @param userId             用户ID
+     * @param userContactTagList 用户标签列表
+     */
+    @Override
+    public void batchSaveUserContactTags(String userId, List<UserContactTag> userContactTagList) {
+        userMapper.deleteUserContactTagsByUserId(userId);
+        userMapper.batchSaveUserContactTags(userContactTagList);
+    }
+
+    /**
+     * 保存用户对好友贴的标签
+     *
+     * @param paramMap 参数map
+     */
+    @Override
+    public void saveUserTags(Map<String, String> paramMap) {
+        userMapper.saveUserTags(paramMap);
+    }
+
 
     /**
      * 根据ID删除用户

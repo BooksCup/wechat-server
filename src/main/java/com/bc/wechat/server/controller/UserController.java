@@ -1077,4 +1077,52 @@ public class UserController {
         }
         return responseEntity;
     }
+
+    /**
+     * 保存用户联系人标签
+     *
+     * @param userId      用户ID
+     * @param contactId   联系人用户ID
+     * @param contactTags 联系人标签(json格式)
+     * @param tags        用户所有标签(json格式)
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "保存用户联系人标签", notes = "保存用户联系人标签")
+    @PostMapping(value = "/{userId}/userContactTags")
+    public ResponseEntity<String> saveUserContactTags(
+            @PathVariable String userId,
+            @RequestParam String contactId,
+            @RequestParam String contactTags,
+            @RequestParam String tags) {
+        logger.info("[saveUserContactTags], userId: " + userId + ", contactTags: " + contactTags + ", tags:" + tags);
+        ResponseEntity<String> responseEntity;
+        try {
+            List<String> contactTagList;
+            try {
+                contactTagList = JSON.parseArray(contactTags, String.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+                contactTagList = new ArrayList<>();
+            }
+
+            List<UserContactTag> userContactTagList = new ArrayList<>();
+            for (String contactTag : contactTagList) {
+                UserContactTag userContactTag = new UserContactTag(userId, contactId, contactTag);
+                userContactTagList.add(userContactTag);
+            }
+
+            userService.batchSaveUserContactTags(userId, userContactTagList);
+
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("tags", tags);
+            userService.saveUserTags(paramMap);
+            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("[saveUserContactTags] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 }
