@@ -41,15 +41,15 @@ public interface UserRelaService {
      * @param paramMap 参数map
      * @return 用户关系列表
      */
-    List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap);
+    List<UserRela> getUserRelaListByUserIdAndContactId(Map<String, String> paramMap);
 
     /**
-     * 获取好友列表
+     * 获取联系人列表
      *
      * @param userId 用户ID
-     * @return 好友列表
+     * @return 联系人列表
      */
-    List<User> getFriendList(String userId);
+    List<User> getContactList(String userId);
 
     /**
      * 删除好友

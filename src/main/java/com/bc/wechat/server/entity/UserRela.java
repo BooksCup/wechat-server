@@ -10,14 +10,14 @@ import com.bc.wechat.server.utils.CommonUtil;
 public class UserRela {
     private String relaId;
     private String relaUserId;
-    private String relaFriendId;
+    private String relaContactId;
     private String relaCreateTime;
 
     private String relaStatus;
 
-    private String relaFriendPhone;
-    private String relaFriendRemark;
-    private String relaFriendDesc;
+    private String relaContactAlias;
+    private String relaContactMobiles;
+    private String relaContactDesc;
 
     private String relaAuth;
     private String relaNotSeeMe;
@@ -29,33 +29,32 @@ public class UserRela {
 
     }
 
-    public UserRela(String relaUserId, String relaFriendId) {
+    public UserRela(String relaUserId, String relaContactId) {
         this.relaId = CommonUtil.generateId();
         this.relaUserId = relaUserId;
-        this.relaFriendId = relaFriendId;
+        this.relaContactId = relaContactId;
     }
 
-    public UserRela(String relaUserId, String relaFriendId,
-                    String relaFriendRemark, String relaFriendPhone, String relaFriendDesc) {
+    public UserRela(String relaUserId, String relaContactId,
+                    String relaContactAlias, String relaContactMobiles, String relaContactDesc) {
         this.relaId = CommonUtil.generateId();
         this.relaUserId = relaUserId;
-        this.relaFriendId = relaFriendId;
-        this.relaFriendRemark = relaFriendRemark;
-        this.relaFriendPhone = relaFriendPhone;
-        this.relaFriendDesc = relaFriendDesc;
+        this.relaContactId = relaContactId;
+        this.relaContactAlias = relaContactAlias;
+        this.relaContactMobiles = relaContactMobiles;
+        this.relaContactDesc = relaContactDesc;
     }
 
-    public UserRela(String relaUserId, String relaFriendId,
-                    String relaFriendRemark, String relaAuth, String relaNotSeeMe, String relaNotSeeHim) {
+    public UserRela(String relaUserId, String relaContactId,
+                    String relaContactAlias, String relaAuth, String relaNotSeeMe, String relaNotSeeHim) {
         this.relaId = CommonUtil.generateId();
         this.relaUserId = relaUserId;
-        this.relaFriendId = relaFriendId;
-        this.relaFriendRemark = relaFriendRemark;
+        this.relaContactId = relaContactId;
+        this.relaContactAlias = relaContactAlias;
         this.relaAuth = relaAuth;
         this.relaNotSeeMe = relaNotSeeMe;
         this.relaNotSeeHim = relaNotSeeHim;
     }
-
 
     public String getRelaId() {
         return relaId;
@@ -73,12 +72,12 @@ public class UserRela {
         this.relaUserId = relaUserId;
     }
 
-    public String getRelaFriendId() {
-        return relaFriendId;
+    public String getRelaContactId() {
+        return relaContactId;
     }
 
-    public void setRelaFriendId(String relaFriendId) {
-        this.relaFriendId = relaFriendId;
+    public void setRelaContactId(String relaContactId) {
+        this.relaContactId = relaContactId;
     }
 
     public String getRelaCreateTime() {
@@ -97,28 +96,28 @@ public class UserRela {
         this.relaStatus = relaStatus;
     }
 
-    public String getRelaFriendPhone() {
-        return relaFriendPhone;
+    public String getRelaContactAlias() {
+        return relaContactAlias;
     }
 
-    public void setRelaFriendPhone(String relaFriendPhone) {
-        this.relaFriendPhone = relaFriendPhone;
+    public void setRelaContactAlias(String relaContactAlias) {
+        this.relaContactAlias = relaContactAlias;
     }
 
-    public String getRelaFriendRemark() {
-        return relaFriendRemark;
+    public String getRelaContactMobiles() {
+        return relaContactMobiles;
     }
 
-    public void setRelaFriendRemark(String relaFriendRemark) {
-        this.relaFriendRemark = relaFriendRemark;
+    public void setRelaContactMobiles(String relaContactMobiles) {
+        this.relaContactMobiles = relaContactMobiles;
     }
 
-    public String getRelaFriendDesc() {
-        return relaFriendDesc;
+    public String getRelaContactDesc() {
+        return relaContactDesc;
     }
 
-    public void setRelaFriendDesc(String relaFriendDesc) {
-        this.relaFriendDesc = relaFriendDesc;
+    public void setRelaContactDesc(String relaContactDesc) {
+        this.relaContactDesc = relaContactDesc;
     }
 
     public String getRelaAuth() {

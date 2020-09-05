@@ -89,7 +89,7 @@ public class UserController {
             sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, sysLogBuffer.toString()));
         } else {
             User user = userList.get(0);
-            List<User> friendList = userRelaService.getFriendList(user.getUserId());
+            List<User> friendList = userRelaService.getContactList(user.getUserId());
             user.setFriendList(friendList);
 
             responseEntity = new ResponseEntity<>(user,
@@ -171,7 +171,7 @@ public class UserController {
             friendApplyService.makeFriends(user.getUserId(), user.getUserId(),
                     "", "", "", "");
 
-            List<User> friendList = userRelaService.getFriendList(user.getUserId());
+            List<User> friendList = userRelaService.getContactList(user.getUserId());
             user.setFriendList(friendList);
 
             responseEntity = new ResponseEntity<>(user,
@@ -430,12 +430,12 @@ public class UserController {
             paramMap.clear();
             paramMap.put("userId", userId);
             paramMap.put("friendId", user.getUserId());
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
-                user.setUserFriendRemark(userRela.getRelaFriendRemark());
-                user.setUserFriendPhone(userRela.getRelaFriendPhone());
-                user.setUserFriendDesc(userRela.getRelaFriendDesc());
+                user.setUserFriendRemark(userRela.getRelaContactAlias());
+                user.setUserFriendPhone(userRela.getRelaContactMobiles());
+                user.setUserFriendDesc(userRela.getRelaContactDesc());
             }
 
             responseEntity = new ResponseEntity<>(user,
@@ -582,7 +582,6 @@ public class UserController {
         return responseEntity;
     }
 
-
     /**
      * 删除好友
      *
@@ -641,13 +640,13 @@ public class UserController {
             paramMap.clear();
             paramMap.put("userId", userId);
             paramMap.put("friendId", user.getUserId());
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
 
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
-                user.setUserFriendPhone(userRela.getRelaFriendPhone());
-                user.setUserFriendRemark(userRela.getRelaFriendRemark());
-                user.setUserFriendDesc(userRela.getRelaFriendDesc());
+                user.setUserFriendPhone(userRela.getRelaContactMobiles());
+                user.setUserFriendRemark(userRela.getRelaContactAlias());
+                user.setUserFriendDesc(userRela.getRelaContactDesc());
                 user.setIsStarFriend(userRela.getRelaIsStarFriend());
             }
 
@@ -660,32 +659,34 @@ public class UserController {
     }
 
     /**
-     * 修改用户备注信息
+     * 修改联系人(设置备注和标签)
      *
-     * @param userId       用户ID
-     * @param friendId     好友ID
-     * @param friendRemark 用户备注
-     * @param friendPhone  用户手机号
-     * @param friendDesc   用户描述
-     * @return ResponseEntity
+     * @param userId         用户ID
+     * @param contactId      联系人ID
+     * @param contactAlias   联系人备注
+     * @param contactMobiles 联系人电话号码(json格式)
+     * @param contactDesc    联系人描述
+     * @return @return ResponseEntity
      */
-    @ApiOperation(value = "修改用户备注信息", notes = "修改用户备注信息")
-    @PutMapping(value = "/{userId}/remarks")
-    public ResponseEntity<String> updateUserRemarks(
+    @ApiOperation(value = "修改联系人(设置备注和标签)", notes = "修改联系人(设置备注和标签)")
+    @PutMapping(value = "/{userId}/contacts/{contactId}")
+    public ResponseEntity<String> editContact(
             @PathVariable String userId,
-            @RequestParam(required = false) String friendId,
-            @RequestParam(required = false) String friendRemark,
-            @RequestParam(required = false) String friendPhone,
-            @RequestParam(required = false) String friendDesc) {
+            @PathVariable String contactId,
+            @RequestParam(required = false) String contactAlias,
+            @RequestParam(required = false) String contactMobiles,
+            @RequestParam(required = false) String contactDesc) {
+        logger.info("[editContact] userId: " + userId + ", contactId: " + contactId + ", contactAlias: " + contactAlias +
+                ", contactMobiles: " + contactMobiles + ", contactDesc: " + contactDesc);
         ResponseEntity<String> responseEntity;
         try {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("friendId", friendId);
+            paramMap.put("contactId", contactId);
 
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndFriendId(paramMap);
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
 
-            UserRela userRela = new UserRela(userId, friendId, friendRemark, friendPhone, friendDesc);
+            UserRela userRela = new UserRela(userId, contactId, contactAlias, contactMobiles, contactDesc);
 
             if (CollectionUtils.isEmpty(userRelaList)) {
                 // 用户关系不存在
@@ -699,11 +700,10 @@ public class UserController {
                 userRela.setRelaId(userRelaList.get(0).getRelaId());
                 userRelaService.updateUserRela(userRela);
             }
-
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REMARKS_SUCCESS.getResponseCode(), HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("[updateUserRemarks] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_USER_REMARKS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            logger.error("[editContact] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

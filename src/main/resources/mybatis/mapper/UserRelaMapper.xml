@@ -26,12 +26,12 @@
         <result column="user_lastest_moments_photos" property="userLastestMomentsPhotos" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getUserRelaListByUserIdAndFriendId" resultMap="UserRela" parameterType="map">
+    <select id="getUserRelaListByUserIdAndContactId" resultMap="UserRela" parameterType="map">
         select
         *
         from t_user_rela
         where rela_user_id = #{userId}
-        and rela_friend_id = #{friendId}
+        and rela_contact_id = #{contactId}
         <if test="status != null and '' != status">
             and rela_status = #{status}
         </if>
@@ -42,11 +42,11 @@
         (
         rela_id,
         rela_user_id,
-        rela_friend_id,
+        rela_contact_id,
         rela_status,
-        rela_friend_phone,
-        rela_friend_remark,
-        rela_friend_desc,
+        rela_contact_mobiles,
+        rela_contact_alias,
+        rela_contact_desc,
         rela_auth,
         rela_not_see_me,
         rela_not_see_him,
@@ -56,11 +56,11 @@
         (
         #{relaId},
         #{relaUserId},
-        #{relaFriendId},
+        #{relaContactId},
         #{relaStatus},
-        #{relaFriendPhone},
-        #{relaFriendRemark},
-        #{relaFriendDesc},
+        #{relaContactMobiles},
+        #{relaContactAlias},
+        #{relaContactDesc},
         #{relaAuth},
         #{relaNotSeeMe},
         #{relaNotSeeHim},
@@ -74,9 +74,9 @@
         <if test="relaStatus != null and relaStatus !=''">
             rela_status = #{relaStatus},
         </if>
-        rela_friend_phone = #{relaFriendPhone},
-        rela_friend_remark = #{relaFriendRemark},
-        rela_friend_desc = #{relaFriendDesc},
+        rela_contact_mobiles = #{relaContactMobiles},
+        rela_contact_alias = #{relaContactAlias},
+        rela_contact_desc = #{relaContactDesc},
         rela_update_time = now()
         where rela_id = #{relaId}
     </update>
@@ -92,9 +92,9 @@
         where rela_id = #{relaId}
     </update>
 
-    <select id="getFriendList" resultMap="User" parameterType="String">
+    <select id="getContactList" resultMap="User" parameterType="String">
         select u.* from t_user_rela ur
-        left join t_user u on ur.rela_friend_id = u.user_id
+        left join t_user u on ur.rela_contact_id = u.user_id
         where ur.rela_user_id = #{userId}
         and rela_status = '1'
     </select>

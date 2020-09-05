@@ -52,7 +52,7 @@ public class UserRelaServiceImpl implements UserRelaService {
      */
     @Override
     public boolean checkIsFriend(Map<String, String> paramMap) {
-        List<UserRela> userRelaList = userRelaMapper.getUserRelaListByUserIdAndFriendId(paramMap);
+        List<UserRela> userRelaList = userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
         if (CollectionUtils.isEmpty(userRelaList)) {
             return false;
         }
@@ -66,19 +66,19 @@ public class UserRelaServiceImpl implements UserRelaService {
      * @return 用户关系列表
      */
     @Override
-    public List<UserRela> getUserRelaListByUserIdAndFriendId(Map<String, String> paramMap) {
-        return userRelaMapper.getUserRelaListByUserIdAndFriendId(paramMap);
+    public List<UserRela> getUserRelaListByUserIdAndContactId(Map<String, String> paramMap) {
+        return userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
     }
 
     /**
-     * 获取好友列表
+     * 获取联系人列表
      *
      * @param userId 用户ID
-     * @return 好友列表
+     * @return 联系人列表
      */
     @Override
-    public List<User> getFriendList(String userId) {
-        return userRelaMapper.getFriendList(userId);
+    public List<User> getContactList(String userId) {
+        return userRelaMapper.getContactList(userId);
     }
 
     /**
@@ -110,14 +110,14 @@ public class UserRelaServiceImpl implements UserRelaService {
         Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
         paramMap.put("userId", fromUserId);
         paramMap.put("friendId", toUserId);
-        List<UserRela> userRelaList = userRelaMapper.getUserRelaListByUserIdAndFriendId(paramMap);
+        List<UserRela> userRelaList = userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
         if (CollectionUtils.isEmpty(userRelaList)) {
             UserRela userRela = new UserRela(fromUserId, toUserId, relaRemark, relaAuth, relaNotSeeMe, relaNotSeeHim);
             userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
             userRelaMapper.addUserRela(userRela);
         } else {
             UserRela userRela = userRelaList.get(0);
-            userRela.setRelaFriendRemark(relaRemark);
+            userRela.setRelaContactAlias(relaRemark);
             userRela.setRelaAuth(relaAuth);
             userRela.setRelaNotSeeMe(relaNotSeeMe);
             userRela.setRelaNotSeeHim(relaNotSeeHim);
