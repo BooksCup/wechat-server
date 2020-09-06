@@ -24,6 +24,10 @@
         <result column="user_phone" property="userPhone" jdbcType="VARCHAR"/>
         <result column="user_sign" property="userSign" jdbcType="VARCHAR"/>
         <result column="user_lastest_moments_photos" property="userLastestMomentsPhotos" jdbcType="VARCHAR"/>
+
+        <result column="rela_contact_alias" property="userContactAlias" jdbcType="VARCHAR"/>
+        <result column="rela_contact_mobiles" property="userContactMobiles" jdbcType="VARCHAR"/>
+        <result column="rela_contact_desc" property="userContactDesc" jdbcType="VARCHAR"/>
     </resultMap>
 
     <select id="getUserRelaListByUserIdAndContactId" resultMap="UserRela" parameterType="map">
@@ -93,7 +97,8 @@
     </update>
 
     <select id="getContactList" resultMap="User" parameterType="String">
-        select u.* from t_user_rela ur
+        select u.*, ur.rela_contact_alias, ur.rela_contact_mobiles, rela_contact_desc
+        from t_user_rela ur
         left join t_user u on ur.rela_contact_id = u.user_id
         where ur.rela_user_id = #{userId}
         and rela_status = '1'

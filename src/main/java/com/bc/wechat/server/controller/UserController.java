@@ -89,8 +89,8 @@ public class UserController {
             sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, sysLogBuffer.toString()));
         } else {
             User user = userList.get(0);
-            List<User> friendList = userRelaService.getContactList(user.getUserId());
-            user.setFriendList(friendList);
+            List<User> contactList = userRelaService.getContactList(user.getUserId());
+            user.setContactList(contactList);
 
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
@@ -172,7 +172,7 @@ public class UserController {
                     "", "", "", "");
 
             List<User> friendList = userRelaService.getContactList(user.getUserId());
-            user.setFriendList(friendList);
+            user.setContactList(friendList);
 
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
@@ -433,11 +433,10 @@ public class UserController {
             List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
-                user.setUserFriendRemark(userRela.getRelaContactAlias());
-                user.setUserFriendPhone(userRela.getRelaContactMobiles());
-                user.setUserFriendDesc(userRela.getRelaContactDesc());
+                user.setUserContactAlias(userRela.getRelaContactAlias());
+                user.setUserContactMobiles(userRela.getRelaContactMobiles());
+                user.setUserContactDesc(userRela.getRelaContactDesc());
             }
-
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
         }
@@ -644,9 +643,9 @@ public class UserController {
 
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
-                user.setUserFriendPhone(userRela.getRelaContactMobiles());
-                user.setUserFriendRemark(userRela.getRelaContactAlias());
-                user.setUserFriendDesc(userRela.getRelaContactDesc());
+                user.setUserContactMobiles(userRela.getRelaContactMobiles());
+                user.setUserContactAlias(userRela.getRelaContactAlias());
+                user.setUserContactDesc(userRela.getRelaContactDesc());
                 user.setIsStarFriend(userRela.getRelaIsStarFriend());
             }
 

@@ -39,7 +39,7 @@ public class User implements Serializable {
     private String userIsQqLinked;
     private String userQrCode;
     private String isFriend;
-    private List<User> friendList;
+    private List<User> contactList;
     private String isOwner;
 
     private String userWxIdModifyFlag;
@@ -48,11 +48,11 @@ public class User implements Serializable {
     private String friendSource;
 
     /**
-     * 好友相关
+     * 联系人相关
      */
-    private String userFriendPhone;
-    private String userFriendRemark;
-    private String userFriendDesc;
+    private String userContactAlias;
+    private String userContactMobiles;
+    private String userContactDesc;
 
     private String isStarFriend;
 
@@ -222,12 +222,12 @@ public class User implements Serializable {
         this.isFriend = isFriend;
     }
 
-    public List<User> getFriendList() {
-        return friendList;
+    public List<User> getContactList() {
+        return contactList;
     }
 
-    public void setFriendList(List<User> friendList) {
-        this.friendList = friendList;
+    public void setContactList(List<User> contactList) {
+        this.contactList = contactList;
     }
 
     public String getIsOwner() {
@@ -262,28 +262,28 @@ public class User implements Serializable {
         this.friendSource = friendSource;
     }
 
-    public String getUserFriendPhone() {
-        return userFriendPhone;
+    public String getUserContactAlias() {
+        return userContactAlias;
     }
 
-    public void setUserFriendPhone(String userFriendPhone) {
-        this.userFriendPhone = userFriendPhone;
+    public void setUserContactAlias(String userContactAlias) {
+        this.userContactAlias = userContactAlias;
     }
 
-    public String getUserFriendRemark() {
-        return userFriendRemark;
+    public String getUserContactMobiles() {
+        return userContactMobiles;
     }
 
-    public void setUserFriendRemark(String userFriendRemark) {
-        this.userFriendRemark = userFriendRemark;
+    public void setUserContactMobiles(String userContactMobiles) {
+        this.userContactMobiles = userContactMobiles;
     }
 
-    public String getUserFriendDesc() {
-        return userFriendDesc;
+    public String getUserContactDesc() {
+        return userContactDesc;
     }
 
-    public void setUserFriendDesc(String userFriendDesc) {
-        this.userFriendDesc = userFriendDesc;
+    public void setUserContactDesc(String userContactDesc) {
+        this.userContactDesc = userContactDesc;
     }
 
     public String getIsStarFriend() {
