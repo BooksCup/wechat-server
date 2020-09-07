@@ -609,49 +609,49 @@ public class UserController {
     }
 
     /**
-     * 根据ID获取朋友详情
+     * 根据ID获取联系人详情
      *
-     * @param userId   用户ID
-     * @param friendId 朋友ID
+     * @param userId    用户ID
+     * @param contactId 联系人ID
      * @return ResponseEntity
      */
-    @ApiOperation(value = "根据ID获取朋友详情", notes = "根据ID获取朋友详情")
-    @GetMapping(value = "/{userId}/friends/{friendId}")
-    public ResponseEntity<User> getFriendById(
+    @ApiOperation(value = "根据ID获取联系人详情", notes = "根据ID获取联系人详情")
+    @GetMapping(value = "/{userId}/contacts/{contactId}")
+    public ResponseEntity<User> getContactById(
             @PathVariable String userId,
-            @PathVariable String friendId) {
+            @PathVariable String contactId) {
         ResponseEntity<User> responseEntity;
         try {
-            User user = userService.getUserByUserId(friendId);
+            User contact = userService.getUserByUserId(contactId);
 
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("friendId", user.getUserId());
+            paramMap.put("contactId", contact.getUserId());
             paramMap.put("status", Constant.RELA_STATUS_FRIEND);
 
             boolean isFriend = userRelaService.checkIsFriend(paramMap);
             if (isFriend) {
-                user.setIsFriend(Constant.IS_FRIEND);
+                contact.setIsFriend(Constant.IS_FRIEND);
             } else {
-                user.setIsFriend(Constant.IS_NOT_FRIEND);
+                contact.setIsFriend(Constant.IS_NOT_FRIEND);
             }
 
             paramMap.clear();
             paramMap.put("userId", userId);
-            paramMap.put("friendId", user.getUserId());
+            paramMap.put("contactId", contact.getUserId());
             List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
 
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
-                user.setUserContactMobiles(userRela.getRelaContactMobiles());
-                user.setUserContactAlias(userRela.getRelaContactAlias());
-                user.setUserContactDesc(userRela.getRelaContactDesc());
-                user.setIsStarFriend(userRela.getRelaIsStarFriend());
+                contact.setUserContactAlias(userRela.getRelaContactAlias());
+                contact.setUserContactMobiles(userRela.getRelaContactMobiles());
+                contact.setUserContactDesc(userRela.getRelaContactDesc());
+                contact.setIsStarFriend(userRela.getRelaIsStarFriend());
             }
 
-            responseEntity = new ResponseEntity<>(user, HttpStatus.OK);
+            responseEntity = new ResponseEntity<>(contact, HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("[getFriendById] error: " + e.getMessage());
+            logger.error("[getContactById] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
