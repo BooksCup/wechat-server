@@ -355,7 +355,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void batchSaveUserContactTags(String userId, List<UserContactTag> userContactTagList) {
         userMapper.deleteUserContactTagsByUserId(userId);
-        userMapper.batchSaveUserContactTags(userContactTagList);
+        if (!CollectionUtils.isEmpty(userContactTagList)) {
+            userMapper.batchSaveUserContactTags(userContactTagList);
+        }
     }
 
     /**
