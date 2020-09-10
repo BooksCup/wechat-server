@@ -32,7 +32,14 @@ public interface UserRelaService {
      *
      * @param userRela 用户关系
      */
-    void setContactPrivacy(UserRela userRela);
+    void saveContactPrivacy(UserRela userRela);
+
+    /**
+     * 修改朋友权限
+     *
+     * @param userRela 用户关系
+     */
+    void updateContactPrivacy(UserRela userRela);
 
     /**
      * 检查是否好友关系

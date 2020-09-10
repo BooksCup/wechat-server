@@ -60,7 +60,6 @@ public class FriendApplyController {
             userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaContactAlias,
                     relaPrivacy, relaHideMyPosts, relaHideHisPosts);
 
-
             User user = userService.getUserByUserId(fromUserId);
             String alert = user.getUserNickName() + "请求加你为好友";
 

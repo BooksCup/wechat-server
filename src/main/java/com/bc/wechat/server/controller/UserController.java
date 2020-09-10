@@ -747,7 +747,7 @@ public class UserController {
 
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = new UserRela(userRelaList.get(0).getRelaId(), privacy, hideMyPosts, hideHisPosts);
-                userRelaService.setContactPrivacy(userRela);
+                userRelaService.saveContactPrivacy(userRela);
             }
             responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_PRIVACY_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
@@ -1186,6 +1186,46 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("[saveUserContactTags] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 修改用户联系人权限
+     *
+     * @param userId           用户ID
+     * @param contactId        联系人ID
+     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @return ResponseEntity<String>
+     */
+    @ApiOperation(value = "修改用户联系人权限", notes = "修改用户联系人权限")
+    @PutMapping(value = "/{userId}/userContactPrivacy")
+    public ResponseEntity<String> updateContactPrivacy(
+            @PathVariable String userId,
+            @RequestParam String contactId,
+            @RequestParam String relaPrivacy,
+            @RequestParam String relaHideMyPosts,
+            @RequestParam String relaHideHisPosts) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+            paramMap.put("userId", userId);
+            paramMap.put("contactId", contactId);
+            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
+            if (!CollectionUtils.isEmpty(userRelaList)) {
+                UserRela userRela = userRelaList.get(0);
+                userRela.setRelaPrivacy(relaPrivacy);
+                userRela.setRelaHideMyPosts(relaHideMyPosts);
+                userRela.setRelaHideHisPosts(relaHideHisPosts);
+                userRelaService.updateContactPrivacy(userRela);
+            }
+            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error("[updateContactPrivacy] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;

@@ -50,8 +50,18 @@ public class UserRelaServiceImpl implements UserRelaService {
      * @param userRela 用户关系
      */
     @Override
-    public void setContactPrivacy(UserRela userRela) {
-        userRelaMapper.setContactPrivacy(userRela);
+    public void saveContactPrivacy(UserRela userRela) {
+        userRelaMapper.saveContactPrivacy(userRela);
+    }
+
+    /**
+     * 修改朋友权限
+     *
+     * @param userRela 用户关系
+     */
+    @Override
+    public void updateContactPrivacy(UserRela userRela) {
+        userRelaMapper.updateContactPrivacy(userRela);
     }
 
     /**
@@ -131,7 +141,7 @@ public class UserRelaServiceImpl implements UserRelaService {
             userRela.setRelaPrivacy(relaPrivacy);
             userRela.setRelaHideMyPosts(relaHideMyPosts);
             userRela.setRelaHideHisPosts(relaHideHisPosts);
-            userRelaMapper.updateUserRelaByFriendApply(userRela);
+            userRelaMapper.updateContactPrivacy(userRela);
         }
     }
 

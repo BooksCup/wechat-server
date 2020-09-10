@@ -106,7 +106,7 @@
         where rela_id = #{relaId}
     </update>
 
-    <update id="updateUserRelaByFriendApply" parameterType="com.bc.wechat.server.entity.UserRela">
+    <update id="updateContactPrivacy" parameterType="com.bc.wechat.server.entity.UserRela">
         update t_user_rela
         set
         rela_contact_alias = #{relaContactAlias},
