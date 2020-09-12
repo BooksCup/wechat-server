@@ -583,28 +583,28 @@ public class UserController {
     }
 
     /**
-     * 删除好友
+     * 删除联系人
      *
-     * @param userId   用户ID
-     * @param friendId 好友ID
+     * @param userId    用户ID
+     * @param contactId 联系人ID
      * @return ResponseEntity
      */
-    @ApiOperation(value = "删除好友", notes = "删除好友")
-    @DeleteMapping(value = "/{userId}/friends/{friendId}")
-    public ResponseEntity<String> deleteFriend(
+    @ApiOperation(value = "删除联系人", notes = "删除联系人")
+    @DeleteMapping(value = "/{userId}/contacts/{contactId}")
+    public ResponseEntity<String> deleteContact(
             @PathVariable String userId,
-            @PathVariable String friendId) {
+            @PathVariable String contactId) {
         ResponseEntity<String> responseEntity;
         try {
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("friendId", friendId);
-            userRelaService.deleteFriend(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_SUCCESS.getResponseCode(), HttpStatus.OK);
+            paramMap.put("contactId", contactId);
+            userRelaService.deleteContact(paramMap);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_CONTACT_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
-            logger.error("[deleteFriend] error: " + e.getMessage());
+            logger.error("[deleteContact] error: " + e.getMessage());
             e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_FRIEND_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_CONTACT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

@@ -131,10 +131,10 @@
         and rela_is_blocked = '0'
     </select>
 
-    <update id="deleteFriend" parameterType="map">
+    <update id="deleteContact" parameterType="map">
         delete from t_user_rela
         where rela_user_id = #{userId}
-        and rela_friend_id = #{friendId}
+        and rela_contact_id = #{contactId}
     </update>
 
     <insert id="addUserRelaTags" parameterType="com.bc.wechat.server.entity.UserRela">

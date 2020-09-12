@@ -58,12 +58,12 @@ public interface UserRelaMapper {
     List<User> getContactList(String userId);
 
     /**
-     * 删除好友
+     * 删除联系人
      *
      * @param paramMap 参数map
-     *                 包含用户ID和好友ID
+     *                 包含用户ID和联系人ID
      */
-    void deleteFriend(Map<String, String> paramMap);
+    void deleteContact(Map<String, String> paramMap);
 
     /**
      * 保存标签时新增用户关系

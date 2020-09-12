@@ -66,12 +66,12 @@ public interface UserRelaService {
     List<User> getContactList(String userId);
 
     /**
-     * 删除好友
+     * 删除联系人
      *
      * @param paramMap 参数map
-     *                 包含用户ID和好友ID
+     *                 包含用户ID和联系人ID
      */
-    void deleteFriend(Map<String, String> paramMap);
+    void deleteContact(Map<String, String> paramMap);
 
     /**
      * 通过好友申请的方式建立初始化的单向用户关系

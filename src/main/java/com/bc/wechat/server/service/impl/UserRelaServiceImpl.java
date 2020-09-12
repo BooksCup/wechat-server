@@ -108,8 +108,8 @@ public class UserRelaServiceImpl implements UserRelaService {
      *                 包含用户ID和好友ID
      */
     @Override
-    public void deleteFriend(Map<String, String> paramMap) {
-        userRelaMapper.deleteFriend(paramMap);
+    public void deleteContact(Map<String, String> paramMap) {
+        userRelaMapper.deleteContact(paramMap);
     }
 
     /**
