@@ -20,6 +20,11 @@ public class UserRela {
     private String relaContactMobiles;
     private String relaContactDesc;
 
+    /**
+     * 联系人来源
+     */
+    private String relaContactFrom;
+
     private String relaPrivacy;
     private String relaHideMyPosts;
     private String relaHideHisPosts;
@@ -135,6 +140,14 @@ public class UserRela {
 
     public void setRelaContactDesc(String relaContactDesc) {
         this.relaContactDesc = relaContactDesc;
+    }
+
+    public String getRelaContactFrom() {
+        return relaContactFrom;
+    }
+
+    public void setRelaContactFrom(String relaContactFrom) {
+        this.relaContactFrom = relaContactFrom;
     }
 
     public String getRelaPrivacy() {

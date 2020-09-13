@@ -118,6 +118,7 @@ public class UserRelaServiceImpl implements UserRelaService {
      *
      * @param fromUserId       用户ID
      * @param toUserId         好友ID
+     * @param relaContactFrom  好友来源
      * @param relaContactAlias 好友备注
      * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
      * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
@@ -125,6 +126,7 @@ public class UserRelaServiceImpl implements UserRelaService {
      */
     @Override
     public void addSingleUserRelaByFriendApply(String fromUserId, String toUserId,
+                                               String relaContactFrom,
                                                String relaContactAlias, String relaPrivacy,
                                                String relaHideMyPosts, String relaHideHisPosts) {
         Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
@@ -134,6 +136,7 @@ public class UserRelaServiceImpl implements UserRelaService {
         if (CollectionUtils.isEmpty(userRelaList)) {
             UserRela userRela = new UserRela(fromUserId, toUserId, relaContactAlias, relaPrivacy, relaHideMyPosts, relaHideHisPosts);
             userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
+            userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.addUserRela(userRela);
         } else {
             UserRela userRela = userRelaList.get(0);

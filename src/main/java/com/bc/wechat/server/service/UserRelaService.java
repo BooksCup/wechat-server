@@ -79,12 +79,14 @@ public interface UserRelaService {
      *
      * @param fromUserId       用户ID
      * @param toUserId         好友ID
+     * @param relaContactFrom  好友来源
      * @param relaContactAlias 好友备注
      * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
      * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
      * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
      */
     void addSingleUserRelaByFriendApply(String fromUserId, String toUserId,
+                                        String relaContactFrom,
                                         String relaContactAlias, String relaPrivacy,
                                         String relaHideMyPosts, String relaHideHisPosts);
 

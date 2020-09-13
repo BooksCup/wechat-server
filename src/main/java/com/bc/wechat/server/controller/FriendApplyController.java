@@ -43,12 +43,26 @@ public class FriendApplyController {
     @Resource
     private JpushBiz jpushBiz;
 
+    /**
+     * 新增好友申请
+     *
+     * @param fromUserId       申请者用户ID
+     * @param toUserId         接受者用户ID
+     * @param applyRemark      申请备注
+     * @param relaContactFrom  好友来源
+     * @param relaContactAlias 好友备注
+     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @return
+     */
     @ApiOperation(value = "新增好友申请", notes = "新增好友申请")
     @PostMapping(value = "")
     public ResponseEntity<String> addFriendApply(
             @RequestParam String fromUserId,
             @RequestParam String toUserId,
             @RequestParam String applyRemark,
+            @RequestParam(required = false) String relaContactFrom,
             @RequestParam(required = false) String relaContactAlias,
             @RequestParam(required = false, defaultValue = Constant.PRIVACY_CHATS_MOMENTS_WERUN_ETC) String relaPrivacy,
             @RequestParam(required = false, defaultValue = Constant.SHOW_MY_POSTS) String relaHideMyPosts,
@@ -57,7 +71,7 @@ public class FriendApplyController {
         FriendApply friendApply = new FriendApply(fromUserId, toUserId, applyRemark);
         try {
             friendApplyService.addFriendApply(friendApply);
-            userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaContactAlias,
+            userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaContactFrom, relaContactAlias,
                     relaPrivacy, relaHideMyPosts, relaHideHisPosts);
 
             User user = userService.getUserByUserId(fromUserId);
