@@ -300,6 +300,7 @@ CREATE TABLE `t_user_rela` (
   `rela_contact_tags` varchar(1024) DEFAULT NULL COMMENT '好友标签(设置备注和标签中添加)',
   `rela_contact_mobiles` varchar(1024) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系,json格式)',
   `rela_contact_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
+  `rela_contact_from` varchar(2) DEFAULT NULL COMMENT '联系人来源',
   `rela_is_starred` varchar(1) DEFAULT '0' COMMENT '是否星标好友 "0":否 "1":是',
   `rela_is_blocked` varchar(1) DEFAULT '0' COMMENT '是否加入黑名单 "0":否 "1":是',
   `rela_privacy` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
