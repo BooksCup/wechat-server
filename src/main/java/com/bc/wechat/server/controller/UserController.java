@@ -644,6 +644,9 @@ public class UserController {
 
             if (!CollectionUtils.isEmpty(userRelaList)) {
                 UserRela userRela = userRelaList.get(0);
+                // 来源
+                contact.setUserContactFrom(userRela.getRelaContactFrom());
+
                 // 备注和标签
                 contact.setUserContactAlias(userRela.getRelaContactAlias());
                 contact.setUserContactTags(userRela.getRelaContactTags());

@@ -7,6 +7,7 @@ import com.bc.wechat.server.mapper.UserRelaMapper;
 import com.bc.wechat.server.service.UserRelaService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -140,6 +141,9 @@ public class UserRelaServiceImpl implements UserRelaService {
             userRelaMapper.addUserRela(userRela);
         } else {
             UserRela userRela = userRelaList.get(0);
+            if (!StringUtils.isEmpty(relaContactFrom)) {
+                userRela.setRelaContactFrom(relaContactFrom);
+            }
             userRela.setRelaContactAlias(relaContactAlias);
             userRela.setRelaPrivacy(relaPrivacy);
             userRela.setRelaHideMyPosts(relaHideMyPosts);

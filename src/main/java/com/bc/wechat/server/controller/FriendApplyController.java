@@ -67,6 +67,9 @@ public class FriendApplyController {
             @RequestParam(required = false, defaultValue = Constant.PRIVACY_CHATS_MOMENTS_WERUN_ETC) String relaPrivacy,
             @RequestParam(required = false, defaultValue = Constant.SHOW_MY_POSTS) String relaHideMyPosts,
             @RequestParam(required = false, defaultValue = Constant.SHOW_HIS_POSTS) String relaHideHisPosts) {
+        logger.info("[addFriendApply], fromUserId: " + fromUserId + ", toUserId: " + toUserId + ", relaContactFrom: " + relaContactFrom
+                + ", relaContactAlias: " + relaContactAlias + ", relaPrivacy: " + relaPrivacy
+                + ", relaHideMyPosts: " + relaHideMyPosts + ", relaHideHisPosts: " + relaHideHisPosts);
         ResponseEntity<String> responseEntity;
         FriendApply friendApply = new FriendApply(fromUserId, toUserId, applyRemark);
         try {

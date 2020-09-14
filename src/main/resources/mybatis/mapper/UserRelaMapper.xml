@@ -12,6 +12,8 @@
         <result column="rela_contact_mobiles" property="relaContactMobiles" jdbcType="VARCHAR"/>
         <result column="rela_contact_desc" property="relaContactDesc" jdbcType="VARCHAR"/>
 
+        <result column="rela_contact_from" property="relaContactFrom" jdbcType="VARCHAR"/>
+
         <result column="rela_privacy" property="relaPrivacy" jdbcType="VARCHAR"/>
         <result column="rela_hide_my_posts" property="relaHideMyPosts" jdbcType="VARCHAR"/>
         <result column="rela_hide_his_posts" property="relaHideHisPosts" jdbcType="VARCHAR"/>
@@ -115,6 +117,7 @@
     <update id="updateContactPrivacy" parameterType="com.bc.wechat.server.entity.UserRela">
         update t_user_rela
         set
+        rela_contact_from = #{relaContactFrom},
         rela_contact_alias = #{relaContactAlias},
         rela_privacy = #{relaPrivacy},
         rela_hide_my_posts = #{relaHideMyPosts},
