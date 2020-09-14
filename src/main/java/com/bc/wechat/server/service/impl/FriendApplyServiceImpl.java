@@ -62,16 +62,16 @@ public class FriendApplyServiceImpl implements FriendApplyService {
     /**
      * 交朋友
      *
-     * @param fromUserId    申请人用户ID
-     * @param toUserId      接收人用户ID
-     * @param relaRemark    好友备注
-     * @param relaAuth      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
-     * @param relaNotSeeMe  朋友圈和视频动态 "0":可以看我 "1":不让他看我
-     * @param relaNotSeeHim 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @param fromUserId       申请人用户ID
+     * @param toUserId         接收人用户ID
+     * @param relaRemark       好友备注
+     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
      */
     @Override
     public void makeFriends(String fromUserId, String toUserId, String relaRemark,
-                            String relaAuth, String relaNotSeeMe, String relaNotSeeHim) {
+                            String relaPrivacy, String relaHideMyPosts, String relaHideHisPosts) {
         // 更新申请者userRela
         Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
         paramMap.put("userId", fromUserId);
@@ -93,7 +93,7 @@ public class FriendApplyServiceImpl implements FriendApplyService {
         List<UserRela> friendUserRelaList = userRelaMapper.getUserRelaListByUserIdAndContactId(paramMap);
         if (CollectionUtils.isEmpty(friendUserRelaList)) {
             UserRela userRela = new UserRela(toUserId, fromUserId, relaRemark,
-                    relaAuth, relaNotSeeMe, relaNotSeeHim);
+                    relaPrivacy, relaHideMyPosts, relaHideHisPosts);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
             userRelaMapper.addUserRela(userRela);
         } else {
