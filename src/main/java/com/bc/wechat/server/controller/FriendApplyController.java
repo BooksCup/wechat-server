@@ -112,6 +112,7 @@ public class FriendApplyController {
      *
      * @param applyId          申请ID
      * @param relaRemark       好友备注
+     * @param relaContactFrom  好友来源
      * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
      * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
      * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
@@ -122,6 +123,7 @@ public class FriendApplyController {
     public ResponseEntity<String> acceptFriendApply(
             @RequestParam String applyId,
             @RequestParam(required = false) String relaRemark,
+            @RequestParam(required = false) String relaContactFrom,
             @RequestParam(required = false, defaultValue = Constant.PRIVACY_CHATS_MOMENTS_WERUN_ETC) String relaPrivacy,
             @RequestParam(required = false, defaultValue = Constant.SHOW_MY_POSTS) String relaHideMyPosts,
             @RequestParam(required = false, defaultValue = Constant.SHOW_HIS_POSTS) String relaHideHisPosts) {
@@ -131,8 +133,8 @@ public class FriendApplyController {
 
             FriendApply friendApply = friendApplyService.getFriendApplyById(applyId);
             // 双方加好友
-            friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId(),
-                    relaRemark, relaPrivacy, relaHideMyPosts, relaHideHisPosts);
+            friendApplyService.makeFriends(friendApply.getFromUserId(), friendApply.getToUserId(), relaRemark,
+                    relaContactFrom, relaPrivacy, relaHideMyPosts, relaHideHisPosts);
 
             User toUser = userService.getUserByUserId(friendApply.getToUserId());
             toUser.setIsFriend(Constant.IS_FRIEND);

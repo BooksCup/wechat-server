@@ -91,6 +91,9 @@
         <if test="relaStatus != null and relaStatus !=''">
             rela_status = #{relaStatus},
         </if>
+        <if test="relaContactFrom != null and relaContactFrom !=''">
+            rela_contact_from = #{relaContactFrom},
+        </if>
         rela_contact_mobiles = #{relaContactMobiles},
         rela_contact_alias = #{relaContactAlias},
         rela_contact_desc = #{relaContactDesc},

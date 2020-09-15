@@ -65,12 +65,13 @@ public class FriendApplyServiceImpl implements FriendApplyService {
      * @param fromUserId       申请人用户ID
      * @param toUserId         接收人用户ID
      * @param relaRemark       好友备注
+     * @param relaContactFrom  好友来源
      * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
      * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
      * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
      */
     @Override
-    public void makeFriends(String fromUserId, String toUserId, String relaRemark,
+    public void makeFriends(String fromUserId, String toUserId, String relaRemark, String relaContactFrom,
                             String relaPrivacy, String relaHideMyPosts, String relaHideHisPosts) {
         // 更新申请者userRela
         Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
@@ -80,10 +81,12 @@ public class FriendApplyServiceImpl implements FriendApplyService {
         if (CollectionUtils.isEmpty(userRelaList)) {
             UserRela userRela = new UserRela(fromUserId, toUserId);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
+            userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.addUserRela(userRela);
         } else {
             UserRela userRela = userRelaList.get(0);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
+            userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.updateUserRela(userRela);
         }
 
@@ -95,10 +98,12 @@ public class FriendApplyServiceImpl implements FriendApplyService {
             UserRela userRela = new UserRela(toUserId, fromUserId, relaRemark,
                     relaPrivacy, relaHideMyPosts, relaHideHisPosts);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
+            userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.addUserRela(userRela);
         } else {
             UserRela userRela = userRelaList.get(0);
             userRela.setRelaStatus(Constant.RELA_STATUS_FRIEND);
+            userRela.setRelaContactFrom(relaContactFrom);
             userRelaMapper.updateUserRela(userRela);
         }
 

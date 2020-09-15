@@ -163,13 +163,13 @@ public class UserController {
 
             // 添加默认好友
             friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_WEIXIN,
-                    "", "", "", "");
+                    "", "", "", "", "");
             friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_FILEHELPER,
-                    "", "", "", "");
+                    "", "", "", "", "");
 
             // 添加自己
             friendApplyService.makeFriends(user.getUserId(), user.getUserId(),
-                    "", "", "", "");
+                    "", "", "", "", "");
 
             List<User> friendList = userRelaService.getContactList(user.getUserId());
             user.setContactList(friendList);
