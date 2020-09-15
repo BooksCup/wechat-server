@@ -89,6 +89,7 @@ public class FriendApplyController {
 
             friendApply.setFromUserSign(user.getUserSign());
             friendApply.setFromUserLastestMomentsPhotos(user.getUserLastestMomentsPhotos());
+            friendApply.setFromUserFrom(relaContactFrom);
 
             extras.put("friendApply", JSON.toJSONString(friendApply));
 

@@ -20,6 +20,11 @@ public class FriendApply {
     private String fromUserSign;
     private String fromUserLastestMomentsPhotos;
 
+    /**
+     * 好友来源
+     */
+    private String fromUserFrom;
+
     private Long timeStamp;
 
     public FriendApply() {
@@ -112,6 +117,14 @@ public class FriendApply {
 
     public void setFromUserLastestMomentsPhotos(String fromUserLastestMomentsPhotos) {
         this.fromUserLastestMomentsPhotos = fromUserLastestMomentsPhotos;
+    }
+
+    public String getFromUserFrom() {
+        return fromUserFrom;
+    }
+
+    public void setFromUserFrom(String fromUserFrom) {
+        this.fromUserFrom = fromUserFrom;
     }
 
     public Long getTimeStamp() {
