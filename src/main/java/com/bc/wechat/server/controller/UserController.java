@@ -334,7 +334,6 @@ public class UserController {
         return responseEntity;
     }
 
-
     /**
      * 修改头像
      *
@@ -1118,6 +1117,7 @@ public class UserController {
             @RequestParam String phones) {
         ResponseEntity<List<User>> responseEntity;
         try {
+            List<User> userList;
             List<String> phoneList = new ArrayList<>();
             try {
                 phoneList = JSON.parseArray(phones, String.class);
@@ -1125,7 +1125,12 @@ public class UserController {
                 e.printStackTrace();
             }
             logger.info("[getMobileContactList], phoneList: " + phoneList);
-            List<User> userList = userService.getUserListByPhoneList(phoneList);
+
+            if (!CollectionUtils.isEmpty(phoneList)) {
+                userList = userService.getUserListByPhoneList(phoneList);
+            } else {
+                userList = new ArrayList<>();
+            }
             responseEntity = new ResponseEntity<>(userList, HttpStatus.OK);
         } catch (Exception e) {
             logger.error("[getMobileContactList] error: " + e.getMessage());
