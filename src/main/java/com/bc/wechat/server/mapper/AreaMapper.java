@@ -21,6 +21,13 @@ public interface AreaMapper {
     void addProvince(Province province);
 
     /**
+     * 修改省
+     *
+     * @param province 省
+     */
+    void updateProvince(Province province);
+
+    /**
      * 保存市
      *
      * @param city 市
@@ -47,6 +54,13 @@ public interface AreaMapper {
      * @return 省数量
      */
     Long getProvinceCount();
+
+    /**
+     * 删除省
+     *
+     * @param provinceId 省ID
+     */
+    void deleteProvince(String provinceId);
 
     /**
      * 通过省ID获取市列表

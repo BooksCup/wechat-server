@@ -6,6 +6,7 @@ package com.bc.wechat.server.enums;
  * @author zhou
  */
 public enum ResponseMsg {
+
     /**
      * wechat-server接口返回信息
      */
@@ -161,6 +162,12 @@ public enum ResponseMsg {
     REFRESH_REGION_ERROR("REFRESH_REGION_ERROR", "刷新地区失败"),
 
     PATH_IS_ILLEGAL("PATH_IS_ILLEGAL", "path应该是个文件路径"),
+
+    UPDATE_SUCCESS("UPDATE_SUCCESS", "修改成功"),
+    UPDATE_ERROR("UPDATE_ERROR", "修改失败"),
+
+    DELETE_SUCCESS("DELETE_SUCCESS", "删除成功"),
+    DELETE_ERROR("DELETE_ERROR", "删除失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {
@@ -186,4 +193,5 @@ public enum ResponseMsg {
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
     }
+
 }

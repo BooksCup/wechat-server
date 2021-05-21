@@ -38,6 +38,13 @@
         )
     </insert>
 
+    <update id="updateProvince" parameterType="com.bc.wechat.server.entity.area.Province">
+        update t_area_province
+        set province_name = #{name},
+        province_seq = #{seq}
+        where province_id = #{id}
+    </update>
+
     <insert id="saveCity" parameterType="com.bc.wechat.server.entity.area.City">
         insert into t_area_city
         (
@@ -83,6 +90,11 @@
     <select id="getProvinceCount" resultType="long">
         select count(*) from t_area_province
     </select>
+
+    <delete id="deleteProvince" parameterType="String">
+        delete from t_area_province
+        where province_id = #{provinceId}
+    </delete>
 
     <select id="getCityListByProvinceId" resultMap="City" parameterType="String">
         select *

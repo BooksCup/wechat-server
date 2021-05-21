@@ -1,8 +1,7 @@
 package com.bc.wechat.server.controller.admin;
 
-import com.bc.wechat.server.cons.Constant;
-import com.bc.wechat.server.entity.Region;
 import com.bc.wechat.server.entity.area.Province;
+import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.AreaService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.ApiOperation;
@@ -13,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * "地区" - "省"
@@ -56,6 +53,33 @@ public class ProvinceController {
     }
 
     /**
+     * 修改省
+     *
+     * @param provinceId 省ID
+     * @param name       省名
+     * @param seq        排序
+     * @return 修改结果
+     */
+    @ApiOperation(value = "修改省", notes = "修改省")
+    @PutMapping(value = "/{provinceId}")
+    public ResponseEntity<String> updateProvince(
+            @PathVariable String provinceId,
+            @RequestParam String name,
+            @RequestParam Float seq) {
+        ResponseEntity<String> responseEntity;
+        try {
+            Province province = new Province(name, seq);
+            province.setId(provinceId);
+            areaService.updateProvince(province);
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
      * 查询省分页信息
      *
      * @param page  当前分页数
@@ -78,5 +102,24 @@ public class ProvinceController {
         return responseEntity;
     }
 
+    /**
+     * 删除省
+     *
+     * @param provinceId 省ID
+     * @return 删除结果
+     */
+    @ApiOperation(value = "删除省", notes = "删除省")
+    @DeleteMapping(value = "/{provinceId}")
+    public ResponseEntity<String> deleteProvince(@PathVariable String provinceId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            areaService.deleteProvince(provinceId);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
 
 }

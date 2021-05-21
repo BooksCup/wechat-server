@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 地区
@@ -32,6 +31,26 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public void addProvince(Province province) {
         areaMapper.addProvince(province);
+    }
+
+    /**
+     * 修改省
+     *
+     * @param province 省
+     */
+    @Override
+    public void updateProvince(Province province) {
+        areaMapper.updateProvince(province);
+    }
+
+    /**
+     * 删除省
+     *
+     * @param provinceId 省ID
+     */
+    @Override
+    public void deleteProvince(String provinceId) {
+        areaMapper.deleteProvince(provinceId);
     }
 
     /**

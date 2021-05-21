@@ -22,6 +22,20 @@ public interface AreaService {
     void addProvince(Province province);
 
     /**
+     * 修改省
+     *
+     * @param province 省
+     */
+    void updateProvince(Province province);
+
+    /**
+     * 删除省
+     *
+     * @param provinceId 省ID
+     */
+    void deleteProvince(String provinceId);
+
+    /**
      * 保存市
      *
      * @param city 市
