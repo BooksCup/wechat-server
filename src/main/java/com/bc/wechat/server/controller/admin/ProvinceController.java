@@ -1,5 +1,7 @@
 package com.bc.wechat.server.controller.admin;
 
+import com.bc.wechat.server.cons.Constant;
+import com.bc.wechat.server.entity.Region;
 import com.bc.wechat.server.entity.area.Province;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.AreaService;
@@ -12,6 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * "地区" - "省"
@@ -118,6 +124,32 @@ public class ProvinceController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 刷新省排序
+     *
+     * @return 刷新结果
+     */
+    @ApiOperation(value = "刷新省排序", notes = "刷新省排序")
+    @PostMapping(value = "/refresh")
+    public ResponseEntity<String> refreshProvince() {
+        ResponseEntity<String> responseEntity;
+        try {
+            List<Province> provinceList = areaService.getProvinceList();
+            List<Province> refreshProvinceList = new ArrayList<>();
+            for (int i = 0; i < provinceList.size(); i++) {
+                Province province = provinceList.get(i);
+                province.setSeq(i + 1.0f);
+                refreshProvinceList.add(province);
+            }
+            areaService.batchUpdateProvinceSeq(refreshProvinceList);
+            responseEntity = new ResponseEntity<>(ResponseMsg.REFRESH_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(ResponseMsg.REFRESH_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

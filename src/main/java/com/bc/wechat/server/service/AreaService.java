@@ -36,6 +36,13 @@ public interface AreaService {
     void deleteProvince(String provinceId);
 
     /**
+     * 批量更新省排序
+     *
+     * @param provinceList 省列表
+     */
+    void batchUpdateProvinceSeq(List<Province> provinceList);
+
+    /**
      * 保存市
      *
      * @param city 市

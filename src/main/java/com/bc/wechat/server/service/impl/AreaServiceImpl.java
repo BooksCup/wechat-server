@@ -54,6 +54,16 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
+     * 批量更新省排序
+     *
+     * @param provinceList 省列表
+     */
+    @Override
+    public void batchUpdateProvinceSeq(List<Province> provinceList) {
+        areaMapper.batchUpdateProvinceSeq(provinceList);
+    }
+
+    /**
      * 保存市
      *
      * @param city 市

@@ -96,6 +96,16 @@
         where province_id = #{provinceId}
     </delete>
 
+    <update id="batchUpdateProvinceSeq" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_area_province
+            <set>
+                province_seq = ${item.seq}
+            </set>
+            where province_id = '${item.id}'
+        </foreach>
+    </update>
+
     <select id="getCityListByProvinceId" resultMap="City" parameterType="String">
         select *
         from t_area_city

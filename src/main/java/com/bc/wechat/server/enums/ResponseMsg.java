@@ -168,6 +168,9 @@ public enum ResponseMsg {
 
     DELETE_SUCCESS("DELETE_SUCCESS", "删除成功"),
     DELETE_ERROR("DELETE_ERROR", "删除失败"),
+
+    REFRESH_SUCCESS("REFRESH_SUCCESS", "刷新成功"),
+    REFRESH_ERROR("REFRESH_ERROR", "刷新失败"),
     ;
 
     ResponseMsg(String responseCode, String responseMessage) {

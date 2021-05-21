@@ -63,6 +63,13 @@ public interface AreaMapper {
     void deleteProvince(String provinceId);
 
     /**
+     * 批量更新省排序
+     *
+     * @param provinceList 省列表
+     */
+    void batchUpdateProvinceSeq(List<Province> provinceList);
+
+    /**
      * 通过省ID获取市列表
      *
      * @param provinceId 省ID
