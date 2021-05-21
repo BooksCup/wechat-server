@@ -58,8 +58,8 @@ public class AreaController {
             int provinceSeq = 0;
             for (Province province : provinceList) {
                 provinceSeq++;
-                Province p = new Province(province.getName(), provinceSeq);
-                areaService.saveProvince(p);
+                Province p = new Province(province.getName(), Float.valueOf(provinceSeq));
+                areaService.addProvince(p);
 
                 int citySeq = 0;
                 List<City> cityList = province.getCity();

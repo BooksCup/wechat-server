@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.bc.wechat.server.mapper.AreaMapper">
 
-    <resultMap id="Province" type="com.bc.wechat.server.entity.area.Province">
+    <resultMap id="province" type="com.bc.wechat.server.entity.area.Province">
         <id column="province_id" property="id" jdbcType="VARCHAR"/>
         <result column="province_name" property="name" jdbcType="VARCHAR"/>
         <result column="province_seq" property="seq" jdbcType="VARCHAR"/>
@@ -23,8 +23,8 @@
         <result column="district_seq" property="seq" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <insert id="saveProvince" parameterType="com.bc.wechat.server.entity.area.Province">
-        insert into t_temp_province
+    <insert id="addProvince" parameterType="com.bc.wechat.server.entity.area.Province">
+        insert into t_area_province
         (
         province_id,
         province_name,
@@ -39,7 +39,7 @@
     </insert>
 
     <insert id="saveCity" parameterType="com.bc.wechat.server.entity.area.City">
-        insert into t_temp_city
+        insert into t_area_city
         (
         city_id,
         province_id,
@@ -56,7 +56,7 @@
     </insert>
 
     <insert id="saveDistrict" parameterType="com.bc.wechat.server.entity.area.District">
-        insert into t_temp_district
+        insert into t_area_district
         (
         district_id,
         city_id,
@@ -74,22 +74,26 @@
         )
     </insert>
 
-    <select id="getProvinceList" resultMap="Province">
+    <select id="getProvinceList" resultMap="province">
         select *
-        from t_temp_province
+        from t_area_province
         order by province_seq asc
+    </select>
+
+    <select id="getProvinceCount" resultType="long">
+        select count(*) from t_area_province
     </select>
 
     <select id="getCityListByProvinceId" resultMap="City" parameterType="String">
         select *
-        from t_temp_city
+        from t_area_city
         where province_id = #{provinceId}
         order by city_seq asc
     </select>
 
     <select id="getDistrictListByCityId" resultMap="District" parameterType="String">
         select *
-        from t_temp_district
+        from t_area_district
         where city_id = #{cityId}
         order by district_seq asc
     </select>

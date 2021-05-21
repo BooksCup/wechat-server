@@ -12,12 +12,13 @@ import java.util.List;
  * @author zhou
  */
 public interface AreaMapper {
+
     /**
-     * 保存省
+     * 新增省
      *
      * @param province 省
      */
-    void saveProvince(Province province);
+    void addProvince(Province province);
 
     /**
      * 保存市
@@ -41,6 +42,13 @@ public interface AreaMapper {
     List<Province> getProvinceList();
 
     /**
+     * 获取省数量
+     *
+     * @return 省数量
+     */
+    Long getProvinceCount();
+
+    /**
      * 通过省ID获取市列表
      *
      * @param provinceId 省ID
@@ -55,4 +63,5 @@ public interface AreaMapper {
      * @return 区县列表
      */
     List<District> getDistrictListByCityId(String cityId);
+
 }

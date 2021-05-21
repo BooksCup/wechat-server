@@ -3,6 +3,7 @@ package com.bc.wechat.server.service;
 import com.bc.wechat.server.entity.area.City;
 import com.bc.wechat.server.entity.area.District;
 import com.bc.wechat.server.entity.area.Province;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ import java.util.List;
 public interface AreaService {
 
     /**
-     * 保存省
+     * 新增省
      *
      * @param province 省
      */
-    void saveProvince(Province province);
+    void addProvince(Province province);
 
     /**
      * 保存市
@@ -42,6 +43,22 @@ public interface AreaService {
     List<Province> getProvinceList();
 
     /**
+     * 获取省数量
+     *
+     * @return 省数量
+     */
+    Long getProvinceCount();
+
+    /**
+     * 获取省分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @return 省分页信息
+     */
+    PageInfo<Province> getProvincePageInfo(int pageNum, int pageSize);
+
+    /**
      * 通过省ID获取市列表
      *
      * @param provinceId 省ID
@@ -56,4 +73,5 @@ public interface AreaService {
      * @return 区县列表
      */
     List<District> getDistrictListByCityId(String cityId);
+
 }

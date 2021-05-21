@@ -13,18 +13,19 @@ import java.util.List;
  */
 @JSONType(orders = {"name", "city"})
 public class Province {
+
     @JSONField(serialize = false)
     private String id;
     private String name;
     @JSONField(serialize = false)
-    private Integer seq;
+    private Float seq;
     private List<City> city;
 
     public Province() {
 
     }
 
-    public Province(String name, Integer seq) {
+    public Province(String name, Float seq) {
         this.id = CommonUtil.generateId();
         this.name = name;
         this.seq = seq;
@@ -46,11 +47,11 @@ public class Province {
         this.name = name;
     }
 
-    public Integer getSeq() {
+    public Float getSeq() {
         return seq;
     }
 
-    public void setSeq(Integer seq) {
+    public void setSeq(Float seq) {
         this.seq = seq;
     }
 
@@ -61,4 +62,5 @@ public class Province {
     public void setCity(List<City> city) {
         this.city = city;
     }
+
 }

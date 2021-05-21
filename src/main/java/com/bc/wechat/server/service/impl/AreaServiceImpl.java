@@ -5,10 +5,13 @@ import com.bc.wechat.server.entity.area.District;
 import com.bc.wechat.server.entity.area.Province;
 import com.bc.wechat.server.mapper.AreaMapper;
 import com.bc.wechat.server.service.AreaService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 地区
@@ -22,13 +25,13 @@ public class AreaServiceImpl implements AreaService {
     AreaMapper areaMapper;
 
     /**
-     * 保存省
+     * 新增省
      *
      * @param province 省
      */
     @Override
-    public void saveProvince(Province province) {
-        areaMapper.saveProvince(province);
+    public void addProvince(Province province) {
+        areaMapper.addProvince(province);
     }
 
     /**
@@ -59,6 +62,30 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public List<Province> getProvinceList() {
         return areaMapper.getProvinceList();
+    }
+
+    /**
+     * 获取省数量
+     *
+     * @return 省数量
+     */
+    @Override
+    public Long getProvinceCount() {
+        return areaMapper.getProvinceCount();
+    }
+
+    /**
+     * 获取省分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @return 省分页信息
+     */
+    @Override
+    public PageInfo<Province> getProvincePageInfo(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Province> provinceList = areaMapper.getProvinceList();
+        return new PageInfo<>(provinceList);
     }
 
     /**
