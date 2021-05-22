@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 地区
@@ -127,6 +128,31 @@ public class AreaServiceImpl implements AreaService {
     public List<City> getCityListByProvinceId(String provinceId) {
         return areaMapper.getCityListByProvinceId(provinceId);
     }
+
+    /**
+     * 通过省ID获取市数量
+     *
+     * @return 市数量
+     */
+    @Override
+    public Long getCityCountByProvinceId(String provinceId) {
+        return areaMapper.getCityCountByProvinceId(provinceId);
+    }
+
+    /**
+     * 获取市分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @return 市分页信息
+     */
+    @Override
+    public PageInfo<City> getCityPageInfo(int pageNum, int pageSize, String provinceId) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<City> cityList = areaMapper.getCityListByProvinceId(provinceId);
+        return new PageInfo<>(cityList);
+    }
+
 
     /**
      * 通过市ID获取区县列表

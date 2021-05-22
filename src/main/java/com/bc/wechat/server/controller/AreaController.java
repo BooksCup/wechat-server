@@ -65,7 +65,7 @@ public class AreaController {
                 List<City> cityList = province.getCity();
                 for (City city : cityList) {
                     citySeq++;
-                    City c = new City(p.getId(), city.getName(), citySeq);
+                    City c = new City(p.getId(), city.getName(), Float.valueOf(citySeq));
                     areaService.saveCity(c);
 //                    List<String> districtList = city.getArea();
 //                    int districtSeq = 0;

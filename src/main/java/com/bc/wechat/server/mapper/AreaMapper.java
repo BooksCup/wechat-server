@@ -78,6 +78,13 @@ public interface AreaMapper {
     List<City> getCityListByProvinceId(String provinceId);
 
     /**
+     * 通过省ID获取市数量
+     *
+     * @return 市数量
+     */
+    Long getCityCountByProvinceId(String provinceId);
+
+    /**
      * 通过市ID获取区县列表
      *
      * @param cityId 市ID

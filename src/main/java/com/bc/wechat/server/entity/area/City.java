@@ -19,14 +19,14 @@ public class City {
     private String provinceId;
     private String name;
     @JSONField(serialize = false)
-    private Integer seq;
+    private Float seq;
     private List<District> district;
 
     public City() {
 
     }
 
-    public City(String provinceId, String name, Integer seq) {
+    public City(String provinceId, String name, Float seq) {
         this.id = CommonUtil.generateId();
         this.provinceId = provinceId;
         this.name = name;
@@ -57,11 +57,11 @@ public class City {
         this.name = name;
     }
 
-    public Integer getSeq() {
+    public Float getSeq() {
         return seq;
     }
 
-    public void setSeq(Integer seq) {
+    public void setSeq(Float seq) {
         this.seq = seq;
     }
 

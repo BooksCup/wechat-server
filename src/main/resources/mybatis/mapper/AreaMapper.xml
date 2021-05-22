@@ -113,6 +113,11 @@
         order by city_seq asc
     </select>
 
+    <select id="getCityCountByProvinceId" resultType="long">
+        select count(*) from t_area_city
+        where province_id = #{provinceId}
+    </select>
+
     <select id="getDistrictListByCityId" resultMap="District" parameterType="String">
         select *
         from t_area_district

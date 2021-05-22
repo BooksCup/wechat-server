@@ -88,6 +88,22 @@ public interface AreaService {
     List<City> getCityListByProvinceId(String provinceId);
 
     /**
+     * 通过省ID获取市数量
+     *
+     * @return 市数量
+     */
+    Long getCityCountByProvinceId(String provinceId);
+
+    /**
+     * 获取市分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @return 市分页信息
+     */
+    PageInfo<City> getCityPageInfo(int pageNum, int pageSize, String provinceId);
+
+    /**
      * 通过市ID获取区县列表
      *
      * @param cityId 市ID
