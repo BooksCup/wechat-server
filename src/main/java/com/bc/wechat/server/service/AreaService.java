@@ -43,11 +43,32 @@ public interface AreaService {
     void batchUpdateProvinceSeq(List<Province> provinceList);
 
     /**
-     * 保存市
+     * 新增市
      *
      * @param city 市
      */
-    void saveCity(City city);
+    void addCity(City city);
+
+    /**
+     * 修改市
+     *
+     * @param city 市
+     */
+    void updateCity(City city);
+
+    /**
+     * 删除市
+     *
+     * @param cityId 市ID
+     */
+    void deleteCity(String cityId);
+
+    /**
+     * 批量更新市排序
+     *
+     * @param cityList 市列表
+     */
+    void batchUpdateCitySeq(List<City> cityList);
 
     /**
      * 保存区
@@ -90,6 +111,7 @@ public interface AreaService {
     /**
      * 通过省ID获取市数量
      *
+     * @param provinceId 省ID
      * @return 市数量
      */
     Long getCityCountByProvinceId(String provinceId);

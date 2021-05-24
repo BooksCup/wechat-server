@@ -28,11 +28,11 @@ public interface AreaMapper {
     void updateProvince(Province province);
 
     /**
-     * 保存市
+     * 新增市
      *
      * @param city 市
      */
-    void saveCity(City city);
+    void addCity(City city);
 
     /**
      * 保存区
@@ -83,6 +83,27 @@ public interface AreaMapper {
      * @return 市数量
      */
     Long getCityCountByProvinceId(String provinceId);
+
+    /**
+     * 修改市
+     *
+     * @param city 市
+     */
+    void updateCity(City city);
+
+    /**
+     * 删除市
+     *
+     * @param cityId 市ID
+     */
+    void deleteCity(String cityId);
+
+    /**
+     * 批量更新市排序
+     *
+     * @param cityList 市列表
+     */
+    void batchUpdateCitySeq(List<City> cityList);
 
     /**
      * 通过市ID获取区县列表

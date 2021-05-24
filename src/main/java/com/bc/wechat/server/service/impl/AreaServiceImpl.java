@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 地区
@@ -70,8 +69,8 @@ public class AreaServiceImpl implements AreaService {
      * @param city 市
      */
     @Override
-    public void saveCity(City city) {
-        areaMapper.saveCity(city);
+    public void addCity(City city) {
+        areaMapper.addCity(city);
     }
 
     /**
@@ -130,8 +129,39 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
+     * 修改市
+     *
+     * @param city 市
+     */
+    @Override
+    public void updateCity(City city) {
+        areaMapper.updateCity(city);
+    }
+
+    /**
+     * 删除市
+     *
+     * @param cityId 市ID
+     */
+    @Override
+    public void deleteCity(String cityId) {
+        areaMapper.deleteCity(cityId);
+    }
+
+    /**
+     * 批量更新市排序
+     *
+     * @param cityList 市列表
+     */
+    @Override
+    public void batchUpdateCitySeq(List<City> cityList) {
+        areaMapper.batchUpdateCitySeq(cityList);
+    }
+
+    /**
      * 通过省ID获取市数量
      *
+     * @param provinceId 省ID
      * @return 市数量
      */
     @Override
@@ -152,7 +182,6 @@ public class AreaServiceImpl implements AreaService {
         List<City> cityList = areaMapper.getCityListByProvinceId(provinceId);
         return new PageInfo<>(cityList);
     }
-
 
     /**
      * 通过市ID获取区县列表

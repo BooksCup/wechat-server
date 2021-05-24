@@ -1,7 +1,6 @@
 package com.bc.wechat.server.controller.admin;
 
 import com.bc.wechat.server.entity.area.City;
-import com.bc.wechat.server.entity.area.Province;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.AreaService;
 import com.github.pagehelper.PageInfo;
@@ -34,7 +33,7 @@ public class CityController {
     /**
      * 新增市
      *
-     * @param provinceId 省ID
+     * @param provinceId 市ID
      * @param name       市名
      * @return 新增结果
      */
@@ -48,7 +47,7 @@ public class CityController {
             City city = new City(provinceId, name, null);
             long cityCount = areaService.getCityCountByProvinceId(provinceId);
             city.setSeq(cityCount + 1.0f);
-            areaService.saveCity(city);
+            areaService.addCity(city);
             responseEntity = new ResponseEntity<>(city, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,24 +57,24 @@ public class CityController {
     }
 
     /**
-     * 修改省
+     * 修改市
      *
-     * @param provinceId 省ID
-     * @param name       省名
-     * @param seq        排序
+     * @param cityId 市ID
+     * @param name   市名
+     * @param seq    排序
      * @return 修改结果
      */
-    @ApiOperation(value = "修改省", notes = "修改省")
-    @PutMapping(value = "/{provinceId}")
+    @ApiOperation(value = "修改市", notes = "修改市")
+    @PutMapping(value = "/{cityId}")
     public ResponseEntity<String> updateProvince(
-            @PathVariable String provinceId,
+            @PathVariable String cityId,
             @RequestParam String name,
             @RequestParam Float seq) {
         ResponseEntity<String> responseEntity;
         try {
-            Province province = new Province(name, seq);
-            province.setId(provinceId);
-            areaService.updateProvince(province);
+            City city = new City(name, seq);
+            city.setId(cityId);
+            areaService.updateCity(city);
             responseEntity = new ResponseEntity<>(ResponseMsg.UPDATE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,7 +88,7 @@ public class CityController {
      *
      * @param page  当前分页数
      * @param limit 分页大小
-     * @return 省分页信息
+     * @return 市分页信息
      */
     @ApiOperation(value = "查询市分页信息", notes = "查询市分页信息")
     @GetMapping(value = "")
@@ -109,17 +108,17 @@ public class CityController {
     }
 
     /**
-     * 删除省
+     * 删除市
      *
-     * @param provinceId 省ID
+     * @param cityId 市ID
      * @return 删除结果
      */
-    @ApiOperation(value = "删除省", notes = "删除省")
-    @DeleteMapping(value = "/{provinceId}")
-    public ResponseEntity<String> deleteProvince(@PathVariable String provinceId) {
+    @ApiOperation(value = "删除市", notes = "删除市")
+    @DeleteMapping(value = "/{cityId}")
+    public ResponseEntity<String> deleteCity(@PathVariable String cityId) {
         ResponseEntity<String> responseEntity;
         try {
-            areaService.deleteProvince(provinceId);
+            areaService.deleteCity(cityId);
             responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,23 +128,24 @@ public class CityController {
     }
 
     /**
-     * 刷新省排序
+     * 刷新市排序
      *
+     * @param provinceId 市ID
      * @return 刷新结果
      */
-    @ApiOperation(value = "刷新省排序", notes = "刷新省排序")
+    @ApiOperation(value = "刷新市排序", notes = "刷新市排序")
     @PostMapping(value = "/refresh")
-    public ResponseEntity<String> refreshProvince() {
+    public ResponseEntity<String> refreshCity(@RequestParam String provinceId) {
         ResponseEntity<String> responseEntity;
         try {
-            List<Province> provinceList = areaService.getProvinceList();
-            List<Province> refreshProvinceList = new ArrayList<>();
-            for (int i = 0; i < provinceList.size(); i++) {
-                Province province = provinceList.get(i);
-                province.setSeq(i + 1.0f);
-                refreshProvinceList.add(province);
+            List<City> cityList = areaService.getCityListByProvinceId(provinceId);
+            List<City> refreshCityList = new ArrayList<>();
+            for (int i = 0; i < cityList.size(); i++) {
+                City city = cityList.get(i);
+                city.setSeq(i + 1.0f);
+                refreshCityList.add(city);
             }
-            areaService.batchUpdateProvinceSeq(refreshProvinceList);
+            areaService.batchUpdateCitySeq(refreshCityList);
             responseEntity = new ResponseEntity<>(ResponseMsg.REFRESH_SUCCESS.getResponseCode(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

@@ -13,6 +13,7 @@ import java.util.List;
  */
 @JSONType(orders = {"name", "district"})
 public class City {
+
     @JSONField(serialize = false)
     private String id;
     @JSONField(serialize = false)
@@ -29,6 +30,11 @@ public class City {
     public City(String provinceId, String name, Float seq) {
         this.id = CommonUtil.generateId();
         this.provinceId = provinceId;
+        this.name = name;
+        this.seq = seq;
+    }
+
+    public City(String name, Float seq) {
         this.name = name;
         this.seq = seq;
     }
@@ -72,4 +78,5 @@ public class City {
     public void setDistrict(List<District> district) {
         this.district = district;
     }
+
 }

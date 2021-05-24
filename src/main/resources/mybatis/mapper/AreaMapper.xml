@@ -45,7 +45,7 @@
         where province_id = #{id}
     </update>
 
-    <insert id="saveCity" parameterType="com.bc.wechat.server.entity.area.City">
+    <insert id="addCity" parameterType="com.bc.wechat.server.entity.area.City">
         insert into t_area_city
         (
         city_id,
@@ -114,9 +114,32 @@
     </select>
 
     <select id="getCityCountByProvinceId" resultType="long">
-        select count(*) from t_area_city
+        select count(*)
+        from t_area_city
         where province_id = #{provinceId}
     </select>
+
+    <update id="updateCity" parameterType="com.bc.wechat.server.entity.area.Province">
+        update t_area_city
+        set city_name = #{name},
+        city_seq = #{seq}
+        where city_id = #{id}
+    </update>
+
+    <delete id="deleteCity" parameterType="String">
+        delete from t_area_city
+        where city_id = #{cityId}
+    </delete>
+
+    <update id="batchUpdateCitySeq" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update t_area_city
+            <set>
+                city_seq = ${item.seq}
+            </set>
+            where city_id = '${item.id}'
+        </foreach>
+    </update>
 
     <select id="getDistrictListByCityId" resultMap="District" parameterType="String">
         select *
