@@ -44,16 +44,6 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
-     * 删除省
-     *
-     * @param provinceId 省ID
-     */
-    @Override
-    public void deleteProvince(String provinceId) {
-        areaMapper.deleteProvince(provinceId);
-    }
-
-    /**
      * 批量更新省排序
      *
      * @param provinceList 省列表
@@ -64,23 +54,13 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
-     * 保存市
+     * 删除省
      *
-     * @param city 市
+     * @param provinceId 省ID
      */
     @Override
-    public void addCity(City city) {
-        areaMapper.addCity(city);
-    }
-
-    /**
-     * 保存区
-     *
-     * @param district 区
-     */
-    @Override
-    public void saveDistrict(District district) {
-        areaMapper.saveDistrict(district);
+    public void deleteProvince(String provinceId) {
+        areaMapper.deleteProvince(provinceId);
     }
 
     /**
@@ -118,14 +98,13 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
-     * 通过省ID获取市列表
+     * 保存市
      *
-     * @param provinceId 省ID
-     * @return 市列表
+     * @param city 市
      */
     @Override
-    public List<City> getCityListByProvinceId(String provinceId) {
-        return areaMapper.getCityListByProvinceId(provinceId);
+    public void addCity(City city) {
+        areaMapper.addCity(city);
     }
 
     /**
@@ -139,6 +118,16 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
+     * 批量更新市排序
+     *
+     * @param cityList 市列表
+     */
+    @Override
+    public void batchUpdateCitySeq(List<City> cityList) {
+        areaMapper.batchUpdateCitySeq(cityList);
+    }
+
+    /**
      * 删除市
      *
      * @param cityId 市ID
@@ -149,13 +138,14 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
-     * 批量更新市排序
+     * 通过省ID获取市列表
      *
-     * @param cityList 市列表
+     * @param provinceId 省ID
+     * @return 市列表
      */
     @Override
-    public void batchUpdateCitySeq(List<City> cityList) {
-        areaMapper.batchUpdateCitySeq(cityList);
+    public List<City> getCityListByProvinceId(String provinceId) {
+        return areaMapper.getCityListByProvinceId(provinceId);
     }
 
     /**
@@ -184,6 +174,46 @@ public class AreaServiceImpl implements AreaService {
     }
 
     /**
+     * 新增区县
+     *
+     * @param district 区县
+     */
+    @Override
+    public void addDistrict(District district) {
+        areaMapper.addDistrict(district);
+    }
+
+    /**
+     * 修改区县
+     *
+     * @param district 区县
+     */
+    @Override
+    public void updateDistrict(District district) {
+        areaMapper.updateDistrict(district);
+    }
+
+    /**
+     * 批量更新区县排序
+     *
+     * @param districtList 区县列表
+     */
+    @Override
+    public void batchUpdateDistrictSeq(List<District> districtList) {
+        areaMapper.batchUpdateDistrictSeq(districtList);
+    }
+
+    /**
+     * 删除区县
+     *
+     * @param districtId 区县ID
+     */
+    @Override
+    public void deleteDistrict(String districtId) {
+        areaMapper.deleteDistrict(districtId);
+    }
+
+    /**
      * 通过市ID获取区县列表
      *
      * @param cityId 市ID
@@ -192,6 +222,32 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public List<District> getDistrictListByCityId(String cityId) {
         return areaMapper.getDistrictListByCityId(cityId);
+    }
+
+    /**
+     * 通过市ID获取区县数量
+     *
+     * @param cityId 市ID
+     * @return 区县数量
+     */
+    @Override
+    public Long getDistrictCountByCityId(String cityId) {
+        return areaMapper.getDistrictCountByCityId(cityId);
+    }
+
+    /**
+     * 获取区县分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @param cityId   市ID
+     * @return 区县分页信息
+     */
+    @Override
+    public PageInfo<District> getDistrictPageInfo(int pageNum, int pageSize, String cityId) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<District> districtList = areaMapper.getDistrictListByCityId(cityId);
+        return new PageInfo<>(districtList);
     }
 
 }

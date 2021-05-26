@@ -33,7 +33,7 @@ public class CityController {
     /**
      * 新增市
      *
-     * @param provinceId 市ID
+     * @param provinceId 省ID
      * @param name       市名
      * @return 新增结果
      */
@@ -66,7 +66,7 @@ public class CityController {
      */
     @ApiOperation(value = "修改市", notes = "修改市")
     @PutMapping(value = "/{cityId}")
-    public ResponseEntity<String> updateProvince(
+    public ResponseEntity<String> updateCity(
             @PathVariable String cityId,
             @RequestParam String name,
             @RequestParam Float seq) {
@@ -92,7 +92,7 @@ public class CityController {
      */
     @ApiOperation(value = "查询市分页信息", notes = "查询市分页信息")
     @GetMapping(value = "")
-    public ResponseEntity<PageInfo<City>> getProvincePageInfo(
+    public ResponseEntity<PageInfo<City>> getCityPageInfo(
             @RequestParam String provinceId,
             @RequestParam Integer page,
             @RequestParam Integer limit) {
@@ -130,7 +130,7 @@ public class CityController {
     /**
      * 刷新市排序
      *
-     * @param provinceId 市ID
+     * @param provinceId 省ID
      * @return 刷新结果
      */
     @ApiOperation(value = "刷新市排序", notes = "刷新市排序")

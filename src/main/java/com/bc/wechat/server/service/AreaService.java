@@ -29,13 +29,6 @@ public interface AreaService {
     void updateProvince(Province province);
 
     /**
-     * 删除省
-     *
-     * @param provinceId 省ID
-     */
-    void deleteProvince(String provinceId);
-
-    /**
      * 批量更新省排序
      *
      * @param provinceList 省列表
@@ -43,39 +36,11 @@ public interface AreaService {
     void batchUpdateProvinceSeq(List<Province> provinceList);
 
     /**
-     * 新增市
+     * 删除省
      *
-     * @param city 市
+     * @param provinceId 省ID
      */
-    void addCity(City city);
-
-    /**
-     * 修改市
-     *
-     * @param city 市
-     */
-    void updateCity(City city);
-
-    /**
-     * 删除市
-     *
-     * @param cityId 市ID
-     */
-    void deleteCity(String cityId);
-
-    /**
-     * 批量更新市排序
-     *
-     * @param cityList 市列表
-     */
-    void batchUpdateCitySeq(List<City> cityList);
-
-    /**
-     * 保存区
-     *
-     * @param district 区
-     */
-    void saveDistrict(District district);
+    void deleteProvince(String provinceId);
 
     /**
      * 获取省列表
@@ -101,6 +66,34 @@ public interface AreaService {
     PageInfo<Province> getProvincePageInfo(int pageNum, int pageSize);
 
     /**
+     * 新增市
+     *
+     * @param city 市
+     */
+    void addCity(City city);
+
+    /**
+     * 修改市
+     *
+     * @param city 市
+     */
+    void updateCity(City city);
+
+    /**
+     * 批量更新市排序
+     *
+     * @param cityList 市列表
+     */
+    void batchUpdateCitySeq(List<City> cityList);
+
+    /**
+     * 删除市
+     *
+     * @param cityId 市ID
+     */
+    void deleteCity(String cityId);
+
+    /**
      * 通过省ID获取市列表
      *
      * @param provinceId 省ID
@@ -119,11 +112,40 @@ public interface AreaService {
     /**
      * 获取市分页信息
      *
-     * @param pageNum  当前分页数
-     * @param pageSize 分页大小
+     * @param provinceId 省ID
+     * @param pageNum    当前分页数
+     * @param pageSize   分页大小
      * @return 市分页信息
      */
     PageInfo<City> getCityPageInfo(int pageNum, int pageSize, String provinceId);
+
+    /**
+     * 保存区县
+     *
+     * @param district 区县
+     */
+    void addDistrict(District district);
+
+    /**
+     * 修改区县
+     *
+     * @param district 区县
+     */
+    void updateDistrict(District district);
+
+    /**
+     * 批量更新区县排序
+     *
+     * @param districtList 区县列表
+     */
+    void batchUpdateDistrictSeq(List<District> districtList);
+
+    /**
+     * 删除市
+     *
+     * @param districtId 区县ID
+     */
+    void deleteDistrict(String districtId);
 
     /**
      * 通过市ID获取区县列表
@@ -132,5 +154,23 @@ public interface AreaService {
      * @return 区县列表
      */
     List<District> getDistrictListByCityId(String cityId);
+
+    /**
+     * 通过市ID获取区县数量
+     *
+     * @param cityId 市ID
+     * @return 区县数量
+     */
+    Long getDistrictCountByCityId(String cityId);
+
+    /**
+     * 获取区县分页信息
+     *
+     * @param pageNum  当前分页数
+     * @param pageSize 分页大小
+     * @param cityId   市ID
+     * @return 区县分页信息
+     */
+    PageInfo<District> getDistrictPageInfo(int pageNum, int pageSize, String cityId);
 
 }

@@ -18,15 +18,21 @@ public class District {
     private String name;
     private String postCode;
     @JSONField(serialize = false)
-    private Integer seq;
+    private Float seq;
 
     public District() {
 
     }
 
-    public District(String cityId, String name, String postCode, Integer seq) {
+    public District(String cityId, String name, String postCode, Float seq) {
         this.id = CommonUtil.generateId();
         this.cityId = cityId;
+        this.name = name;
+        this.postCode = postCode;
+        this.seq = seq;
+    }
+
+    public District(String name, String postCode, Float seq) {
         this.name = name;
         this.postCode = postCode;
         this.seq = seq;
@@ -64,11 +70,11 @@ public class District {
         this.postCode = postCode;
     }
 
-    public Integer getSeq() {
+    public Float getSeq() {
         return seq;
     }
 
-    public void setSeq(Integer seq) {
+    public void setSeq(Float seq) {
         this.seq = seq;
     }
 }

@@ -28,18 +28,18 @@ public interface AreaMapper {
     void updateProvince(Province province);
 
     /**
-     * 新增市
+     * 批量更新省排序
      *
-     * @param city 市
+     * @param provinceList 省列表
      */
-    void addCity(City city);
+    void batchUpdateProvinceSeq(List<Province> provinceList);
 
     /**
-     * 保存区
+     * 删除省
      *
-     * @param district 区
+     * @param provinceId 省ID
      */
-    void saveDistrict(District district);
+    void deleteProvince(String provinceId);
 
     /**
      * 获取省列表
@@ -56,18 +56,32 @@ public interface AreaMapper {
     Long getProvinceCount();
 
     /**
-     * 删除省
+     * 新增市
      *
-     * @param provinceId 省ID
+     * @param city 市
      */
-    void deleteProvince(String provinceId);
+    void addCity(City city);
 
     /**
-     * 批量更新省排序
+     * 修改市
      *
-     * @param provinceList 省列表
+     * @param city 市
      */
-    void batchUpdateProvinceSeq(List<Province> provinceList);
+    void updateCity(City city);
+
+    /**
+     * 批量更新市排序
+     *
+     * @param cityList 市列表
+     */
+    void batchUpdateCitySeq(List<City> cityList);
+
+    /**
+     * 删除市
+     *
+     * @param cityId 市ID
+     */
+    void deleteCity(String cityId);
 
     /**
      * 通过省ID获取市列表
@@ -80,30 +94,38 @@ public interface AreaMapper {
     /**
      * 通过省ID获取市数量
      *
+     * @param provinceId 省ID
      * @return 市数量
      */
     Long getCityCountByProvinceId(String provinceId);
 
     /**
-     * 修改市
+     * 保存区县
      *
-     * @param city 市
+     * @param district 区县
      */
-    void updateCity(City city);
+    void addDistrict(District district);
 
     /**
-     * 删除市
+     * 修改区县
      *
-     * @param cityId 市ID
+     * @param district 区县
      */
-    void deleteCity(String cityId);
+    void updateDistrict(District district);
 
     /**
-     * 批量更新市排序
+     * 批量更新区县排序
      *
-     * @param cityList 市列表
+     * @param districtList 区县列表
      */
-    void batchUpdateCitySeq(List<City> cityList);
+    void batchUpdateDistrictSeq(List<District> districtList);
+
+    /**
+     * 删除区县
+     *
+     * @param districtId 区县ID
+     */
+    void deleteDistrict(String districtId);
 
     /**
      * 通过市ID获取区县列表
@@ -112,5 +134,13 @@ public interface AreaMapper {
      * @return 区县列表
      */
     List<District> getDistrictListByCityId(String cityId);
+
+    /**
+     * 通过市ID获取区县数量
+     *
+     * @param cityId 市ID
+     * @return 区县数量
+     */
+    Long getDistrictCountByCityId(String cityId);
 
 }
