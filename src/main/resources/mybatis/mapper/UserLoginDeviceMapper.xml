@@ -52,4 +52,9 @@
         where device_id = #{deviceId}
     </update>
 
+    <delete id="deleteUserLoginDeviceByDeviceId" parameterType="String">
+        delete from t_user_login_device
+        where device_id = #{deviceId}
+    </delete>
+
 </mapper>

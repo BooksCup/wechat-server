@@ -50,4 +50,14 @@ public class UserLoginDeviceServiceImpl implements UserLoginDeviceService {
         userLoginDeviceMapper.updateUserLoginDevice(userLoginDevice);
     }
 
+    /**
+     * 根据设备ID删除用户登录设备信息
+     *
+     * @param deviceId 设备ID
+     */
+    @Override
+    public void deleteUserLoginDeviceByDeviceId(String deviceId) {
+        userLoginDeviceMapper.deleteUserLoginDeviceByDeviceId(deviceId);
+    }
+
 }

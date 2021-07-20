@@ -32,4 +32,12 @@ public interface UserLoginDeviceMapper {
      * @param userLoginDevice 用户登录设备信息
      */
     void updateUserLoginDevice(UserLoginDevice userLoginDevice);
+
+    /**
+     * 根据设备ID删除用户登录设备信息
+     *
+     * @param deviceId 设备ID
+     */
+    void deleteUserLoginDeviceByDeviceId(String deviceId);
+
 }

@@ -77,4 +77,25 @@ public class UserDeviceController {
         return responseEntity;
     }
 
+    /**
+     * 删除登录设备信息
+     *
+     * @param deviceId 登录设备ID
+     * @return ResponseEntity
+     */
+    @ApiOperation(value = "删除登录设备信息", notes = "删除登录设备信息")
+    @DeleteMapping(value = "/{userId}/devices/{deviceId}")
+    public ResponseEntity<String> deleteDevice(
+            @PathVariable String deviceId) {
+        ResponseEntity<String> responseEntity;
+        try {
+            userLoginDeviceService.deleteUserLoginDeviceByDeviceId(deviceId);
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_SUCCESS.getResponseCode(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error("[deleteDevice] error: " + e.getMessage());
+            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_SUCCESS.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
 }
