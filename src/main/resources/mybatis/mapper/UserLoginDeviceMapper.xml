@@ -4,27 +4,27 @@
 
     <resultMap id="userLoginDevice" type="com.bc.wechat.server.entity.UserLoginDevice">
         <id column="device_id" property="deviceId" jdbcType="VARCHAR"/>
-        <result column="device_user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="device_phone_brand" property="phoneBrand" jdbcType="VARCHAR"/>
-        <result column="device_phone_model" property="phoneModel" jdbcType="VARCHAR"/>
-        <result column="device_phone_model_alias" property="phoneModelAlias" jdbcType="VARCHAR"/>
-        <result column="device_os" property="os" jdbcType="VARCHAR"/>
-        <result column="device_resolution" property="resolution" jdbcType="BIGINT"/>
-        <result column="device_operator" property="operator" jdbcType="VARCHAR"/>
-        <result column="device_login_time" property="loginTime" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="phone_brand" property="phoneBrand" jdbcType="VARCHAR"/>
+        <result column="phone_model" property="phoneModel" jdbcType="VARCHAR"/>
+        <result column="phone_model_alias" property="phoneModelAlias" jdbcType="VARCHAR"/>
+        <result column="os" property="os" jdbcType="VARCHAR"/>
+        <result column="resolution" property="resolution" jdbcType="BIGINT"/>
+        <result column="operator" property="operator" jdbcType="VARCHAR"/>
+        <result column="login_time" property="loginTime" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="addUserLoginDevice" parameterType="com.bc.wechat.server.entity.UserLoginDevice">
         insert into t_user_login_device
         (
         device_id,
-        device_user_id,
-        device_phone_brand,
-        device_phone_model,
-        device_os,
-        device_resolution,
-        device_operator,
-        device_login_time
+        user_id,
+        phone_brand,
+        phone_model,
+        os,
+        resolution,
+        operator,
+        login_time
         )
         values
         (
@@ -42,13 +42,13 @@
     <select id="getUserLoginDeviceListByUserId" resultMap="userLoginDevice" parameterType="String">
         select *
         from t_user_login_device
-        where device_user_id = #{userId}
-        order by device_login_time desc
+        where user_id = #{userId}
+        order by login_time desc
     </select>
 
     <update id="updateUserLoginDevice" parameterType="com.bc.wechat.server.entity.UserLoginDevice">
         update t_user_login_device
-        set device_phone_model_alias = #{phoneModelAlias}
+        set phone_model_alias = #{phoneModelAlias}
         where device_id = #{deviceId}
     </update>
 

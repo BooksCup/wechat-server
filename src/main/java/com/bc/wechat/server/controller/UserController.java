@@ -1,6 +1,5 @@
 package com.bc.wechat.server.controller;
 
-
 import java.util.*;
 
 import cn.jmessage.api.JMessageClient;
@@ -24,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * 用户控制器
+ * 用户
  *
  * @author zhou
  */
@@ -47,13 +46,13 @@ public class UserController {
     private MomentsService momentsService;
 
     @Resource
-    private AddressService addressService;
+    AddressService addressService;
+
+    @Resource
+    UserLoginDeviceService userLoginDeviceService;
 
     @Resource
     private SysLogService sysLogService;
-
-    @Resource
-    private UserLoginDeviceService userLoginDeviceService;
 
     @Resource
     private FriendApplyService friendApplyService;
@@ -75,7 +74,6 @@ public class UserController {
             @RequestParam(required = false) String otherAccount,
             @RequestParam(required = false) String deviceInfo) {
         ResponseEntity<User> responseEntity;
-        logger.info("[login] phone: " + phone);
         List<User> userList = userService.getUserByLogin(loginType, phone, password, verificationCode, otherAccount);
 
         StringBuffer sysLogBuffer = new StringBuffer();
@@ -162,10 +160,10 @@ public class UserController {
                     0, "", "", user.getUserAvatar());
 
             // 添加默认好友
-            friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_WEIXIN,
-                    "", "", "", "", "");
-            friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_FILEHELPER,
-                    "", "", "", "", "");
+//            friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_WEIXIN,
+//                    "", "", "", "", "");
+//            friendApplyService.makeFriends(user.getUserId(), Constant.SPECIAL_USER_ID_FILEHELPER,
+//                    "", "", "", "", "");
 
             // 添加自己
             friendApplyService.makeFriends(user.getUserId(), user.getUserId(),
@@ -823,171 +821,6 @@ public class UserController {
     }
 
     /**
-     * 获取用户的地址列表
-     *
-     * @param userId 用户ID
-     * @return 地址列表
-     */
-    @ApiOperation(value = "获取用户的地址列表", notes = "获取用户的地址列表")
-    @GetMapping(value = "/{userId}/address")
-    public ResponseEntity<List<Address>> getAddressListByUserId(
-            @PathVariable String userId) {
-        ResponseEntity<List<Address>> responseEntity;
-        try {
-            List<Address> addressList = addressService.getAddressListByUserId(userId);
-            responseEntity = new ResponseEntity<>(addressList, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[getAddressListByUserId] error: " + e.getMessage());
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 保存地址
-     *
-     * @param userId          用户ID
-     * @param addressName     收货人
-     * @param addressPhone    手机号码
-     * @param addressProvince 地区信息-省
-     * @param addressCity     地区信息-市
-     * @param addressDistrict 地区信息-区
-     * @param addressDetail   详细地址
-     * @param addressPostCode 邮政编码
-     * @return
-     */
-    @ApiOperation(value = "保存地址", notes = "保存地址")
-    @PostMapping(value = "/{userId}/address")
-    public ResponseEntity<String> addAddress(
-            @PathVariable String userId,
-            @RequestParam String addressName,
-            @RequestParam String addressPhone,
-            @RequestParam String addressProvince,
-            @RequestParam String addressCity,
-            @RequestParam String addressDistrict,
-            @RequestParam String addressDetail,
-            @RequestParam(required = false) String addressPostCode) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Address address = new Address(userId, addressName, addressPhone, addressProvince,
-                    addressCity, addressDistrict, addressDetail, addressPostCode);
-            logger.info("[addAddress] address: " + address);
-            addressService.addAddress(address);
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[addAddress] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 修改地址
-     *
-     * @param userId          用户ID
-     * @param addressId       地址ID
-     * @param addressName     收货人
-     * @param addressPhone    手机号码
-     * @param addressProvince 地区信息-省
-     * @param addressCity     地区信息-市
-     * @param addressDistrict 地区信息-区
-     * @param addressDetail   详细地址
-     * @param addressPostCode 邮政编码
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "修改地址", notes = "修改地址")
-    @PutMapping(value = "/{userId}/address/{addressId}")
-    public ResponseEntity<String> modifyAddress(
-            @PathVariable String userId,
-            @PathVariable String addressId,
-            @RequestParam String addressName,
-            @RequestParam String addressPhone,
-            @RequestParam String addressProvince,
-            @RequestParam String addressCity,
-            @RequestParam String addressDistrict,
-            @RequestParam String addressDetail,
-            @RequestParam(required = false) String addressPostCode) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Address address = new Address(userId, addressId, addressName, addressPhone, addressProvince,
-                    addressCity, addressDistrict, addressDetail, addressPostCode);
-            logger.info("[modifyAddress] address: " + address);
-            addressService.modifyAddress(address);
-            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[modifyAddress] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 修改地址
-     *
-     * @param addressId 地址ID
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "删除地址", notes = "删除地址")
-    @DeleteMapping(value = "/{userId}/address/{addressId}")
-    public ResponseEntity<String> deleteAddress(
-            @PathVariable String addressId) {
-        ResponseEntity<String> responseEntity;
-        try {
-            logger.info("[deleteAddress] addressId: " + addressId);
-            addressService.deleteAddress(addressId);
-            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_USER_ADDRESS_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[deleteAddress] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_USER_ADDRESS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 获取用户的登录设备信息列表
-     *
-     * @param userId 用户ID
-     * @return 登录设备信息列表
-     */
-    @ApiOperation(value = "获取用户的登录设备信息列表", notes = "获取用户的登录设备信息列表")
-    @GetMapping(value = "/{userId}/devices")
-    public ResponseEntity<List<UserLoginDevice>> getDeviceInfoListByUserId(
-            @PathVariable String userId) {
-        ResponseEntity<List<UserLoginDevice>> responseEntity;
-        try {
-            List<UserLoginDevice> userLoginDeviceList = userLoginDeviceService.getUserLoginDeviceListByUserId(userId);
-            responseEntity = new ResponseEntity<>(userLoginDeviceList, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[getDeviceInfoListByUserId] error: " + e.getMessage());
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    @ApiOperation(value = "修改登录设备信息", notes = "修改登录设备信息")
-    @PutMapping(value = "/{userId}/devices/{deviceId}")
-    public ResponseEntity<String> modifyDevice(
-            @PathVariable String deviceId,
-            @RequestParam String phoneModelAlias) {
-        ResponseEntity<String> responseEntity;
-        try {
-            logger.info("[modifyDevice] deviceId: " + deviceId + ", phoneModelAlias: " + phoneModelAlias);
-            UserLoginDevice userLoginDevice = new UserLoginDevice();
-            userLoginDevice.setDeviceId(deviceId);
-            userLoginDevice.setPhoneModelAlias(phoneModelAlias);
-            userLoginDeviceService.updateUserLoginDevice(userLoginDevice);
-
-            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_DEVICE_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[modifyDevice] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.MODIFY_DEVICE_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
      * 绑定邮箱
      * ps:只是做个流程，不然需要做链接加密，时间戳认证etc
      *
@@ -1270,4 +1103,5 @@ public class UserController {
         }
         return responseEntity;
     }
+
 }

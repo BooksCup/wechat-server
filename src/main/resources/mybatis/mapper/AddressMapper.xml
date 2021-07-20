@@ -5,15 +5,15 @@
     <resultMap id="address" type="com.bc.wechat.server.entity.Address">
         <id column="address_id" property="addressId" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="address_name" property="addressName" jdbcType="VARCHAR"/>
-        <result column="address_phone" property="addressPhone" jdbcType="VARCHAR"/>
-        <result column="address_province" property="addressProvince" jdbcType="VARCHAR"/>
-        <result column="address_city" property="addressCity" jdbcType="BIGINT"/>
-        <result column="address_district" property="addressDistrict" jdbcType="VARCHAR"/>
-        <result column="address_detail" property="addressDetail" jdbcType="VARCHAR"/>
-        <result column="address_post_code" property="addressPostCode" jdbcType="VARCHAR"/>
-        <result column="address_create_time" property="createTime" jdbcType="VARCHAR"/>
-        <result column="address_modify_time" property="modifyTime" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="province" property="province" jdbcType="VARCHAR"/>
+        <result column="city" property="city" jdbcType="BIGINT"/>
+        <result column="district" property="district" jdbcType="VARCHAR"/>
+        <result column="detail" property="detail" jdbcType="VARCHAR"/>
+        <result column="post_code" property="postCode" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="modify_time" property="modifyTime" jdbcType="VARCHAR"/>
     </resultMap>
 
     <insert id="addAddress" parameterType="com.bc.wechat.server.entity.Address">
@@ -21,27 +21,27 @@
         (
         address_id,
         user_id,
-        address_name,
-        address_phone,
-        address_province,
-        address_city,
-        address_district,
-        address_detail,
-        address_post_code,
-        address_create_time,
-        address_modify_time
+        name,
+        phone,
+        province,
+        city,
+        district,
+        detail,
+        post_code,
+        create_time,
+        modify_time
         )
         values
         (
         #{addressId},
         #{userId},
-        #{addressName},
-        #{addressPhone},
-        #{addressProvince},
-        #{addressCity},
-        #{addressDistrict},
-        #{addressDetail},
-        #{addressPostCode},
+        #{name},
+        #{phone},
+        #{province},
+        #{city},
+        #{district},
+        #{detail},
+        #{postCode},
         now(),
         now()
         )
@@ -49,20 +49,20 @@
 
     <update id="modifyAddress" parameterType="com.bc.wechat.server.entity.Address">
         update t_user_address
-        set address_name = #{addressName},
-        address_phone = #{addressPhone},
-        <if test="addressProvince != null and addressProvince != ''">
-            address_province = #{addressProvince},
+        set name = #{name},
+        phone = #{phone},
+        <if test="province != null and province != ''">
+            province = #{province},
         </if>
-        <if test="addressCity!=null and addressCity != ''">
-            address_city = #{addressCity},
+        <if test="city!=null and city != ''">
+            city = #{city},
         </if>
-        <if test="addressProvince != null and addressProvince != ''">
-            address_district = #{addressDistrict},
+        <if test="district != null and district != ''">
+            district = #{district},
         </if>
-        address_detail = #{addressDetail},
-        address_post_code = #{addressPostCode},
-        address_modify_time = now()
+        detail = #{detail},
+        post_code = #{postCode},
+        modify_time = now()
         where address_id = #{addressId}
     </update>
 
@@ -70,11 +70,12 @@
         select *
         from t_user_address
         where user_id = #{userId}
-        order by address_modify_time desc
+        order by modify_time desc
     </select>
 
     <delete id="deleteAddress" parameterType="String">
         delete from t_user_address
         where address_id = #{addressId}
     </delete>
+
 </mapper>

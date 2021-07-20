@@ -113,4 +113,5 @@ public class UserLoginDevice {
     public void setLoginTime(String loginTime) {
         this.loginTime = loginTime;
     }
+
 }

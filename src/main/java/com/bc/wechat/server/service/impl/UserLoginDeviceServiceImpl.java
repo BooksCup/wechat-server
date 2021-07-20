@@ -30,7 +30,6 @@ public class UserLoginDeviceServiceImpl implements UserLoginDeviceService {
         return userLoginDeviceMapper.getUserLoginDeviceListByUserId(userId);
     }
 
-
     /**
      * 新增用户登录设备信息
      *
@@ -50,4 +49,5 @@ public class UserLoginDeviceServiceImpl implements UserLoginDeviceService {
     public void updateUserLoginDevice(UserLoginDevice userLoginDevice) {
         userLoginDeviceMapper.updateUserLoginDevice(userLoginDevice);
     }
+
 }

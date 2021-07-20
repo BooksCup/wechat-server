@@ -32,4 +32,5 @@ public interface UserLoginDeviceService {
      * @param userLoginDevice 用户登录设备信息
      */
     void updateUserLoginDevice(UserLoginDevice userLoginDevice);
+    
 }
