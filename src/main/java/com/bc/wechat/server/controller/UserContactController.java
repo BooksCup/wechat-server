@@ -287,7 +287,7 @@ public class UserContactController {
     @PostMapping(value = "/{userId}/contacts/{contactUserId}/tags")
     public ResponseEntity<String> saveUserContactTags(
             @PathVariable String userId,
-            @RequestParam String contactUserId,
+            @PathVariable String contactUserId,
             @RequestParam String contactTags,
             @RequestParam String tags) {
         ResponseEntity<String> responseEntity;

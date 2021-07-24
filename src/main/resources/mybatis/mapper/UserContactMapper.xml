@@ -87,20 +87,20 @@
         )
     </insert>
 
-    <update id="updateUserRela" parameterType="com.bc.wechat.server.entity.UserContact">
-        update t_user_rela
+    <update id="updateUserContact" parameterType="com.bc.wechat.server.entity.UserContact">
+        update t_user_contact
         set
-        <if test="relaStatus != null and relaStatus !=''">
-            rela_status = #{relaStatus},
+        <if test="status != null and status !=''">
+            status = #{status},
         </if>
-        <if test="relaContactFrom != null and relaContactFrom !=''">
-            rela_contact_from = #{relaContactFrom},
+        <if test="contactFrom != null and contactFrom !=''">
+            contact_from = #{contactFrom},
         </if>
-        rela_contact_mobiles = #{relaContactMobiles},
-        rela_contact_alias = #{relaContactAlias},
-        rela_contact_desc = #{relaContactDesc},
-        rela_update_time = now()
-        where rela_id = #{relaId}
+        contact_alias = #{contactAlias},
+        contact_mobiles = #{contactMobiles},
+        contact_desc = #{contactDesc},
+        modify_time = now()
+        where contact_id = #{contactId}
     </update>
 
     <update id="saveContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
@@ -168,12 +168,12 @@
         )
     </insert>
 
-    <update id="updateUserRelaTags" parameterType="com.bc.wechat.server.entity.UserContact">
-        update t_user_rela
+    <update id="updateUserContactTags" parameterType="com.bc.wechat.server.entity.UserContact">
+        update t_user_contact
         set
-        rela_contact_tags = #{relaContactTags},
-        rela_update_time = now()
-        where rela_id = #{relaId}
+        contact_tags = #{contactTags},
+        modify_time = now()
+        where contact_id = #{contactId}
     </update>
 
     <update id="setContactStarred" parameterType="map">
