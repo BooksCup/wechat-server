@@ -177,11 +177,11 @@
     </update>
 
     <update id="setContactStarred" parameterType="map">
-        update t_user_rela
+        update t_user_contact
         set
-        rela_is_starred = #{isStarred}
-        where rela_user_id = #{userId}
-        and rela_contact_id = #{contactId}
+        is_starred = #{isStarred}
+        where user_id = #{userId}
+        and contact_user_id = #{contactUserId}
     </update>
 
     <update id="setContactBlocked" parameterType="map">
