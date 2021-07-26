@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bc.wechat.server.mapper.UserRelaMapper">
-    <resultMap id="UserRela" type="com.bc.wechat.server.entity.UserRela">
-        <id column="rela_id" property="relaId" jdbcType="VARCHAR"/>
-        <result column="rela_user_id" property="relaUserId" jdbcType="VARCHAR"/>
-        <result column="rela_contact_id" property="relaContactId" jdbcType="VARCHAR"/>
-        <result column="rela_create_time" property="relaCreateTime" jdbcType="VARCHAR"/>
+<mapper namespace="com.bc.wechat.server.mapper.UserContactMapper">
 
-        <result column="rela_contact_alias" property="relaContactAlias" jdbcType="VARCHAR"/>
-        <result column="rela_contact_tags" property="relaContactTags" jdbcType="VARCHAR"/>
-        <result column="rela_contact_mobiles" property="relaContactMobiles" jdbcType="VARCHAR"/>
-        <result column="rela_contact_desc" property="relaContactDesc" jdbcType="VARCHAR"/>
+    <resultMap id="UserContact" type="com.bc.wechat.server.entity.UserContact">
+        <id column="contact_id" property="contactId" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="contact_user_id" property="contactUserId" jdbcType="VARCHAR"/>
 
-        <result column="rela_contact_from" property="relaContactFrom" jdbcType="VARCHAR"/>
+        <result column="contact_alias" property="contactAlias" jdbcType="VARCHAR"/>
+        <result column="contact_tags" property="contactTags" jdbcType="VARCHAR"/>
+        <result column="contact_mobiles" property="contactMobiles" jdbcType="VARCHAR"/>
+        <result column="contact_desc" property="contactDesc" jdbcType="VARCHAR"/>
 
-        <result column="rela_privacy" property="relaPrivacy" jdbcType="VARCHAR"/>
-        <result column="rela_hide_my_posts" property="relaHideMyPosts" jdbcType="VARCHAR"/>
-        <result column="rela_hide_his_posts" property="relaHideHisPosts" jdbcType="VARCHAR"/>
+        <result column="contact_from" property="contactFrom" jdbcType="VARCHAR"/>
 
-        <result column="rela_is_starred" property="relaIsStarred" jdbcType="VARCHAR"/>
-        <result column="rela_is_blocked" property="relaIsBlocked" jdbcType="VARCHAR"/>
+        <result column="privacy" property="privacy" jdbcType="VARCHAR"/>
+        <result column="hide_my_posts" property="hideMyPosts" jdbcType="VARCHAR"/>
+        <result column="hide_his_posts" property="hideHisPosts" jdbcType="VARCHAR"/>
+
+        <result column="is_starred" property="isStarred" jdbcType="VARCHAR"/>
+        <result column="is_blocked" property="isBlocked" jdbcType="VARCHAR"/>
+
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
     </resultMap>
 
     <resultMap id="User" type="com.bc.wechat.server.entity.User">
@@ -41,18 +43,18 @@
         <result column="rela_is_blocked" property="isBlocked" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="getUserRelaListByUserIdAndContactId" resultMap="UserRela" parameterType="map">
+    <select id="getUserContactListByUserIdAndContactUserId" resultMap="UserContact" parameterType="map">
         select
         *
-        from t_user_rela
-        where rela_user_id = #{userId}
-        and rela_contact_id = #{contactId}
+        from t_user_contact
+        where user_id = #{userId}
+        and contact_user_id = #{contactUserId}
         <if test="status != null and '' != status">
-            and rela_status = #{status}
+            and status = #{status}
         </if>
     </select>
 
-    <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserRela">
+    <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserContact">
         insert into t_user_rela
         (
         rela_id,
@@ -85,7 +87,7 @@
         )
     </insert>
 
-    <update id="updateUserRela" parameterType="com.bc.wechat.server.entity.UserRela">
+    <update id="updateUserRela" parameterType="com.bc.wechat.server.entity.UserContact">
         update t_user_rela
         set
         <if test="relaStatus != null and relaStatus !=''">
@@ -101,7 +103,7 @@
         where rela_id = #{relaId}
     </update>
 
-    <update id="setContactPrivacy" parameterType="com.bc.wechat.server.entity.UserRela">
+    <update id="setContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
         update t_user_rela
         set
         <if test="relaPrivacy != null and relaPrivacy !=''">
@@ -117,7 +119,7 @@
         where rela_id = #{relaId}
     </update>
 
-    <update id="updateContactPrivacy" parameterType="com.bc.wechat.server.entity.UserRela">
+    <update id="updateContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
         update t_user_rela
         set
         rela_contact_from = #{relaContactFrom},
@@ -140,12 +142,12 @@
     </select>
 
     <update id="deleteContact" parameterType="map">
-        delete from t_user_rela
-        where rela_user_id = #{userId}
-        and rela_contact_id = #{contactId}
+        delete from t_user_contact
+        where user_id = #{userId}
+        and contact_user_id = #{contactUserId}
     </update>
 
-    <insert id="addUserRelaTags" parameterType="com.bc.wechat.server.entity.UserRela">
+    <insert id="addUserRelaTags" parameterType="com.bc.wechat.server.entity.UserContact">
         insert into t_user_rela
         (
         rela_id,
@@ -166,7 +168,7 @@
         )
     </insert>
 
-    <update id="updateUserRelaTags" parameterType="com.bc.wechat.server.entity.UserRela">
+    <update id="updateUserRelaTags" parameterType="com.bc.wechat.server.entity.UserContact">
         update t_user_rela
         set
         rela_contact_tags = #{relaContactTags},

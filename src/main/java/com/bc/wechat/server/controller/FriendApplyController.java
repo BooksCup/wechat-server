@@ -7,7 +7,7 @@ import com.bc.wechat.server.entity.FriendApply;
 import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.FriendApplyService;
-import com.bc.wechat.server.service.UserRelaService;
+import com.bc.wechat.server.service.UserContactService;
 import com.bc.wechat.server.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -38,7 +38,7 @@ public class FriendApplyController {
     private FriendApplyService friendApplyService;
 
     @Resource
-    private UserRelaService userRelaService;
+    private UserContactService userRelaService;
 
     @Resource
     private JpushBiz jpushBiz;
@@ -46,14 +46,14 @@ public class FriendApplyController {
     /**
      * 新增好友申请
      *
-     * @param fromUserId       申请者用户ID
-     * @param toUserId         接受者用户ID
-     * @param applyRemark      申请备注
-     * @param relaContactFrom  好友来源
-     * @param relaContactAlias 好友备注
-     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
-     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
-     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
+     * @param fromUserId   申请者用户ID
+     * @param toUserId     接受者用户ID
+     * @param applyRemark  申请备注
+     * @param contactFrom  好友来源
+     * @param contactAlias 好友备注
+     * @param privacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+     * @param hideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+     * @param hideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
      * @return
      */
     @ApiOperation(value = "新增好友申请", notes = "新增好友申请")
@@ -62,20 +62,17 @@ public class FriendApplyController {
             @RequestParam String fromUserId,
             @RequestParam String toUserId,
             @RequestParam String applyRemark,
-            @RequestParam(required = false) String relaContactFrom,
-            @RequestParam(required = false) String relaContactAlias,
-            @RequestParam(required = false, defaultValue = Constant.PRIVACY_CHATS_MOMENTS_WERUN_ETC) String relaPrivacy,
-            @RequestParam(required = false, defaultValue = Constant.SHOW_MY_POSTS) String relaHideMyPosts,
-            @RequestParam(required = false, defaultValue = Constant.SHOW_HIS_POSTS) String relaHideHisPosts) {
-        logger.info("[addFriendApply], fromUserId: " + fromUserId + ", toUserId: " + toUserId + ", relaContactFrom: " + relaContactFrom
-                + ", relaContactAlias: " + relaContactAlias + ", relaPrivacy: " + relaPrivacy
-                + ", relaHideMyPosts: " + relaHideMyPosts + ", relaHideHisPosts: " + relaHideHisPosts);
+            @RequestParam(required = false) String contactFrom,
+            @RequestParam(required = false) String contactAlias,
+            @RequestParam(required = false, defaultValue = Constant.PRIVACY_CHATS_MOMENTS_WERUN_ETC) String privacy,
+            @RequestParam(required = false, defaultValue = Constant.SHOW_MY_POSTS) String hideMyPosts,
+            @RequestParam(required = false, defaultValue = Constant.SHOW_HIS_POSTS) String hideHisPosts) {
         ResponseEntity<String> responseEntity;
         FriendApply friendApply = new FriendApply(fromUserId, toUserId, applyRemark);
         try {
             friendApplyService.addFriendApply(friendApply);
-            userRelaService.addSingleUserRelaByFriendApply(fromUserId, toUserId, relaContactFrom, relaContactAlias,
-                    relaPrivacy, relaHideMyPosts, relaHideHisPosts);
+            userRelaService.addSingleUserContactByFriendApply(fromUserId, toUserId, contactFrom, contactAlias,
+                    privacy, hideMyPosts, hideHisPosts);
 
             User user = userService.getUserByUserId(fromUserId);
             String alert = user.getUserNickName() + "请求加你为好友";
@@ -89,7 +86,7 @@ public class FriendApplyController {
 
             friendApply.setFromUserSign(user.getUserSign());
             friendApply.setFromUserLastestMomentsPhotos(user.getUserLastestMomentsPhotos());
-            friendApply.setFromUserFrom(relaContactFrom);
+            friendApply.setFromUserFrom(contactFrom);
 
             extras.put("friendApply", JSON.toJSONString(friendApply));
 

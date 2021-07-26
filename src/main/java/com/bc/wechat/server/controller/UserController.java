@@ -40,7 +40,7 @@ public class UserController {
     private UserService userService;
 
     @Resource
-    private UserRelaService userRelaService;
+    private UserContactService userContactService;
 
     @Resource
     private MomentsService momentsService;
@@ -87,7 +87,7 @@ public class UserController {
             sysLogService.addSysLog(new SysLog(Constant.SYS_LOG_TYPE_LOG_IN, sysLogBuffer.toString()));
         } else {
             User user = userList.get(0);
-            List<User> contactList = userRelaService.getContactList(user.getUserId());
+            List<User> contactList = userContactService.getContactList(user.getUserId());
             user.setContactList(contactList);
 
             responseEntity = new ResponseEntity<>(user,
@@ -169,7 +169,7 @@ public class UserController {
             friendApplyService.makeFriends(user.getUserId(), user.getUserId(),
                     "", "", "", "", "");
 
-            List<User> friendList = userRelaService.getContactList(user.getUserId());
+            List<User> friendList = userContactService.getContactList(user.getUserId());
             user.setContactList(friendList);
 
             responseEntity = new ResponseEntity<>(user,
@@ -409,9 +409,9 @@ public class UserController {
             User user = userList.get(0);
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("contactId", user.getUserId());
+            paramMap.put("contactUserId", user.getUserId());
             paramMap.put("status", Constant.RELA_STATUS_FRIEND);
-            boolean isFriend = userRelaService.checkIsFriend(paramMap);
+            boolean isFriend = userContactService.checkIsFriend(paramMap);
             if (isFriend) {
                 user.setIsFriend(Constant.IS_FRIEND);
             } else {
@@ -428,13 +428,13 @@ public class UserController {
             paramMap.clear();
             paramMap.put("userId", userId);
             paramMap.put("contactId", user.getUserId());
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
-            if (!CollectionUtils.isEmpty(userRelaList)) {
-                UserRela userRela = userRelaList.get(0);
-                user.setUserContactAlias(userRela.getRelaContactAlias());
-                user.setUserContactTags(userRela.getRelaContactTags());
-                user.setUserContactMobiles(userRela.getRelaContactMobiles());
-                user.setUserContactDesc(userRela.getRelaContactDesc());
+            List<UserContact> userContactList = userContactService.getUserContactListByUserIdAndContactUserId(paramMap);
+            if (!CollectionUtils.isEmpty(userContactList)) {
+                UserContact userContact = userContactList.get(0);
+                user.setUserContactAlias(userContact.getContactAlias());
+                user.setUserContactTags(userContact.getContactTags());
+                user.setUserContactMobiles(userContact.getContactMobiles());
+                user.setUserContactDesc(userContact.getContactDesc());
             }
             responseEntity = new ResponseEntity<>(user,
                     HttpStatus.OK);
@@ -576,246 +576,6 @@ public class UserController {
             logger.error("[updateUserMomentsCover] error: " + e.getMessage());
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.UPDATE_USER_MOMENTS_COVER_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 删除联系人
-     *
-     * @param userId    用户ID
-     * @param contactId 联系人ID
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "删除联系人", notes = "删除联系人")
-    @DeleteMapping(value = "/{userId}/contacts/{contactId}")
-    public ResponseEntity<String> deleteContact(
-            @PathVariable String userId,
-            @PathVariable String contactId) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-            userRelaService.deleteContact(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_CONTACT_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[deleteContact] error: " + e.getMessage());
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.DELETE_CONTACT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 根据ID获取联系人详情
-     *
-     * @param userId    用户ID
-     * @param contactId 联系人ID
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "根据ID获取联系人详情", notes = "根据ID获取联系人详情")
-    @GetMapping(value = "/{userId}/contacts/{contactId}")
-    public ResponseEntity<User> getContactById(
-            @PathVariable String userId,
-            @PathVariable String contactId) {
-        ResponseEntity<User> responseEntity;
-        try {
-            User contact = userService.getUserByUserId(contactId);
-
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contact.getUserId());
-            paramMap.put("status", Constant.RELA_STATUS_FRIEND);
-
-            boolean isFriend = userRelaService.checkIsFriend(paramMap);
-            if (isFriend) {
-                contact.setIsFriend(Constant.IS_FRIEND);
-            } else {
-                contact.setIsFriend(Constant.IS_NOT_FRIEND);
-            }
-
-            paramMap.clear();
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contact.getUserId());
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
-
-            if (!CollectionUtils.isEmpty(userRelaList)) {
-                UserRela userRela = userRelaList.get(0);
-                // 来源
-                contact.setUserContactFrom(userRela.getRelaContactFrom());
-
-                // 备注和标签
-                contact.setUserContactAlias(userRela.getRelaContactAlias());
-                contact.setUserContactTags(userRela.getRelaContactTags());
-                contact.setUserContactMobiles(userRela.getRelaContactMobiles());
-                contact.setUserContactDesc(userRela.getRelaContactDesc());
-
-                // 权限
-                contact.setUserContactPrivacy(userRela.getRelaPrivacy());
-                contact.setUserContactHideMyPosts(userRela.getRelaHideMyPosts());
-                contact.setUserContactHideHisPosts(userRela.getRelaHideHisPosts());
-
-                // 星标好友
-                contact.setIsStarred(userRela.getRelaIsStarred());
-                contact.setIsBlocked(userRela.getRelaIsBlocked());
-            }
-            responseEntity = new ResponseEntity<>(contact, HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[getContactById] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(new User(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 修改联系人(设置备注和标签)
-     *
-     * @param userId         用户ID
-     * @param contactId      联系人ID
-     * @param contactAlias   联系人备注
-     * @param contactMobiles 联系人电话号码(json格式)
-     * @param contactDesc    联系人描述
-     * @return @return ResponseEntity
-     */
-    @ApiOperation(value = "修改联系人(设置备注和标签)", notes = "修改联系人(设置备注和标签)")
-    @PutMapping(value = "/{userId}/contacts/{contactId}")
-    public ResponseEntity<String> editContact(
-            @PathVariable String userId,
-            @PathVariable String contactId,
-            @RequestParam(required = false) String contactAlias,
-            @RequestParam(required = false) String contactMobiles,
-            @RequestParam(required = false) String contactDesc) {
-        logger.info("[editContact] userId: " + userId + ", contactId: " + contactId + ", contactAlias: " + contactAlias +
-                ", contactMobiles: " + contactMobiles + ", contactDesc: " + contactDesc);
-        ResponseEntity<String> responseEntity;
-        try {
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
-
-            UserRela userRela = new UserRela(userId, contactId, contactAlias, contactMobiles, contactDesc);
-
-            if (CollectionUtils.isEmpty(userRelaList)) {
-                // 用户关系不存在
-                // 非好友
-                // insert
-                userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
-                userRelaService.addUserRela(userRela);
-            } else {
-                // 用户关系存在
-                // update
-                userRela.setRelaId(userRelaList.get(0).getRelaId());
-                userRelaService.updateUserRela(userRela);
-            }
-            responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("[editContact] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.EDIT_CONTACT_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 设置朋友权限
-     *
-     * @param userId       用户ID
-     * @param contactId    联系人ID
-     * @param privacy      朋友权限
-     * @param hideMyPosts  不让他看我
-     * @param hideHisPosts 不看他
-     * @return ResponseEntity<String>
-     */
-    @ApiOperation(value = "设置朋友权限", notes = "设置朋友权限")
-    @PutMapping(value = "/{userId}/contacts/{contactId}/privacy")
-    public ResponseEntity<String> setContactPrivacy(
-            @PathVariable String userId,
-            @PathVariable String contactId,
-            @RequestParam(required = false) String privacy,
-            @RequestParam(required = false) String hideMyPosts,
-            @RequestParam(required = false) String hideHisPosts) {
-        logger.info("[setContactPrivacy] userId: " + userId + ", contactId: " + contactId + ", privacy: " + privacy +
-                ", hideMyPosts: " + hideMyPosts + ", hideHisPosts: " + hideHisPosts);
-        ResponseEntity<String> responseEntity;
-        try {
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
-
-            if (!CollectionUtils.isEmpty(userRelaList)) {
-                UserRela userRela = new UserRela(userRelaList.get(0).getRelaId(), privacy, hideMyPosts, hideHisPosts);
-                userRelaService.saveContactPrivacy(userRela);
-            }
-            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_PRIVACY_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[setContactPrivacy] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_PRIVACY_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 设置或取消星标朋友
-     *
-     * @param userId    用户ID
-     * @param contactId 联系人ID
-     * @param isStarred 是否星标好友 "0":否 "1":"是"
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "设置或取消星标朋友", notes = "设置或取消星标朋友")
-    @PutMapping(value = "/{userId}/contacts/{contactId}/star")
-    public ResponseEntity<String> setContactStarred(
-            @PathVariable String userId,
-            @PathVariable String contactId,
-            @RequestParam String isStarred) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-            paramMap.put("isStarred", isStarred);
-
-            userRelaService.setContactStarred(paramMap);
-
-            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_STARRED_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[setContactStarred] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_STARRED_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 设置或取消加入黑名单
-     *
-     * @param userId    用户ID
-     * @param contactId 联系人ID
-     * @param isBlocked 是否加入黑名单 "0":否 "1":是
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "设置或取消加入黑名单", notes = "设置或取消加入黑名单")
-    @PutMapping(value = "/{userId}/contacts/{contactId}/block")
-    public ResponseEntity<String> setContactBlocked(
-            @PathVariable String userId,
-            @PathVariable String contactId,
-            @RequestParam String isBlocked) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-            paramMap.put("isBlocked", isBlocked);
-
-            userRelaService.setContactBlocked(paramMap);
-            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_BLOCKED_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            logger.error("[setContactBlocked] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>(ResponseMsg.SET_CONTACT_BLOCKED_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }
@@ -1000,108 +760,46 @@ public class UserController {
         return responseEntity;
     }
 
-    /**
-     * 保存用户联系人标签
-     *
-     * @param userId      用户ID
-     * @param contactId   联系人用户ID
-     * @param contactTags 联系人标签(json格式)
-     * @param tags        用户所有标签(json格式)
-     * @return ResponseEntity<String>
-     */
-    @ApiOperation(value = "保存用户联系人标签", notes = "保存用户联系人标签")
-    @PostMapping(value = "/{userId}/userContactTags")
-    public ResponseEntity<String> saveUserContactTags(
-            @PathVariable String userId,
-            @RequestParam String contactId,
-            @RequestParam String contactTags,
-            @RequestParam String tags) {
-        logger.info("[saveUserContactTags], userId: " + userId + ", contactTags: " + contactTags + ", tags:" + tags);
-        ResponseEntity<String> responseEntity;
-        try {
-            // 保存联系人标签
-            List<String> contactTagList;
-            try {
-                contactTagList = JSON.parseArray(contactTags, String.class);
-            } catch (Exception e) {
-                e.printStackTrace();
-                contactTagList = new ArrayList<>();
-            }
-
-            List<UserContactTag> userContactTagList = new ArrayList<>();
-            for (String contactTag : contactTagList) {
-                UserContactTag userContactTag = new UserContactTag(userId, contactId, contactTag);
-                userContactTagList.add(userContactTag);
-            }
-            userService.batchSaveUserContactTags(userId, userContactTagList);
-
-            // 保存标签至用户关系中
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
-            UserRela userRela = new UserRela(userId, contactId);
-            userRela.setRelaContactTags(contactTags);
-            if (CollectionUtils.isEmpty(userRelaList)) {
-                userRela.setRelaStatus(Constant.RELA_STATUS_STRANGER);
-                userRelaService.addUserRelaTags(userRela);
-            } else {
-                userRela.setRelaId(userRelaList.get(0).getRelaId());
-                userRelaService.updateUserRelaTags(userRela);
-            }
-
-            // 保存用户所有标签
-            paramMap.clear();
-            paramMap.put("userId", userId);
-            paramMap.put("tags", tags);
-            userService.saveUserTags(paramMap);
-            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("[saveUserContactTags] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 修改用户联系人权限
-     *
-     * @param userId           用户ID
-     * @param contactId        联系人ID
-     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
-     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
-     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
-     * @return ResponseEntity<String>
-     */
-    @ApiOperation(value = "修改用户联系人权限", notes = "修改用户联系人权限")
-    @PutMapping(value = "/{userId}/userContactPrivacy")
-    public ResponseEntity<String> updateContactPrivacy(
-            @PathVariable String userId,
-            @RequestParam String contactId,
-            @RequestParam String relaPrivacy,
-            @RequestParam String relaHideMyPosts,
-            @RequestParam String relaHideHisPosts) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("contactId", contactId);
-            List<UserRela> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
-            if (!CollectionUtils.isEmpty(userRelaList)) {
-                UserRela userRela = userRelaList.get(0);
-                userRela.setRelaPrivacy(relaPrivacy);
-                userRela.setRelaHideMyPosts(relaHideMyPosts);
-                userRela.setRelaHideHisPosts(relaHideHisPosts);
-                userRelaService.updateContactPrivacy(userRela);
-            }
-            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("[updateContactPrivacy] error: " + e.getMessage());
-            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
+//
+//
+//    /**
+//     * 修改用户联系人权限
+//     *
+//     * @param userId           用户ID
+//     * @param contactId        联系人ID
+//     * @param relaPrivacy      好友朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天
+//     * @param relaHideMyPosts  朋友圈和视频动态 "0":可以看我 "1":不让他看我
+//     * @param relaHideHisPosts 朋友圈和视频动态 "0":可以看他 "1":不看他
+//     * @return ResponseEntity<String>
+//     */
+//    @ApiOperation(value = "修改用户联系人权限", notes = "修改用户联系人权限")
+//    @PutMapping(value = "/{userId}/userContactPrivacy")
+//    public ResponseEntity<String> updateContactPrivacy(
+//            @PathVariable String userId,
+//            @RequestParam String contactId,
+//            @RequestParam String relaPrivacy,
+//            @RequestParam String relaHideMyPosts,
+//            @RequestParam String relaHideHisPosts) {
+//        ResponseEntity<String> responseEntity;
+//        try {
+//            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
+//            paramMap.put("userId", userId);
+//            paramMap.put("contactId", contactId);
+//            List<UserContact> userRelaList = userRelaService.getUserRelaListByUserIdAndContactId(paramMap);
+//            if (!CollectionUtils.isEmpty(userRelaList)) {
+//                UserContact userRela = userRelaList.get(0);
+//                userRela.setRelaPrivacy(relaPrivacy);
+//                userRela.setRelaHideMyPosts(relaHideMyPosts);
+//                userRela.setRelaHideHisPosts(relaHideHisPosts);
+//                userRelaService.updateContactPrivacy(userRela);
+//            }
+//            responseEntity = new ResponseEntity<>("", HttpStatus.OK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            logger.error("[updateContactPrivacy] error: " + e.getMessage());
+//            responseEntity = new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return responseEntity;
+//    }
 
 }
