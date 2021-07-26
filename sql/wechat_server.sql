@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.24 (32 bit)
-MySQL - 5.6.43-log : Database - wechat_server
+MySQL - 5.7.32 : Database - wechat_server
 *********************************************************************
 */
 
@@ -15,6 +15,42 @@ MySQL - 5.6.43-log : Database - wechat_server
 CREATE DATABASE /*!32312 IF NOT EXISTS*/`wechat_server` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 
 USE `wechat_server`;
+
+/*Table structure for table `t_area_city` */
+
+DROP TABLE IF EXISTS `t_area_city`;
+
+CREATE TABLE `t_area_city` (
+  `city_id` varchar(32) DEFAULT NULL COMMENT '市表主键',
+  `province_id` varchar(32) DEFAULT NULL COMMENT '省表主键',
+  `city_name` varchar(100) DEFAULT NULL COMMENT '市名',
+  `city_seq` float DEFAULT NULL COMMENT '排序'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_area_district` */
+
+DROP TABLE IF EXISTS `t_area_district`;
+
+CREATE TABLE `t_area_district` (
+  `district_id` varchar(32) NOT NULL COMMENT '区表主键',
+  `city_id` varchar(32) DEFAULT NULL COMMENT '市表主键',
+  `district_name` varchar(100) DEFAULT NULL COMMENT '区名',
+  `district_post_code` varchar(50) DEFAULT NULL COMMENT '区邮编',
+  `district_seq` float DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`district_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_area_province` */
+
+DROP TABLE IF EXISTS `t_area_province`;
+
+CREATE TABLE `t_area_province` (
+  `province_id` varchar(32) NOT NULL COMMENT '省表主键',
+  `province_name` varchar(100) DEFAULT NULL COMMENT '省名',
+  `province_seq` float DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`province_id`),
+  KEY `province_seq` (`province_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_friend_apply` */
 
@@ -158,6 +194,34 @@ CREATE TABLE `t_search_history` (
   PRIMARY KEY (`search_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+/*Table structure for table `t_status` */
+
+DROP TABLE IF EXISTS `t_status`;
+
+CREATE TABLE `t_status` (
+  `status_id` varchar(32) NOT NULL COMMENT '状态表主键',
+  `group_id` varchar(32) DEFAULT NULL COMMENT '状态组表主键',
+  `name` varchar(100) DEFAULT NULL COMMENT '状态名',
+  `icon` varchar(100) DEFAULT NULL COMMENT '图标名',
+  `sort` int(5) DEFAULT NULL COMMENT '排序',
+  `create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`status_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_status_group` */
+
+DROP TABLE IF EXISTS `t_status_group`;
+
+CREATE TABLE `t_status_group` (
+  `group_id` varchar(32) CHARACTER SET latin1 NOT NULL COMMENT '状态组表主键',
+  `name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `sort` int(5) DEFAULT NULL COMMENT '排序',
+  `create_time` varchar(20) CHARACTER SET latin1 DEFAULT NULL COMMENT '创建时间',
+  `modify_time` varchar(20) CHARACTER SET latin1 DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 /*Table structure for table `t_sys_log` */
 
 DROP TABLE IF EXISTS `t_sys_log`;
@@ -169,41 +233,6 @@ CREATE TABLE `t_sys_log` (
   `log_content` varchar(300) DEFAULT NULL COMMENT '日志内容',
   `log_create_time` varchar(20) DEFAULT NULL COMMENT '日志创建时间',
   PRIMARY KEY (`log_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_temp_city` */
-
-DROP TABLE IF EXISTS `t_temp_city`;
-
-CREATE TABLE `t_temp_city` (
-  `city_id` varchar(32) DEFAULT NULL COMMENT '市表主键',
-  `province_id` varchar(32) DEFAULT NULL COMMENT '省表主键',
-  `city_name` varchar(100) DEFAULT NULL COMMENT '市名',
-  `city_seq` int(5) DEFAULT NULL COMMENT '排序'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_temp_district` */
-
-DROP TABLE IF EXISTS `t_temp_district`;
-
-CREATE TABLE `t_temp_district` (
-  `district_id` varchar(32) NOT NULL COMMENT '区表主键',
-  `city_id` varchar(32) DEFAULT NULL COMMENT '市表主键',
-  `district_name` varchar(100) DEFAULT NULL COMMENT '区名',
-  `district_post_code` varchar(50) DEFAULT NULL COMMENT '区邮编',
-  `district_seq` int(5) DEFAULT NULL COMMENT '排序',
-  PRIMARY KEY (`district_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_temp_province` */
-
-DROP TABLE IF EXISTS `t_temp_province`;
-
-CREATE TABLE `t_temp_province` (
-  `province_id` varchar(32) NOT NULL COMMENT '省表主键',
-  `province_name` varchar(100) DEFAULT NULL COMMENT '省名',
-  `province_seq` int(5) DEFAULT NULL COMMENT '排序',
-  PRIMARY KEY (`province_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_user` */
@@ -245,16 +274,40 @@ DROP TABLE IF EXISTS `t_user_address`;
 CREATE TABLE `t_user_address` (
   `address_id` varchar(32) NOT NULL COMMENT '地址表主键',
   `user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
-  `address_name` varchar(100) DEFAULT NULL COMMENT '收货人',
-  `address_phone` varchar(50) DEFAULT NULL COMMENT '手机号码',
-  `address_province` varchar(20) DEFAULT NULL COMMENT '地区信息-省',
-  `address_city` varchar(20) DEFAULT NULL COMMENT '地区信息-市',
-  `address_district` varchar(20) DEFAULT NULL COMMENT '地区信息-区',
-  `address_detail` varchar(200) DEFAULT NULL COMMENT '详细地址',
-  `address_post_code` varchar(20) DEFAULT NULL COMMENT '邮政编码',
-  `address_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
-  `address_modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
+  `name` varchar(100) DEFAULT NULL COMMENT '收货人',
+  `phone` varchar(50) DEFAULT NULL COMMENT '手机号码',
+  `province` varchar(20) DEFAULT NULL COMMENT '地区信息-省',
+  `city` varchar(20) DEFAULT NULL COMMENT '地区信息-市',
+  `district` varchar(20) DEFAULT NULL COMMENT '地区信息-区',
+  `detail` varchar(200) DEFAULT NULL COMMENT '详细地址',
+  `post_code` varchar(20) DEFAULT NULL COMMENT '邮政编码',
+  `create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`address_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+/*Table structure for table `t_user_contact` */
+
+DROP TABLE IF EXISTS `t_user_contact`;
+
+CREATE TABLE `t_user_contact` (
+  `contact_id` varchar(32) NOT NULL COMMENT '用户联系人(通讯录)表主键',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
+  `contact_user_id` varchar(32) DEFAULT NULL COMMENT '好友ID',
+  `status` varchar(2) DEFAULT NULL COMMENT '"0":陌生人 "1":好友',
+  `contact_alias` varchar(200) DEFAULT NULL COMMENT '好友备注(设置备注和标签中添加)',
+  `contact_tags` varchar(1024) DEFAULT NULL COMMENT '好友标签(设置备注和标签中添加)',
+  `contact_mobiles` varchar(1024) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系,json格式)',
+  `contact_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
+  `contact_from` varchar(2) DEFAULT NULL COMMENT '联系人来源',
+  `is_starred` varchar(1) DEFAULT '0' COMMENT '是否星标好友 "0":否 "1":是',
+  `is_blocked` varchar(1) DEFAULT '0' COMMENT '是否加入黑名单 "0":否 "1":是',
+  `privacy` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
+  `hide_my_posts` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看我 "1":不让他看我',
+  `hide_his_posts` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看他 "1":不看他',
+  `create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
+  `modify_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`contact_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_user_contact_tag` */
@@ -276,39 +329,15 @@ DROP TABLE IF EXISTS `t_user_login_device`;
 
 CREATE TABLE `t_user_login_device` (
   `device_id` varchar(32) NOT NULL COMMENT '登录设备表主键',
-  `device_user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
-  `device_phone_brand` varchar(100) DEFAULT NULL COMMENT '手机品牌',
-  `device_phone_model` varchar(100) DEFAULT NULL COMMENT '手机型号',
-  `device_phone_model_alias` varchar(100) DEFAULT NULL COMMENT '手机型号别名(用户备注)',
-  `device_os` varchar(100) DEFAULT NULL COMMENT '操作系统版本',
-  `device_resolution` varchar(100) DEFAULT NULL COMMENT '分辨率',
-  `device_operator` varchar(100) DEFAULT NULL COMMENT '运营商信息',
-  `device_login_time` varchar(20) DEFAULT NULL COMMENT '设备登录时间',
+  `user_id` varchar(32) DEFAULT NULL COMMENT '用户表主键',
+  `phone_brand` varchar(100) DEFAULT NULL COMMENT '手机品牌',
+  `phone_model` varchar(100) DEFAULT NULL COMMENT '手机型号',
+  `phone_model_alias` varchar(100) DEFAULT NULL COMMENT '手机型号别名(用户备注)',
+  `os` varchar(100) DEFAULT NULL COMMENT '操作系统版本',
+  `resolution` varchar(100) DEFAULT NULL COMMENT '分辨率',
+  `operator` varchar(100) DEFAULT NULL COMMENT '运营商信息',
+  `login_time` varchar(20) DEFAULT NULL COMMENT '设备登录时间',
   PRIMARY KEY (`device_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-/*Table structure for table `t_user_rela` */
-
-DROP TABLE IF EXISTS `t_user_rela`;
-
-CREATE TABLE `t_user_rela` (
-  `rela_id` varchar(32) NOT NULL COMMENT '用户关系表主键',
-  `rela_user_id` varchar(32) DEFAULT NULL COMMENT '用户ID',
-  `rela_contact_id` varchar(32) DEFAULT NULL COMMENT '好友ID',
-  `rela_status` varchar(2) DEFAULT NULL COMMENT '"0":陌生人 "1":好友',
-  `rela_contact_alias` varchar(200) DEFAULT NULL COMMENT '好友备注(设置备注和标签中添加)',
-  `rela_contact_tags` varchar(1024) DEFAULT NULL COMMENT '好友标签(设置备注和标签中添加)',
-  `rela_contact_mobiles` varchar(1024) DEFAULT NULL COMMENT '好友手机(设置备注和标签中添加,和t_user表中的user_phone无关系,json格式)',
-  `rela_contact_desc` varchar(200) DEFAULT NULL COMMENT '好友描述(设置备注和标签中添加)',
-  `rela_contact_from` varchar(2) DEFAULT NULL COMMENT '联系人来源',
-  `rela_is_starred` varchar(1) DEFAULT '0' COMMENT '是否星标好友 "0":否 "1":是',
-  `rela_is_blocked` varchar(1) DEFAULT '0' COMMENT '是否加入黑名单 "0":否 "1":是',
-  `rela_privacy` varchar(1) DEFAULT '0' COMMENT '朋友权限 "0":聊天、朋友圈、微信运动  "1":仅聊天',
-  `rela_hide_my_posts` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看我 "1":不让他看我',
-  `rela_hide_his_posts` varchar(1) DEFAULT '0' COMMENT '朋友圈和视频动态 "0":可以看他 "1":不看他',
-  `rela_create_time` varchar(20) DEFAULT NULL COMMENT '创建时间',
-  `rela_update_time` varchar(20) DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`rela_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 /*Table structure for table `t_verification_code` */
