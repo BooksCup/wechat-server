@@ -103,20 +103,20 @@
         where rela_id = #{relaId}
     </update>
 
-    <update id="setContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
-        update t_user_rela
+    <update id="saveContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
+        update t_user_contact
         set
-        <if test="relaPrivacy != null and relaPrivacy !=''">
-            rela_privacy = #{relaPrivacy},
+        <if test="privacy != null and privacy !=''">
+            privacy = #{privacy},
         </if>
-        <if test="relaHideMyPosts != null and relaHideMyPosts !=''">
-            rela_hide_my_posts = #{relaHideMyPosts},
+        <if test="hideMyPosts != null and hideMyPosts !=''">
+            hide_my_posts = #{hideMyPosts},
         </if>
-        <if test="relaHideHisPosts != null and relaHideHisPosts !=''">
-            rela_hide_his_posts = #{relaHideHisPosts},
+        <if test="hideHisPosts != null and hideHisPosts !=''">
+            hide_his_posts = #{hideHisPosts},
         </if>
-        rela_update_time = now()
-        where rela_id = #{relaId}
+        modify_time = now()
+        where contact_id = #{contactId}
     </update>
 
     <update id="updateContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
