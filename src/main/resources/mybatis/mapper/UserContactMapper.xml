@@ -54,35 +54,35 @@
         </if>
     </select>
 
-    <insert id="addUserRela" parameterType="com.bc.wechat.server.entity.UserContact">
-        insert into t_user_rela
+    <insert id="addUserContact" parameterType="com.bc.wechat.server.entity.UserContact">
+        insert into t_user_contact
         (
-        rela_id,
-        rela_user_id,
-        rela_contact_id,
-        rela_status,
-        rela_contact_from,
-        rela_contact_mobiles,
-        rela_contact_alias,
-        rela_contact_desc,
-        rela_privacy,
-        rela_hide_my_posts,
-        rela_hide_his_posts,
-        rela_create_time
+        contact_id,
+        user_id,
+        contact_user_id,
+        status,
+        contact_from,
+        contact_mobiles,
+        contact_alias,
+        contact_desc,
+        privacy,
+        hide_my_posts,
+        hide_his_posts,
+        create_time
         )
         values
         (
-        #{relaId},
-        #{relaUserId},
-        #{relaContactId},
-        #{relaStatus},
-        #{relaContactFrom},
-        #{relaContactMobiles},
-        #{relaContactAlias},
-        #{relaContactDesc},
-        #{relaPrivacy},
-        #{relaHideMyPosts},
-        #{relaHideHisPosts},
+        #{contactId},
+        #{userId},
+        #{contactUserId},
+        #{status},
+        #{contactFrom},
+        #{contactMobiles},
+        #{contactAlias},
+        #{contactDesc},
+        #{privacy},
+        #{hideMyPosts},
+        #{hideHisPosts},
         now()
         )
     </insert>

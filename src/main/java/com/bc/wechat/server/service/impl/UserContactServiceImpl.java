@@ -192,4 +192,5 @@ public class UserContactServiceImpl implements UserContactService {
     public void setContactBlocked(Map<String, String> paramMap) {
         userContactMapper.setContactBlocked(paramMap);
     }
+
 }
