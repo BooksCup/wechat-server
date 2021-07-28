@@ -120,15 +120,15 @@
     </update>
 
     <update id="updateContactPrivacy" parameterType="com.bc.wechat.server.entity.UserContact">
-        update t_user_rela
+        update t_user_contact
         set
-        rela_contact_from = #{relaContactFrom},
-        rela_contact_alias = #{relaContactAlias},
-        rela_privacy = #{relaPrivacy},
-        rela_hide_my_posts = #{relaHideMyPosts},
-        rela_hide_his_posts = #{relaHideHisPosts},
-        rela_update_time = now()
-        where rela_id = #{relaId}
+        contact_from = #{contactFrom},
+        contact_alias = #{contactAlias},
+        privacy = #{privacy},
+        hide_my_posts = #{hideMyPosts},
+        hide_his_posts = #{hideHisPosts},
+        modify_time = now()
+        where contact_id = #{contactId}
     </update>
 
     <select id="getContactList" resultMap="User" parameterType="String">
