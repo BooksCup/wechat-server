@@ -137,7 +137,7 @@ public class UserContactServiceImpl implements UserContactService {
         List<UserContact> userContactList = userContactMapper.getUserContactListByUserIdAndContactUserId(paramMap);
         if (CollectionUtils.isEmpty(userContactList)) {
             UserContact userContact = new UserContact(fromUserId, toUserId, contactAlias, privacy, hideMyPosts, hideHisPosts);
-            userContact.setStatus(Constant.RELA_STATUS_STRANGER);
+            userContact.setStatus(Constant.CONTACT_STATUS_STRANGER);
             userContact.setContactFrom(contactFrom);
             userContactMapper.addUserContact(userContact);
         } else {

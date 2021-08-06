@@ -110,7 +110,7 @@ public class Constant {
     /**
      * 路人
      */
-    public static final String RELA_STATUS_STRANGER = "0";
+    public static final String CONTACT_STATUS_STRANGER = "0";
 
     /**
      * 好友

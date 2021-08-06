@@ -34,10 +34,10 @@ public class UserContactController {
     private static final Logger logger = LoggerFactory.getLogger(UserContactController.class);
 
     @Resource
-    private UserService userService;
+    UserService userService;
 
     @Resource
-    private UserContactService userContactService;
+    UserContactService userContactService;
 
     /**
      * 根据联系人用户ID获取联系人详情
@@ -158,7 +158,7 @@ public class UserContactController {
                 // 用户关系不存在
                 // 非好友
                 // insert
-                userContact.setStatus(Constant.RELA_STATUS_STRANGER);
+                userContact.setStatus(Constant.CONTACT_STATUS_STRANGER);
                 userContactService.addUserContact(userContact);
             } else {
                 // 用户关系存在
@@ -316,7 +316,7 @@ public class UserContactController {
             UserContact userContact = new UserContact(userId, contactUserId);
             userContact.setContactTags(contactTags);
             if (CollectionUtils.isEmpty(userContactList)) {
-                userContact.setStatus(Constant.RELA_STATUS_STRANGER);
+                userContact.setStatus(Constant.CONTACT_STATUS_STRANGER);
                 userContactService.addUserContactTags(userContact);
             } else {
                 userContact.setContactId(userContactList.get(0).getContactId());

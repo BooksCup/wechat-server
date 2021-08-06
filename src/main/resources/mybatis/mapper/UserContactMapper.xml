@@ -142,7 +142,6 @@
         left join t_user u on uc.contact_user_id = u.user_id
         where uc.user_id = #{userId}
         and status = '1'
-        and is_blocked = '0'
     </select>
 
     <update id="deleteContact" parameterType="map">
@@ -189,10 +188,10 @@
     </update>
 
     <update id="setContactBlocked" parameterType="map">
-        update t_user_rela
+        update t_user_contact
         set
-        rela_is_blocked = #{isBlocked}
-        where rela_user_id = #{userId}
-        and rela_contact_id = #{contactId}
+        is_blocked = #{isBlocked}
+        where user_id = #{userId}
+        and contact_user_id = #{contactUserId}
     </update>
 </mapper>
