@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserDeviceController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserAddressController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserDeviceController.class);
 
     @Resource
     UserLoginDeviceService userLoginDeviceService;

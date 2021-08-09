@@ -4,11 +4,11 @@
 
     <resultMap id="moments" type="com.bc.wechat.server.entity.Moments">
         <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
-        <result column="moments_user_id" property="userId" jdbcType="VARCHAR"/>
-        <result column="moments_content" property="momentsContent" jdbcType="VARCHAR"/>
-        <result column="moments_photos" property="momentsPhotos" jdbcType="VARCHAR"/>
-        <result column="moments_create_time" property="createTime" jdbcType="VARCHAR"/>
-        <result column="moments_timestamp" property="timestamp" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="photos" property="photos" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
+        <result column="timestamp" property="timestamp" jdbcType="BIGINT"/>
 
         <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
         <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR"/>
@@ -55,15 +55,15 @@
         )
     </insert>
 
-    <select id="getMomentsListByUserId" resultMap="moments" parameterType="map">
+    <select id="getFriendMomentsListByUserId" resultMap="moments" parameterType="map">
         <![CDATA[
         select m.*, u.user_nick_name, u.user_avatar
           from t_moments m
-            inner join t_user_rela ur on m.moments_user_id = ur.rela_friend_id
-            left join t_user u on m.moments_user_id = u.user_id
-            where ur.rela_user_id = #{userId}
-              and m.moments_timestamp < #{timestamp}
-              order by m.moments_timestamp desc
+            inner join t_user_contact uc on m.user_id = uc.contact_user_id
+            left join t_user u on m.user_id = u.user_id
+            where uc.user_id = #{userId}
+              and m.timestamp < #{timestamp}
+              order by m.timestamp desc
               limit #{pageSize}
         ]]>
     </select>

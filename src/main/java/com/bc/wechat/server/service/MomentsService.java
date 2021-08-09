@@ -22,12 +22,12 @@ public interface MomentsService {
     void addMoments(Moments moments);
 
     /**
-     * 查找某个用户的朋友圈列表
+     * 查找某个用户的好友朋友圈列表
      *
      * @param paramMap 参数map
-     * @return 朋友圈列表
+     * @return 好友朋友圈列表
      */
-    List<Moments> getMomentsListByUserId(Map<String, Object> paramMap);
+    List<Moments> getFriendMomentsListByUserId(Map<String, Object> paramMap);
 
     /**
      * 获取点赞用户列表

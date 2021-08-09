@@ -74,51 +74,6 @@ public class MomentsController {
     }
 
     /**
-     * 查找某个用户的朋友圈列表
-     *
-     * @param userId    用户ID
-     * @param pageSize  每页数量
-     * @param timestamp 时间戳
-     * @return 朋友圈列表
-     */
-    @ApiOperation(value = "查找朋友圈列表", notes = "查找朋友圈列表")
-    @GetMapping(value = "")
-    public ResponseEntity<List<Moments>> getMomentsListByUserId(
-            @RequestParam String userId,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false, defaultValue = "0") Long timestamp) {
-        long beginTimeStamp = System.currentTimeMillis();
-        ResponseEntity<List<Moments>> responseEntity;
-        try {
-            if (0L == timestamp || null == timestamp) {
-                timestamp = System.currentTimeMillis();
-            }
-
-            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("pageSize", pageSize);
-            paramMap.put("timestamp", timestamp);
-            List<Moments> momentsList = momentsService.getMomentsListByUserId(paramMap);
-            for (Moments moments : momentsList) {
-                List<User> likeUserList = momentsService.getLikeUserListByMomentsId(moments.getMomentsId());
-                moments.setLikeUserList(likeUserList);
-
-                List<MomentsComment> momentsCommentList =
-                        momentsService.getMomentsCommentListByMomentsId(moments.getMomentsId());
-                moments.setMomentsCommentList(momentsCommentList);
-            }
-
-            responseEntity = new ResponseEntity<>(momentsList, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        long endTimeStamp = System.currentTimeMillis();
-        logger.info("getMomentsListByUserId, userId: " + userId + ", cost: " + (endTimeStamp - beginTimeStamp) + "ms");
-        return responseEntity;
-    }
-
-    /**
      * 点赞
      *
      * @param momentsId 朋友圈ID

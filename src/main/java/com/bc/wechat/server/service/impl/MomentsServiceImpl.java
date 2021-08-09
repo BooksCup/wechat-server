@@ -36,14 +36,14 @@ public class MomentsServiceImpl implements MomentsService {
     }
 
     /**
-     * 查找某个用户的朋友圈列表
+     * 查找某个用户的好友朋友圈列表
      *
      * @param paramMap 参数map
-     * @return 朋友圈列表
+     * @return 好友朋友圈列表
      */
     @Override
-    public List<Moments> getMomentsListByUserId(Map<String, Object> paramMap) {
-        return momentsMapper.getMomentsListByUserId(paramMap);
+    public List<Moments> getFriendMomentsListByUserId(Map<String, Object> paramMap) {
+        return momentsMapper.getFriendMomentsListByUserId(paramMap);
     }
 
     /**
