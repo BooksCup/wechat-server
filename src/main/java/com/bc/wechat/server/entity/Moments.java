@@ -13,6 +13,7 @@ public class Moments {
 
     private String momentsId;
     private String userId;
+    private String type;
     private String userNickName;
     private String userAvatar;
     private String content;
@@ -34,9 +35,10 @@ public class Moments {
 
     }
 
-    public Moments(String userId, String content, String photos) {
+    public Moments(String userId, String type, String content, String photos) {
         this.momentsId = CommonUtil.generateId();
         this.userId = userId;
+        this.type = type;
         this.content = content;
         this.photos = photos;
         this.createTime = CommonUtil.now();
@@ -58,6 +60,14 @@ public class Moments {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getUserNickName() {

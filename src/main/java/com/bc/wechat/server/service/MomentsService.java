@@ -43,7 +43,7 @@ public interface MomentsService {
      * @param userId 用户ID
      * @return 最近n张朋友圈图片
      */
-    List<String> getLastestMomentsPhotosByUserId(String userId);
+    List<String> getLatestMomentsPhotosByUserId(String userId);
 
     /**
      * 点赞

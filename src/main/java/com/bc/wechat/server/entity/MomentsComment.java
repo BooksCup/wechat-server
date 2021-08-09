@@ -6,18 +6,19 @@ package com.bc.wechat.server.entity;
  * @author zhou
  */
 public class MomentsComment {
+
     private String commentId;
-    private String commentMomentsId;
-    private String commentUserId;
-    private String commentUserNickName;
+    private String momentsId;
+    private String userId;
+    private String userNickName;
 
-    private String commentReplyToUserId;
-    private String commentReplyToUserNickName;
+    private String replyToUserId;
+    private String replyToUserNickName;
 
-    private String commentContent;
-    private String commentCreateTime;
-    private String commentDeleteFlag;
-    private String commentDeleteTime;
+    private String content;
+    private String createTime;
+    private String deleteFlag;
+    private String deleteTime;
 
     public String getCommentId() {
         return commentId;
@@ -27,75 +28,76 @@ public class MomentsComment {
         this.commentId = commentId;
     }
 
-    public String getCommentMomentsId() {
-        return commentMomentsId;
+    public String getMomentsId() {
+        return momentsId;
     }
 
-    public void setCommentMomentsId(String commentMomentsId) {
-        this.commentMomentsId = commentMomentsId;
+    public void setMomentsId(String momentsId) {
+        this.momentsId = momentsId;
     }
 
-    public String getCommentUserId() {
-        return commentUserId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setCommentUserId(String commentUserId) {
-        this.commentUserId = commentUserId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getCommentUserNickName() {
-        return commentUserNickName;
+    public String getUserNickName() {
+        return userNickName;
     }
 
-    public void setCommentUserNickName(String commentUserNickName) {
-        this.commentUserNickName = commentUserNickName;
+    public void setUserNickName(String userNickName) {
+        this.userNickName = userNickName;
     }
 
-    public String getCommentReplyToUserId() {
-        return commentReplyToUserId;
+    public String getReplyToUserId() {
+        return replyToUserId;
     }
 
-    public void setCommentReplyToUserId(String commentReplyToUserId) {
-        this.commentReplyToUserId = commentReplyToUserId;
+    public void setReplyToUserId(String replyToUserId) {
+        this.replyToUserId = replyToUserId;
     }
 
-    public String getCommentReplyToUserNickName() {
-        return commentReplyToUserNickName;
+    public String getReplyToUserNickName() {
+        return replyToUserNickName;
     }
 
-    public void setCommentReplyToUserNickName(String commentReplyToUserNickName) {
-        this.commentReplyToUserNickName = commentReplyToUserNickName;
+    public void setReplyToUserNickName(String replyToUserNickName) {
+        this.replyToUserNickName = replyToUserNickName;
     }
 
-    public String getCommentContent() {
-        return commentContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setCommentContent(String commentContent) {
-        this.commentContent = commentContent;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getCommentCreateTime() {
-        return commentCreateTime;
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setCommentCreateTime(String commentCreateTime) {
-        this.commentCreateTime = commentCreateTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
-    public String getCommentDeleteFlag() {
-        return commentDeleteFlag;
+    public String getDeleteFlag() {
+        return deleteFlag;
     }
 
-    public void setCommentDeleteFlag(String commentDeleteFlag) {
-        this.commentDeleteFlag = commentDeleteFlag;
+    public void setDeleteFlag(String deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
-    public String getCommentDeleteTime() {
-        return commentDeleteTime;
+    public String getDeleteTime() {
+        return deleteTime;
     }
 
-    public void setCommentDeleteTime(String commentDeleteTime) {
-        this.commentDeleteTime = commentDeleteTime;
+    public void setDeleteTime(String deleteTime) {
+        this.deleteTime = deleteTime;
     }
+
 }

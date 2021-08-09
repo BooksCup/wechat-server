@@ -103,7 +103,7 @@ public interface UserMapper {
      *
      * @param paramMap 参数map
      */
-    void updateUserLastestMomentsPhotos(Map<String, String> paramMap);
+    void updateUserLatestMomentsPhotos(Map<String, String> paramMap);
 
     /**
      * 修改朋友圈封面

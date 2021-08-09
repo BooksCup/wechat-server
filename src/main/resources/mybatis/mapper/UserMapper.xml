@@ -143,9 +143,9 @@
         where user_id = #{userId}
     </update>
 
-    <update id="updateUserLastestMomentsPhotos" parameterType="map">
+    <update id="updateUserLatestMomentsPhotos" parameterType="map">
         update t_user
-        set user_lastest_moments_photos = #{userLastestMomentsPhotos}
+        set user_latest_moments_photos = #{userLatestMomentsPhotos}
         where user_id = #{userId}
     </update>
 

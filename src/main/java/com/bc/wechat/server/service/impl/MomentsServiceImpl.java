@@ -64,14 +64,14 @@ public class MomentsServiceImpl implements MomentsService {
      * @return 最近n张朋友圈图片
      */
     @Override
-    public List<String> getLastestMomentsPhotosByUserId(String userId) {
+    public List<String> getLatestMomentsPhotosByUserId(String userId) {
         List<String> resultList = new ArrayList<>();
-        List<String> lastestMomentsPhotoList = momentsMapper.getLastestMomentsPhotosByUserId(userId);
-        if (!CollectionUtils.isEmpty(lastestMomentsPhotoList)) {
-            for (String lastestMomentsPhoto : lastestMomentsPhotoList) {
+        List<String> latestMomentsPhotoList = momentsMapper.getLatestMomentsPhotosByUserId(userId);
+        if (!CollectionUtils.isEmpty(latestMomentsPhotoList)) {
+            for (String latestMomentsPhoto : latestMomentsPhotoList) {
                 List<String> photoes;
                 try {
-                    photoes = JSONArray.parseArray(lastestMomentsPhoto, String.class);
+                    photoes = JSONArray.parseArray(latestMomentsPhoto, String.class);
                     if (null == photoes) {
                         photoes = new ArrayList<>();
                     }

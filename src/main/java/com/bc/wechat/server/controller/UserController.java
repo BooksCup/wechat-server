@@ -491,22 +491,22 @@ public class UserController {
      */
     @ApiOperation(value = "更新用户最新N张朋友圈图片", notes = "更新用户最新N张朋友圈图片")
     @PutMapping(value = "/{userId}/moments")
-    public ResponseEntity<String> refreshUserLastestMomentsPhotos(
+    public ResponseEntity<String> refreshUserLatestMomentsPhotos(
             @PathVariable String userId) {
         ResponseEntity<String> responseEntity;
         try {
             // 更新该用户最新n张朋友圈照片
-            List<String> lastestMomentsPhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
+            List<String> latestMomentsPhotoList = momentsService.getLatestMomentsPhotosByUserId(userId);
 
             Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
             paramMap.put("userId", userId);
-            paramMap.put("userLastestMomentsPhotos", JSON.toJSONString(lastestMomentsPhotoList));
-            userService.updateUserLastestMomentsPhotos(paramMap);
+            paramMap.put("userLatestMomentsPhotos", JSON.toJSONString(latestMomentsPhotoList));
+            userService.updateUserLatestMomentsPhotos(paramMap);
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.REFRESH_USER_LASTEST_MOMENTS_PHOTOS_SUCCESS.getResponseCode(), HttpStatus.OK);
 
         } catch (Exception e) {
-            logger.error("refreshUserLastestMomentsPhotos error: " + e.getMessage());
+            logger.error("refreshUserLatestMomentsPhotos error: " + e.getMessage());
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(
                     ResponseMsg.REFRESH_USER_LASTEST_MOMENTS_PHOTOS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);

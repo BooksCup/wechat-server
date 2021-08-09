@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
 import com.bc.wechat.server.entity.Moments;
 import com.bc.wechat.server.entity.MomentsComment;
-import com.bc.wechat.server.entity.User;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.MomentsService;
 import com.bc.wechat.server.service.UserService;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,67 +37,7 @@ public class MomentsController {
     @Resource
     private UserService userService;
 
-    /**
-     * 发朋友圈
-     *
-     * @param userId  用户ID
-     * @param content 朋友圈内容
-     * @param photos  朋友圈图片
-     * @return ResponseEntity
-     */
-    @ApiOperation(value = "发朋友圈", notes = "发朋友圈")
-    @PostMapping(value = "")
-    public ResponseEntity<String> addMoments(
-            @RequestParam String userId,
-            @RequestParam String content,
-            @RequestParam String photos) {
-        ResponseEntity<String> responseEntity;
-        try {
-            Moments moments = new Moments(userId, content, photos);
-            momentsService.addMoments(moments);
 
-            // 更新该用户最新n张朋友圈照片
-            List<String> lastestMomentsPhotoList = momentsService.getLastestMomentsPhotosByUserId(userId);
-            Map<String, String> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("userId", userId);
-            paramMap.put("userLastestMomentsPhotos", JSON.toJSONString(lastestMomentsPhotoList));
-            userService.updateUserLastestMomentsPhotos(paramMap);
-
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_MOMENTS_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.ADD_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 点赞
-     *
-     * @param momentsId 朋友圈ID
-     * @param userId    用户ID
-     * @return ResponseEntity
-     */
-    @PostMapping(value = "/{momentsId}/like")
-    public ResponseEntity<String> likeMoments(
-            @PathVariable String momentsId,
-            @RequestParam String userId) {
-        ResponseEntity<String> responseEntity;
-
-        try {
-            Map<String, Object> paramMap = new HashMap<>(Constant.DEFAULT_HASH_MAP_CAPACITY);
-            paramMap.put("likeId", CommonUtil.generateId());
-            paramMap.put("userId", userId);
-            paramMap.put("momentsId", momentsId);
-            momentsService.likeMoments(paramMap);
-
-            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_MOMENTS_SUCCESS.getResponseCode(), HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
 
     /**
      * 取消点赞
@@ -147,9 +85,9 @@ public class MomentsController {
         try {
             MomentsComment momentsComment = new MomentsComment();
             momentsComment.setCommentId(CommonUtil.generateId());
-            momentsComment.setCommentUserId(userId);
-            momentsComment.setCommentMomentsId(momentsId);
-            momentsComment.setCommentContent(content);
+            momentsComment.setUserId(userId);
+            momentsComment.setMomentsId(momentsId);
+            momentsComment.setContent(content);
             momentsService.addMomentsComment(momentsComment);
 
             responseEntity = new ResponseEntity<>(momentsComment, HttpStatus.OK);

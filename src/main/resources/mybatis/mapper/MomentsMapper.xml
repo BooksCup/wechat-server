@@ -16,17 +16,14 @@
 
     <resultMap id="momentsComment" type="com.bc.wechat.server.entity.MomentsComment">
         <id column="comment_id" property="commentId" jdbcType="VARCHAR"/>
-        <result column="comment_moments_id" property="commentMomentsId" jdbcType="VARCHAR"/>
-        <result column="comment_user_id" property="commentUserId" jdbcType="VARCHAR"/>
-        <result column="comment_reply_to_user_id" property="commentReplyToUserId" jdbcType="VARCHAR"/>
-        <result column="comment_content" property="commentContent" jdbcType="VARCHAR"/>
-        <result column="comment_create_time" property="commentCreateTime" jdbcType="BIGINT"/>
-        <result column="comment_delete_flag" property="commentDeleteFlag" jdbcType="VARCHAR"/>
-        <result column="comment_delete_time" property="commentDeleteTime" jdbcType="VARCHAR"/>
-        <result column="commentUserNickName" property="commentUserNickName" jdbcType="VARCHAR"/>
-        <result column="commentReplyToUserNickName" property="commentReplyToUserNickName" jdbcType="VARCHAR"/>
+        <result column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_nick_name" property="userNickName" jdbcType="VARCHAR"/>
+        <result column="reply_to_user_id" property="replyToUserId" jdbcType="VARCHAR"/>
+        <result column="reply_to_user_nick_name" property="replyToUserNickName" jdbcType="VARCHAR"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createTime" jdbcType="BIGINT"/>
     </resultMap>
-
 
     <resultMap id="user" type="com.bc.wechat.server.entity.User">
         <id column="user_id" property="userId" jdbcType="VARCHAR"/>
@@ -38,18 +35,20 @@
         insert into t_moments
         (
         moments_id,
-        moments_user_id,
-        moments_content,
-        moments_photos,
-        moments_create_time,
-        moments_timestamp
+        user_id,
+        type,
+        content,
+        photos,
+        create_time,
+        timestamp
         )
         values
         (
         #{momentsId},
         #{userId},
-        #{momentsContent},
-        #{momentsPhotos},
+        #{type},
+        #{content},
+        #{photos},
         #{createTime},
         #{timestamp}
         )
@@ -70,18 +69,18 @@
 
     <select id="getLikeUserListByMomentsId" resultMap="user" parameterType="String">
         select u.*
-        from t_moments_like l left join t_user u on l.like_user_id = u.user_id
-        where l.like_moments_id = #{momentsId}
-
+        from t_moments_like l
+        left join t_user u on l.user_id = u.user_id
+        where l.moments_id = #{momentsId}
     </select>
 
-    <select id="getLastestMomentsPhotosByUserId" resultType="String" parameterType="String">
+    <select id="getLatestMomentsPhotosByUserId" resultType="String" parameterType="String">
         <![CDATA[
-        select moments_photos
+        select photos
           from t_moments
-          where moments_user_id =#{userId}
-            and (moments_photos is not null and moments_photos <> '')
-          order by moments_timestamp desc
+          where user_id = #{userId}
+            and (photos is not null and photos <> '')
+          order by timestamp desc
           limit 0, 4
         ]]>
     </select>
@@ -90,9 +89,9 @@
         insert into t_moments_like
         (
         like_id,
-        like_moments_id,
-        like_user_id,
-        like_create_time
+        moments_id,
+        user_id,
+        create_time
         )
         values
         (
@@ -110,12 +109,14 @@
     </delete>
 
     <select id="getMomentsCommentListByMomentsId" resultMap="momentsComment" parameterType="String">
-        select c.*,u.user_nick_name as commentUserNickName, ru.user_nick_name as commentReplyToUserNickName
+        select c.*,
+        u.user_nick_name as user_nick_name,
+        ru.user_nick_name as reply_to_user_nick_name
         from t_moments_comment c
-        left join t_user u on c.comment_user_id = u.user_id
-        left join t_user ru on c.comment_reply_to_user_id = ru.user_id
-        where c.comment_moments_id = #{momentsId}
-        order by c.comment_create_time asc
+        left join t_user u on c.user_id = u.user_id
+        left join t_user ru on c.reply_to_user_id = ru.user_id
+        where c.moments_id = #{momentsId}
+        order by c.create_time asc
     </select>
 
     <insert id="addMomentsComment" parameterType="com.bc.wechat.server.entity.MomentsComment">
@@ -153,4 +154,5 @@
         delete from t_moments_comment
         where comment_id = #{commentId}
     </delete>
+
 </mapper>
