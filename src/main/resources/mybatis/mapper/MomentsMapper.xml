@@ -6,7 +6,9 @@
         <id column="moments_id" property="momentsId" jdbcType="VARCHAR"/>
         <result column="user_id" property="userId" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="thumbnails" property="thumbnails" jdbcType="VARCHAR"/>
         <result column="photos" property="photos" jdbcType="VARCHAR"/>
+        <result column="videos" property="videos" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
         <result column="timestamp" property="timestamp" jdbcType="BIGINT"/>
 
@@ -38,7 +40,9 @@
         user_id,
         type,
         content,
+        thumbnails,
         photos,
+        videos,
         create_time,
         timestamp
         )
@@ -48,7 +52,9 @@
         #{userId},
         #{type},
         #{content},
+        #{thumbnails},
         #{photos},
+        #{videos},
         #{createTime},
         #{timestamp}
         )

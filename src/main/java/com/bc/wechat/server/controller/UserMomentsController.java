@@ -53,10 +53,12 @@ public class UserMomentsController {
             @PathVariable String userId,
             @RequestParam String type,
             @RequestParam String content,
-            @RequestParam(required = false) String photos) {
+            @RequestParam(required = false) String thumbnails,
+            @RequestParam(required = false) String photos,
+            @RequestParam(required = false) String videos) {
         ResponseEntity<String> responseEntity;
         try {
-            Moments moments = new Moments(userId, type, content, photos);
+            Moments moments = new Moments(userId, type, content, thumbnails, photos, videos);
             momentsService.addMoments(moments);
 
             // 更新该用户最新n张朋友圈照片
