@@ -119,8 +119,9 @@ public class UserMomentsController {
     /**
      * 点赞
      *
-     * @param momentsId 朋友圈ID
-     * @param userId    用户ID
+     * @param userId     用户ID
+     * @param momentsId  朋友圈ID
+     * @param likeUserId 点赞者用户ID
      * @return ResponseEntity
      */
     @PostMapping(value = "/{userId}/moments/{momentsId}/like")
@@ -139,6 +140,42 @@ public class UserMomentsController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseMsg.LIKE_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    /**
+     * 朋友圈添加评论
+     *
+     * @param userId        用户ID
+     * @param momentsId     朋友圈ID
+     * @param commentUserId 评论者用户ID
+     * @param replyToUserId 被评论者用户ID
+     * @param content       评论内容
+     * @return ResponseEntity
+     */
+    @PostMapping(value = "/{userId}/moments/{momentsId}/comment")
+    public ResponseEntity<MomentsComment> addMomentsComment(
+            @PathVariable String userId,
+            @PathVariable String momentsId,
+            @RequestParam String commentUserId,
+            @RequestParam(required = false) String replyToUserId,
+            @RequestParam String content) {
+        ResponseEntity<MomentsComment> responseEntity;
+
+        try {
+            MomentsComment momentsComment = new MomentsComment();
+            momentsComment.setCommentId(CommonUtil.generateId());
+            momentsComment.setMomentsId(momentsId);
+            momentsComment.setUserId(commentUserId);
+            momentsComment.setReplyToUserId(replyToUserId);
+            momentsComment.setContent(content);
+            momentsService.addMomentsComment(momentsComment);
+
+            responseEntity = new ResponseEntity<>(momentsComment, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseEntity = new ResponseEntity<>(new MomentsComment(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

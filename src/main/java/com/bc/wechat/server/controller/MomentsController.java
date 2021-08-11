@@ -1,14 +1,10 @@
 package com.bc.wechat.server.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.bc.wechat.server.cons.Constant;
-import com.bc.wechat.server.entity.Moments;
-import com.bc.wechat.server.entity.MomentsComment;
 import com.bc.wechat.server.enums.ResponseMsg;
 import com.bc.wechat.server.service.MomentsService;
 import com.bc.wechat.server.service.UserService;
 import com.bc.wechat.server.utils.CommonUtil;
-import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -17,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -63,37 +58,6 @@ public class MomentsController {
         } catch (Exception e) {
             e.printStackTrace();
             responseEntity = new ResponseEntity<>(ResponseMsg.UNLIKE_MOMENTS_ERROR.getResponseCode(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return responseEntity;
-    }
-
-    /**
-     * 朋友圈添加评论
-     *
-     * @param momentsId 朋友圈ID
-     * @param userId    用户ID
-     * @param content   评论内容
-     * @return ResponseEntity
-     */
-    @PostMapping(value = "/{momentsId}/comment")
-    public ResponseEntity<MomentsComment> addMomentsComment(
-            @PathVariable String momentsId,
-            @RequestParam String userId,
-            @RequestParam String content) {
-        ResponseEntity<MomentsComment> responseEntity;
-
-        try {
-            MomentsComment momentsComment = new MomentsComment();
-            momentsComment.setCommentId(CommonUtil.generateId());
-            momentsComment.setUserId(userId);
-            momentsComment.setMomentsId(momentsId);
-            momentsComment.setContent(content);
-            momentsService.addMomentsComment(momentsComment);
-
-            responseEntity = new ResponseEntity<>(momentsComment, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            responseEntity = new ResponseEntity<>(new MomentsComment(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
     }

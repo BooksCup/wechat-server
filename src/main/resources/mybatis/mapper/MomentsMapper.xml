@@ -123,17 +123,19 @@
         insert into t_moments_comment
         (
         comment_id,
-        comment_moments_id,
-        comment_user_id,
-        comment_content,
-        comment_create_time
+        moments_id,
+        user_id,
+        reply_to_user_id,
+        content,
+        create_time
         )
         values
         (
         #{commentId},
-        #{commentMomentsId},
-        #{commentUserId},
-        #{commentContent},
+        #{momentsId},
+        #{userId},
+        #{replyToUserId},
+        #{content},
         now()
         )
     </insert>

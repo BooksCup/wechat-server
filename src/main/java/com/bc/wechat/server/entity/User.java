@@ -1,6 +1,7 @@
 package com.bc.wechat.server.entity;
 
 import com.bc.wechat.server.utils.CommonUtil;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @author zhou
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
