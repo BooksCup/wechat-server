@@ -19,7 +19,7 @@ public class Moments {
     private String content;
     private String thumbnails;
     private String photos;
-    private String videos;
+    private String video;
     private String createTime;
     private Long timestamp;
 
@@ -37,14 +37,14 @@ public class Moments {
 
     }
 
-    public Moments(String userId, String type, String content, String thumbnails, String photos, String videos) {
+    public Moments(String userId, String type, String content, String thumbnails, String photos, String video) {
         this.momentsId = CommonUtil.generateId();
         this.userId = userId;
         this.type = type;
         this.content = content;
         this.thumbnails = thumbnails;
         this.photos = photos;
-        this.videos = videos;
+        this.video = video;
         this.createTime = CommonUtil.now();
         this.timestamp = System.currentTimeMillis();
 
@@ -114,12 +114,12 @@ public class Moments {
         this.photos = photos;
     }
 
-    public String getVideos() {
-        return videos;
+    public String getVideo() {
+        return video;
     }
 
-    public void setVideos(String videos) {
-        this.videos = videos;
+    public void setVideo(String video) {
+        this.video = video;
     }
 
     public String getCreateTime() {

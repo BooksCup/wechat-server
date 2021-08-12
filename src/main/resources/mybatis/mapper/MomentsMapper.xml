@@ -8,7 +8,7 @@
         <result column="content" property="content" jdbcType="VARCHAR"/>
         <result column="thumbnails" property="thumbnails" jdbcType="VARCHAR"/>
         <result column="photos" property="photos" jdbcType="VARCHAR"/>
-        <result column="videos" property="videos" jdbcType="VARCHAR"/>
+        <result column="video" property="video" jdbcType="VARCHAR"/>
         <result column="create_time" property="createTime" jdbcType="VARCHAR"/>
         <result column="timestamp" property="timestamp" jdbcType="BIGINT"/>
 
@@ -42,7 +42,7 @@
         content,
         thumbnails,
         photos,
-        videos,
+        video,
         create_time,
         timestamp
         )
@@ -54,7 +54,7 @@
         #{content},
         #{thumbnails},
         #{photos},
-        #{videos},
+        #{video},
         #{createTime},
         #{timestamp}
         )

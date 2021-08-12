@@ -32,8 +32,6 @@ public class MomentsController {
     @Resource
     private UserService userService;
 
-
-
     /**
      * 取消点赞
      *
